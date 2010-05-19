@@ -6,8 +6,8 @@
 
 package GUI;
 
+import Auxiliar.Constantes;
 import javax.swing.JDialog;
-import Auxiliar.ConstantesDePaintEvolution;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GraphicsDevice;
@@ -20,7 +20,6 @@ import java.awt.print.PageFormat;
 import java.awt.print.PrinterJob;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 
 /**
@@ -97,10 +96,10 @@ public class GUI_principal extends javax.swing.JFrame {
         
         initComponents();
         this.setLocationRelativeTo(null);               // centrar el jframe en la pantalla
-        pantallaDibujo.setBounds(ConstantesDePaintEvolution.MARGEN_LARGO_PANTALLA_DIBUJO,
-                ConstantesDePaintEvolution.MARGEN_ANCHO_PANTALLA_DIBUJO,
-                ConstantesDePaintEvolution.MAXIMO_LARGO_PANTALLA_DIBUJO,
-                ConstantesDePaintEvolution.MAXIMO_ANCHO_PANTALLA_DIBUJO);     // Dimensiones
+        pantallaDibujo.setBounds(Constantes.MARGEN_LARGO_PANTALLA_DIBUJO,
+                Constantes.MARGEN_ANCHO_PANTALLA_DIBUJO,
+                Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO,
+                Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);     // Dimensiones
         this.add(pantallaDibujo);
         jPanelOpcionesObjeto.setVisible(false);
         pantallaDibujo.setDrawMode(6);   // Mano alzada por defecto
@@ -856,7 +855,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 ConstantesDePaintEvolution.TITULO_PROGRAMA,
                 JOptionPane.PLAIN_MESSAGE);*/
         JOptionPane.showMessageDialog(this, codigoHTML,
-                ConstantesDePaintEvolution.TITULO_PROGRAMA,
+                Constantes.TITULO_PROGRAMA,
                 JOptionPane.PLAIN_MESSAGE);
         pantallaDibujo.repaint();
 
@@ -1047,7 +1046,7 @@ public class GUI_principal extends javax.swing.JFrame {
         else
         {
             JOptionPane.showMessageDialog(this,"No soporta Pantalla Completa",
-                ConstantesDePaintEvolution.TITULO_PROGRAMA,
+                Constantes.TITULO_PROGRAMA,
                 JOptionPane.INFORMATION_MESSAGE);
             //pantallaDibujo.repaint();
         }
