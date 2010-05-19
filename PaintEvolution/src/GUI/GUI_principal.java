@@ -96,7 +96,6 @@ public class GUI_principal extends javax.swing.JFrame {
         gd = gEnv.getDefaultScreenDevice();
         
         initComponents();
-        jPanelOpcionesTexto.setVisible(false);
         this.setLocationRelativeTo(null);               // centrar el jframe en la pantalla
         pantallaDibujo.setBounds(ConstantesDePaintEvolution.MARGEN_LARGO_PANTALLA_DIBUJO,
                 ConstantesDePaintEvolution.MARGEN_ANCHO_PANTALLA_DIBUJO,
@@ -153,16 +152,11 @@ public class GUI_principal extends javax.swing.JFrame {
         jLabelCursor = new javax.swing.JLabel();
         jLabelHerramientaSeleccionada = new javax.swing.JLabel();
         jLabelHerramientaSeleccionadaObjeto = new javax.swing.JLabel();
-        jPanelOpcionesTexto = new javax.swing.JPanel();
-        jLabelTipolFuente = new javax.swing.JLabel();
-        jComboBoxTipoFuentes = new javax.swing.JComboBox(gEnv.getAvailableFontFamilyNames());
-        jLabelEstilo = new javax.swing.JLabel();
-        jComboBoxTipoEstilo = new javax.swing.JComboBox();
-        jLabelTamañoTexto = new javax.swing.JLabel();
-        jSpinnerTamañoTexto = new javax.swing.JSpinner(new SpinnerNumberModel(12, 6, 24, 1));
         jPanelOpcionesObjeto = new javax.swing.JPanel();
         jLabelTamañoGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        jPanelBarraDeHerramientas = new javax.swing.JPanel();
         jToolBarBarraDeHerramientas = new javax.swing.JToolBar(JToolBar.HORIZONTAL);
         jToggleButtonLapiz = new javax.swing.JToggleButton();
         jToggleButtonPincel = new javax.swing.JToggleButton();
@@ -180,7 +174,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jToggleButtonColorObjetos = new javax.swing.JToggleButton();
         jSeparator10 = new javax.swing.JToolBar.Separator();
         chkRelleno = new javax.swing.JCheckBox();
-        jSeparator5 = new javax.swing.JToolBar.Separator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -408,30 +401,6 @@ public class GUI_principal extends javax.swing.JFrame {
 
         jLabelHerramientaSeleccionada.setText("Herramienta Seleccionada: ");
 
-        jPanelOpcionesTexto.setToolTipText("Opciones de Texto");
-
-        jLabelTipolFuente.setText("Fuentes:");
-        jLabelTipolFuente.setToolTipText("Tipo de Fuentes");
-        jPanelOpcionesTexto.add(jLabelTipolFuente);
-
-        jComboBoxTipoFuentes.setMaximumRowCount(5);
-        jComboBoxTipoFuentes.setSelectedItem(tipoFuentePredeterminada);
-        jComboBoxTipoFuentes.setToolTipText("Tipos de Fuente");
-        jPanelOpcionesTexto.add(jComboBoxTipoFuentes);
-
-        jLabelEstilo.setText("Estilo:");
-        jPanelOpcionesTexto.add(jLabelEstilo);
-
-        jComboBoxTipoEstilo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Negrita", "Cursiva", "Negrita Cursiva" }));
-        jComboBoxTipoEstilo.setToolTipText("Tipo de Estilos");
-        jPanelOpcionesTexto.add(jComboBoxTipoEstilo);
-
-        jLabelTamañoTexto.setText("Tamaño:");
-        jPanelOpcionesTexto.add(jLabelTamañoTexto);
-
-        jSpinnerTamañoTexto.setToolTipText("Tamaño");
-        jPanelOpcionesTexto.add(jSpinnerTamañoTexto);
-
         jLabelTamañoGrosor.setText("Grosor:");
         jPanelOpcionesObjeto.add(jLabelTamañoGrosor);
 
@@ -638,6 +607,20 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarBarraDeHerramientas.add(chkRelleno);
 
+        javax.swing.GroupLayout jPanelBarraDeHerramientasLayout = new javax.swing.GroupLayout(jPanelBarraDeHerramientas);
+        jPanelBarraDeHerramientas.setLayout(jPanelBarraDeHerramientasLayout);
+        jPanelBarraDeHerramientasLayout.setHorizontalGroup(
+            jPanelBarraDeHerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBarraDeHerramientasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jToolBarBarraDeHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                .addGap(219, 219, 219))
+        );
+        jPanelBarraDeHerramientasLayout.setVerticalGroup(
+            jPanelBarraDeHerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBarBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         jMenuArchivo.setMnemonic('A');
         jMenuArchivo.setText("Archivo");
         jMenuArchivo.setToolTipText("Archivo");
@@ -817,40 +800,37 @@ public class GUI_principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jToolBarBarraDeHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jToolBarAccesoDirecto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jPanelOpcionesTexto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jToolBarAccesoDirecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
                                     .addContainerGap()
                                     .addComponent(jLabelCursor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabelCoordenadasPuntero, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(40, 40, 40)
-                                    .addComponent(jLabelHerramientaSeleccionada)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabelHerramientaSeleccionadaObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabelHerramientaSeleccionada)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabelHerramientaSeleccionadaObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(121, 121, 121)
-                                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(185, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(505, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBarAccesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
@@ -860,12 +840,11 @@ public class GUI_principal extends javax.swing.JFrame {
                                 .addGap(168, 168, 168)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToolBarBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelOpcionesTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                        .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabelCoordenadasPuntero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -966,7 +945,6 @@ public class GUI_principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(false);
         jPanelOpcionesObjeto.setVisible(false);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonLapizActionPerformed
 
     private void jToggleButtonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLineaActionPerformed
@@ -975,7 +953,6 @@ public class GUI_principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(false);
         jPanelOpcionesObjeto.setVisible(true);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonLineaActionPerformed
 
     private void jToggleButtonOvaloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonOvaloActionPerformed
@@ -984,7 +961,6 @@ public class GUI_principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
         jPanelOpcionesObjeto.setVisible(true);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonOvaloActionPerformed
 
     private void jButtonBorrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarTodoActionPerformed
@@ -998,14 +974,12 @@ public class GUI_principal extends javax.swing.JFrame {
         colorObjeto = false;
         jDialogColor.setVisible(true);
         chkRelleno.setEnabled(true);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jButtonColorDeFondoPantallaActionPerformed
 
     private void jToggleButtonColorObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonColorObjetosActionPerformed
         colorObjeto = true;
         jDialogColor.setVisible(true);
         chkRelleno.setEnabled(true);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonColorObjetosActionPerformed
 
     private void chkRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRellenoActionPerformed
@@ -1022,7 +996,6 @@ public class GUI_principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
         jPanelOpcionesObjeto.setVisible(true);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonRectanguloActionPerformed
 
     private void jToggleButtonTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonTextoActionPerformed
@@ -1031,7 +1004,6 @@ public class GUI_principal extends javax.swing.JFrame {
         pantallaDibujo.setCursorActual(cursorActual);
         pantallaDibujo.setObjetoTexto(true);
         llamarObjetosDiferentes(evt);
-        jPanelOpcionesTexto.setVisible(false);
         jPanelOpcionesObjeto.setVisible(false);
         chkRelleno.setEnabled(false);
     }//GEN-LAST:event_jToggleButtonTextoActionPerformed
@@ -1054,7 +1026,6 @@ public class GUI_principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
         jPanelOpcionesObjeto.setVisible(true);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonrectanguloRedondoActionPerformed
 
     private void jToggleButtonCírculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCírculoActionPerformed
@@ -1063,7 +1034,6 @@ public class GUI_principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
         jPanelOpcionesObjeto.setVisible(true);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonCírculoActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
@@ -1128,7 +1098,6 @@ public class GUI_principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(false);
         jPanelOpcionesObjeto.setVisible(true);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonPincelActionPerformed
 
     private void jToggleButtonBorrarIndividualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonBorrarIndividualActionPerformed
@@ -1138,7 +1107,6 @@ public class GUI_principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(false);
         jPanelOpcionesObjeto.setVisible(false);
-        jPanelOpcionesTexto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonBorrarIndividualActionPerformed
 
     private void jButtonDesactivarPantallaCompletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDesactivarPantallaCompletaActionPerformed
@@ -1276,17 +1244,12 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonZoomOut;
     private javax.swing.JColorChooser jColorChooserColores;
     private javax.swing.JComboBox jComboBoxGrosorBorde;
-    private javax.swing.JComboBox jComboBoxTipoEstilo;
-    private javax.swing.JComboBox jComboBoxTipoFuentes;
     private javax.swing.JDialog jDialogColor;
     public static javax.swing.JLabel jLabelCoordenadasPuntero;
     private javax.swing.JLabel jLabelCursor;
-    private javax.swing.JLabel jLabelEstilo;
     private javax.swing.JLabel jLabelHerramientaSeleccionada;
     private javax.swing.JLabel jLabelHerramientaSeleccionadaObjeto;
     private javax.swing.JLabel jLabelTamañoGrosor;
-    private javax.swing.JLabel jLabelTamañoTexto;
-    private javax.swing.JLabel jLabelTipolFuente;
     private javax.swing.JMenu jMenuArchivo;
     private javax.swing.JMenu jMenuAyuda;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1305,8 +1268,8 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenuItem jMenuItemZoomIn;
     private javax.swing.JMenuItem jMenuItemZoomOut;
+    private javax.swing.JPanel jPanelBarraDeHerramientas;
     private javax.swing.JPanel jPanelOpcionesObjeto;
-    private javax.swing.JPanel jPanelOpcionesTexto;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -1317,7 +1280,6 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
-    private javax.swing.JSpinner jSpinnerTamañoTexto;
     public static javax.swing.JToggleButton jToggleButtonBorrarIndividual;
     private javax.swing.JToggleButton jToggleButtonColorObjetos;
     private javax.swing.JToggleButton jToggleButtonCírculo;
