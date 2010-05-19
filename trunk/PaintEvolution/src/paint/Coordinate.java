@@ -1,6 +1,6 @@
 package paint;
 
-import Auxiliar.ConstantesDePaintEvolution;
+import Auxiliar.Constantes;
 import java.awt.Color;
 import java.io.Serializable;
 
@@ -48,8 +48,8 @@ public class Coordinate implements Serializable{
     }
 
     public void setTamañoBorde(float tamañoBorde) {
-        if(tamañoBorde >= ConstantesDePaintEvolution.MINIMO_GROSOR_BORDE
-                && tamañoBorde <= ConstantesDePaintEvolution.MAXIMO_GROSOR_BORDE){
+        if(tamañoBorde >= Constantes.MINIMO_GROSOR_BORDE
+                && tamañoBorde <= Constantes.MAXIMO_GROSOR_BORDE){
            this.tamañoBorde = tamañoBorde;
         }
     }
