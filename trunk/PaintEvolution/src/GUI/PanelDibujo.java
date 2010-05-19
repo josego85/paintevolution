@@ -6,7 +6,7 @@
 
 package GUI;
 
-import Auxiliar.ConstantesDePaintEvolution;
+import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
 import Auxiliar.Text;
 import java.awt.BasicStroke;
@@ -37,7 +37,6 @@ import java.io.Serializable;
 import java.util.Stack;
 import java.util.Vector;
 import javax.imageio.ImageIO;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import paint.Coordinate;
@@ -661,8 +660,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     public void setTamañoBorde(float tamañoBorde) {
-        if(tamañoBorde >= ConstantesDePaintEvolution.MINIMO_GROSOR_BORDE
-                &&  tamañoBorde <= ConstantesDePaintEvolution.MAXIMO_GROSOR_BORDE){
+        if(tamañoBorde >= Constantes.MINIMO_GROSOR_BORDE
+                &&  tamañoBorde <= Constantes.MAXIMO_GROSOR_BORDE){
            this.tamañoBorde = tamañoBorde;
         }
     }
@@ -694,8 +693,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     public void setCoordenadasFinX(int coordenadasFinX) {
-        if(coordenadasFinX >= ConstantesDePaintEvolution.MINIMO_LARGO_PANTALLA_DIBUJO
-                && coordenadasFinX <= ConstantesDePaintEvolution.MAXIMO_LARGO_PANTALLA_DIBUJO){
+        if(coordenadasFinX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
+                && coordenadasFinX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
            this.coordenadasFinX = coordenadasFinX;
         }
     }
@@ -707,8 +706,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     public void setCoordenadasFinY(int coordenadasFinY) {
-        if(coordenadasFinY >= ConstantesDePaintEvolution.MINIMO_ANCHO_PANTALLA_DIBUJO
-                && coordenadasFinY <= ConstantesDePaintEvolution.MAXIMO_ANCHO_PANTALLA_DIBUJO){
+        if(coordenadasFinY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
+                && coordenadasFinY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
             this.coordenadasFinY = coordenadasFinY;
         }
     }
@@ -720,8 +719,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     public void setCoordenadasInicioX(int coordenadasInicioX) {
-        if(coordenadasInicioX >= ConstantesDePaintEvolution.MINIMO_LARGO_PANTALLA_DIBUJO
-                && coordenadasInicioX <= ConstantesDePaintEvolution.MAXIMO_LARGO_PANTALLA_DIBUJO){
+        if(coordenadasInicioX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
+                && coordenadasInicioX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
             this.coordenadasInicioX = coordenadasInicioX;
         }
     }
@@ -733,8 +732,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     public void setCoordenadasInicioY(int coordenadasInicioY) {
-        if(coordenadasInicioY >= ConstantesDePaintEvolution.MINIMO_ANCHO_PANTALLA_DIBUJO
-                && coordenadasInicioY <= ConstantesDePaintEvolution.MAXIMO_ANCHO_PANTALLA_DIBUJO){
+        if(coordenadasInicioY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
+                && coordenadasInicioY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
             this.coordenadasInicioY = coordenadasInicioY;
         }
     }
@@ -1390,7 +1389,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
         if(desHacerPila.isEmpty())
             JOptionPane.showMessageDialog(null, "Ya no se puede deshacer",
-                    ConstantesDePaintEvolution.TITULO_PROGRAMA,
+                    Constantes.TITULO_PROGRAMA,
                     JOptionPane.INFORMATION_MESSAGE);
         else{
             tempInfo = (StepInfo)desHacerPila.pop();
@@ -1428,7 +1427,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
         if(reHacerPila.isEmpty())
             JOptionPane.showMessageDialog(null,"No hay algo que rehacer",
-                    ConstantesDePaintEvolution.TITULO_PROGRAMA,
+                    Constantes.TITULO_PROGRAMA,
                     JOptionPane.INFORMATION_MESSAGE);
         else{
             tempInfo = (StepInfo)reHacerPila.pop();
@@ -1593,7 +1592,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             
             try{
                 JOptionPane.showMessageDialog(null,"Archivo guardado",
-                        ConstantesDePaintEvolution.TITULO_PROGRAMA,
+                        Constantes.TITULO_PROGRAMA,
                         JOptionPane.INFORMATION_MESSAGE);
             }catch(Exception e){
                 System.out.println(e.getMessage());
@@ -1626,7 +1625,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
         if(nombreArchivo == null || nombreArchivo.getName().equals(""))
             JOptionPane.showMessageDialog(null,"Nombre de archivo inválido",
-                    ConstantesDePaintEvolution.TITULO_PROGRAMA,
+                    Constantes.TITULO_PROGRAMA,
                     JOptionPane.ERROR_MESSAGE);
         else{
             vectorFile.removeAllElements();
@@ -1645,7 +1644,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             RenderedImage rendImagen = crearImagen();
 
             try{
-                JOptionPane.showMessageDialog(null,"Archivo Guardado",ConstantesDePaintEvolution.TITULO_PROGRAMA,
+                JOptionPane.showMessageDialog(null,"Archivo Guardado",Constantes.TITULO_PROGRAMA,
                         JOptionPane.INFORMATION_MESSAGE);
 
             }catch(Exception e){
@@ -1709,7 +1708,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 //repaint();
             }catch(Exception exp){
                 JOptionPane.showMessageDialog(null,"No se puede abrir el archivo",
-                        ConstantesDePaintEvolution.TITULO_PROGRAMA,
+                        Constantes.TITULO_PROGRAMA,
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }else{
@@ -1722,8 +1721,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Metodo que crea la imagen
     public RenderedImage crearImagen() {
         // Variables
-        int largo = ConstantesDePaintEvolution.MAXIMO_LARGO_PANTALLA_DIBUJO;
-        int ancho = ConstantesDePaintEvolution.MAXIMO_ANCHO_PANTALLA_DIBUJO;
+        int largo = Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO;
+        int ancho = Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO;
 
         // Objetos
         imagen = new BufferedImage(largo, ancho, BufferedImage.TYPE_INT_RGB);
