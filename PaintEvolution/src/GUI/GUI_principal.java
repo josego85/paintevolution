@@ -114,7 +114,6 @@ public class GUI_principal extends javax.swing.JFrame {
         cursorPredeterminado =  toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = cursorPredeterminado;
         pantallaDibujo.setCursorActual(cursorActual);
-        jToggleButtonCírculo.setVisible(false);
         jMenuItemBarraDeHerramientas.setVisible(false);
         jSeparator9.setVisible(false);
         jButtonDesactivarPantallaCompleta.setVisible(false);
