@@ -87,8 +87,10 @@ public class GUI_principal extends javax.swing.JFrame {
     /** Creates new form GUI_principal */
     public GUI_principal() {
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e){}
+            UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         gEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
         // Obtenemos el dispositivo gráfico primario (por defecto)
@@ -412,7 +414,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jPanelOpcionesObjeto.add(jComboBoxGrosorBorde);
 
-        jPanelBarraDeHerramientas.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanelBarraDeHerramientas.setLayout(new java.awt.BorderLayout());
 
         jToolBarBarraDeHerramientas.setRollover(true);
         jToolBarBarraDeHerramientas.setToolTipText("Barra de Herramientas");
@@ -607,7 +609,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarBarraDeHerramientas.add(chkRelleno);
 
-        jPanelBarraDeHerramientas.add(jToolBarBarraDeHerramientas);
+        jPanelBarraDeHerramientas.add(jToolBarBarraDeHerramientas, java.awt.BorderLayout.CENTER);
 
         jMenuArchivo.setMnemonic('A');
         jMenuArchivo.setText("Archivo");
@@ -827,10 +829,8 @@ public class GUI_principal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(168, 168, 168)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                    .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabelCoordenadasPuntero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1015,7 +1015,7 @@ public class GUI_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonrectanguloRedondoActionPerformed
 
     private void jToggleButtonCírculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCírculoActionPerformed
-         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
+        cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         pantallaDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
