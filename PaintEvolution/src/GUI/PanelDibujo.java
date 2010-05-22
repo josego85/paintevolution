@@ -1197,6 +1197,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     - ((Coordinate)vectorRellenoCirculo.elementAt(i)).getX1(), 2) +
                         Math.pow(((Coordinate)vectorRellenoCirculo.elementAt(i)).getY2()
                     - ((Coordinate)vectorRellenoCirculo.elementAt(i)).getY1(), 2));
+            g.setColor(((Coordinate)vectorRellenoCirculo.elementAt(i)).colour());
+            g.fillOval(((Coordinate)vectorRellenoCirculo.elementAt(i)).getX1()
+                    - (int)radio, ((Coordinate)vectorRellenoCirculo.elementAt(i)).getY1()
+                    - (int)radio, (int)radio * 2 , (int)radio * 2);
             Ellipse2D e2 = new Ellipse2D.Float(((Coordinate)vectorRellenoCirculo.elementAt(i)).getX1()
                     - (int)radio, ((Coordinate)vectorRellenoCirculo.elementAt(i)).getY1()
                     - (int)radio, (int)radio * 2 , (int)radio * 2);
