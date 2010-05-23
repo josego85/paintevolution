@@ -940,6 +940,18 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         listaFiguras.add(figura);
     }
 
+     /**
+     * Quita la figura en la lista de figuras a dibujar.
+     *
+     * @param figura figura a quitar de la lista.
+     * sitio: http://www.chuidiang.com/
+     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Mi licencia (fires): BSD
+     */
+    public void removeFigura(InterfaceFigura figura){
+        listaFiguras.remove(figura);
+    }
+
 
     /*----------------------------------------------------------------------------*/
     // Asigna la escala actual de la imagen
@@ -973,6 +985,16 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             setColorFondoPantallaDibujo(getColorFondoPantallaDibujo());
             g.drawImage(getImagenActual(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null);
         }
+
+       /**
+        * sitio: http://www.chuidiang.com/
+        * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+        * Mi licencia (fires): BSD
+        */
+        for (InterfaceFigura figura : listaFiguras){
+            figura.dibujate(g);
+        }
+
 
         /*
         if(imagen != null){
