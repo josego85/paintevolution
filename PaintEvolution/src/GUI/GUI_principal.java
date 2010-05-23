@@ -118,8 +118,7 @@ public class GUI_principal extends javax.swing.JFrame {
         pantallaDibujo.setCursorActual(cursorActual);
         jMenuItemBarraDeHerramientas.setVisible(false);
         jSeparator9.setVisible(false);
-        jButtonDesactivarPantallaCompleta.setVisible(false);
-        
+        jButtonDesactivarPantallaCompleta.setVisible(false);        
     }
 
     /** This method is called from within the constructor to
