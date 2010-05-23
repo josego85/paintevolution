@@ -9,7 +9,7 @@ package Figuras;
 
 /**
  *
- * La declaracion de la clase Punto
+ * Declaracion de la clase Punto
  * Contiene las coordenadas x e y
  */
 public class Punto {
@@ -74,5 +74,4 @@ public class Punto {
     public void setCoordenadaY(int coordenadaY){
         this.coordenadaY = coordenadaY;
     }
-
 }
