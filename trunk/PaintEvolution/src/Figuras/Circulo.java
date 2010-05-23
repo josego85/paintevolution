@@ -48,7 +48,7 @@ public class Circulo extends Figura{
     }
 
     // Metodos varios
-    // Sobre escribe el metodo
+    // Sobre escribe el metodo dibujar
     public void dibujar(Graphics g){
         // Objetos
         Graphics2D g2;
