@@ -21,7 +21,7 @@ public class Circulo extends Figura{
     // Variables de clase
     private double radio;      // el radio del circulo
 
-    // Constructores
+    // Constructor
     public Circulo(Punto punto, double radio, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(punto, colorBorde, colorRelleno, tamanhio);
