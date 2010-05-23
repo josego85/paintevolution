@@ -169,7 +169,7 @@ public class Rectangulo implements InterfaceFigura{
      /**
      * Establece el tamanhio del borde del rectangulo
      *
-     * @param tamanhio del borde del relleno del rectangulo
+     * @param tamanhio del borde del rectangulo
      */
     public void setTamanhioBorde(int tamanhioBorde) {
         this.tamanhioBorde = tamanhioBorde;
