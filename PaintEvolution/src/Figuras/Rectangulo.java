@@ -23,11 +23,11 @@ public class Rectangulo extends Figura{
     private int ancho;          // ancho del rectangulo
 
     // Constructor
-    public Rectangulo(Punto punto, int alto, int ancho, Color colorBorde, Color colorRelleno,
+    public Rectangulo(Punto punto, int ancho, int alto, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(punto, colorBorde, colorRelleno, tamanhio);
-        setAlto(alto);
         setAncho(ancho);
+        setAlto(alto);
     }
 
     // Setters y getters
