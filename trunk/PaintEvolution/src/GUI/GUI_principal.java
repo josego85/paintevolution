@@ -42,7 +42,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
     // Cursor Actual
     private Cursor cursorActual;
-
+   
     /** java.awt.event.*
      */
     /** tk
