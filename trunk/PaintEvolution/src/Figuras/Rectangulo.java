@@ -74,6 +74,13 @@ public class Rectangulo extends Figura{
         Graphics2D g2;
         Rectangle2D r2;
         Stroke bordeFigura;
+
+        // Si el color del relleno es null significa que no tiene relleno
+        if(getColorRelleno() != null){
+            g.setColor(getColorRelleno());
+            g.fillRect(getAlto(), getAncho(), getInicio().getCoordenadaX(),
+                getInicio().getCoordenadaY());
+        }
         r2 = new Rectangle2D.Float(getAlto(), getAncho(), getInicio().getCoordenadaX(),
                 getInicio().getCoordenadaY());
         g2 = (Graphics2D)g;
