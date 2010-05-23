@@ -9,8 +9,6 @@ package GUI;
 import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
 import Auxiliar.Text;
-import figurasGeometricas.InterfaceFigura;
-import figurasGeometricas.Rectangulo;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -62,15 +60,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             vectorRellenoPolygono, vectorRellenoRoundRect, vectorFile, vectorCirculo,
             vectorRellenoCirculo, vectorTexto;
     private BufferedImage imagen;
-
-
-    /**
-     * Lista de figuras a dibujar.
-     * sitio: http://www.chuidiang.com/
-     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
-     * Mi licencia (fires): BSD
-     */
-    private LinkedList<InterfaceFigura> listaFiguras = new LinkedList<InterfaceFigura>();
 
     // La imagen que se mostrará
     private Image imagenActual;
@@ -276,13 +265,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         if (drawMode == PanelDibujo.SQUARE){
             drawModeAnterior = drawMode;
 
-            addFigura(new Rectangulo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
-                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
-                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
-                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()), 
-                        colorSeleccion, (int)tamañoBorde));
-            
-            /*
             if(relleno){
                 // Dibuja en el primer cuadrante
                 if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
@@ -360,8 +342,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                             evt.getY(), getColorSeleccion(), getTamañoBorde())));
                 }
            }
-             *
-             */
         }
         
         if (drawMode == PanelDibujo.OVAL){
@@ -564,7 +544,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      //   setLiney1(0);
    //     setCoordenadasFinY(0);
    //     setLiney2(0);
- 
+
         //coordenadasInicioX=linex1=coordenadasFinX=linex2=0;
         //coordenadasInicioY=liney1=coordenadasFinY=liney2=0;
         GUI_principal.jLabelCoordenadasPuntero.setText("x:" + evt.getX() +
@@ -938,32 +918,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         return escala;
     }
 
-    /**
-     * Añada una figura a la lista de figuras a dibujar
-     *
-     * @param figura Una nueva figura a dibujar
-     *
-     * sitio: http://www.chuidiang.com/
-     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
-     * Mi licencia (fires): BSD
-     */
-    public void addFigura(InterfaceFigura figura){
-        listaFiguras.add(figura);
-    }
-
-     /**
-     * Quita la figura en la lista de figuras a dibujar.
-     *
-     * @param figura figura a quitar de la lista.
-     * sitio: http://www.chuidiang.com/
-     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
-     * Mi licencia (fires): BSD
-     */
-    public void removeFigura(InterfaceFigura figura){
-        listaFiguras.remove(figura);
-    }
-
-
     /*----------------------------------------------------------------------------*/
     // Asigna la escala actual de la imagen
     public void setEscala(double escala){
@@ -997,14 +951,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g.drawImage(getImagenActual(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null);
         }
 
-       /**
-        * sitio: http://www.chuidiang.com/
-        * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
-        * Mi licencia (fires): BSD
-        */
-        for (InterfaceFigura figura : listaFiguras){
-            figura.dibujate(g);
-        }
+       
 
 
         /*
@@ -1033,7 +980,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
       	redrawVectorBuffer(g);
         this.setBackground(colorFondoPantallaDibujo);
         g.setColor(getColorSeleccion());
-
         
       	if (drawMode == LINE) {
             Line2D line2D = new Line2D.Float(getCoordenadasInicioX(),
@@ -1105,7 +1051,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g2.draw(rr2);
       	}
 
-/*
+
       	if (drawMode == SQUARE){
             if(relleno){
                  g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -1125,8 +1071,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g2.setStroke(bordeFigura);
             g2.draw(r2);
       	}
- * 
- */
 
         if (drawMode == TEXT){
             System.out.println("7- paso");
