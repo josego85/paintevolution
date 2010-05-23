@@ -19,8 +19,8 @@ import java.awt.geom.Rectangle2D;
  */
 public class Rectangulo extends Figura{
     // Variables de clase
-    private int alto;           // alto del rectangulo
     private int ancho;          // ancho del rectangulo
+    private int alto;           // alto del rectangulo
 
     // Constructor
     public Rectangulo(Punto punto, int ancho, int alto, Color colorBorde, Color colorRelleno,
