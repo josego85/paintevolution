@@ -9,6 +9,7 @@ package GUI;
 import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
 import Auxiliar.Text;
+import figurasGeometricas.InterfaceFigura;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -34,6 +35,7 @@ import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.Stack;
 import java.util.Vector;
 import javax.imageio.ImageIO;
@@ -59,6 +61,15 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             vectorRellenoPolygono, vectorRellenoRoundRect, vectorFile, vectorCirculo,
             vectorRellenoCirculo, vectorTexto;
     private BufferedImage imagen;
+
+
+    /**
+     * Lista de figuras a dibujar.
+     * sitio: http://www.chuidiang.com/
+     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Mi licencia (fires): BSD
+     */
+    private LinkedList<InterfaceFigura> listaFiguras = new LinkedList<InterfaceFigura>();
 
     // La imagen que se mostrará
     private Image imagenActual;
@@ -915,6 +926,20 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public double getEscala(){
         return escala;
     }
+
+    /**
+     * Añada una figura a la lista de figuras a dibujar
+     *
+     * @param figura Una nueva figura a dibujar
+     *
+     * sitio: http://www.chuidiang.com/
+     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Mi licencia (fires): BSD
+     */
+    public void addFigura(InterfaceFigura figura){
+        listaFiguras.add(figura);
+    }
+
 
     /*----------------------------------------------------------------------------*/
     // Asigna la escala actual de la imagen
