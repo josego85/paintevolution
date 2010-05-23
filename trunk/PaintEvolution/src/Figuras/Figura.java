@@ -29,6 +29,14 @@ public abstract class Figura {
         setTamanhio(1);                 // Tamanhio 1    
     }
 
+     public Figura(Punto punto, Color colorBorde, Color colorRelleno,
+             int tamanhio){
+        setInicio(punto);               // Punto
+        setColorBorde(colorBorde);      // ColorBorde
+        setColorRelleno(colorRelleno);  // ColorRelleno
+        setTamanhio(tamanhio);          // Tamanhio 
+    }
+
     // Setters y Getters
     /**
      * Devuelve el color del borde
