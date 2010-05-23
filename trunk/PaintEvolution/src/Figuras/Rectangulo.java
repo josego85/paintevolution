@@ -30,6 +30,13 @@ public class Rectangulo extends Figura{
         setAlto(alto);
     }
 
+    public Rectangulo(int x, int y, int ancho, int alto, Color colorBorde, Color colorRelleno,
+            int tamanhio){
+        super(x, y, colorBorde, colorRelleno, tamanhio);
+        setAncho(ancho);
+        setAlto(alto);
+    }
+
     // Setters y getters
     /**
      * Devuelve el alto del rectangulo
