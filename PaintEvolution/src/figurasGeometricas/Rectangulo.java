@@ -1,7 +1,10 @@
 /**
- * @(#)Rectanngulo.java
+ * @(#)Rectangulo.java
  * @author Chuidiang
  * @co-author Modyfy fires
+ * sitio: http://www.chuidiang.com/
+ * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+ * Mi licencia (fires): BSD
  * Fecha: 8/06/07 18:02
  */
 
