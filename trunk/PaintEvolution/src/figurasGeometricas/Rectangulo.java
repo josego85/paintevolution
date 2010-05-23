@@ -160,7 +160,7 @@ public class Rectangulo implements InterfaceFigura{
      /**
      * Devuelve el tamanhio del borde del rectangulo
      *
-     * @return tamanhio del borde del relleno del rectangulo
+     * @return tamanhio del borde del rectangulo
      */
     public int getTamanhioBorde() {
         return tamanhioBorde;
