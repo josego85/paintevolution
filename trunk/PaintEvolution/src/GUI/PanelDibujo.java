@@ -10,6 +10,7 @@ import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
 import Auxiliar.Text;
 import figurasGeometricas.InterfaceFigura;
+import figurasGeometricas.Rectangulo;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -274,6 +275,14 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
         if (drawMode == PanelDibujo.SQUARE){
             drawModeAnterior = drawMode;
+
+            addFigura(new Rectangulo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()), 
+                        colorSeleccion, (int)tamañoBorde));
+            
+            /*
             if(relleno){
                 // Dibuja en el primer cuadrante
                 if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
@@ -351,6 +360,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                             evt.getY(), getColorSeleccion(), getTamañoBorde())));
                 }
            }
+             *
+             */
         }
         
         if (drawMode == PanelDibujo.OVAL){
@@ -1094,7 +1105,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g2.draw(rr2);
       	}
 
-
+/*
       	if (drawMode == SQUARE){
             if(relleno){
                  g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -1114,6 +1125,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g2.setStroke(bordeFigura);
             g2.draw(r2);
       	}
+ * 
+ */
 
         if (drawMode == TEXT){
             System.out.println("7- paso");
