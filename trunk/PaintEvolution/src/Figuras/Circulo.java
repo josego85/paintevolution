@@ -55,12 +55,14 @@ public class Circulo extends Figura{
         Ellipse2D e2;
         Stroke bordeFigura;
 
-        g.setColor(getColorRelleno());
-        g.fillOval(getInicio().getCoordenadaX() - (int)radio,
+        // Si el color del relleno es null significa que no tiene relleno
+        if(getColorRelleno() != null){
+            g.setColor(getColorRelleno());
+            g.fillOval(getInicio().getCoordenadaX() - (int)radio,
                 getInicio().getCoordenadaY() - (int)radio,
                     (int)radio * 2 , (int)radio * 2);
-
-        /*e2 = new Ellipse2D.Float(getInicio().getCoordenadaX() - (int)radio,
+        }
+        e2 = new Ellipse2D.Float(getInicio().getCoordenadaX() - (int)radio,
                 getInicio().getCoordenadaY() - (int)radio,
                     (int)radio * 2 , (int)radio * 2);
         g2 = (Graphics2D)g;
@@ -68,7 +70,5 @@ public class Circulo extends Figura{
         g2.setColor(getColorBorde());
         g2.setStroke(bordeFigura);
         g2.draw(e2);
-         * 
-         */
     }
 }
