@@ -8,6 +8,7 @@
 package Figuras;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 /**
  *
@@ -92,4 +93,8 @@ public abstract class Figura {
     public void setTamanhio(int tamanhio) {
         this.tamanhio = tamanhio;
     }
+
+    // Metodos varios
+    // Dibuja dependiendo de la figura
+    public void dibujar(Graphics g){}
 }
