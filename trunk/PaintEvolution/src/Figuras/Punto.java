@@ -37,6 +37,13 @@ public class Punto {
         setCoordenadaX(coordenadaX);
         setCoordenadaY(coordenadaY);
     }
+    /**
+     * Crea un nuevo Punto
+     */
+    public Punto(Punto punto){
+        setCoordenadaX(punto.coordenadaX);
+        setCoordenadaY(punto.coordenadaY);
+    }
 
     // Setters y Getters
     /**
