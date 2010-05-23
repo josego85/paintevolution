@@ -7,6 +7,7 @@
 package Figuras;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -21,8 +22,9 @@ public class Circulo extends Figura{
     private double radio;      // el radio del circulo
 
     // Constructores
-    public Circulo(double radio){
-        super();
+    public Circulo(Punto punto, double radio, Color colorBorde, Color colorRelleno,
+            int tamanhio){
+        super(punto, colorBorde, colorRelleno, tamanhio);
         setRadio(radio);
     }
 
@@ -57,7 +59,8 @@ public class Circulo extends Figura{
         g.fillOval(getInicio().getCoordenadaX() - (int)radio,
                 getInicio().getCoordenadaY() - (int)radio,
                     (int)radio * 2 , (int)radio * 2);
-        e2 = new Ellipse2D.Float(getInicio().getCoordenadaX() - (int)radio,
+
+        /*e2 = new Ellipse2D.Float(getInicio().getCoordenadaX() - (int)radio,
                 getInicio().getCoordenadaY() - (int)radio,
                     (int)radio * 2 , (int)radio * 2);
         g2 = (Graphics2D)g;
@@ -65,5 +68,7 @@ public class Circulo extends Figura{
         g2.setColor(getColorBorde());
         g2.setStroke(bordeFigura);
         g2.draw(e2);
+         * 
+         */
     }
 }
