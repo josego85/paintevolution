@@ -29,12 +29,20 @@ public abstract class Figura {
         setTamanhio(1);                 // Tamanhio 1    
     }
 
-     public Figura(Punto punto, Color colorBorde, Color colorRelleno,
+    public Figura(Punto punto, Color colorBorde, Color colorRelleno,
              int tamanhio){
         setInicio(punto);               // Punto
         setColorBorde(colorBorde);      // ColorBorde
         setColorRelleno(colorRelleno);  // ColorRelleno
         setTamanhio(tamanhio);          // Tamanhio 
+    }
+
+    public Figura(int x, int y, Color colorBorde, Color colorRelleno,
+             int tamanhio){
+        setInicio(new Punto(x, y));     // Punto
+        setColorBorde(colorBorde);      // ColorBorde
+        setColorRelleno(colorRelleno);  // ColorRelleno
+        setTamanhio(tamanhio);          // Tamanhio
     }
 
     // Setters y Getters
