@@ -21,6 +21,14 @@ public abstract class Figura {
     private Color colorRelleno;         // Color del relleno de la figura
     private int tamanhio;               // Tamanhio de la figura
 
+    // Constructor Predeterminado
+    public Figura(){
+        setInicio(new Punto(0, 0));     // Punto (0, 0)
+        setColorBorde(Color.BLACK);     // ColorBorde negro
+        setColorRelleno(Color.WHITE);   // ColorRelleno blanco
+        setTamanhio(1);                 // Tamanhio 1    
+    }
+
     // Setters y Getters
     /**
      * Devuelve el color del borde
