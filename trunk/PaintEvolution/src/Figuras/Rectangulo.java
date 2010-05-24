@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -23,7 +24,7 @@ public class Rectangulo extends Figura{
     private int alto;           // alto del rectangulo
 
     // Constructor
-    public Rectangulo(Punto punto, int ancho, int alto, Color colorBorde, Color colorRelleno,
+    public Rectangulo(Point2D punto, int ancho, int alto, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(punto, colorBorde, colorRelleno, tamanhio);
         setAncho(ancho);
@@ -85,10 +86,10 @@ public class Rectangulo extends Figura{
         // Si el color del relleno es null significa que no tiene relleno
         if(getColorRelleno() != null){
             g.setColor(getColorRelleno());
-            g.fillRect(getInicio().getCoordenadaX(), getInicio().getCoordenadaY(),
+            g.fillRect((int)getInicio().getX(), (int)getInicio().getY(),
                     getAncho(), getAlto());
         }
-        r2 = new Rectangle2D.Float(getInicio().getCoordenadaX(), getInicio().getCoordenadaY(),
+        r2 = new Rectangle2D.Float((int)getInicio().getX(), (int)getInicio().getY(),
                     getAncho(), getAlto());
         g2 = (Graphics2D)g;
         bordeFigura = new BasicStroke(getTamanhio(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
