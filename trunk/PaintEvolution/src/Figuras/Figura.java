@@ -9,6 +9,7 @@ package Figuras;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.Point2D;
 
 /**
  *
@@ -16,20 +17,20 @@ import java.awt.Graphics;
  */
 public abstract class Figura {
     // Variables de clase
-    private Punto inicio;               // Inicio de las coordenadas del Punto(x,y) de la figura
+    private Point2D inicio;             // Inicio de las coordenadas del Punto(x,y) de la figura
     private Color colorBorde;           // Color del borde de la figura
     private Color colorRelleno;         // Color del relleno de la figura
     private int tamanhio;               // Tamanhio de la figura
 
     // Constructor Predeterminado
     public Figura(){
-        setInicio(new Punto(0, 0));     // Punto (0, 0)
-        setColorBorde(Color.BLACK);     // ColorBorde negro
-        setColorRelleno(Color.WHITE);   // ColorRelleno blanco
-        setTamanhio(1);                 // Tamanhio 1    
+        setInicio(new Point2D.Double(0, 0));    // Punto (0, 0)
+        setColorBorde(Color.BLACK);             // ColorBorde negro
+        setColorRelleno(Color.WHITE);           // ColorRelleno blanco
+        setTamanhio(1);                         // Tamanhio 1
     }
 
-    public Figura(Punto punto, Color colorBorde, Color colorRelleno,
+    public Figura(Point2D punto, Color colorBorde, Color colorRelleno,
              int tamanhio){
         setInicio(punto);               // Punto
         setColorBorde(colorBorde);      // ColorBorde
@@ -39,10 +40,10 @@ public abstract class Figura {
 
     public Figura(int x, int y, Color colorBorde, Color colorRelleno,
              int tamanhio){
-        setInicio(new Punto(x, y));     // Punto
-        setColorBorde(colorBorde);      // ColorBorde
-        setColorRelleno(colorRelleno);  // ColorRelleno
-        setTamanhio(tamanhio);          // Tamanhio
+        setInicio(new Point2D.Double(x, y));        // Punto
+        setColorBorde(colorBorde);                  // ColorBorde
+        setColorRelleno(colorRelleno);              // ColorRelleno
+        setTamanhio(tamanhio);                      // Tamanhio
     }
 
     // Setters y Getters
@@ -87,7 +88,7 @@ public abstract class Figura {
      *
      * @return inicioPunto el inicio del punto (x, y)
      */
-    public Punto getInicio() {
+    public Point2D getInicio() {
         return inicio;
     }
 
@@ -96,7 +97,7 @@ public abstract class Figura {
      *
      * @param inicioPunto el inicio del punto (x, y)
      */
-    public void setInicio(Punto inicio) {
+    public void setInicio(Point2D inicio) {
         this.inicio = inicio;
     }
 
