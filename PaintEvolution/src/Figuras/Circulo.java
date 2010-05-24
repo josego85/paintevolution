@@ -12,6 +12,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 
 /**
  *
@@ -22,7 +23,7 @@ public class Circulo extends Figura{
     private double radio;      // el radio del circulo
 
     // Constructor
-    public Circulo(Punto punto, double radio, Color colorBorde, Color colorRelleno,
+    public Circulo(Point2D punto, double radio, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(punto, colorBorde, colorRelleno, tamanhio);
         setRadio(radio);
@@ -58,13 +59,11 @@ public class Circulo extends Figura{
         // Si el color del relleno es null significa que no tiene relleno
         if(getColorRelleno() != null){
             g.setColor(getColorRelleno());
-            g.fillOval(getInicio().getCoordenadaX() - (int)radio,
-                getInicio().getCoordenadaY() - (int)radio,
-                    (int)radio * 2 , (int)radio * 2);
+            g.fillOval((int)getInicio().getX() - (int)radio, (int)getInicio().getY()
+                    - (int)radio, (int)radio * 2 , (int)radio * 2);
         }
-        e2 = new Ellipse2D.Float(getInicio().getCoordenadaX() - (int)radio,
-                getInicio().getCoordenadaY() - (int)radio,
-                    (int)radio * 2 , (int)radio * 2);
+        e2 = new Ellipse2D.Float((int)getInicio().getX() - (int)radio, (int)getInicio().getY()
+                    - (int)radio, (int)radio * 2 , (int)radio * 2);
         g2 = (Graphics2D)g;
         bordeFigura = new BasicStroke(getTamanhio(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
         g2.setColor(getColorBorde());
