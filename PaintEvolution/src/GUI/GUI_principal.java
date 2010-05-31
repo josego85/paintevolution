@@ -386,7 +386,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarAccesoDirecto.add(jButtonZoomOut);
 
-        jButtonPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/pantallaCompleta22_22px.png"))); // NOI18N
+        jButtonPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/pantallaCompleta_32px.png"))); // NOI18N
         jButtonPantallaCompleta.setText("Pantalla Completa");
         jButtonPantallaCompleta.setToolTipText("Activar Pantalla Completa");
         jButtonPantallaCompleta.setFocusable(false);
@@ -399,7 +399,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarAccesoDirecto.add(jButtonPantallaCompleta);
 
-        jButtonDesactivarPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/DesactivarPantallaCompleta22_22px.png"))); // NOI18N
+        jButtonDesactivarPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/DesactivarPantallaCompleta_32px.png"))); // NOI18N
         jButtonDesactivarPantallaCompleta.setText("Desactivar Pantalla Completa");
         jButtonDesactivarPantallaCompleta.setToolTipText("Desactivar Pantalla Completa");
         jButtonDesactivarPantallaCompleta.setFocusable(false);
