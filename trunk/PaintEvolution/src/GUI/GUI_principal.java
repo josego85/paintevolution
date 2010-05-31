@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.PrinterJob;
 import java.util.LinkedList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
@@ -83,6 +84,11 @@ public class GUI_principal extends javax.swing.JFrame {
 
      Image brushImg;
 
+     /*
+      * El icono de la aplicacion
+      *
+      */
+     Image iconoAplicacion;
 
     // Variables
     boolean colorObjeto = false;
@@ -102,6 +108,7 @@ public class GUI_principal extends javax.swing.JFrame {
         gd = gEnv.getDefaultScreenDevice();
         
         initComponents();
+        
         this.setLocationRelativeTo(null);               // centrar el jframe en la pantalla
         pantallaDibujo.setBounds(Constantes.MARGEN_LARGO_PANTALLA_DIBUJO,
                 Constantes.MARGEN_ANCHO_PANTALLA_DIBUJO,
@@ -115,6 +122,8 @@ public class GUI_principal extends javax.swing.JFrame {
         jDialogColor.setLocationRelativeTo(this);
         this.setExtendedState(GUI_principal.NORMAL);
         toolKit = Toolkit.getDefaultToolkit();
+        iconoAplicacion = toolKit.getImage(getClass().getResource("/imagenes/iconos/paintEvolution.png"));
+        this.setIconImage(iconoAplicacion);
         pencilImg = toolKit.getImage(getClass().getResource("/imagenes/cursores/pencil.gif"));
         eraserImg = toolKit.getImage(getClass().getResource("/imagenes/cursores/eraserSmall.gif"));
         brushImg = toolKit.getImage(getClass().getResource("/imagenes/cursores/brush.gif"));
