@@ -84,7 +84,7 @@
                   <KeyStroke key="Ctrl+N"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagenes/iconos/Menus/documentoNuevo16pix.png"/>
+                  <Image iconType="3" name="/imagenes/iconos/Menus/documentoNuevo_16px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo"/>
                 <Property name="toolTipText" type="java.lang.String" value="Nuevo"/>
@@ -99,7 +99,7 @@
                   <KeyStroke key="Ctrl+A"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagenes/iconos/Menus/documentoAbrir16pix.png"/>
+                  <Image iconType="3" name="/imagenes/iconos/Menus/documentoAbrir_16px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
                 <Property name="toolTipText" type="java.lang.String" value="Abrir"/>
@@ -128,7 +128,7 @@
                   <KeyStroke key="Ctrl+G"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagenes/iconos/Menus/guardar16pix.png"/>
+                  <Image iconType="3" name="/imagenes/iconos/Menus/guardar_16px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
                 <Property name="toolTipText" type="java.lang.String" value="Guardar"/>
@@ -139,6 +139,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGuardarComo">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/iconos/Menus/guardarComo_16px.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Guardar Como"/>
                 <Property name="toolTipText" type="java.lang.String" value="Guardar Como"/>
               </Properties>
@@ -154,7 +157,7 @@
                   <KeyStroke key="Ctrl+P"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/impresora_22_22px.png"/>
+                  <Image iconType="3" name="/imagenes/iconos/Menus/impresora_16px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Imprimir"/>
                 <Property name="toolTipText" type="java.lang.String" value="Imprimir"/>
@@ -191,6 +194,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+Z"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/iconos/Menus/desHacer_16px.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Deshacer"/>
                 <Property name="toolTipText" type="java.lang.String" value="Deshacer"/>
               </Properties>
@@ -202,6 +208,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+Y"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/iconos/Menus/reHacer_16px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Rehacer"/>
                 <Property name="toolTipText" type="java.lang.String" value="Rehacer"/>
@@ -217,6 +226,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+I"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/iconos/Menus/zoom_in_16px.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Zoom In"/>
                 <Property name="toolTipText" type="java.lang.String" value="Zoom In"/>
               </Properties>
@@ -229,25 +241,14 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+O"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/iconos/Menus/zoom_out_16px.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Zoom Out"/>
                 <Property name="toolTipText" type="java.lang.String" value="Zoom Out"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemZoomOutActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator9">
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemBarraDeHerramientas">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+B"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Habilitar Barra de Herramientas"/>
-                <Property name="toolTipText" type="java.lang.String" value="Habilitar Barra de Herramientas"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemBarraDeHerramientasActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -372,7 +373,7 @@
                   </Group>
                   <Component id="jPanelOpcionesObjeto" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="187" max="32767" attributes="0"/>
+              <EmptySpace pref="179" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jLabelCoordenadasPuntero" max="32767" attributes="1"/>
@@ -401,7 +402,7 @@
         <Component class="javax.swing.JButton" name="jButtonNuevo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/documentoNuevo22_22px.png"/>
+              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/documentoNuevo_32px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nuevo"/>
             <Property name="toolTipText" type="java.lang.String" value="Nuevo"/>
@@ -420,7 +421,7 @@
         <Component class="javax.swing.JButton" name="jButtonAbrir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/documentoAbrir22_22px.png"/>
+              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/documentoAbrir_32px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Abrir"/>
             <Property name="toolTipText" type="java.lang.String" value="Abrir"/>
@@ -439,7 +440,7 @@
         <Component class="javax.swing.JButton" name="jButtonGuardar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/guardar22_22px.png"/>
+              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/guardar_32px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar"/>
             <Property name="toolTipText" type="java.lang.String" value="Guardar"/>
@@ -455,7 +456,7 @@
         <Component class="javax.swing.JButton" name="jButtonImprimir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/impresora_22_22px.png"/>
+              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/impresora_32px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Imprimir"/>
             <Property name="toolTipText" type="java.lang.String" value="Imprimir"/>
@@ -475,6 +476,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonDeshacer">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/desHacer_32px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Deshacer"/>
             <Property name="toolTipText" type="java.lang.String" value="Deshacer"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -487,6 +491,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonRehacer">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/reHacer_32px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Rehacer"/>
             <Property name="toolTipText" type="java.lang.String" value="Rehacer"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -500,7 +507,7 @@
         <Component class="javax.swing.JButton" name="jButtonZoomIn">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/zoom-in-icon22_22px.png"/>
+              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Zoom In"/>
             <Property name="toolTipText" type="java.lang.String" value="Zoom In"/>
@@ -519,7 +526,7 @@
         <Component class="javax.swing.JButton" name="jButtonZoomOut">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/zoom-out-icon22_22px.png"/>
+              <Image iconType="3" name="/imagenes/iconos/AccesosDirectos/zoom_out_32px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Zoom Out"/>
             <Property name="toolTipText" type="java.lang.String" value="Zoom Out"/>
