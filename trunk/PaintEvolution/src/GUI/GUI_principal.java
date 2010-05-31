@@ -7,6 +7,7 @@
 package GUI;
 
 import Auxiliar.Constantes;
+import Figuras.Figura;
 import javax.swing.JDialog;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -18,6 +19,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.PrinterJob;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
@@ -43,6 +45,9 @@ public class GUI_principal extends javax.swing.JFrame {
     // Cursor Actual
     private Cursor cursorActual;
    
+    // Una linkedList para guadar todas las figuras que se crean
+    LinkedList<Figura> listaDeFigurasADibujar;
+
     /** java.awt.event.*
      */
     /** tk
@@ -116,9 +121,13 @@ public class GUI_principal extends javax.swing.JFrame {
         cursorPredeterminado =  toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = cursorPredeterminado;
         pantallaDibujo.setCursorActual(cursorActual);
-        jMenuItemBarraDeHerramientas.setVisible(false);
-        jSeparator9.setVisible(false);
+
+        jButtonDesactivarPantallaCompleta.setVisible(false);
+        listaDeFigurasADibujar = new LinkedList<Figura>();
+        
+
         jButtonDesactivarPantallaCompleta.setVisible(false);        
+
     }
 
     /** This method is called from within the constructor to
@@ -191,8 +200,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         jMenuItemZoomIn = new javax.swing.JMenuItem();
         jMenuItemZoomOut = new javax.swing.JMenuItem();
-        jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        jMenuItemBarraDeHerramientas = new javax.swing.JMenuItem();
         jMenuAyuda = new javax.swing.JMenu();
         jMenuItemIndice = new javax.swing.JMenuItem();
         jMenuItemAcercaDe = new javax.swing.JMenuItem();
@@ -255,7 +262,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jToolBarAccesoDirecto.setRollover(true);
         jToolBarAccesoDirecto.setToolTipText("Accesos Directos");
 
-        jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoNuevo22_22px.png"))); // NOI18N
+        jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoNuevo_32px.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
         jButtonNuevo.setToolTipText("Nuevo");
         jButtonNuevo.setBorderPainted(false);
@@ -270,7 +277,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarAccesoDirecto.add(jButtonNuevo);
 
-        jButtonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoAbrir22_22px.png"))); // NOI18N
+        jButtonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoAbrir_32px.png"))); // NOI18N
         jButtonAbrir.setText("Abrir");
         jButtonAbrir.setToolTipText("Abrir");
         jButtonAbrir.setBorderPainted(false);
@@ -285,7 +292,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarAccesoDirecto.add(jButtonAbrir);
 
-        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/guardar22_22px.png"))); // NOI18N
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/guardar_32px.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setToolTipText("Guardar");
         jButtonGuardar.setBorderPainted(false);
@@ -299,7 +306,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarAccesoDirecto.add(jButtonGuardar);
 
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/impresora_22_22px.png"))); // NOI18N
+        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/impresora_32px.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
         jButtonImprimir.setToolTipText("Imprimir");
         jButtonImprimir.setFocusable(false);
@@ -314,6 +321,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarAccesoDirecto.add(jButtonImprimir);
 
+        jButtonDeshacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/desHacer_32px.png"))); // NOI18N
         jButtonDeshacer.setText("Deshacer");
         jButtonDeshacer.setToolTipText("Deshacer");
         jButtonDeshacer.setFocusable(false);
@@ -326,6 +334,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarAccesoDirecto.add(jButtonDeshacer);
 
+        jButtonRehacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/reHacer_32px.png"))); // NOI18N
         jButtonRehacer.setText("Rehacer");
         jButtonRehacer.setToolTipText("Rehacer");
         jButtonRehacer.setFocusable(false);
@@ -338,7 +347,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarAccesoDirecto.add(jButtonRehacer);
 
-        jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom-in-icon22_22px.png"))); // NOI18N
+        jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"))); // NOI18N
         jButtonZoomIn.setText("Zoom In");
         jButtonZoomIn.setToolTipText("Zoom In");
         jButtonZoomIn.setBorderPainted(false);
@@ -353,7 +362,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarAccesoDirecto.add(jButtonZoomIn);
 
-        jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom-out-icon22_22px.png"))); // NOI18N
+        jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_out_32px.png"))); // NOI18N
         jButtonZoomOut.setText("Zoom Out");
         jButtonZoomOut.setToolTipText("Zoom Out");
         jButtonZoomOut.setBorderPainted(false);
@@ -613,7 +622,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuArchivo.setToolTipText("Archivo");
 
         jMenuItemNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/documentoNuevo16pix.png"))); // NOI18N
+        jMenuItemNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/documentoNuevo_16px.png"))); // NOI18N
         jMenuItemNuevo.setText("Nuevo");
         jMenuItemNuevo.setToolTipText("Nuevo");
         jMenuItemNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -624,7 +633,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuArchivo.add(jMenuItemNuevo);
 
         jMenuItemAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/documentoAbrir16pix.png"))); // NOI18N
+        jMenuItemAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/documentoAbrir_16px.png"))); // NOI18N
         jMenuItemAbrir.setText("Abrir");
         jMenuItemAbrir.setToolTipText("Abrir");
         jMenuItemAbrir.addActionListener(new java.awt.event.ActionListener() {
@@ -646,7 +655,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuArchivo.add(jSeparator2);
 
         jMenuItemGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/guardar16pix.png"))); // NOI18N
+        jMenuItemGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/guardar_16px.png"))); // NOI18N
         jMenuItemGuardar.setText("Guardar");
         jMenuItemGuardar.setToolTipText("Guardar");
         jMenuItemGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -656,6 +665,7 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jMenuArchivo.add(jMenuItemGuardar);
 
+        jMenuItemGuardarComo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/guardarComo_16px.png"))); // NOI18N
         jMenuItemGuardarComo.setText("Guardar Como");
         jMenuItemGuardarComo.setToolTipText("Guardar Como");
         jMenuItemGuardarComo.addActionListener(new java.awt.event.ActionListener() {
@@ -667,7 +677,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuArchivo.add(jSeparator3);
 
         jMenuItemImprimir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/impresora_22_22px.png"))); // NOI18N
+        jMenuItemImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/impresora_16px.png"))); // NOI18N
         jMenuItemImprimir.setText("Imprimir");
         jMenuItemImprimir.setToolTipText("Imprimir");
         jMenuItemImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -695,6 +705,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuEditar.setToolTipText("Editar");
 
         jMenuItemDeshacer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemDeshacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/desHacer_16px.png"))); // NOI18N
         jMenuItemDeshacer.setText("Deshacer");
         jMenuItemDeshacer.setToolTipText("Deshacer");
         jMenuItemDeshacer.addActionListener(new java.awt.event.ActionListener() {
@@ -705,6 +716,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuEditar.add(jMenuItemDeshacer);
 
         jMenuItemRehacer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemRehacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/reHacer_16px.png"))); // NOI18N
         jMenuItemRehacer.setText("Rehacer");
         jMenuItemRehacer.setToolTipText("Rehacer");
         jMenuItemRehacer.addActionListener(new java.awt.event.ActionListener() {
@@ -716,6 +728,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuEditar.add(jSeparator8);
 
         jMenuItemZoomIn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/zoom_in_16px.png"))); // NOI18N
         jMenuItemZoomIn.setText("Zoom In");
         jMenuItemZoomIn.setToolTipText("Zoom In");
         jMenuItemZoomIn.addActionListener(new java.awt.event.ActionListener() {
@@ -726,6 +739,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuEditar.add(jMenuItemZoomIn);
 
         jMenuItemZoomOut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/zoom_out_16px.png"))); // NOI18N
         jMenuItemZoomOut.setText("Zoom Out");
         jMenuItemZoomOut.setToolTipText("Zoom Out");
         jMenuItemZoomOut.addActionListener(new java.awt.event.ActionListener() {
@@ -734,17 +748,6 @@ public class GUI_principal extends javax.swing.JFrame {
             }
         });
         jMenuEditar.add(jMenuItemZoomOut);
-        jMenuEditar.add(jSeparator9);
-
-        jMenuItemBarraDeHerramientas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemBarraDeHerramientas.setText("Habilitar Barra de Herramientas");
-        jMenuItemBarraDeHerramientas.setToolTipText("Habilitar Barra de Herramientas");
-        jMenuItemBarraDeHerramientas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemBarraDeHerramientasActionPerformed(evt);
-            }
-        });
-        jMenuEditar.add(jMenuItemBarraDeHerramientas);
 
         jMenuBar1.add(jMenuEditar);
 
@@ -823,7 +826,7 @@ public class GUI_principal extends javax.swing.JFrame {
                                 .addGap(168, 168, 168)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabelCoordenadasPuntero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1064,11 +1067,6 @@ public class GUI_principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
 }//GEN-LAST:event_jMenuItemDeshacerActionPerformed
 
-    private void jMenuItemBarraDeHerramientasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBarraDeHerramientasActionPerformed
-        jToolBarBarraDeHerramientas = new JToolBar();
-        jToolBarBarraDeHerramientas.setVisible(true);
-}//GEN-LAST:event_jMenuItemBarraDeHerramientasActionPerformed
-
     private void jToggleButtonPincelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPincelActionPerformed
         Cursor cursorPincel = toolKit.createCustomCursor(brushImg,new Point(3, 23),"Brush Cursor");
 	cursorActual = cursorPincel;
@@ -1235,7 +1233,6 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuEditar;
     private javax.swing.JMenuItem jMenuItemAbrir;
     private javax.swing.JMenuItem jMenuItemAcercaDe;
-    private javax.swing.JMenuItem jMenuItemBarraDeHerramientas;
     private javax.swing.JMenuItem jMenuItemCerrar;
     private javax.swing.JMenuItem jMenuItemDeshacer;
     private javax.swing.JMenuItem jMenuItemGuardar;
@@ -1258,7 +1255,6 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
-    private javax.swing.JPopupMenu.Separator jSeparator9;
     public static javax.swing.JToggleButton jToggleButtonBorrarIndividual;
     private javax.swing.JToggleButton jToggleButtonColorObjetos;
     private javax.swing.JToggleButton jToggleButtonCírculo;
