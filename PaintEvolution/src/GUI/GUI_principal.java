@@ -541,7 +541,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jToolBarBarraDeHerramientas.add(jToggleButtonBorrarIndividual);
 
         buttonGroupObjetos.add(jToggleButtonTexto);
-        jToggleButtonTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/letter_16_16.gif"))); // NOI18N
+        jToggleButtonTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/texto_16px.png"))); // NOI18N
         jToggleButtonTexto.setToolTipText("Texto");
         jToggleButtonTexto.setBorderPainted(false);
         jToggleButtonTexto.setFocusable(false);
@@ -644,6 +644,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuArchivo.add(jMenuItemAbrir);
 
         jMenuItemCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/cerrar_16px.png"))); // NOI18N
         jMenuItemCerrar.setText("Cerrar");
         jMenuItemCerrar.setToolTipText("Cerrar");
         jMenuItemCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -756,7 +757,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuAyuda.setToolTipText("Ayuda");
 
         jMenuItemIndice.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemIndice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/ayuda16pix.png"))); // NOI18N
+        jMenuItemIndice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/ayuda_16px.png"))); // NOI18N
         jMenuItemIndice.setText("Índice");
         jMenuItemIndice.setToolTipText("Índice");
         jMenuItemIndice.addActionListener(new java.awt.event.ActionListener() {
@@ -767,6 +768,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jMenuAyuda.add(jMenuItemIndice);
 
         jMenuItemAcercaDe.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/acercaDe_16px.png"))); // NOI18N
         jMenuItemAcercaDe.setText("Acerca de");
         jMenuItemAcercaDe.setToolTipText("Acerca de");
         jMenuItemAcercaDe.addActionListener(new java.awt.event.ActionListener() {
