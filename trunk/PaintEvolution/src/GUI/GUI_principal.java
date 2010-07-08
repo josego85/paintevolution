@@ -429,10 +429,13 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jPanelOpcionesObjeto.add(jComboBoxGrosorBorde);
 
+        jPanelBarraDeHerramientas.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jPanelBarraDeHerramientas.setLayout(new java.awt.BorderLayout());
 
+        jToolBarBarraDeHerramientas.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jToolBarBarraDeHerramientas.setRollover(true);
         jToolBarBarraDeHerramientas.setToolTipText("Barra de Herramientas");
+        jToolBarBarraDeHerramientas.setBorderPainted(false);
 
         buttonGroupObjetos.add(jToggleButtonLapiz);
         jToggleButtonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/pencil.png"))); // NOI18N
@@ -798,7 +801,6 @@ public class GUI_principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToolBarAccesoDirecto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabelCursor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -819,7 +821,8 @@ public class GUI_principal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
+            .addComponent(jToolBarAccesoDirecto, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -837,7 +840,7 @@ public class GUI_principal extends javax.swing.JFrame {
                                 .addGap(168, 168, 168)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabelCoordenadasPuntero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1122,9 +1125,13 @@ public class GUI_principal extends javax.swing.JFrame {
             pantallaDibujo.setDrawMode(pantallaDibujo.getROUND_RECT());
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo Redondo");
         }
-        if(event.getSource() == jToggleButtonLapiz || event.getSource() == jToggleButtonPincel){
+        if(event.getSource() == jToggleButtonLapiz){
             pantallaDibujo.setDrawMode(pantallaDibujo.getFREE_HAND());
             jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
+        }
+        if(event.getSource() == jToggleButtonPincel){
+            pantallaDibujo.setDrawMode(pantallaDibujo.getFREE_HAND());
+            jLabelHerramientaSeleccionadaObjeto.setText("Pincel");
         }
         if(event.getSource() == jButtonDeshacer || event.getSource() == jMenuItemDeshacer){
             pantallaDibujo.deshacer();
@@ -1137,7 +1144,6 @@ public class GUI_principal extends javax.swing.JFrame {
             jLabelHerramientaSeleccionadaObjeto.setText("Borrar Todo");
         }
         if (event.getSource() == jToggleButtonBorrarIndividual){
-
             jLabelHerramientaSeleccionadaObjeto.setText("Borrador");
             pantallaDibujo.setDrawMode(60);
         }
