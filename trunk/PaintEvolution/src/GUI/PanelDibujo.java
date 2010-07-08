@@ -222,8 +222,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         setCoordenadasInicioY(evt.getY());
         setLiney1(evt.getY());
         setLiney2(evt.getY());
-        GUI_principal.jLabelCoordenadasPuntero.setText("x:" + evt.getX() +
-                "   y:" + evt.getY());
+        GUI_principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() +
+                "   y: " + evt.getY());
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
@@ -247,8 +247,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         if(drawMode == PanelDibujo.ERASER ){
             eraserOperation(evt);
         }
-        GUI_principal.jLabelCoordenadasPuntero.setText("x:" + evt.getX() +
-                "   y:" + evt.getY());
+        GUI_principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() +
+                "   y: " + evt.getY());
         repaint();
     }//GEN-LAST:event_formMouseDragged
 
@@ -547,8 +547,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
         //coordenadasInicioX=linex1=coordenadasFinX=linex2=0;
         //coordenadasInicioY=liney1=coordenadasFinY=liney2=0;
-        GUI_principal.jLabelCoordenadasPuntero.setText("x:" + evt.getX() +
-                "   y:" + evt.getY());
+        GUI_principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() +
+                "   y: " + evt.getY());
     }//GEN-LAST:event_formMouseReleased
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
@@ -561,8 +561,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
-       GUI_principal.jLabelCoordenadasPuntero.setText("x:" + evt.getX() +
-                "   y:" + evt.getY());
+       GUI_principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() +
+                "   y: " + evt.getY());
     }//GEN-LAST:event_formMouseMoved
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
