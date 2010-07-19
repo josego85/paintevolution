@@ -484,8 +484,8 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonNuevo.setBorderPainted(false);
         jButtonNuevo.setFocusable(false);
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonNuevo.setMaximumSize(new java.awt.Dimension(63, 23));
-        jButtonNuevo.setMinimumSize(new java.awt.Dimension(63, 23));
+        jButtonNuevo.setMaximumSize(new java.awt.Dimension(65, 59));
+        jButtonNuevo.setMinimumSize(new java.awt.Dimension(65, 59));
         jButtonNuevo.setPreferredSize(new java.awt.Dimension(64, 49));
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -529,8 +529,8 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonImprimir.setToolTipText("Imprimir");
         jButtonImprimir.setFocusable(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonImprimir.setMaximumSize(new java.awt.Dimension(45, 47));
-        jButtonImprimir.setMinimumSize(new java.awt.Dimension(45, 47));
+        jButtonImprimir.setMaximumSize(new java.awt.Dimension(71, 59));
+        jButtonImprimir.setMinimumSize(new java.awt.Dimension(71, 59));
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -817,7 +817,7 @@ public class GUI_principal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(106, 106, 106)
                                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jPanelAccesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, 862, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelAccesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
