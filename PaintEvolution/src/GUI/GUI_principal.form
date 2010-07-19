@@ -360,7 +360,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="jPanelAccesoDirecto" alignment="0" min="-2" pref="862" max="-2" attributes="0"/>
+                  <Component id="jPanelAccesoDirecto" alignment="0" min="-2" pref="863" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -761,10 +761,10 @@
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[63, 23]"/>
+              <Dimension value="[65, 59]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[63, 23]"/>
+              <Dimension value="[65, 59]"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[64, 49]"/>
@@ -820,10 +820,10 @@
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[45, 47]"/>
+              <Dimension value="[71, 59]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[45, 47]"/>
+              <Dimension value="[71, 59]"/>
             </Property>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
