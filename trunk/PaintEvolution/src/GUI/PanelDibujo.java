@@ -34,7 +34,6 @@ import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.Stack;
 import java.util.Vector;
 import javax.imageio.ImageIO;
