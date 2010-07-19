@@ -154,16 +154,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonCancelar = new javax.swing.JButton();
         buttonGroupObjetos = new javax.swing.ButtonGroup();
         jToolBarAccesoDirecto = new javax.swing.JToolBar();
-        jButtonNuevo = new javax.swing.JButton();
-        jButtonAbrir = new javax.swing.JButton();
-        jButtonGuardar = new javax.swing.JButton();
-        jButtonImprimir = new javax.swing.JButton();
-        jButtonDeshacer = new javax.swing.JButton();
-        jButtonRehacer = new javax.swing.JButton();
-        jButtonZoomIn = new javax.swing.JButton();
-        jButtonZoomOut = new javax.swing.JButton();
-        jButtonPantallaCompleta = new javax.swing.JButton();
-        jButtonDesactivarPantallaCompleta = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JToolBar.Separator();
         jLabelCoordenadasPuntero = new javax.swing.JLabel();
         jLabelCursor = new javax.swing.JLabel();
@@ -191,6 +181,17 @@ public class GUI_principal extends javax.swing.JFrame {
         jToggleButtonColorObjetos = new javax.swing.JToggleButton();
         jSeparator10 = new javax.swing.JToolBar.Separator();
         chkRelleno = new javax.swing.JCheckBox();
+        jPanelAccesoDirecto = new javax.swing.JPanel();
+        jButtonNuevo = new javax.swing.JButton();
+        jButtonAbrir = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
+        jButtonImprimir = new javax.swing.JButton();
+        jButtonDeshacer = new javax.swing.JButton();
+        jButtonRehacer = new javax.swing.JButton();
+        jButtonZoomIn = new javax.swing.JButton();
+        jButtonZoomOut = new javax.swing.JButton();
+        jButtonPantallaCompleta = new javax.swing.JButton();
+        jButtonDesactivarPantallaCompleta = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -271,147 +272,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jToolBarAccesoDirecto.setRollover(true);
         jToolBarAccesoDirecto.setToolTipText("Accesos Directos");
 
-        jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoNuevo_32px.png"))); // NOI18N
-        jButtonNuevo.setText("Nuevo");
-        jButtonNuevo.setToolTipText("Nuevo");
-        jButtonNuevo.setBorderPainted(false);
-        jButtonNuevo.setFocusable(false);
-        jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonNuevo.setPreferredSize(new java.awt.Dimension(64, 49));
-        jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNuevoActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonNuevo);
-
-        jButtonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoAbrir_32px.png"))); // NOI18N
-        jButtonAbrir.setText("Abrir");
-        jButtonAbrir.setToolTipText("Abrir");
-        jButtonAbrir.setBorderPainted(false);
-        jButtonAbrir.setFocusable(false);
-        jButtonAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonAbrir.setPreferredSize(new java.awt.Dimension(64, 49));
-        jButtonAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonAbrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAbrirActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonAbrir);
-
-        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/guardar_32px.png"))); // NOI18N
-        jButtonGuardar.setText("Guardar");
-        jButtonGuardar.setToolTipText("Guardar");
-        jButtonGuardar.setBorderPainted(false);
-        jButtonGuardar.setFocusable(false);
-        jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonGuardar);
-
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/impresora_32px.png"))); // NOI18N
-        jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setToolTipText("Imprimir");
-        jButtonImprimir.setFocusable(false);
-        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonImprimir.setMaximumSize(new java.awt.Dimension(45, 47));
-        jButtonImprimir.setMinimumSize(new java.awt.Dimension(45, 47));
-        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonImprimirActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonImprimir);
-
-        jButtonDeshacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/desHacer_32px.png"))); // NOI18N
-        jButtonDeshacer.setText("Deshacer");
-        jButtonDeshacer.setToolTipText("Deshacer");
-        jButtonDeshacer.setFocusable(false);
-        jButtonDeshacer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonDeshacer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonDeshacer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeshacerActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonDeshacer);
-
-        jButtonRehacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/reHacer_32px.png"))); // NOI18N
-        jButtonRehacer.setText("Rehacer");
-        jButtonRehacer.setToolTipText("Rehacer");
-        jButtonRehacer.setFocusable(false);
-        jButtonRehacer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonRehacer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonRehacer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRehacerActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonRehacer);
-
-        jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"))); // NOI18N
-        jButtonZoomIn.setText("Zoom In");
-        jButtonZoomIn.setToolTipText("Zoom In");
-        jButtonZoomIn.setBorderPainted(false);
-        jButtonZoomIn.setFocusable(false);
-        jButtonZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonZoomIn.setPreferredSize(new java.awt.Dimension(80, 47));
-        jButtonZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonZoomIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonZoomInActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonZoomIn);
-
-        jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_out_32px.png"))); // NOI18N
-        jButtonZoomOut.setText("Zoom Out");
-        jButtonZoomOut.setToolTipText("Zoom Out");
-        jButtonZoomOut.setBorderPainted(false);
-        jButtonZoomOut.setFocusable(false);
-        jButtonZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonZoomOut.setPreferredSize(new java.awt.Dimension(80, 49));
-        jButtonZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonZoomOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonZoomOutActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonZoomOut);
-
-        jButtonPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/pantallaCompleta_32px.png"))); // NOI18N
-        jButtonPantallaCompleta.setText("Pantalla Completa");
-        jButtonPantallaCompleta.setToolTipText("Activar Pantalla Completa");
-        jButtonPantallaCompleta.setFocusable(false);
-        jButtonPantallaCompleta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonPantallaCompleta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonPantallaCompleta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPantallaCompletaActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonPantallaCompleta);
-
-        jButtonDesactivarPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/DesactivarPantallaCompleta_32px.png"))); // NOI18N
-        jButtonDesactivarPantallaCompleta.setText("Desactivar Pantalla Completa");
-        jButtonDesactivarPantallaCompleta.setToolTipText("Desactivar Pantalla Completa");
-        jButtonDesactivarPantallaCompleta.setFocusable(false);
-        jButtonDesactivarPantallaCompleta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonDesactivarPantallaCompleta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonDesactivarPantallaCompleta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDesactivarPantallaCompletaActionPerformed(evt);
-            }
-        });
-        jToolBarAccesoDirecto.add(jButtonDesactivarPantallaCompleta);
-
         jLabelCursor.setText("Cursor: ");
 
         jLabelHerramientaSeleccionada.setText("Herramienta Seleccionada: ");
@@ -441,7 +301,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jToggleButtonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/pencil.png"))); // NOI18N
         jToggleButtonLapiz.setSelected(true);
         jToggleButtonLapiz.setToolTipText("Lápiz");
-        jToggleButtonLapiz.setBorderPainted(false);
         jToggleButtonLapiz.setFocusable(false);
         jToggleButtonLapiz.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jToggleButtonLapiz.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -530,11 +389,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jToggleButtonrectanguloRedondo.setFocusable(false);
         jToggleButtonrectanguloRedondo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jToggleButtonrectanguloRedondo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToggleButtonrectanguloRedondo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonrectanguloRedondoActionPerformed(evt);
-            }
-        });
         jToolBarBarraDeHerramientas.add(jToggleButtonrectanguloRedondo);
         jToolBarBarraDeHerramientas.add(jSeparator7);
 
@@ -628,6 +482,151 @@ public class GUI_principal extends javax.swing.JFrame {
         jToolBarBarraDeHerramientas.add(chkRelleno);
 
         jPanelBarraDeHerramientas.add(jToolBarBarraDeHerramientas, java.awt.BorderLayout.CENTER);
+
+        jPanelAccesoDirecto.setLayout(new java.awt.GridLayout());
+
+        jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoNuevo_32px.png"))); // NOI18N
+        jButtonNuevo.setText("Nuevo");
+        jButtonNuevo.setToolTipText("Nuevo");
+        jButtonNuevo.setBorderPainted(false);
+        jButtonNuevo.setFocusable(false);
+        jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonNuevo.setMaximumSize(new java.awt.Dimension(63, 23));
+        jButtonNuevo.setMinimumSize(new java.awt.Dimension(63, 23));
+        jButtonNuevo.setPreferredSize(new java.awt.Dimension(64, 49));
+        jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonNuevo);
+
+        jButtonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoAbrir_32px.png"))); // NOI18N
+        jButtonAbrir.setText("Abrir");
+        jButtonAbrir.setToolTipText("Abrir");
+        jButtonAbrir.setBorderPainted(false);
+        jButtonAbrir.setFocusable(false);
+        jButtonAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonAbrir.setPreferredSize(new java.awt.Dimension(64, 49));
+        jButtonAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAbrirActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonAbrir);
+
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/guardar_32px.png"))); // NOI18N
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setToolTipText("Guardar");
+        jButtonGuardar.setBorderPainted(false);
+        jButtonGuardar.setFocusable(false);
+        jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonGuardar);
+
+        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/impresora_32px.png"))); // NOI18N
+        jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setToolTipText("Imprimir");
+        jButtonImprimir.setFocusable(false);
+        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonImprimir.setMaximumSize(new java.awt.Dimension(45, 47));
+        jButtonImprimir.setMinimumSize(new java.awt.Dimension(45, 47));
+        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimirActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonImprimir);
+
+        jButtonDeshacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/desHacer_32px.png"))); // NOI18N
+        jButtonDeshacer.setText("Deshacer");
+        jButtonDeshacer.setToolTipText("Deshacer");
+        jButtonDeshacer.setFocusable(false);
+        jButtonDeshacer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonDeshacer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonDeshacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeshacerActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonDeshacer);
+
+        jButtonRehacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/reHacer_32px.png"))); // NOI18N
+        jButtonRehacer.setText("Rehacer");
+        jButtonRehacer.setToolTipText("Rehacer");
+        jButtonRehacer.setFocusable(false);
+        jButtonRehacer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonRehacer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonRehacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRehacerActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonRehacer);
+
+        jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"))); // NOI18N
+        jButtonZoomIn.setText("Zoom In");
+        jButtonZoomIn.setToolTipText("Zoom In");
+        jButtonZoomIn.setBorderPainted(false);
+        jButtonZoomIn.setFocusable(false);
+        jButtonZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonZoomIn.setPreferredSize(new java.awt.Dimension(80, 47));
+        jButtonZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonZoomIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonZoomInActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonZoomIn);
+
+        jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_out_32px.png"))); // NOI18N
+        jButtonZoomOut.setText("Zoom Out");
+        jButtonZoomOut.setToolTipText("Zoom Out");
+        jButtonZoomOut.setBorderPainted(false);
+        jButtonZoomOut.setFocusable(false);
+        jButtonZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonZoomOut.setPreferredSize(new java.awt.Dimension(80, 49));
+        jButtonZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonZoomOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonZoomOutActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonZoomOut);
+
+        jButtonPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/pantallaCompleta_32px.png"))); // NOI18N
+        jButtonPantallaCompleta.setText("Pantalla Completa");
+        jButtonPantallaCompleta.setToolTipText("Activar Pantalla Completa");
+        jButtonPantallaCompleta.setFocusable(false);
+        jButtonPantallaCompleta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonPantallaCompleta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonPantallaCompleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPantallaCompletaActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonPantallaCompleta);
+
+        jButtonDesactivarPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/DesactivarPantallaCompleta_32px.png"))); // NOI18N
+        jButtonDesactivarPantallaCompleta.setText("Desactivar Pantalla Completa");
+        jButtonDesactivarPantallaCompleta.setToolTipText("Desactivar Pantalla Completa");
+        jButtonDesactivarPantallaCompleta.setFocusable(false);
+        jButtonDesactivarPantallaCompleta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonDesactivarPantallaCompleta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonDesactivarPantallaCompleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDesactivarPantallaCompletaActionPerformed(evt);
+            }
+        });
+        jPanelAccesoDirecto.add(jButtonDesactivarPantallaCompleta);
 
         jMenuArchivo.setMnemonic('A');
         jMenuArchivo.setText("Archivo");
@@ -770,7 +769,6 @@ public class GUI_principal extends javax.swing.JFrame {
 
         jMenuItemIndice.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemIndice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/ayuda_16px.png"))); // NOI18N
-        jMenuItemIndice.setText("Índice");
         jMenuItemIndice.setToolTipText("Índice");
         jMenuItemIndice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -821,8 +819,13 @@ public class GUI_principal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(256, Short.MAX_VALUE))
-            .addComponent(jToolBarAccesoDirecto, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
+                .addContainerGap(1242, Short.MAX_VALUE))
+            .addComponent(jToolBarAccesoDirecto, javax.swing.GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelAccesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(150, 150, 150)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -840,7 +843,7 @@ public class GUI_principal extends javax.swing.JFrame {
                                 .addGap(168, 168, 168)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabelCoordenadasPuntero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -849,6 +852,11 @@ public class GUI_principal extends javax.swing.JFrame {
                         .addComponent(jLabelHerramientaSeleccionada)
                         .addComponent(jLabelHerramientaSeleccionadaObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(273, Short.MAX_VALUE)
+                    .addComponent(jPanelAccesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(205, 205, 205)))
         );
 
         pack();
@@ -1261,6 +1269,7 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenuItem jMenuItemZoomIn;
     private javax.swing.JMenuItem jMenuItemZoomOut;
+    private javax.swing.JPanel jPanelAccesoDirecto;
     private javax.swing.JPanel jPanelBarraDeHerramientas;
     private javax.swing.JPanel jPanelOpcionesObjeto;
     private javax.swing.JPopupMenu.Separator jSeparator1;
