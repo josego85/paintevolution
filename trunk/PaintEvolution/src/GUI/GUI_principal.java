@@ -153,7 +153,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonAceptar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         buttonGroupObjetos = new javax.swing.ButtonGroup();
-        jToolBarAccesoDirecto = new javax.swing.JToolBar();
         jSeparator6 = new javax.swing.JToolBar.Separator();
         jLabelCoordenadasPuntero = new javax.swing.JLabel();
         jLabelCursor = new javax.swing.JLabel();
@@ -267,10 +266,6 @@ public class GUI_principal extends javax.swing.JFrame {
                 formMouseExited(evt);
             }
         });
-
-        jToolBarAccesoDirecto.setFloatable(false);
-        jToolBarAccesoDirecto.setRollover(true);
-        jToolBarAccesoDirecto.setToolTipText("Accesos Directos");
 
         jLabelCursor.setText("Cursor: ");
 
@@ -820,7 +815,6 @@ public class GUI_principal extends javax.swing.JFrame {
                         .addGap(121, 121, 121)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(1242, Short.MAX_VALUE))
-            .addComponent(jToolBarAccesoDirecto, javax.swing.GroupLayout.DEFAULT_SIZE, 1890, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -830,8 +824,7 @@ public class GUI_principal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBarAccesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1291,7 +1284,6 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonRectangulo;
     public static javax.swing.JToggleButton jToggleButtonTexto;
     private javax.swing.JToggleButton jToggleButtonrectanguloRedondo;
-    private javax.swing.JToolBar jToolBarAccesoDirecto;
     private javax.swing.JToolBar jToolBarBarraDeHerramientas;
     // End of variables declaration//GEN-END:variables
 }
