@@ -154,10 +154,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonCancelar = new javax.swing.JButton();
         buttonGroupObjetos = new javax.swing.ButtonGroup();
         jSeparator6 = new javax.swing.JToolBar.Separator();
-        jLabelCoordenadasPuntero = new javax.swing.JLabel();
-        jLabelCursor = new javax.swing.JLabel();
-        jLabelHerramientaSeleccionada = new javax.swing.JLabel();
-        jLabelHerramientaSeleccionadaObjeto = new javax.swing.JLabel();
         jPanelOpcionesObjeto = new javax.swing.JPanel();
         jLabelTamañoGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
@@ -191,6 +187,10 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonZoomOut = new javax.swing.JButton();
         jButtonPantallaCompleta = new javax.swing.JButton();
         jButtonDesactivarPantallaCompleta = new javax.swing.JButton();
+        jPanelInformacionExtra = new javax.swing.JPanel();
+        jLabelCoordenadasPuntero = new javax.swing.JLabel();
+        jLabelHerramientaSeleccionada = new javax.swing.JLabel();
+        jLabelHerramientaSeleccionadaObjeto = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -266,10 +266,6 @@ public class GUI_principal extends javax.swing.JFrame {
                 formMouseExited(evt);
             }
         });
-
-        jLabelCursor.setText("Cursor: ");
-
-        jLabelHerramientaSeleccionada.setText("Herramienta Seleccionada: ");
 
         jLabelTamañoGrosor.setText("Grosor:");
         jPanelOpcionesObjeto.add(jLabelTamañoGrosor);
@@ -621,6 +617,12 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jPanelAccesoDirecto.add(jButtonDesactivarPantallaCompleta);
 
+        jPanelInformacionExtra.add(jLabelCoordenadasPuntero);
+
+        jLabelHerramientaSeleccionada.setText("Herramienta Seleccionada: ");
+        jPanelInformacionExtra.add(jLabelHerramientaSeleccionada);
+        jPanelInformacionExtra.add(jLabelHerramientaSeleccionadaObjeto);
+
         jMenuArchivo.setMnemonic('A');
         jMenuArchivo.setText("Archivo");
         jMenuArchivo.setToolTipText("Archivo");
@@ -793,18 +795,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jLabelCursor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabelCoordenadasPuntero, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(40, 40, 40)
-                                    .addComponent(jLabelHerramientaSeleccionada)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabelHerramientaSeleccionadaObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(387, 387, 387)))
+                            .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jToolBarBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 902, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -817,7 +808,8 @@ public class GUI_principal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(106, 106, 106)
                                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jPanelAccesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelAccesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelInformacionExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -838,15 +830,8 @@ public class GUI_principal extends javax.swing.JFrame {
                         .addComponent(jToolBarBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabelCoordenadasPuntero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelCursor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelHerramientaSeleccionada)
-                        .addComponent(jLabelHerramientaSeleccionadaObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(217, 217, 217)
+                .addComponent(jPanelInformacionExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -1238,7 +1223,6 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxGrosorBorde;
     private javax.swing.JDialog jDialogColor;
     public static javax.swing.JLabel jLabelCoordenadasPuntero;
-    private javax.swing.JLabel jLabelCursor;
     private javax.swing.JLabel jLabelHerramientaSeleccionada;
     private javax.swing.JLabel jLabelHerramientaSeleccionadaObjeto;
     private javax.swing.JLabel jLabelTamañoGrosor;
@@ -1261,6 +1245,7 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemZoomOut;
     private javax.swing.JPanel jPanelAccesoDirecto;
     private javax.swing.JPanel jPanelBarraDeHerramientas;
+    private javax.swing.JPanel jPanelInformacionExtra;
     private javax.swing.JPanel jPanelOpcionesObjeto;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;

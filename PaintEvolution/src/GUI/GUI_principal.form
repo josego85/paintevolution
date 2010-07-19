@@ -328,20 +328,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jPanelBarraDeHerramientas" alignment="0" max="32767" attributes="1"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabelCursor" min="-2" pref="51" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabelCoordenadasPuntero" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="jLabelHerramientaSeleccionada" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabelHerramientaSeleccionadaObjeto" min="-2" pref="171" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="387" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="jPanelBarraDeHerramientas" alignment="0" min="-2" max="-2" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jToolBarBarraDeHerramientas" min="-2" pref="902" max="-2" attributes="0"/>
@@ -361,6 +348,7 @@
                       </Group>
                   </Group>
                   <Component id="jPanelAccesoDirecto" alignment="0" min="-2" pref="863" max="-2" attributes="0"/>
+                  <Component id="jPanelInformacionExtra" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -387,41 +375,14 @@
                       <Component id="jPanelOpcionesObjeto" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="216" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jLabelCoordenadasPuntero" max="32767" attributes="1"/>
-                      <Component id="jLabelCursor" alignment="1" max="32767" attributes="1"/>
-                  </Group>
-                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="jLabelHerramientaSeleccionada" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelHerramientaSeleccionadaObjeto" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
+              <Component id="jPanelInformacionExtra" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JToolBar$Separator" name="jSeparator6">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabelCoordenadasPuntero">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabelCursor">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cursor: "/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabelHerramientaSeleccionada">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Herramienta Seleccionada: "/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabelHerramientaSeleccionadaObjeto">
     </Component>
     <Container class="javax.swing.JPanel" name="jPanelOpcionesObjeto">
 
@@ -928,6 +889,24 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDesactivarPantallaCompletaActionPerformed"/>
           </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanelInformacionExtra">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabelCoordenadasPuntero">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelHerramientaSeleccionada">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Herramienta Seleccionada: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelHerramientaSeleccionadaObjeto">
         </Component>
       </SubComponents>
     </Container>
