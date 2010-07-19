@@ -472,6 +472,8 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarBarraDeHerramientas.add(chkRelleno);
 
+        jPanelBarraDeHerramientas.add(jToolBarBarraDeHerramientas, java.awt.BorderLayout.CENTER);
+
         jPanelAccesoDirecto.setLayout(new javax.swing.BoxLayout(jPanelAccesoDirecto, javax.swing.BoxLayout.LINE_AXIS));
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoNuevo_32px.png"))); // NOI18N
@@ -796,9 +798,6 @@ public class GUI_principal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jToolBarBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 902, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -810,7 +809,7 @@ public class GUI_principal extends javax.swing.JFrame {
                                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jPanelAccesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelInformacionExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -826,9 +825,7 @@ public class GUI_principal extends javax.swing.JFrame {
                         .addGap(145, 145, 145)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jToolBarBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(41, 41, 41)
                         .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(217, 217, 217)
                 .addComponent(jPanelInformacionExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
