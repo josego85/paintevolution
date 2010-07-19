@@ -355,7 +355,6 @@
               </Group>
               <EmptySpace pref="1242" max="32767" attributes="0"/>
           </Group>
-          <Component id="jToolBarAccesoDirecto" alignment="0" pref="1890" max="32767" attributes="1"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
@@ -368,8 +367,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jToolBarAccesoDirecto" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Component id="jPanelBarraDeHerramientas" max="32767" attributes="1"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -409,15 +407,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JToolBar" name="jToolBarAccesoDirecto">
-      <Properties>
-        <Property name="floatable" type="boolean" value="false"/>
-        <Property name="rollover" type="boolean" value="true"/>
-        <Property name="toolTipText" type="java.lang.String" value="Accesos Directos"/>
-      </Properties>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-    </Container>
     <Component class="javax.swing.JToolBar$Separator" name="jSeparator6">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelCoordenadasPuntero">
