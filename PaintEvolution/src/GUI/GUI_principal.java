@@ -413,6 +413,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
         getContentPane().add(jPanelAccesoDirecto, java.awt.BorderLayout.NORTH);
 
+        jPanelInformacionExtra.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
         jPanelInformacionExtra.add(jLabelCoordenadasPuntero);
 
         jLabelHerramientaSeleccionada.setText("Herramienta Seleccionada: ");
