@@ -668,9 +668,9 @@ public class GUI_principal extends javax.swing.JFrame {
             .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelBarraHerramientasTotalLayout.createSequentialGroup()
-                    .addGap(0, 268, Short.MAX_VALUE)
+                    .addGap(0, 287, Short.MAX_VALUE)
                     .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 268, Short.MAX_VALUE)))
+                    .addGap(0, 287, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanelBarraHerramientasTotal, java.awt.BorderLayout.WEST);
