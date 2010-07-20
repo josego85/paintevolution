@@ -129,11 +129,8 @@ public class GUI_principal extends javax.swing.JFrame {
         cursorPredeterminado =  toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = cursorPredeterminado;
         pantallaDibujo.setCursorActual(cursorActual);
-
         jButtonDesactivarPantallaCompleta.setVisible(false);
         listaDeFigurasADibujar = new LinkedList<Figura>();
-        
-
         jButtonDesactivarPantallaCompleta.setVisible(false);        
 
     }
@@ -167,7 +164,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jLabelCoordenadasPuntero = new javax.swing.JLabel();
         jLabelHerramientaSeleccionada = new javax.swing.JLabel();
         jLabelHerramientaSeleccionadaObjeto = new javax.swing.JLabel();
-        jPanelDibujo = new javax.swing.JPanel();
         jPanelBarraHerramientasTotal = new javax.swing.JPanel();
         jPanelBarraDeHerramientas = new javax.swing.JPanel();
         jToggleButtonLapiz = new javax.swing.JToggleButton();
@@ -191,6 +187,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jLabelTamañoGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
         jPanelDerechoVacio = new javax.swing.JPanel();
+        PanelDibujo = new PanelDibujo();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -422,19 +419,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jPanelInformacionExtra.add(jLabelHerramientaSeleccionadaObjeto);
 
         getContentPane().add(jPanelInformacionExtra, java.awt.BorderLayout.SOUTH);
-
-        javax.swing.GroupLayout jPanelDibujoLayout = new javax.swing.GroupLayout(jPanelDibujo);
-        jPanelDibujo.setLayout(jPanelDibujoLayout);
-        jPanelDibujoLayout.setHorizontalGroup(
-            jPanelDibujoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1118, Short.MAX_VALUE)
-        );
-        jPanelDibujoLayout.setVerticalGroup(
-            jPanelDibujoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanelDibujo, java.awt.BorderLayout.CENTER);
 
         jPanelBarraDeHerramientas.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jPanelBarraDeHerramientas.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -686,6 +670,9 @@ public class GUI_principal extends javax.swing.JFrame {
 
         jPanelDerechoVacio.setLayout(new javax.swing.BoxLayout(jPanelDerechoVacio, javax.swing.BoxLayout.Y_AXIS));
         getContentPane().add(jPanelDerechoVacio, java.awt.BorderLayout.EAST);
+
+        PanelDibujo.setLayout(null);
+        getContentPane().add(PanelDibujo, java.awt.BorderLayout.CENTER);
 
         jMenuArchivo.setMnemonic('A');
         jMenuArchivo.setText("Archivo");
@@ -1220,6 +1207,7 @@ public class GUI_principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelDibujo;
     private javax.swing.ButtonGroup buttonGroupObjetos;
     private javax.swing.JCheckBox chkRelleno;
     private javax.swing.JButton jButtonAbrir;
@@ -1264,7 +1252,6 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelBarraDeHerramientas;
     private javax.swing.JPanel jPanelBarraHerramientasTotal;
     private javax.swing.JPanel jPanelDerechoVacio;
-    private javax.swing.JPanel jPanelDibujo;
     private javax.swing.JPanel jPanelInformacionExtra;
     private javax.swing.JPanel jPanelOpcionesObjeto;
     private javax.swing.JPopupMenu.Separator jSeparator1;
