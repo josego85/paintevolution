@@ -169,9 +169,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jLabelHerramientaSeleccionadaObjeto = new javax.swing.JLabel();
         jPanelDibujo = new javax.swing.JPanel();
         jPanelBarraHerramientasTotal = new javax.swing.JPanel();
-        jPanelOpcionesObjeto = new javax.swing.JPanel();
-        jLabelTamañoGrosor = new javax.swing.JLabel();
-        jComboBoxGrosorBorde = new javax.swing.JComboBox();
         jPanelBarraDeHerramientas = new javax.swing.JPanel();
         jToggleButtonLapiz = new javax.swing.JToggleButton();
         jToggleButtonPincel = new javax.swing.JToggleButton();
@@ -190,6 +187,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jSeparator10 = new javax.swing.JToolBar.Separator();
         chkRelleno = new javax.swing.JCheckBox();
         jToolBarBarraDeHerramientas = new javax.swing.JToolBar(JToolBar.HORIZONTAL);
+        jPanelOpcionesObjeto = new javax.swing.JPanel();
+        jLabelTamañoGrosor = new javax.swing.JLabel();
+        jComboBoxGrosorBorde = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -426,7 +426,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jPanelDibujo.setLayout(jPanelDibujoLayout);
         jPanelDibujoLayout.setHorizontalGroup(
             jPanelDibujoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 1118, Short.MAX_VALUE)
         );
         jPanelDibujoLayout.setVerticalGroup(
             jPanelDibujoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,21 +435,9 @@ public class GUI_principal extends javax.swing.JFrame {
 
         getContentPane().add(jPanelDibujo, java.awt.BorderLayout.CENTER);
 
-        jLabelTamañoGrosor.setText("Grosor:");
-        jPanelOpcionesObjeto.add(jLabelTamañoGrosor);
-
-        jComboBoxGrosorBorde.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-        jComboBoxGrosorBorde.setToolTipText("Grosor");
-        jComboBoxGrosorBorde.setPreferredSize(new java.awt.Dimension(45, 22));
-        jComboBoxGrosorBorde.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxGrosorBordeActionPerformed(evt);
-            }
-        });
-        jPanelOpcionesObjeto.add(jComboBoxGrosorBorde);
-
         jPanelBarraDeHerramientas.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jPanelBarraDeHerramientas.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        jPanelBarraDeHerramientas.setLayout(new javax.swing.BoxLayout(jPanelBarraDeHerramientas, javax.swing.BoxLayout.Y_AXIS));
 
         buttonGroupObjetos.add(jToggleButtonLapiz);
         jToggleButtonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/pencil.png"))); // NOI18N
@@ -641,35 +629,56 @@ public class GUI_principal extends javax.swing.JFrame {
         jToolBarBarraDeHerramientas.setBorderPainted(false);
         jPanelBarraDeHerramientas.add(jToolBarBarraDeHerramientas);
 
+        jLabelTamañoGrosor.setText("Grosor:");
+
+        jComboBoxGrosorBorde.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        jComboBoxGrosorBorde.setToolTipText("Grosor");
+        jComboBoxGrosorBorde.setPreferredSize(new java.awt.Dimension(45, 22));
+        jComboBoxGrosorBorde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxGrosorBordeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelOpcionesObjetoLayout = new javax.swing.GroupLayout(jPanelOpcionesObjeto);
+        jPanelOpcionesObjeto.setLayout(jPanelOpcionesObjetoLayout);
+        jPanelOpcionesObjetoLayout.setHorizontalGroup(
+            jPanelOpcionesObjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelOpcionesObjetoLayout.createSequentialGroup()
+                .addGap(347, 347, 347)
+                .addComponent(jLabelTamañoGrosor)
+                .addGap(5, 5, 5)
+                .addComponent(jComboBoxGrosorBorde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanelOpcionesObjetoLayout.setVerticalGroup(
+            jPanelOpcionesObjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelOpcionesObjetoLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabelTamañoGrosor))
+            .addGroup(jPanelOpcionesObjetoLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jComboBoxGrosorBorde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout jPanelBarraHerramientasTotalLayout = new javax.swing.GroupLayout(jPanelBarraHerramientasTotal);
         jPanelBarraHerramientasTotal.setLayout(jPanelBarraHerramientasTotalLayout);
         jPanelBarraHerramientasTotalLayout.setHorizontalGroup(
             jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelBarraHerramientasTotalLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelBarraHerramientasTotalLayout.createSequentialGroup()
-                    .addGap(0, 374, Short.MAX_VALUE)
-                    .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 330, Short.MAX_VALUE)))
+                    .addGap(0, 42, Short.MAX_VALUE)
+                    .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 43, Short.MAX_VALUE)))
         );
         jPanelBarraHerramientasTotalLayout.setVerticalGroup(
             jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelBarraHerramientasTotalLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(474, Short.MAX_VALUE)))
-            .addGroup(jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelBarraHerramientasTotalLayout.createSequentialGroup()
-                    .addGap(0, 247, Short.MAX_VALUE)
-                    .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 247, Short.MAX_VALUE)))
+                    .addGap(0, 263, Short.MAX_VALUE)
+                    .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 263, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanelBarraHerramientasTotal, java.awt.BorderLayout.WEST);
