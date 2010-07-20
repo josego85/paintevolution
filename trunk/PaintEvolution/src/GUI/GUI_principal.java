@@ -266,7 +266,7 @@ public class GUI_principal extends javax.swing.JFrame {
             }
         });
 
-        jPanelAccesoDirecto.setLayout(new javax.swing.BoxLayout(jPanelAccesoDirecto, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelAccesoDirecto.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoNuevo_32px.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -425,11 +425,11 @@ public class GUI_principal extends javax.swing.JFrame {
         jPanelDibujo.setLayout(jPanelDibujoLayout);
         jPanelDibujoLayout.setHorizontalGroup(
             jPanelDibujoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 389, Short.MAX_VALUE)
         );
         jPanelDibujoLayout.setVerticalGroup(
             jPanelDibujoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 536, Short.MAX_VALUE)
+            .addGap(0, 526, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanelDibujo, java.awt.BorderLayout.CENTER);
@@ -658,17 +658,17 @@ public class GUI_principal extends javax.swing.JFrame {
         );
         jPanelBarraHerramientasTotalLayout.setVerticalGroup(
             jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
+            .addGap(0, 526, Short.MAX_VALUE)
             .addGroup(jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelBarraHerramientasTotalLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(104, Short.MAX_VALUE)))
+                    .addContainerGap(474, Short.MAX_VALUE)))
             .addGroup(jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelBarraHerramientasTotalLayout.createSequentialGroup()
-                    .addGap(0, 62, Short.MAX_VALUE)
+                    .addGap(0, 247, Short.MAX_VALUE)
                     .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 62, Short.MAX_VALUE)))
+                    .addGap(0, 247, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanelBarraHerramientasTotal, java.awt.BorderLayout.WEST);
