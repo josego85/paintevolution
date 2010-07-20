@@ -190,6 +190,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jPanelOpcionesObjeto = new javax.swing.JPanel();
         jLabelTamañoGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
+        jPanelDerechoVacio = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -682,6 +683,9 @@ public class GUI_principal extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanelBarraHerramientasTotal, java.awt.BorderLayout.WEST);
+
+        jPanelDerechoVacio.setLayout(new javax.swing.BoxLayout(jPanelDerechoVacio, javax.swing.BoxLayout.Y_AXIS));
+        getContentPane().add(jPanelDerechoVacio, java.awt.BorderLayout.EAST);
 
         jMenuArchivo.setMnemonic('A');
         jMenuArchivo.setText("Archivo");
@@ -1259,6 +1263,7 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelAccesoDirecto;
     private javax.swing.JPanel jPanelBarraDeHerramientas;
     private javax.swing.JPanel jPanelBarraHerramientasTotal;
+    private javax.swing.JPanel jPanelDerechoVacio;
     private javax.swing.JPanel jPanelDibujo;
     private javax.swing.JPanel jPanelInformacionExtra;
     private javax.swing.JPanel jPanelOpcionesObjeto;
