@@ -264,7 +264,7 @@ public class GUI_principal extends javax.swing.JFrame {
             }
         });
 
-        jPanelAccesoDirecto.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanelAccesoDirecto.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoNuevo_32px.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -272,9 +272,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonNuevo.setBorderPainted(false);
         jButtonNuevo.setFocusable(false);
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonNuevo.setMaximumSize(new java.awt.Dimension(65, 59));
-        jButtonNuevo.setMinimumSize(new java.awt.Dimension(65, 59));
-        jButtonNuevo.setPreferredSize(new java.awt.Dimension(64, 49));
+        jButtonNuevo.setMaximumSize(new java.awt.Dimension(71, 59));
+        jButtonNuevo.setMinimumSize(new java.awt.Dimension(71, 59));
+        jButtonNuevo.setPreferredSize(new java.awt.Dimension(71, 59));
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,7 +289,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonAbrir.setBorderPainted(false);
         jButtonAbrir.setFocusable(false);
         jButtonAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonAbrir.setPreferredSize(new java.awt.Dimension(64, 49));
+        jButtonAbrir.setMaximumSize(new java.awt.Dimension(71, 59));
+        jButtonAbrir.setMinimumSize(new java.awt.Dimension(71, 59));
+        jButtonAbrir.setPreferredSize(new java.awt.Dimension(71, 59));
         jButtonAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,6 +347,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonRehacer.setToolTipText("Rehacer");
         jButtonRehacer.setFocusable(false);
         jButtonRehacer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonRehacer.setMaximumSize(new java.awt.Dimension(77, 59));
+        jButtonRehacer.setMinimumSize(new java.awt.Dimension(77, 59));
+        jButtonRehacer.setPreferredSize(new java.awt.Dimension(77, 59));
         jButtonRehacer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonRehacer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,7 +364,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonZoomIn.setBorderPainted(false);
         jButtonZoomIn.setFocusable(false);
         jButtonZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonZoomIn.setPreferredSize(new java.awt.Dimension(80, 47));
+        jButtonZoomIn.setMaximumSize(new java.awt.Dimension(77, 59));
+        jButtonZoomIn.setMinimumSize(new java.awt.Dimension(77, 59));
+        jButtonZoomIn.setPreferredSize(new java.awt.Dimension(77, 59));
         jButtonZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,7 +381,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonZoomOut.setBorderPainted(false);
         jButtonZoomOut.setFocusable(false);
         jButtonZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonZoomOut.setPreferredSize(new java.awt.Dimension(80, 49));
+        jButtonZoomOut.setPreferredSize(new java.awt.Dimension(79, 59));
         jButtonZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -661,9 +668,9 @@ public class GUI_principal extends javax.swing.JFrame {
             .addComponent(jPanelBarraDeHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanelBarraHerramientasTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelBarraHerramientasTotalLayout.createSequentialGroup()
-                    .addGap(0, 263, Short.MAX_VALUE)
+                    .addGap(0, 268, Short.MAX_VALUE)
                     .addComponent(jPanelOpcionesObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 263, Short.MAX_VALUE)))
+                    .addGap(0, 268, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanelBarraHerramientasTotal, java.awt.BorderLayout.WEST);
