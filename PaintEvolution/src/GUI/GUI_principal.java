@@ -661,7 +661,9 @@ public class GUI_principal extends javax.swing.JFrame {
 
         jComboBoxGrosorBorde.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         jComboBoxGrosorBorde.setToolTipText("Grosor");
-        jComboBoxGrosorBorde.setPreferredSize(new java.awt.Dimension(45, 22));
+        jComboBoxGrosorBorde.setMaximumSize(new java.awt.Dimension(40, 18));
+        jComboBoxGrosorBorde.setMinimumSize(new java.awt.Dimension(40, 18));
+        jComboBoxGrosorBorde.setPreferredSize(new java.awt.Dimension(40, 18));
         jComboBoxGrosorBorde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxGrosorBordeActionPerformed(evt);
