@@ -97,4 +97,48 @@ public class Rectangulo extends Figura{
         g2.setStroke(bordeFigura);
         g2.draw(r2);
     }
+
+    /**
+     * @(#)Rectangulo.java
+     * @author Chuidiang
+     * @co-author Modyfy fires
+     * sitio: http://www.chuidiang.com/
+     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Mi licencia (fires): BSD
+     * Fecha: 21/07/2010 04:52
+    */
+    /**
+     * Devuelve true si x, y esta dentro del rectangulo, false en caso contrario
+     *
+     * @param x del punto que se quiere saber si esta dentro del rectangulo
+     * @param y del punto que se quiere saber si esta dentro del rectangulo
+     *
+     * @return true si x,y esta dentro del rectangulo
+     */
+    public boolean estaDentro(int x, int y){
+        if((x > getInicio().getX()) && (x < (getInicio().getX() + getAncho())) &&
+                (y > getInicio().getY()) && (y < (getInicio().getY() + getAlto()))){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @(#)Rectangulo.java
+     * @author Chuidiang
+     * @co-author Modyfy fires
+     * sitio: http://www.chuidiang.com/
+     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Mi licencia (fires): BSD
+     * Fecha: 21/07/2010 04:52
+    */
+    /**
+     * Fija la esquina superior izquierda del rectangulo
+     *
+     * @param x
+     * @param y
+     */
+    public void setPosicion(int x, int y){
+        setInicio(x, y);
+    }
 }
