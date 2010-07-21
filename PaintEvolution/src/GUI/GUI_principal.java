@@ -173,7 +173,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jToggleButtonOvalo = new javax.swing.JToggleButton();
         jToggleButtonRectangulo = new javax.swing.JToggleButton();
         jToggleButtonCírculo = new javax.swing.JToggleButton();
-        jToggleButtonrectanguloRedondo = new javax.swing.JToggleButton();
+        jToggleButtonRectanguloRedondo = new javax.swing.JToggleButton();
         jSeparator7 = new javax.swing.JToolBar.Separator();
         jToggleButtonBorrarIndividual = new javax.swing.JToggleButton();
         jToggleButtonTexto = new javax.swing.JToggleButton();
@@ -518,14 +518,19 @@ public class GUI_principal extends javax.swing.JFrame {
         });
         jToolBarBarraDeHerramientas.add(jToggleButtonCírculo);
 
-        buttonGroupObjetos.add(jToggleButtonrectanguloRedondo);
-        jToggleButtonrectanguloRedondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/14_roundrect.png"))); // NOI18N
-        jToggleButtonrectanguloRedondo.setToolTipText("Dibujar un Rectángulo Redondeado");
-        jToggleButtonrectanguloRedondo.setBorderPainted(false);
-        jToggleButtonrectanguloRedondo.setFocusable(false);
-        jToggleButtonrectanguloRedondo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButtonrectanguloRedondo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBarBarraDeHerramientas.add(jToggleButtonrectanguloRedondo);
+        buttonGroupObjetos.add(jToggleButtonRectanguloRedondo);
+        jToggleButtonRectanguloRedondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/14_roundrect.png"))); // NOI18N
+        jToggleButtonRectanguloRedondo.setToolTipText("Dibujar un Rectángulo Redondeado");
+        jToggleButtonRectanguloRedondo.setBorderPainted(false);
+        jToggleButtonRectanguloRedondo.setFocusable(false);
+        jToggleButtonRectanguloRedondo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButtonRectanguloRedondo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButtonRectanguloRedondo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonRectanguloRedondoActionPerformed(evt);
+            }
+        });
+        jToolBarBarraDeHerramientas.add(jToggleButtonRectanguloRedondo);
         jToolBarBarraDeHerramientas.add(jSeparator7);
 
         buttonGroupObjetos.add(jToggleButtonBorrarIndividual);
@@ -989,13 +994,13 @@ public class GUI_principal extends javax.swing.JFrame {
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_formMouseExited
 
-    private void jToggleButtonrectanguloRedondoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonrectanguloRedondoActionPerformed
+    private void jToggleButtonRectanguloRedondoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectanguloRedondoActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         pantallaDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
         jPanelOpcionesObjeto.setVisible(true);
-    }//GEN-LAST:event_jToggleButtonrectanguloRedondoActionPerformed
+    }//GEN-LAST:event_jToggleButtonRectanguloRedondoActionPerformed
 
     private void jToggleButtonCírculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCírculoActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
@@ -1094,7 +1099,7 @@ public class GUI_principal extends javax.swing.JFrame {
             pantallaDibujo.setDrawMode(pantallaDibujo.getCIRCULO());
             jLabelHerramientaSeleccionadaObjeto.setText("Circulo");
         }
-        if(event.getSource() == jToggleButtonrectanguloRedondo){
+        if(event.getSource() == jToggleButtonRectanguloRedondo){
             pantallaDibujo.setDrawMode(pantallaDibujo.getROUND_RECT());
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo Redondo");
         }
@@ -1253,8 +1258,8 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonOvalo;
     private javax.swing.JToggleButton jToggleButtonPincel;
     private javax.swing.JToggleButton jToggleButtonRectangulo;
+    private javax.swing.JToggleButton jToggleButtonRectanguloRedondo;
     public static javax.swing.JToggleButton jToggleButtonTexto;
-    private javax.swing.JToggleButton jToggleButtonrectanguloRedondo;
     private javax.swing.JToolBar jToolBarBarraDeHerramientas;
     // End of variables declaration//GEN-END:variables
 }
