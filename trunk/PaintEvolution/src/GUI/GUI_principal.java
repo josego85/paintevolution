@@ -473,7 +473,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
         buttonGroupObjetos.add(jToggleButtonLinea);
         jToggleButtonLinea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/linea.png"))); // NOI18N
-        jToggleButtonLinea.setToolTipText("Dibujar línea");
+        jToggleButtonLinea.setToolTipText("Línea");
         jToggleButtonLinea.setBorderPainted(false);
         jToggleButtonLinea.setFocusable(false);
         jToggleButtonLinea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -490,7 +490,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
         buttonGroupObjetos.add(jToggleButtonOvalo);
         jToggleButtonOvalo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/ellipse.png"))); // NOI18N
-        jToggleButtonOvalo.setToolTipText("Dibujar un Óvalo");
+        jToggleButtonOvalo.setToolTipText("Óvalo");
         jToggleButtonOvalo.setBorderPainted(false);
         jToggleButtonOvalo.setFocusable(false);
         jToggleButtonOvalo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -504,7 +504,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
         buttonGroupObjetos.add(jToggleButtonRectangulo);
         jToggleButtonRectangulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/rectangulo.png"))); // NOI18N
-        jToggleButtonRectangulo.setToolTipText("Dibujar un Rectángulo");
+        jToggleButtonRectangulo.setToolTipText("Rectángulo");
         jToggleButtonRectangulo.setBorderPainted(false);
         jToggleButtonRectangulo.setFocusable(false);
         jToggleButtonRectangulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -518,7 +518,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
         buttonGroupObjetos.add(jToggleButtonCírculo);
         jToggleButtonCírculo.setText("Círculo");
-        jToggleButtonCírculo.setToolTipText("Dibujar un Círculo");
+        jToggleButtonCírculo.setToolTipText("Círculo");
         jToggleButtonCírculo.setBorderPainted(false);
         jToggleButtonCírculo.setFocusable(false);
         jToggleButtonCírculo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -532,7 +532,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
         buttonGroupObjetos.add(jToggleButtonRectanguloRedondo);
         jToggleButtonRectanguloRedondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/14_roundrect.png"))); // NOI18N
-        jToggleButtonRectanguloRedondo.setToolTipText("Dibujar un Rectángulo Redondeado");
+        jToggleButtonRectanguloRedondo.setToolTipText("Rectángulo con Curvas en los lados");
         jToggleButtonRectanguloRedondo.setBorderPainted(false);
         jToggleButtonRectanguloRedondo.setFocusable(false);
         jToggleButtonRectanguloRedondo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -639,6 +639,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jToolBarBarraDeHerramientas.add(jSeparator10);
 
         chkRelleno.setText("Rellenar");
+        chkRelleno.setToolTipText("Relleno de Objetos");
         chkRelleno.setEnabled(false);
         chkRelleno.setFocusable(false);
         chkRelleno.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
