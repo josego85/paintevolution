@@ -167,6 +167,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jLabelHerramientaSeleccionadaObjeto = new javax.swing.JLabel();
         jPanelBarraHerramientasTotal = new javax.swing.JPanel();
         jToolBarBarraDeHerramientas = new javax.swing.JToolBar(JToolBar.VERTICAL);
+        jPanelObjetos = new javax.swing.JPanel();
         jToggleButtonPincel = new javax.swing.JToggleButton();
         jToggleButtonLapiz = new javax.swing.JToggleButton();
         jToggleButtonLinea = new javax.swing.JToggleButton();
@@ -175,14 +176,18 @@ public class GUI_principal extends javax.swing.JFrame {
         jToggleButtonCírculo = new javax.swing.JToggleButton();
         jToggleButtonRectanguloRedondo = new javax.swing.JToggleButton();
         jSeparator7 = new javax.swing.JToolBar.Separator();
+        jPanel1 = new javax.swing.JPanel();
         jToggleButtonBorrarIndividual = new javax.swing.JToggleButton();
         jToggleButtonTexto = new javax.swing.JToggleButton();
         jButtonBorrarTodo = new javax.swing.JToggleButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
+        jPanel2 = new javax.swing.JPanel();
         jButtonColorDeFondoPantalla = new javax.swing.JToggleButton();
         jToggleButtonColorObjetos = new javax.swing.JToggleButton();
         jSeparator10 = new javax.swing.JToolBar.Separator();
+        jPanel3 = new javax.swing.JPanel();
         chkRelleno = new javax.swing.JCheckBox();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
         jPanelOpcionesObjeto = new javax.swing.JPanel();
         jLabelTamañoGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
@@ -433,6 +438,8 @@ public class GUI_principal extends javax.swing.JFrame {
         jToolBarBarraDeHerramientas.setToolTipText("Barra de Herramientas");
         jToolBarBarraDeHerramientas.setBorderPainted(false);
 
+        jPanelObjetos.setLayout(new javax.swing.BoxLayout(jPanelObjetos, javax.swing.BoxLayout.Y_AXIS));
+
         buttonGroupObjetos.add(jToggleButtonPincel);
         jToggleButtonPincel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/brush_16_16.gif"))); // NOI18N
         jToggleButtonPincel.setToolTipText("Pincel");
@@ -446,7 +453,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonPincelActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonPincel);
+        jPanelObjetos.add(jToggleButtonPincel);
 
         buttonGroupObjetos.add(jToggleButtonLapiz);
         jToggleButtonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/pencil.png"))); // NOI18N
@@ -460,7 +467,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonLapizActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonLapiz);
+        jPanelObjetos.add(jToggleButtonLapiz);
 
         buttonGroupObjetos.add(jToggleButtonLinea);
         jToggleButtonLinea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/linea.png"))); // NOI18N
@@ -474,7 +481,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonLineaActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonLinea);
+        jPanelObjetos.add(jToggleButtonLinea);
 
         buttonGroupObjetos.add(jToggleButtonOvalo);
         jToggleButtonOvalo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/ellipse.png"))); // NOI18N
@@ -488,7 +495,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonOvaloActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonOvalo);
+        jPanelObjetos.add(jToggleButtonOvalo);
 
         buttonGroupObjetos.add(jToggleButtonRectangulo);
         jToggleButtonRectangulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/rectangulo.png"))); // NOI18N
@@ -502,7 +509,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonRectanguloActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonRectangulo);
+        jPanelObjetos.add(jToggleButtonRectangulo);
 
         buttonGroupObjetos.add(jToggleButtonCírculo);
         jToggleButtonCírculo.setText("Círculo");
@@ -516,7 +523,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonCírculoActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonCírculo);
+        jPanelObjetos.add(jToggleButtonCírculo);
 
         buttonGroupObjetos.add(jToggleButtonRectanguloRedondo);
         jToggleButtonRectanguloRedondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/14_roundrect.png"))); // NOI18N
@@ -530,8 +537,12 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonRectanguloRedondoActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonRectanguloRedondo);
+        jPanelObjetos.add(jToggleButtonRectanguloRedondo);
+
+        jToolBarBarraDeHerramientas.add(jPanelObjetos);
         jToolBarBarraDeHerramientas.add(jSeparator7);
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         buttonGroupObjetos.add(jToggleButtonBorrarIndividual);
         jToggleButtonBorrarIndividual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/eraser_16_16.gif"))); // NOI18N
@@ -545,7 +556,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonBorrarIndividualActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonBorrarIndividual);
+        jPanel1.add(jToggleButtonBorrarIndividual);
 
         buttonGroupObjetos.add(jToggleButtonTexto);
         jToggleButtonTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/texto_16px.png"))); // NOI18N
@@ -559,7 +570,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonTextoActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonTexto);
+        jPanel1.add(jToggleButtonTexto);
 
         buttonGroupObjetos.add(jButtonBorrarTodo);
         jButtonBorrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/eraser.png"))); // NOI18N
@@ -574,8 +585,12 @@ public class GUI_principal extends javax.swing.JFrame {
                 jButtonBorrarTodoActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jButtonBorrarTodo);
+        jPanel1.add(jButtonBorrarTodo);
+
+        jToolBarBarraDeHerramientas.add(jPanel1);
         jToolBarBarraDeHerramientas.add(jSeparator4);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         buttonGroupObjetos.add(jButtonColorDeFondoPantalla);
         jButtonColorDeFondoPantalla.setText("Fondo");
@@ -593,7 +608,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 jButtonColorDeFondoPantallaActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jButtonColorDeFondoPantalla);
+        jPanel2.add(jButtonColorDeFondoPantalla);
 
         buttonGroupObjetos.add(jToggleButtonColorObjetos);
         jToggleButtonColorObjetos.setText("ColorObjetos");
@@ -610,7 +625,9 @@ public class GUI_principal extends javax.swing.JFrame {
                 jToggleButtonColorObjetosActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(jToggleButtonColorObjetos);
+        jPanel2.add(jToggleButtonColorObjetos);
+
+        jToolBarBarraDeHerramientas.add(jPanel2);
         jToolBarBarraDeHerramientas.add(jSeparator10);
 
         chkRelleno.setText("Rellenar");
@@ -623,11 +640,15 @@ public class GUI_principal extends javax.swing.JFrame {
                 chkRellenoActionPerformed(evt);
             }
         });
-        jToolBarBarraDeHerramientas.add(chkRelleno);
+        jPanel3.add(chkRelleno);
 
-        jPanelBarraHerramientasTotal.add(jToolBarBarraDeHerramientas);
+        jToolBarBarraDeHerramientas.add(jPanel3);
+        jToolBarBarraDeHerramientas.add(jSeparator5);
+
+        jPanelOpcionesObjeto.setLayout(new javax.swing.BoxLayout(jPanelOpcionesObjeto, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabelTamañoGrosor.setText("Grosor:");
+        jPanelOpcionesObjeto.add(jLabelTamañoGrosor);
 
         jComboBoxGrosorBorde.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         jComboBoxGrosorBorde.setToolTipText("Grosor");
@@ -637,28 +658,11 @@ public class GUI_principal extends javax.swing.JFrame {
                 jComboBoxGrosorBordeActionPerformed(evt);
             }
         });
+        jPanelOpcionesObjeto.add(jComboBoxGrosorBorde);
 
-        javax.swing.GroupLayout jPanelOpcionesObjetoLayout = new javax.swing.GroupLayout(jPanelOpcionesObjeto);
-        jPanelOpcionesObjeto.setLayout(jPanelOpcionesObjetoLayout);
-        jPanelOpcionesObjetoLayout.setHorizontalGroup(
-            jPanelOpcionesObjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelOpcionesObjetoLayout.createSequentialGroup()
-                .addGap(347, 347, 347)
-                .addComponent(jLabelTamañoGrosor)
-                .addGap(5, 5, 5)
-                .addComponent(jComboBoxGrosorBorde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanelOpcionesObjetoLayout.setVerticalGroup(
-            jPanelOpcionesObjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelOpcionesObjetoLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jLabelTamañoGrosor))
-            .addGroup(jPanelOpcionesObjetoLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jComboBoxGrosorBorde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jToolBarBarraDeHerramientas.add(jPanelOpcionesObjeto);
 
-        jPanelBarraHerramientasTotal.add(jPanelOpcionesObjeto);
+        jPanelBarraHerramientasTotal.add(jToolBarBarraDeHerramientas);
 
         getContentPane().add(jPanelBarraHerramientasTotal, java.awt.BorderLayout.WEST);
 
@@ -1238,16 +1242,21 @@ public class GUI_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenuItem jMenuItemZoomIn;
     private javax.swing.JMenuItem jMenuItemZoomOut;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelAccesoDirecto;
     private javax.swing.JPanel jPanelBarraHerramientasTotal;
     private javax.swing.JPanel jPanelDerechoVacio;
     private javax.swing.JPanel jPanelInformacionExtra;
+    private javax.swing.JPanel jPanelObjetos;
     private javax.swing.JPanel jPanelOpcionesObjeto;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     public static javax.swing.JToggleButton jToggleButtonBorrarIndividual;
