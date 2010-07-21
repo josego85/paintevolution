@@ -187,7 +187,6 @@ public class GUI_principal extends javax.swing.JFrame {
         jLabelTamañoGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
         jPanelDerechoVacio = new javax.swing.JPanel();
-        PanelDibujo = new PanelDibujo();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -677,9 +676,6 @@ public class GUI_principal extends javax.swing.JFrame {
 
         jPanelDerechoVacio.setLayout(new javax.swing.BoxLayout(jPanelDerechoVacio, javax.swing.BoxLayout.Y_AXIS));
         getContentPane().add(jPanelDerechoVacio, java.awt.BorderLayout.EAST);
-
-        PanelDibujo.setLayout(null);
-        getContentPane().add(PanelDibujo, java.awt.BorderLayout.CENTER);
 
         jMenuArchivo.setMnemonic('A');
         jMenuArchivo.setText("Archivo");
@@ -1214,7 +1210,6 @@ public class GUI_principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelDibujo;
     private javax.swing.ButtonGroup buttonGroupObjetos;
     private javax.swing.JCheckBox chkRelleno;
     private javax.swing.JButton jButtonAbrir;
