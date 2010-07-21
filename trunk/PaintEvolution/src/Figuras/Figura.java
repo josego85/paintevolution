@@ -84,21 +84,31 @@ public abstract class Figura {
     }
 
     /**
-     * Devuelve el inicio del punto (x, y)
+     * Devuelve la coordenada inicial de Point 2D(x, y)
      *
-     * @return inicioPunto el inicio del punto (x, y)
+     * @return la coordenada inicial de Point 2D(x, y)
      */
     public Point2D getInicio() {
         return inicio;
     }
 
     /**
-     * Establece el inicio del punto (x, y)
+     * Establece la coordenada inicial de Point 2D(x, y))
      *
-     * @param inicioPunto el inicio del punto (x, y)
+     * @param la coordenada inicial de Point 2D(x, y)
      */
     public void setInicio(Point2D inicio) {
         this.inicio = inicio;
+    }
+
+     /**
+     * Establece la coordenada inicial de Point 2D(x, y))
+     *
+     * @param x y
+     */
+    public void setInicio(int x, int y) {
+        Point2D inicioCoordenada = new Point2D.Double(x, y);
+        this.inicio = inicioCoordenada;
     }
 
     /**
