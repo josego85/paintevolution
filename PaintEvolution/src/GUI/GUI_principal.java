@@ -438,7 +438,7 @@ public class GUI_principal extends javax.swing.JFrame {
         jToolBarBarraDeHerramientas.setToolTipText("Barra de Herramientas");
         jToolBarBarraDeHerramientas.setBorderPainted(false);
 
-        jPanelObjetos.setLayout(new javax.swing.BoxLayout(jPanelObjetos, javax.swing.BoxLayout.Y_AXIS));
+        jPanelObjetos.setLayout(new java.awt.GridLayout(4, 2));
 
         buttonGroupObjetos.add(jToggleButtonPincel);
         jToggleButtonPincel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/brush_16_16.gif"))); // NOI18N
@@ -446,7 +446,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jToggleButtonPincel.setBorderPainted(false);
         jToggleButtonPincel.setFocusable(false);
         jToggleButtonPincel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButtonPincel.setPreferredSize(new java.awt.Dimension(29, 29));
+        jToggleButtonPincel.setMaximumSize(new java.awt.Dimension(55, 31));
+        jToggleButtonPincel.setMinimumSize(new java.awt.Dimension(55, 31));
+        jToggleButtonPincel.setPreferredSize(new java.awt.Dimension(55, 31));
         jToggleButtonPincel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToggleButtonPincel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -475,6 +477,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jToggleButtonLinea.setBorderPainted(false);
         jToggleButtonLinea.setFocusable(false);
         jToggleButtonLinea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButtonLinea.setMaximumSize(new java.awt.Dimension(55, 31));
+        jToggleButtonLinea.setMinimumSize(new java.awt.Dimension(55, 31));
+        jToggleButtonLinea.setPreferredSize(new java.awt.Dimension(55, 31));
         jToggleButtonLinea.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToggleButtonLinea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -579,6 +584,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonBorrarTodo.setBorderPainted(false);
         jButtonBorrarTodo.setFocusable(false);
         jButtonBorrarTodo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonBorrarTodo.setMaximumSize(new java.awt.Dimension(49, 25));
+        jButtonBorrarTodo.setMinimumSize(new java.awt.Dimension(49, 25));
+        jButtonBorrarTodo.setPreferredSize(new java.awt.Dimension(49, 25));
         jButtonBorrarTodo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonBorrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -598,9 +606,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jButtonColorDeFondoPantalla.setBorderPainted(false);
         jButtonColorDeFondoPantalla.setFocusable(false);
         jButtonColorDeFondoPantalla.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonColorDeFondoPantalla.setMaximumSize(new java.awt.Dimension(50, 21));
-        jButtonColorDeFondoPantalla.setMinimumSize(new java.awt.Dimension(50, 21));
-        jButtonColorDeFondoPantalla.setPreferredSize(new java.awt.Dimension(50, 21));
+        jButtonColorDeFondoPantalla.setMaximumSize(new java.awt.Dimension(70, 25));
+        jButtonColorDeFondoPantalla.setMinimumSize(new java.awt.Dimension(70, 25));
+        jButtonColorDeFondoPantalla.setPreferredSize(new java.awt.Dimension(70, 25));
         jButtonColorDeFondoPantalla.setRequestFocusEnabled(false);
         jButtonColorDeFondoPantalla.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonColorDeFondoPantalla.addActionListener(new java.awt.event.ActionListener() {
@@ -616,9 +624,9 @@ public class GUI_principal extends javax.swing.JFrame {
         jToggleButtonColorObjetos.setBorderPainted(false);
         jToggleButtonColorObjetos.setFocusable(false);
         jToggleButtonColorObjetos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButtonColorObjetos.setMaximumSize(new java.awt.Dimension(90, 21));
-        jToggleButtonColorObjetos.setMinimumSize(new java.awt.Dimension(90, 21));
-        jToggleButtonColorObjetos.setPreferredSize(new java.awt.Dimension(85, 21));
+        jToggleButtonColorObjetos.setMaximumSize(new java.awt.Dimension(100, 25));
+        jToggleButtonColorObjetos.setMinimumSize(new java.awt.Dimension(100, 25));
+        jToggleButtonColorObjetos.setPreferredSize(new java.awt.Dimension(100, 25));
         jToggleButtonColorObjetos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToggleButtonColorObjetos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
