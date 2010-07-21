@@ -70,4 +70,49 @@ public class Circulo extends Figura{
         g2.setStroke(bordeFigura);
         g2.draw(e2);
     }
+
+    /**
+     * @(#)Circulo.java
+     * @author Chuidiang
+     * @co-author Modyfy fires
+     * sitio: http://www.chuidiang.com/
+     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Mi licencia (fires): BSD
+     * Fecha: 21/07/2010 05:16
+    */
+    /**
+     * Devuelve true si el punto está contenido dentro del circulo,
+     * false en caso contrario
+     *
+     * @param x x del punto a ver si esta dentro.
+     * @param y y del punto a ver si esta dentro.
+     *
+     * @return true si esta dentro.
+     */
+    public boolean estaDentro(int x, int y){
+        if(Math.sqrt(((getInicio().getX() - x) * (getInicio().getX() - x)) +
+                ((getInicio().getY() - y) * (getInicio().getY() - y))) < getRadio()){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @(#)Circulo.java
+     * @author Chuidiang
+     * @co-author Modyfy fires
+     * sitio: http://www.chuidiang.com/
+     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Mi licencia (fires): BSD
+     * Fecha: 21/07/2010 05:16
+    */
+    /**
+     * Fija el centro del circulo
+     *
+     * @param x nueva x del centro.
+     * @param y nueva y del centro.
+     */
+    public void setPosicion(int x, int y){
+        setInicio(x, y);
+    }
 }
