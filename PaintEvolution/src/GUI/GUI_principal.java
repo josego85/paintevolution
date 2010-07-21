@@ -113,6 +113,7 @@ public class GUI_principal extends javax.swing.JFrame {
                 Constantes.MARGEN_ANCHO_PANTALLA_DIBUJO,
                 Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO,
                 Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);     // Dimensiones
+        getContentPane().add(pantallaDibujo, java.awt.BorderLayout.CENTER);
         this.add(pantallaDibujo);
         jPanelOpcionesObjeto.setVisible(false);
         pantallaDibujo.setDrawMode(6);   // Mano alzada por defecto
