@@ -108,7 +108,11 @@ public class GUI_principal extends javax.swing.JFrame {
         
         initComponents();
         pantallaDibujo = new PanelDibujo();
-        this.setLocationRelativeTo(null);               // centrar el jframe en la pantalla
+
+        // Centrar la ventana en la pantalla
+        this.setLocationRelativeTo(null);
+
+        // Dimensionar la mesaDeDibujo
         pantallaDibujo.setBounds(Constantes.MARGEN_LARGO_PANTALLA_DIBUJO,
                 Constantes.MARGEN_ANCHO_PANTALLA_DIBUJO,
                 Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO,
