@@ -933,6 +933,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     @Override
     // Sobreescritura del metodo paintComponent
     public void paintComponent(Graphics g){
+        // Super necesario agregar este metodo para que aparesca la mesa de dibujo
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
