@@ -10,6 +10,7 @@ import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
 import Auxiliar.Text;
 import Figuras.Figura;
+import Figuras.Rectangulo;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -50,7 +51,7 @@ import paint.StepInfo;
  */
 public class PanelDibujo extends javax.swing.JPanel implements Serializable, Printable{
     // Constantes
-    private final static int LINE = 1, SQUARE = 2, OVAL = 3, POLYGON = 4,
+    private final static int LINE = 1, RECTANGULO = 2, OVAL = 3, POLYGON = 4,
             ROUND_RECT = 5, FREE_HAND = 6, SOLID_SQUARE = 22, SOLID_OVAL = 33, 
             SOLID_POLYGON = 44, SOLID_ROUND_RECT = 55, ERASER = 60, CIRCULO = 70,
             SOLID_CIRCULO = 71, TEXT = 72;
@@ -266,10 +267,21 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getTamañoBorde())));
         }
 
-        if (modoDibujar == PanelDibujo.SQUARE){
+        if (modoDibujar == PanelDibujo.RECTANGULO){
             drawModeAnterior = modoDibujar;
 
             if(relleno){
+                if(modoDibujar == RECTANGULO){
+                    agregarFigura(new Rectangulo(Math.min(getCoordenadasInicioX(),
+                            getCoordenadasFinX()), Math.min(getCoordenadasInicioY(),
+                            getCoordenadasFinY()), Math.abs(getCoordenadasInicioX()
+                            - getCoordenadasFinX()), Math.abs(getCoordenadasInicioY()
+                            - getCoordenadasFinY()), getColorSeleccion(),
+                            getColorSeleccion(), getTamañoFuente()));
+                }
+
+
+                /*
                 // Dibuja en el primer cuadrante
                 if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
                     vectorRellenoRectangulo.add(new Coordinate(getCoordenadasInicioX(),
@@ -307,13 +319,15 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                             getCoordenadasInicioY(), getCoordenadasInicioX(),
                             evt.getY(), getColorSeleccion(), getTamañoBorde())));
                 }
+                 *
+                 */
             }else{
                 // Dibuja en el primer cuadrante
                 if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
                     vectorRectangulo.add(new Coordinate(getCoordenadasInicioX(),
                             getCoordenadasInicioY(), evt.getX(), evt.getY(),
                             getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SQUARE,
+                    desHacerPila.push(new StepInfo(RECTANGULO,
                             new Coordinate(getCoordenadasInicioX(),
                             getCoordenadasInicioY(), evt.getX(), evt.getY(),
                             getColorSeleccion(), getTamañoBorde())));
@@ -322,7 +336,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     vectorRectangulo.add(new Coordinate(evt.getX(), evt.getY(),
                             getCoordenadasInicioX(), getCoordenadasInicioY(), 
                             getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SQUARE,
+                    desHacerPila.push(new StepInfo(RECTANGULO,
                             new Coordinate(evt.getX(), evt.getY(), getCoordenadasInicioX(),
                             getCoordenadasInicioY(), getColorSeleccion(),
                             getTamañoBorde())));
@@ -331,7 +345,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     vectorRectangulo.add(new Coordinate(getCoordenadasInicioX(),
                             getCoordenadasInicioY(), evt.getX(), evt.getY(),
                             getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SQUARE,
+                    desHacerPila.push(new StepInfo(RECTANGULO,
                             new Coordinate(getCoordenadasInicioX(), getCoordenadasInicioY(),
                             evt.getX(), evt.getY(), getColorSeleccion(),
                             getTamañoBorde())));
@@ -340,7 +354,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     vectorRectangulo.add(new Coordinate(evt.getX(),
                             getCoordenadasInicioY(), getCoordenadasInicioX(),
                             evt.getY(), getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SQUARE,
+                    desHacerPila.push(new StepInfo(RECTANGULO,
                             new Coordinate(evt.getX(),
                             getCoordenadasInicioY(), getCoordenadasInicioX(),
                             evt.getY(), getColorSeleccion(), getTamañoBorde())));
@@ -782,8 +796,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /*----------------------------------------------------------------------------*/
-    public static int getSQUARE() {
-        return SQUARE;
+    public static int getRECTANGULO() {
+        return RECTANGULO;
     }
 
     /*----------------------------------------------------------------------------*/
@@ -1057,7 +1071,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
       	}
 
 
-      	if (modoDibujar == SQUARE){
+      	if (modoDibujar == RECTANGULO){
             if(relleno){
                  g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
@@ -1689,6 +1703,25 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             ventanaTexto.setLocationRelativeTo(this);
         }
         ventanaTexto.setVisible(true);
+    }
+
+    // Metodos varios
+    /**
+     * Añada una figura a la lista de figuras a dibujar
+     *
+     * @param figura Una nueva figura a dibujar
+     */
+    public void agregarFigura(Figura figura){
+        listaDeFigurasADibujar.add(figura);
+    }
+
+    /**
+     * Quita la figura en la lista de figuras a dibujar.
+     *
+     * @param figura figura a quitar de la lista.
+     */
+    public void eliminarFigura(Figura figura){
+        listaDeFigurasADibujar.remove(figura);
     }
 
     /*----------------------------------------------------------------------------*/
