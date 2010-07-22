@@ -116,7 +116,8 @@ public class GUI_principal extends javax.swing.JFrame {
         pantallaDibujo.setBounds(Constantes.MARGEN_LARGO_PANTALLA_DIBUJO,
                 Constantes.MARGEN_ANCHO_PANTALLA_DIBUJO,
                 Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO,
-                Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);     // Dimensiones
+                Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);
+        
         getContentPane().add(pantallaDibujo, java.awt.BorderLayout.CENTER);
         this.add(pantallaDibujo);
         jPanelOpcionesObjeto.setVisible(false);
