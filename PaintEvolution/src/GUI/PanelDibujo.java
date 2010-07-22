@@ -76,7 +76,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     private Color colorSeleccion;
     private int coordenadasInicioX, coordenadasFinX;
     private int coordenadasInicioY, coordenadasFinY;
-    private int linex1, linex2, liney1, liney2, drawMode;
+    private int linex1, linex2, liney1, liney2, modoDibujar;
     private int drawModeAnterior;
     private boolean relleno;
     private float tamañoBorde;
@@ -108,7 +108,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
         initialEraser = true;
 
-        drawMode = 0;
+        modoDibujar = 0;
         drawModeAnterior = 0;
         longitudBorrador = 5;
                 
@@ -230,8 +230,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         setCoordenadasFinY(evt.getY());
                   
         // Mano alzada
-        if (drawMode == PanelDibujo.FREE_HAND) {
-            drawModeAnterior = drawMode;
+        if (modoDibujar == PanelDibujo.FREE_HAND) {
+            drawModeAnterior = modoDibujar;
             setLinex1(getLinex2());
             setLiney1(getLiney2());
             setLinex2(getCoordenadasFinX());
@@ -243,7 +243,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getLiney1(), getLinex2(), getLiney2(), getColorSeleccion(),
                     getTamañoBorde())));
         }
-        if(drawMode == PanelDibujo.ERASER ){
+        if(modoDibujar == PanelDibujo.ERASER ){
             eraserOperation(evt);
         }
         GUI_principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() +
@@ -252,7 +252,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseReleased(final java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        if (drawMode == PanelDibujo.LINE){
+        if (modoDibujar == PanelDibujo.LINE){
             vectorLinea.add(new Coordinate(getCoordenadasInicioX(), getCoordenadasInicioY(),
                     evt.getX(), evt.getY(), getColorSeleccion(), getTamañoBorde()));
 
@@ -261,8 +261,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getTamañoBorde())));
         }
 
-        if (drawMode == PanelDibujo.SQUARE){
-            drawModeAnterior = drawMode;
+        if (modoDibujar == PanelDibujo.SQUARE){
+            drawModeAnterior = modoDibujar;
 
             if(relleno){
                 // Dibuja en el primer cuadrante
@@ -343,8 +343,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
            }
         }
         
-        if (drawMode == PanelDibujo.OVAL){
-            drawModeAnterior = drawMode;
+        if (modoDibujar == PanelDibujo.OVAL){
+            drawModeAnterior = modoDibujar;
             if(relleno){
                 // Dibuja en el primer cuadrante
                 if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
@@ -427,8 +427,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
            }
         }
 
-        if (drawMode == PanelDibujo.CIRCULO){
-            drawModeAnterior = drawMode;
+        if (modoDibujar == PanelDibujo.CIRCULO){
+            drawModeAnterior = modoDibujar;
             if(relleno){
                 vectorRellenoCirculo.add(new Coordinate(getCoordenadasInicioX(),
                             getCoordenadasInicioY(), evt.getX(), evt.getY(),
@@ -448,8 +448,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
            }
         }
 
-        if (drawMode == PanelDibujo.ROUND_RECT){
-            drawModeAnterior = drawMode;
+        if (modoDibujar == PanelDibujo.ROUND_RECT){
+            drawModeAnterior = modoDibujar;
             if(relleno){
                 // Dibuja en el primer cuadrante
                 if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
@@ -531,7 +531,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
            }
         }
 
-        if(drawMode == PanelDibujo.ERASER ){
+        if(modoDibujar == PanelDibujo.ERASER ){
             releasedEraser();
         }
    //     setCoordenadasInicioX(0);
@@ -713,12 +713,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     public void setDrawMode(int mode){
-        drawMode = mode;
+        modoDibujar = mode;
     }
 
     /*----------------------------------------------------------------------------*/
     public int getDrawMode(){
-        return drawMode;
+        return modoDibujar;
     }
 
     /*----------------------------------------------------------------------------*/
@@ -981,7 +981,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         this.setBackground(colorFondoPantallaDibujo);
         g.setColor(getColorSeleccion());
         
-      	if (drawMode == LINE) {
+      	if (modoDibujar == LINE) {
             Line2D line2D = new Line2D.Float(getCoordenadasInicioX(),
                     getCoordenadasInicioY(), getCoordenadasFinX(), getCoordenadasFinY());
             g2 = (Graphics2D)g;
@@ -991,7 +991,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g2.draw(line2D); 
       	}
 
-      	if (drawMode == OVAL){
+      	if (modoDibujar == OVAL){
             if(relleno){
                 g.fillOval(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
@@ -1012,7 +1012,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g2.draw(e2);
         }
 
-        if (drawMode == CIRCULO){
+        if (modoDibujar == CIRCULO){
             double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
                         Math.pow(getCoordenadasFinY() - getCoordenadasInicioY(),2));
             if(relleno){
@@ -1031,7 +1031,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 g2.draw(e2);
         }
 
-        if (drawMode == ROUND_RECT){
+        if (modoDibujar == ROUND_RECT){
             if(relleno){
                 g.fillRoundRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
@@ -1052,7 +1052,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
       	}
 
 
-      	if (drawMode == SQUARE){
+      	if (modoDibujar == SQUARE){
             if(relleno){
                  g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
@@ -1072,14 +1072,14 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g2.draw(r2);
       	}
 
-        if (drawMode == TEXT){
+        if (modoDibujar == TEXT){
             System.out.println("7- paso");
             g2 = (Graphics2D)g;    
             g2.drawString(this.getTexto(), getCoordenadasInicioX(), getCoordenadasInicioY());
       	}
 
 
-      	if (drawMode == FREE_HAND){
+      	if (modoDibujar == FREE_HAND){
             Line2D line2D = new Line2D.Float(getLinex1(), getLiney1(), getLinex2(), getLiney2());
             g2 = (Graphics2D)g;
             Stroke bordeFigura = new BasicStroke(getTamañoBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
