@@ -29,6 +29,13 @@ public class Circulo extends Figura{
         setRadio(radio);
     }
 
+    // Constructor
+    public Circulo(int x, int y, double radio, Color colorBorde, Color colorRelleno,
+            int tamanhio){
+        super(x, y, colorBorde, colorRelleno, tamanhio);
+        setRadio(radio);
+    }
+
     // Setters y getters
      /**
      * Devuelve el radio del circulo
