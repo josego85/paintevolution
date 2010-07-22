@@ -282,8 +282,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                             - getCoordenadasFinY()), getColorSeleccion(),
                             getColorSeleccion(), getTamañoFuente()));
                 }
-
-
                 /*
                 // Dibuja en el primer cuadrante
                 if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
@@ -325,6 +323,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                  *
                  */
             }else{
+                agregarFigura(new Rectangulo(Math.min(getCoordenadasInicioX(),
+                            getCoordenadasFinX()), Math.min(getCoordenadasInicioY(),
+                            getCoordenadasFinY()), Math.abs(getCoordenadasInicioX()
+                            - getCoordenadasFinX()), Math.abs(getCoordenadasInicioY()
+                            - getCoordenadasFinY()), getColorSeleccion(),
+                            null, getTamañoFuente()));
+                /*
                 // Dibuja en el primer cuadrante
                 if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
                     vectorRectangulo.add(new Coordinate(getCoordenadasInicioX(),
@@ -362,6 +367,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                             getCoordenadasInicioY(), getCoordenadasInicioX(),
                             evt.getY(), getColorSeleccion(), getTamañoBorde())));
                 }
+                 *
+                 */
            }
         }
         
