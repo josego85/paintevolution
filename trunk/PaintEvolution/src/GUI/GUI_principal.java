@@ -30,7 +30,7 @@ import javax.swing.UIManager;
  */
 public class GUI_principal extends javax.swing.JFrame {
     // Objetos
-    private PanelDibujo pantallaDibujo;
+    private PanelDibujo mesaDeDibujo;
     private JDialog ventanaAyuda;                           // Ventana Ayuda
 
     // Obtenemos la referencia al entorno de ventanas
@@ -107,21 +107,21 @@ public class GUI_principal extends javax.swing.JFrame {
         gd = gEnv.getDefaultScreenDevice();
         
         initComponents();
-        pantallaDibujo = new PanelDibujo();
+        mesaDeDibujo = new PanelDibujo();
 
         // Centrar la ventana en la pantalla
         this.setLocationRelativeTo(null);
 
         // Dimensionar la mesaDeDibujo
-        pantallaDibujo.setBounds(Constantes.MARGEN_LARGO_PANTALLA_DIBUJO,
+        mesaDeDibujo.setBounds(Constantes.MARGEN_LARGO_PANTALLA_DIBUJO,
                 Constantes.MARGEN_ANCHO_PANTALLA_DIBUJO,
                 Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO,
                 Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);
         
-        getContentPane().add(pantallaDibujo, java.awt.BorderLayout.CENTER);
-        this.add(pantallaDibujo);
+        getContentPane().add(mesaDeDibujo, java.awt.BorderLayout.CENTER);
+        this.add(mesaDeDibujo);
         jPanelOpcionesObjeto.setVisible(false);
-        pantallaDibujo.setDrawMode(6);   // Mano alzada por defecto
+        mesaDeDibujo.setDrawMode(6);   // Mano alzada por defecto
         jLabelHerramientaSeleccionadaObjeto.setText("Mano Alzada");
         jDialogColor.setSize(100, 100);
         jDialogColor.setLocationRelativeTo(this);
@@ -134,7 +134,7 @@ public class GUI_principal extends javax.swing.JFrame {
         brushImg = toolKit.getImage(getClass().getResource("/imagenes/cursores/brush.gif"));
         cursorPredeterminado =  toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = cursorPredeterminado;
-        pantallaDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setCursorActual(cursorActual);
         jButtonDesactivarPantallaCompleta.setVisible(false);
         listaDeFigurasADibujar = new LinkedList<Figura>();
         jButtonDesactivarPantallaCompleta.setVisible(false);        
@@ -864,7 +864,7 @@ public class GUI_principal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, codigoHTML,
                 Constantes.TITULO_PROGRAMA,
                 JOptionPane.PLAIN_MESSAGE);
-        pantallaDibujo.repaint();
+        mesaDeDibujo.repaint();
 
     }//GEN-LAST:event_jMenuItemAcercaDeActionPerformed
 
@@ -873,19 +873,19 @@ public class GUI_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemIndiceActionPerformed
 
     private void jButtonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirActionPerformed
-       pantallaDibujo.abrirImagen();
+       mesaDeDibujo.abrirImagen();
     }//GEN-LAST:event_jButtonAbrirActionPerformed
 
     private void jMenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAbrirActionPerformed
-        pantallaDibujo.abrirImagen();
+        mesaDeDibujo.abrirImagen();
     }//GEN-LAST:event_jMenuItemAbrirActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        pantallaDibujo.guardarImagen();
+        mesaDeDibujo.guardarImagen();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jMenuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarActionPerformed
-        pantallaDibujo.guardarImagen();
+        mesaDeDibujo.guardarImagen();
     }//GEN-LAST:event_jMenuItemGuardarActionPerformed
 
     private void jMenuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalirActionPerformed
@@ -893,35 +893,35 @@ public class GUI_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemSalirActionPerformed
 
     private void jMenuItemNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoActionPerformed
-        pantallaDibujo.borrarTodo();
+        mesaDeDibujo.borrarTodo();
     }//GEN-LAST:event_jMenuItemNuevoActionPerformed
 
     private void jMenuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCerrarActionPerformed
-        pantallaDibujo.borrarTodo();
-        pantallaDibujo.setDrawMode(6);      // Trazo a mano alzada
-	pantallaDibujo.setColorFondoPantallaDibujo(Color.WHITE);
-	pantallaDibujo.setColorSeleccion(Color.BLACK);
-	pantallaDibujo.repaint();
+        mesaDeDibujo.borrarTodo();
+        mesaDeDibujo.setDrawMode(6);      // Trazo a mano alzada
+	mesaDeDibujo.setColorFondoPantallaDibujo(Color.WHITE);
+	mesaDeDibujo.setColorSeleccion(Color.BLACK);
+	mesaDeDibujo.repaint();
     }//GEN-LAST:event_jMenuItemCerrarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        pantallaDibujo.borrarTodo();
-        pantallaDibujo.setDrawMode(6);      // Trazo a mano alzada
-	pantallaDibujo.setColorFondoPantallaDibujo(Color.WHITE);
-	pantallaDibujo.setColorSeleccion(Color.BLACK);
-	pantallaDibujo.repaint();
+        mesaDeDibujo.borrarTodo();
+        mesaDeDibujo.setDrawMode(6);      // Trazo a mano alzada
+	mesaDeDibujo.setColorFondoPantallaDibujo(Color.WHITE);
+	mesaDeDibujo.setColorSeleccion(Color.BLACK);
+	mesaDeDibujo.repaint();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jMenuItemGuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarComoActionPerformed
-        pantallaDibujo.guardarComoImagen();
+        mesaDeDibujo.guardarComoImagen();
     }//GEN-LAST:event_jMenuItemGuardarComoActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         if(colorObjeto){
-            pantallaDibujo.setColorSeleccion(jColorChooserColores.getColor());
+            mesaDeDibujo.setColorSeleccion(jColorChooserColores.getColor());
         }else{
-            pantallaDibujo.setColorFondoPantallaDibujo(jColorChooserColores.getColor());
-            pantallaDibujo.repaint();
+            mesaDeDibujo.setColorFondoPantallaDibujo(jColorChooserColores.getColor());
+            mesaDeDibujo.repaint();
         }
         jDialogColor.setVisible(false);
         //pantallaDibujo.repaint();
@@ -934,8 +934,8 @@ public class GUI_principal extends javax.swing.JFrame {
     private void jToggleButtonLapizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLapizActionPerformed
         Cursor pencilCursor = toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
 	cursorActual = pencilCursor;
-        pantallaDibujo.setCursorActual(cursorActual);
-        pantallaDibujo.setTamañoBorde(1);
+        mesaDeDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setTamañoBorde(1);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(false);
         jPanelOpcionesObjeto.setVisible(false);
@@ -943,7 +943,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
     private void jToggleButtonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLineaActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
-        pantallaDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(false);
         jPanelOpcionesObjeto.setVisible(true);
@@ -951,7 +951,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
     private void jToggleButtonOvaloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonOvaloActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
-        pantallaDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
         jPanelOpcionesObjeto.setVisible(true);
@@ -959,7 +959,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
     private void jButtonBorrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarTodoActionPerformed
         cursorActual = cursorPredeterminado;
-        pantallaDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
     }//GEN-LAST:event_jButtonBorrarTodoActionPerformed
@@ -978,15 +978,15 @@ public class GUI_principal extends javax.swing.JFrame {
 
     private void chkRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRellenoActionPerformed
         if(chkRelleno.isSelected()){
-            pantallaDibujo.setRelleno(true);
+            mesaDeDibujo.setRelleno(true);
         }else{
-            pantallaDibujo.setRelleno(false);
+            mesaDeDibujo.setRelleno(false);
         }
 }//GEN-LAST:event_chkRellenoActionPerformed
 
     private void jToggleButtonRectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectanguloActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
-        pantallaDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
         jPanelOpcionesObjeto.setVisible(true);
@@ -995,19 +995,19 @@ public class GUI_principal extends javax.swing.JFrame {
     private void jToggleButtonTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonTextoActionPerformed
         Cursor cursorLetra = new Cursor(Cursor.TEXT_CURSOR);
 	cursorActual = cursorLetra;
-        pantallaDibujo.setCursorActual(cursorActual);
-        pantallaDibujo.setObjetoTexto(true);
+        mesaDeDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setObjetoTexto(true);
         llamarObjetosDiferentes(evt);
         jPanelOpcionesObjeto.setVisible(false);
         chkRelleno.setEnabled(false);
     }//GEN-LAST:event_jToggleButtonTextoActionPerformed
 
     private void jButtonZoomInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZoomInActionPerformed
-        pantallaDibujo.acercar();
+        mesaDeDibujo.acercar();
     }//GEN-LAST:event_jButtonZoomInActionPerformed
 
     private void jComboBoxGrosorBordeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxGrosorBordeActionPerformed
-        pantallaDibujo.setTamañoBorde(jComboBoxGrosorBorde.getSelectedIndex());
+        mesaDeDibujo.setTamañoBorde(jComboBoxGrosorBorde.getSelectedIndex());
     }//GEN-LAST:event_jComboBoxGrosorBordeActionPerformed
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
@@ -1016,7 +1016,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
     private void jToggleButtonRectanguloRedondoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectanguloRedondoActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
-        pantallaDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
         jPanelOpcionesObjeto.setVisible(true);
@@ -1024,7 +1024,7 @@ public class GUI_principal extends javax.swing.JFrame {
 
     private void jToggleButtonCírculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCírculoActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
-        pantallaDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(true);
         jPanelOpcionesObjeto.setVisible(true);
@@ -1060,15 +1060,15 @@ public class GUI_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPantallaCompletaActionPerformed
 
     private void jButtonZoomOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZoomOutActionPerformed
-        pantallaDibujo.alejar();
+        mesaDeDibujo.alejar();
     }//GEN-LAST:event_jButtonZoomOutActionPerformed
 
     private void jMenuItemZoomOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemZoomOutActionPerformed
-        pantallaDibujo.alejar();
+        mesaDeDibujo.alejar();
 }//GEN-LAST:event_jMenuItemZoomOutActionPerformed
 
     private void jMenuItemZoomInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemZoomInActionPerformed
-        pantallaDibujo.acercar();
+        mesaDeDibujo.acercar();
 }//GEN-LAST:event_jMenuItemZoomInActionPerformed
 
     private void jMenuItemRehacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRehacerActionPerformed
@@ -1082,8 +1082,8 @@ public class GUI_principal extends javax.swing.JFrame {
     private void jToggleButtonPincelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPincelActionPerformed
         Cursor cursorPincel = toolKit.createCustomCursor(brushImg,new Point(3, 23),"Brush Cursor");
 	cursorActual = cursorPincel;
-        pantallaDibujo.setTamañoBorde(jComboBoxGrosorBorde.getSelectedIndex());
-        pantallaDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setTamañoBorde(jComboBoxGrosorBorde.getSelectedIndex());
+        mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(false);
         jPanelOpcionesObjeto.setVisible(true);
@@ -1092,7 +1092,7 @@ public class GUI_principal extends javax.swing.JFrame {
     private void jToggleButtonBorrarIndividualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonBorrarIndividualActionPerformed
         Cursor cursorBorrador = toolKit.createCustomCursor(eraserImg,new Point(15,15),"Eraser Cursor");
         cursorActual = cursorBorrador;
-        pantallaDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         chkRelleno.setEnabled(false);
         jPanelOpcionesObjeto.setVisible(false);
@@ -1104,46 +1104,46 @@ public class GUI_principal extends javax.swing.JFrame {
 
     public void llamarObjetosDiferentes(ActionEvent event){
         if(event.getSource() == jToggleButtonLinea){
-            pantallaDibujo.setDrawMode(pantallaDibujo.getLINE());
+            mesaDeDibujo.setDrawMode(mesaDeDibujo.getLINE());
             jLabelHerramientaSeleccionadaObjeto.setText("Linea");
         }
         if(event.getSource() == jToggleButtonRectangulo){
-            pantallaDibujo.setDrawMode(pantallaDibujo.getSQUARE());
+            mesaDeDibujo.setDrawMode(mesaDeDibujo.getSQUARE());
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo");
         }
         if(event.getSource() == jToggleButtonOvalo){
-            pantallaDibujo.setDrawMode(pantallaDibujo.getOVAL());
+            mesaDeDibujo.setDrawMode(mesaDeDibujo.getOVAL());
             jLabelHerramientaSeleccionadaObjeto.setText("Ovalo");
         }
          if(event.getSource() == jToggleButtonCírculo){
-            pantallaDibujo.setDrawMode(pantallaDibujo.getCIRCULO());
+            mesaDeDibujo.setDrawMode(mesaDeDibujo.getCIRCULO());
             jLabelHerramientaSeleccionadaObjeto.setText("Circulo");
         }
         if(event.getSource() == jToggleButtonRectanguloRedondo){
-            pantallaDibujo.setDrawMode(pantallaDibujo.getROUND_RECT());
+            mesaDeDibujo.setDrawMode(mesaDeDibujo.getROUND_RECT());
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo Redondo");
         }
         if(event.getSource() == jToggleButtonLapiz){
-            pantallaDibujo.setDrawMode(pantallaDibujo.getFREE_HAND());
+            mesaDeDibujo.setDrawMode(mesaDeDibujo.getFREE_HAND());
             jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
         }
         if(event.getSource() == jToggleButtonPincel){
-            pantallaDibujo.setDrawMode(pantallaDibujo.getFREE_HAND());
+            mesaDeDibujo.setDrawMode(mesaDeDibujo.getFREE_HAND());
             jLabelHerramientaSeleccionadaObjeto.setText("Pincel");
         }
         if(event.getSource() == jButtonDeshacer || event.getSource() == jMenuItemDeshacer){
-            pantallaDibujo.deshacer();
+            mesaDeDibujo.deshacer();
         }
         if(event.getSource() == jButtonRehacer || event.getSource() == jMenuItemRehacer){
-            pantallaDibujo.rehacer();
+            mesaDeDibujo.rehacer();
         }
         if(event.getSource() == jButtonBorrarTodo){
-            pantallaDibujo.borrarTodo();
+            mesaDeDibujo.borrarTodo();
             jLabelHerramientaSeleccionadaObjeto.setText("Borrar Todo");
         }
         if (event.getSource() == jToggleButtonBorrarIndividual){
             jLabelHerramientaSeleccionadaObjeto.setText("Borrador");
-            pantallaDibujo.setDrawMode(60);
+            mesaDeDibujo.setDrawMode(60);
         }
         if (event.getSource() == jToggleButtonTexto){
             jLabelHerramientaSeleccionadaObjeto.setText("Texto");
@@ -1163,7 +1163,7 @@ public class GUI_principal extends javax.swing.JFrame {
     // Metodo que imprime lo que esta en la pantallaDibujo
     public void imprimirPantallaDibujo() {
         PrinterJob printJob = PrinterJob.getPrinterJob();
-        printJob.setPrintable( pantallaDibujo);
+        printJob.setPrintable(mesaDeDibujo);
 
         // Dialogo de configuracion de paginas
         PageFormat pf = printJob.pageDialog( printJob.defaultPage() );
