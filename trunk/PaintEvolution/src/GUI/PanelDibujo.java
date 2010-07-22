@@ -9,6 +9,7 @@ package GUI;
 import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
 import Auxiliar.Text;
+import Figuras.Figura;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -34,6 +35,7 @@ import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.Stack;
 import java.util.Vector;
 import javax.imageio.ImageIO;
@@ -54,6 +56,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             SOLID_CIRCULO = 71, TEXT = 72;
 
     // Objetos
+    // Una linkedList para guadar todas las figuras que se crean
+    LinkedList<Figura> listaDeFigurasADibujar;
+    
     private static Vector vectorLinea, vectorRectangulo, vectorOvalo, vectorPolygono,
             vectorRoundRect, vectorManoAlzada,vectorRellenoRectangulo, vectorRellenoOvalo,
             vectorRellenoPolygono, vectorRellenoRoundRect, vectorFile, vectorCirculo,
