@@ -45,9 +45,6 @@ public class GUI_principal extends javax.swing.JFrame {
     // Cursor Actual
     private Cursor cursorActual;
    
-    // Una linkedList para guadar todas las figuras que se crean
-    LinkedList<Figura> listaDeFigurasADibujar;
-
     /** java.awt.event.*
      */
     /** tk
@@ -138,7 +135,6 @@ public class GUI_principal extends javax.swing.JFrame {
         cursorActual = cursorPredeterminado;
         mesaDeDibujo.setCursorActual(cursorActual);
         jButtonDesactivarPantallaCompleta.setVisible(false);
-        listaDeFigurasADibujar = new LinkedList<Figura>();
         jButtonDesactivarPantallaCompleta.setVisible(false);        
 
     }
