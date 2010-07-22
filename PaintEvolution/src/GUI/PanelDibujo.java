@@ -112,6 +112,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         gd = ge.getDefaultScreenDevice();
 
+        // Se crea el objeto para guardar todas las figuras
+        listaDeFigurasADibujar = new LinkedList<Figura>();
+        
         initialEraser = true;
 
         modoDibujar = 0;
