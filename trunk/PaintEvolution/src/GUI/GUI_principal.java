@@ -1106,7 +1106,7 @@ public class GUI_principal extends javax.swing.JFrame {
             jLabelHerramientaSeleccionadaObjeto.setText("Linea");
         }
         if(event.getSource() == jToggleButtonRectangulo){
-            mesaDeDibujo.setDrawMode(mesaDeDibujo.getSQUARE());
+            mesaDeDibujo.setDrawMode(mesaDeDibujo.getRECTANGULO());
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo");
         }
         if(event.getSource() == jToggleButtonOvalo){
