@@ -107,6 +107,8 @@ public class GUI_principal extends javax.swing.JFrame {
         gd = gEnv.getDefaultScreenDevice();
         
         initComponents();
+
+        // Crear el objeto de Mesa de Dibujo
         mesaDeDibujo = new PanelDibujo();
 
         // Centrar la ventana en la pantalla
