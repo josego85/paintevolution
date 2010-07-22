@@ -7,7 +7,6 @@
 package GUI;
 
 import Auxiliar.Constantes;
-import Figuras.Figura;
 import javax.swing.JDialog;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -19,7 +18,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.PrinterJob;
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
@@ -134,7 +132,6 @@ public class GUI_principal extends javax.swing.JFrame {
         cursorPredeterminado =  toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = cursorPredeterminado;
         mesaDeDibujo.setCursorActual(cursorActual);
-        jButtonDesactivarPantallaCompleta.setVisible(false);
         jButtonDesactivarPantallaCompleta.setVisible(false);        
 
     }
