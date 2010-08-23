@@ -221,12 +221,12 @@ public class Text extends javax.swing.JDialog {
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         pantallaDibujo = new PanelDibujo();
-        pantallaDibujo.setTipoFuente(jComboBoxTipoFuentes.getSelectedIndex());
-        pantallaDibujo.setEstiloFuente(jComboBoxTipoEstilo.getSelectedIndex());
+//        pantallaDibujo.setTipoFuente(jComboBoxTipoFuentes.getSelectedIndex());
+    //    pantallaDibujo.setEstiloFuente(jComboBoxTipoEstilo.getSelectedIndex());
         //pantallaDibujo.setTamañoFuente(jSpinnerTamañoTexto.);
         System.out.println("3- paso");
         this.setTexto(jTextFieldTexto.getText());
-        pantallaDibujo.setTexto(this.getTexto());
+      //  pantallaDibujo.setTexto(this.getTexto());
         pantallaDibujo.setDrawMode(72);
         this.setVisible(false);
         repaint();
