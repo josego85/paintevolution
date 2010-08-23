@@ -944,7 +944,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
-        jToggleButtonArrastrarObjetos.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(false);
         //jPanelOpcionesObjeto.setVisible(true);
     }//GEN-LAST:event_jToggleButtonPincelActionPerformed
 
@@ -966,7 +966,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
-        jToggleButtonArrastrarObjetos.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(false);
         //jPanelOpcionesObjeto.setVisible(true);
     }//GEN-LAST:event_jToggleButtonLineaActionPerformed
 
