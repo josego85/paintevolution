@@ -1,26 +1,31 @@
 /*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
  * PanelDibujo.java
  *
- * Created on 18/03/2010, 09:50:38 AM
+ * Created on 23/07/2010, 12:22:44 AM
  */
 
 package GUI;
 
 import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
-import Auxiliar.Text;
+import Figuras.Circulo;
 import Figuras.Figura;
+import Figuras.Linea;
+import Figuras.Ovalo;
+import Figuras.Rectangulo;
+import Figuras.RectanguloConCurvasRedondas;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -28,7 +33,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -37,12 +41,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Stack;
-import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import paint.Coordinate;
-import paint.StepInfo;
 
 /**
  *
@@ -50,100 +51,66 @@ import paint.StepInfo;
  */
 public class PanelDibujo extends javax.swing.JPanel implements Serializable, Printable{
     // Constantes
-    private final static int LINE = 1, RECTANGULO = 2, OVAL = 3, POLYGON = 4,
-            ROUND_RECT = 5, FREE_HAND = 6, SOLID_SQUARE = 22, SOLID_OVAL = 33, 
-            SOLID_POLYGON = 44, SOLID_ROUND_RECT = 55, ERASER = 60, CIRCULO = 70,
-            SOLID_CIRCULO = 71, TEXT = 72;
-
-    // Objetos
-    // Una linkedList para guadar todas las figuras que se crean
-    LinkedList<Figura> listaDeFigurasADibujar;
+    private final static int CIRCULO = 1, RECTANGULO = 2, OVALO = 3,
+            RECTANGULO_CON_CURVAS_REDONDAS = 4, PINCEL = 5, LINEA = 6, LAPIZ = 7,
+            ARRASTRAR = 10;
     
-    private static Vector vectorLinea, vectorRectangulo, vectorOvalo, vectorPolygono,
-            vectorRoundRect, vectorManoAlzada,vectorRellenoRectangulo, vectorRellenoOvalo,
-            vectorRellenoPolygono, vectorRellenoRoundRect, vectorFile, vectorCirculo,
-            vectorRellenoCirculo, vectorTexto;
-    private BufferedImage imagen;
-
-    // La imagen que se mostrará
-    private Image imagenActual;
-    private Cursor cursorActual;
-    private Text ventanaTexto;                           // Ventana Texto
-    private int tipoFuente;
-    private int estiloFuente;
-    private int tamañoFuente;
-    private String texto;
-    private boolean objetoTexto;
-
-    private Stack desHacerPila, reHacerPila;
-    private File nombreArchivo;
-    private Color colorFondoPantallaDibujo;
-    private Color colorSeleccion;
     private int coordenadasInicioX, coordenadasFinX;
     private int coordenadasInicioY, coordenadasFinY;
-    private int linex1, linex2, liney1, liney2, modoDibujar;
-    private int drawModeAnterior;
-    private boolean relleno;
-    private float tamañoBorde;
-    private boolean initialEraser;
-    private int longitudBorrador;
-    GraphicsEnvironment ge;
-    GraphicsDevice gd;
+    private int modoDibujar;
+    private int lineaX1, lineaX2, lineaY1, lineaY2;
+    private Color colorFondoPantallaDibujo;
+    private Color colorBorde;
+    private Color colorRelleno;
+    private float tamanioBorde;
+    private File nombreArchivo;
 
-    // La ubicacion donde se colocará la imagen, si es null, se colocará en el centro
-    private Point2D ubicacionDeImagen;
+    // La imagen que se mostrará
+    private BufferedImage imagen;
 
     // Escala por defecto de la imagen
     private double escala = 1.0;
 
+    private Cursor cursorActual;
+    
+    /**
+     * Lista de figuras a dibujar.
+     */
+    private LinkedList<Figura> listaFiguras = new LinkedList<Figura>();
+
+    /**
+     * Si actualmente se está arrastrando o no el rectángulo.
+     */
+    private Figura figuraArrastrandose = null;
+
+     /**
+     * x en la que estaba anteriormente el ratón.
+     */
+    private int xAnteriorRaton;
+
+    /**
+     * y en la que estaba anteriormente el ratón
+     */
+    private int yAnteriorRaton;
+
+    private Stack desHacerPila, reHacerPila;
+
+    // La ubicacion donde se colocará la imagen, si es null, se colocará en el centro
+    private Point2D ubicacionDeImagen;
 
     /** Creates new form PanelDibujo */
     public PanelDibujo() {
-        nombreArchivo = null;
-        ventanaTexto = null;
-        imagen = null;
-        objetoTexto = false;
-        texto = "prueba1";
-        relleno = false;
-        tamañoBorde = 1.0f;
-        imagenActual = null;
-        cursorActual = null;
-        ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        gd = ge.getDefaultScreenDevice();
-
-        // Se crea el objeto para guardar todas las figuras
-        listaDeFigurasADibujar = new LinkedList<Figura>();
-        
-        initialEraser = true;
-
+        initComponents();
         modoDibujar = 0;
-        drawModeAnterior = 0;
-        longitudBorrador = 5;
-                
-        vectorLinea                 = new Vector();
-	vectorRectangulo            = new Vector();
-	vectorOvalo                 = new Vector();
-	vectorPolygono              = new Vector();
-	vectorRoundRect             = new Vector();
-	vectorManoAlzada            = new Vector();
-	vectorRellenoRectangulo     = new Vector();
-	vectorRellenoOvalo          = new Vector();
-	vectorRellenoPolygono       = new Vector();
-	vectorRellenoRoundRect      = new Vector();
-	vectorFile                  = new Vector();
-        vectorCirculo               = new Vector();
-        vectorRellenoCirculo        = new Vector();
-        vectorTexto                 = new Vector();
-
-        colorFondoPantallaDibujo    = Color.WHITE;          // De color blanco
-        colorSeleccion              = Color.BLACK;          // De color negro
-
-
+        tamanioBorde = 1.0f;
+        nombreArchivo = null;
         desHacerPila = new Stack();
 	reHacerPila = new Stack();
-        initComponents();
-        this.setBackground(colorFondoPantallaDibujo);
-        jFrameColor.pack();
+        colorFondoPantallaDibujo    = Color.WHITE;          // De color blanco
+        colorBorde                  = Color.BLACK;          // De color negro
+        colorRelleno                = Color.WHITE;          // De color blanco
+        setBackground(colorFondoPantallaDibujo);
+        repaint();
     }
 
     /** This method is called from within the constructor to
@@ -155,39 +122,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFrameColor = new javax.swing.JFrame();
-        jColorChooserSeleccionarColor = new javax.swing.JColorChooser();
-        jButtonAceptar = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
-
-        jFrameColor.getContentPane().setLayout(null);
-        jFrameColor.getContentPane().add(jColorChooserSeleccionarColor);
-        jColorChooserSeleccionarColor.setBounds(0, 0, 429, 337);
-
-        jButtonAceptar.setText("Aceptar");
-        jButtonAceptar.setToolTipText("Aceptar");
-        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAceptarActionPerformed(evt);
-            }
-        });
-        jFrameColor.getContentPane().add(jButtonAceptar);
-        jButtonAceptar.setBounds(0, 0, 71, 23);
-
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.setToolTipText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
-            }
-        });
-        jFrameColor.getContentPane().add(jButtonCancelar);
-        jButtonCancelar.setBounds(0, 0, 75, 23);
-
+        setBackground(new java.awt.Color(255, 255, 255));
         addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 formMouseEntered(evt);
             }
@@ -214,407 +150,212 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 810, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 471, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         setCoordenadasInicioX(evt.getX());
-        setLinex1(evt.getX());
-        setLinex2(evt.getX());
+        setLineaX1(evt.getX());
+        setLineaX2(evt.getX());
         setCoordenadasInicioY(evt.getY());
-        setLiney1(evt.getY());
-        setLiney2(evt.getY());
-        GUI_principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() +
-                "   y: " + evt.getY());
+        setLineaY1(evt.getY());
+        setLineaY2(evt.getY());
+        GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
     }//GEN-LAST:event_formMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        if(modoDibujar == LINEA){
+            Linea linea = new Linea(getCoordenadasInicioX(), getCoordenadasInicioY(),
+                    getCoordenadasFinX(), getCoordenadasFinY(), getColorBorde(), 
+                    (int)getTamanioBorde());    
+            agregarFigura(linea);
+            desHacerPila.push(linea);
+        }else if (modoDibujar == CIRCULO){
+            Circulo circulo =  new Circulo(50, 50, 10, getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
+            agregarFigura(circulo);
+            desHacerPila.push(circulo);
+        }else if(modoDibujar == RECTANGULO){
+            Rectangulo rectangulo = new Rectangulo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()),
+                        getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
+            agregarFigura(rectangulo);
+
+            desHacerPila.push(rectangulo);
+        }else if(modoDibujar == OVALO){
+            Ovalo ovalo = new Ovalo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()),
+                        getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
+            agregarFigura(ovalo);
+            desHacerPila.push(ovalo);
+        }else if(modoDibujar == RECTANGULO_CON_CURVAS_REDONDAS){
+            RectanguloConCurvasRedondas rectanguloConCurvasRedondas = new RectanguloConCurvasRedondas(
+                    Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                    Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                    Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                    Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()),
+                    getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
+            agregarFigura(rectanguloConCurvasRedondas);
+            desHacerPila.push(rectanguloConCurvasRedondas);
+        }
+        //crearImagen();
+        GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
+        repaint();
+    }//GEN-LAST:event_formMouseReleased
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         setCoordenadasFinX(evt.getX());
         setCoordenadasFinY(evt.getY());
-                  
-        // Mano alzada
-        if (modoDibujar == PanelDibujo.FREE_HAND) {
-            drawModeAnterior = modoDibujar;
-            setLinex1(getLinex2());
-            setLiney1(getLiney2());
-            setLinex2(getCoordenadasFinX());
-            setLiney2(getCoordenadasFinY()); 
-               
-            vectorManoAlzada.add(new Coordinate(getLinex1(), getLiney1(), getLinex2(),
-                    getLiney2(), getColorSeleccion(), getTamañoBorde()));
-            desHacerPila.push(new StepInfo(FREE_HAND, new Coordinate(getLinex1(),
-                    getLiney1(), getLinex2(), getLiney2(), getColorSeleccion(),
-                    getTamañoBorde())));
+        
+         if (modoDibujar == LAPIZ) {
+            setLineaX1(getLineaX2());
+            setLineaY1(getLineaY2());
+            setLineaX2(getCoordenadasFinX());
+            setLineaY2(getCoordenadasFinY());
+
+            setTamanioBorde((int)1);
+            Linea linea = new Linea(getLineaX1(), getLineaY1(), getLineaX2(),
+                    getLineaY2(), getColorBorde(), (int)getTamanioBorde());
+            agregarFigura(linea);
+            desHacerPila.push(linea);
+        }else if (modoDibujar == PINCEL) {
+            setLineaX1(getLineaX2());
+            setLineaY1(getLineaY2());
+            setLineaX2(getCoordenadasFinX());
+            setLineaY2(getCoordenadasFinY());
+
+            Linea linea = new Linea(getLineaX1(), getLineaY1(), getLineaX2(),
+                    getLineaY2(), getColorBorde(), (int)getTamanioBorde());
+            agregarFigura(linea);
+            desHacerPila.push(linea);
         }
-        if(modoDibujar == PanelDibujo.ERASER ){
-            eraserOperation(evt);
+        /**
+         * Método al que se llama cuando se arrastra el ratón.
+         * Se comprueba con el atributo arrastrando si está empezando el arrastre o
+         * ya se esta en medio del mismo.
+         * Si se comienza el arrastre, se guardan las coordenadas del ratón que
+         * vienen en el evento MouseEvent y se cambia el valor del atributo arrastrando.
+         * Si se está en medio de un arrastre, se calcula la nueva posición del
+         * rectángulo y se llama al método repaint() para que se pinte.
+         *
+         * @param e Evento del ratón
+        */
+        if(modoDibujar == ARRASTRAR){
+            // Si comienza el arrastre
+            if (figuraArrastrandose == null){
+                // Se guardan las posiciones del ratón
+                xAnteriorRaton = evt.getX();
+                yAnteriorRaton = evt.getY();
+
+                // y se marca que ha comenzado el arrastre.
+                figuraArrastrandose = dameFigura(evt);
+            }else{
+                // Si ya había empezado el arrastre, se calculan las nuevas
+                // coordenadas del rectángulo
+                figuraArrastrandose.setPosicion((int)figuraArrastrandose.getInicio().getX()
+                        + (evt.getX() - xAnteriorRaton), (int)figuraArrastrandose.getInicio().getY()
+                        + (evt.getY() - yAnteriorRaton));
+
+                // Se guarda la posición del ratón para el siguiente cálculo
+                xAnteriorRaton = evt.getX();
+                yAnteriorRaton = evt.getY();
+
+                // y se manda repintar el Canvas
+                repaint();
+            }
         }
-        GUI_principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() +
-                "   y: " + evt.getY());
+        GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
         repaint();
     }//GEN-LAST:event_formMouseDragged
 
-    private void formMouseReleased(final java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        if (modoDibujar == PanelDibujo.LINE){
-            vectorLinea.add(new Coordinate(getCoordenadasInicioX(), getCoordenadasInicioY(),
-                    evt.getX(), evt.getY(), getColorSeleccion(), getTamañoBorde()));
-
-            desHacerPila.push(new StepInfo(LINE ,new Coordinate(getCoordenadasInicioX(), 
-                    getCoordenadasInicioY(), evt.getX(), evt.getY(), getColorSeleccion(),
-                    getTamañoBorde())));
-        }
-
-        if (modoDibujar == PanelDibujo.RECTANGULO){
-            drawModeAnterior = modoDibujar;
-
-            if(relleno){
-                // Dibuja en el primer cuadrante
-                if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRellenoRectangulo.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_SQUARE,
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                } // Dibuja en el segundo cuadrante
-                else if(getCoordenadasInicioX() > evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRellenoRectangulo.add(new Coordinate(evt.getX(), evt.getY(),
-                            getCoordenadasInicioX(), getCoordenadasInicioY(), 
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_SQUARE,
-                            new Coordinate(evt.getX(), evt.getY(), getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), getColorSeleccion(),
-                            getTamañoBorde())));
-           	}// Dibuja en el tercer cuadrante
-                else if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() < evt.getY()){
-                    vectorRellenoRectangulo.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_SQUARE,
-                            new Coordinate(getCoordenadasInicioX(), getCoordenadasInicioY(),
-                            evt.getX(), evt.getY(), getColorSeleccion(),
-                            getTamañoBorde())));
-           	}// Dibuja en el cuarto cuadrante
-                else if(getCoordenadasInicioX() > evt.getX() && getCoordenadasInicioY() < evt.getY()){
-                    vectorRellenoRectangulo.add(new Coordinate(evt.getX(),
-                            getCoordenadasInicioY(), getCoordenadasInicioX(),
-                            evt.getY(), getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_SQUARE,
-                            new Coordinate(evt.getX(),
-                            getCoordenadasInicioY(), getCoordenadasInicioX(),
-                            evt.getY(), getColorSeleccion(), getTamañoBorde())));
-                }
-            }else{
-                // Dibuja en el primer cuadrante
-                if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRectangulo.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(RECTANGULO,
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                } // Dibuja en el segundo cuadrante
-                else if(getCoordenadasInicioX() > evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRectangulo.add(new Coordinate(evt.getX(), evt.getY(),
-                            getCoordenadasInicioX(), getCoordenadasInicioY(), 
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(RECTANGULO,
-                            new Coordinate(evt.getX(), evt.getY(), getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), getColorSeleccion(),
-                            getTamañoBorde())));
-           	}// Dibuja en el tercer cuadrante
-                else if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() < evt.getY()){
-                    vectorRectangulo.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(RECTANGULO,
-                            new Coordinate(getCoordenadasInicioX(), getCoordenadasInicioY(),
-                            evt.getX(), evt.getY(), getColorSeleccion(),
-                            getTamañoBorde())));
-           	}// Dibuja en el cuarto cuadrante
-                else if(getCoordenadasInicioX() > evt.getX() && getCoordenadasInicioY() < evt.getY()){
-                    vectorRectangulo.add(new Coordinate(evt.getX(),
-                            getCoordenadasInicioY(), getCoordenadasInicioX(),
-                            evt.getY(), getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(RECTANGULO,
-                            new Coordinate(evt.getX(),
-                            getCoordenadasInicioY(), getCoordenadasInicioX(),
-                            evt.getY(), getColorSeleccion(), getTamañoBorde())));
-                }
-           }
-        }
-        
-        if (modoDibujar == PanelDibujo.OVAL){
-            drawModeAnterior = modoDibujar;
-            if(relleno){
-                // Dibuja en el primer cuadrante
-                if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRellenoOvalo.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(), 
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_OVAL, 
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(), 
-                            getColorSeleccion(), getTamañoBorde())));
-                }
-                // Dibuja en el segundo cuadrante
-                else if(getCoordenadasInicioX() > evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRellenoOvalo.add(new Coordinate(evt.getX(), evt.getY(), 
-                            getCoordenadasInicioX(), getCoordenadasInicioY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_OVAL, new Coordinate(evt.getX(), 
-                            evt.getY(), getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), getColorSeleccion(), getTamañoBorde())));
-                }// Dibuja en el tercer cuadrante
-                else if(getCoordenadasInicioX() >  evt.getX() && getCoordenadasInicioY() < evt.getY()){
-                    vectorRellenoOvalo.add(new Coordinate(evt.getX(), getCoordenadasInicioY(), 
-                            getCoordenadasInicioX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_OVAL, 
-                            new Coordinate(evt.getX(), getCoordenadasInicioY(), 
-                            getCoordenadasInicioX(), evt.getY(), 
-                            getColorSeleccion(), getTamañoBorde())));
-                }
-                // Dibuja en el cuarto cuadrante
-                else if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() < evt.getY()){
-                    vectorRellenoOvalo.add(new Coordinate(getCoordenadasInicioX(), 
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_OVAL,
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                }
-            }else{
-                // Dibuja en el primer cuadrante
-                if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorOvalo.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(OVAL,
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                }
-                // Dibuja en el segundo cuadrante
-                else if(getCoordenadasInicioX() > evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorOvalo.add(new Coordinate(evt.getX(), evt.getY(),
-                            getCoordenadasInicioX(), getCoordenadasInicioY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(OVAL, new Coordinate(evt.getX(),
-                            evt.getY(), getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), getColorSeleccion(),
-                            getTamañoBorde())));
-                }// Dibuja en el tercer cuadrante
-                else if(getCoordenadasInicioX() >  evt.getX() && getCoordenadasInicioY() < evt.getY()){
-                    vectorOvalo.add(new Coordinate(evt.getX(), getCoordenadasInicioY(),
-                            getCoordenadasInicioX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(OVAL,
-                            new Coordinate(evt.getX(), getCoordenadasInicioY(),
-                            getCoordenadasInicioX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                }
-                // Dibuja en el cuarto cuadrante
-                else if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() < evt.getY()){
-                    vectorOvalo.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(OVAL,
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                }
-           }
-        }
-
-        if (modoDibujar == PanelDibujo.CIRCULO){
-            drawModeAnterior = modoDibujar;
-            if(relleno){
-                vectorRellenoCirculo.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_CIRCULO,
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-            }else{
-                vectorCirculo.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(CIRCULO,
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-           }
-        }
-
-        if (modoDibujar == PanelDibujo.ROUND_RECT){
-            drawModeAnterior = modoDibujar;
-            if(relleno){
-                // Dibuja en el primer cuadrante
-                if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRellenoRoundRect.add(new Coordinate(getCoordenadasInicioX(), 
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.add(new StepInfo(SOLID_ROUND_RECT, 
-                            new Coordinate(getCoordenadasInicioX(), 
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                }
-                // Dibuja en el segundo cuadrante
-                else if(getCoordenadasInicioX() > evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRellenoRoundRect.add(new Coordinate(evt.getX(), evt.getY(),
-                            getCoordenadasInicioX(), getCoordenadasInicioY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.add(new StepInfo(SOLID_ROUND_RECT, 
-                            new Coordinate(evt.getX(), evt.getY(),
-                            getCoordenadasInicioX(), getCoordenadasInicioY(),
-                            getColorSeleccion(), getTamañoBorde())));
-          	}// Dibuja en el tercer cuadrante
-                else if(getCoordenadasInicioX() < getCoordenadasFinX() && getCoordenadasInicioY() < getCoordenadasFinY()){
-                    vectorRellenoRoundRect.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_ROUND_RECT, 
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                }// Dibuja en el cuarto cuadrante
-               else if(getCoordenadasInicioX() > getCoordenadasFinX() && getCoordenadasInicioY() < getCoordenadasFinY()){
-                    vectorRellenoRoundRect.add(new Coordinate(evt.getX(),
-                            getCoordenadasInicioY(), getCoordenadasInicioX(),
-                            evt.getY(), getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(SOLID_ROUND_RECT, 
-                            new Coordinate(evt.getX(),
-                            getCoordenadasInicioY(), getCoordenadasInicioX(),
-                            evt.getY(), getColorSeleccion(), getTamañoBorde())));
-               }
-           }else{
-                // Dibuja en el primer cuadrante
-                if(getCoordenadasInicioX() < evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRoundRect.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.add(new StepInfo(ROUND_RECT,
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                }
-                // Dibuja en el segundo cuadrante
-                else if(getCoordenadasInicioX() > evt.getX() && getCoordenadasInicioY() > evt.getY()){
-                    vectorRoundRect.add(new Coordinate(evt.getX(), evt.getY(),
-                            getCoordenadasInicioX(), getCoordenadasInicioY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.add(new StepInfo(ROUND_RECT,
-                            new Coordinate(evt.getX(), evt.getY(),
-                            getCoordenadasInicioX(), getCoordenadasInicioY(),
-                            getColorSeleccion(), getTamañoBorde())));
-          	}// Dibuja en el tercer cuadrante
-                else if(getCoordenadasInicioX() < getCoordenadasFinX() && getCoordenadasInicioY() < getCoordenadasFinY()){
-                    vectorRoundRect.add(new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(ROUND_RECT,
-                            new Coordinate(getCoordenadasInicioX(),
-                            getCoordenadasInicioY(), evt.getX(), evt.getY(),
-                            getColorSeleccion(), getTamañoBorde())));
-                }// Dibuja en el cuarto cuadrante
-               else if(getCoordenadasInicioX() > getCoordenadasFinX() && getCoordenadasInicioY() < getCoordenadasFinY()){
-                    vectorRoundRect.add(new Coordinate(evt.getX(),
-                            getCoordenadasInicioY(), getCoordenadasInicioX(),
-                            evt.getY(), getColorSeleccion(), getTamañoBorde()));
-                    desHacerPila.push(new StepInfo(ROUND_RECT,
-                            new Coordinate(evt.getX(),
-                            getCoordenadasInicioY(), getCoordenadasInicioX(),
-                            evt.getY(), getColorSeleccion(), getTamañoBorde())));
-               }
-           }
-        }
-
-        if(modoDibujar == PanelDibujo.ERASER ){
-            releasedEraser();
-        }
-   //     setCoordenadasInicioX(0);
-      //  setLinex1(0);
-     //   setCoordenadasFinX(0);
-   //     setLinex2(0);
-
-     //   setCoordenadasInicioY(0);
-     //   setLiney1(0);
-   //     setCoordenadasFinY(0);
-   //     setLiney2(0);
-
-        //coordenadasInicioX=linex1=coordenadasFinX=linex2=0;
-        //coordenadasInicioY=liney1=coordenadasFinY=liney2=0;
-        GUI_principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() +
-                "   y: " + evt.getY());
-    }//GEN-LAST:event_formMouseReleased
-
-    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        setColorSeleccion(jColorChooserSeleccionarColor.getColor());
-        jFrameColor.setVisible(false);
-    }//GEN-LAST:event_jButtonAceptarActionPerformed
-
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        jFrameColor.setVisible(false);
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
-
+    /**
+     * El ratón se mueve sin arrastrar. Se marca fin de arrastre.
+     *
+     * @param e MouseEvent
+     */
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
-       GUI_principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() +
-                "   y: " + evt.getY());
+        figuraArrastrandose = null;
+        GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
     }//GEN-LAST:event_formMouseMoved
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        GUI_principal.jLabelCoordenadasPuntero.setText("");
+        GUI_Principal.jLabelCoordenadasPuntero.setText("");
     }//GEN-LAST:event_formMouseExited
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         setCursor(getCursorActual());
     }//GEN-LAST:event_formMouseEntered
 
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        if(esObjetoTexto()){
-            System.out.println("1- paso");
-            mostrarVentanaTexto();
-            System.out.println("2- paso");
-            this.setTexto(ventanaTexto.getTexto());
-            System.out.println("4- paso");
-            setObjetoTexto(false);
-        }
-    }//GEN-LAST:event_formMouseClicked
-
     ////////////////////////////////////////////////////////////////////////////
     // Metodos SETTERS y GETTERS
     ////////////////////////////////////////////////////////////////////////////
-    public float getTamañoBorde() {
-        return tamañoBorde;
+    /*----------------------------------------------------------------------------*/
+    public int getCoordenadasFinX() {
+        return coordenadasFinX;
     }
 
     /*----------------------------------------------------------------------------*/
-    public void setTamañoBorde(float tamañoBorde) {
-        if(tamañoBorde >= Constantes.MINIMO_GROSOR_BORDE
-                &&  tamañoBorde <= Constantes.MAXIMO_GROSOR_BORDE){
-           this.tamañoBorde = tamañoBorde;
-        }
+    public void setCoordenadasFinX(int coordenadasFinX) {
+        this.coordenadasFinX = coordenadasFinX;
     }
 
     /*----------------------------------------------------------------------------*/
-    public Color getColorSeleccion() {
-        return colorSeleccion;
+    public int getCoordenadasFinY() {
+        return coordenadasFinY;
     }
 
     /*----------------------------------------------------------------------------*/
-    public void setColorSeleccion(Color colorSeleccion) {
-        this.colorSeleccion = colorSeleccion;
+    public void setCoordenadasFinY(int coordenadasFinY) {
+        this.coordenadasFinY = coordenadasFinY;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public int getCoordenadasInicioX() {
+        return coordenadasInicioX;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setCoordenadasInicioX(int coordenadasInicioX) {
+        this.coordenadasInicioX = coordenadasInicioX;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public int getCoordenadasInicioY() {
+        return coordenadasInicioY;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setCoordenadasInicioY(int coordenadasInicioY) {
+        this.coordenadasInicioY = coordenadasInicioY;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public int getDrawMode() {
+        return modoDibujar;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setDrawMode(int drawMode) {
+        this.modoDibujar = drawMode;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public Color getColorBorde() {
+        return colorBorde;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setColorBorde(Color colorBorde) {
+        this.colorBorde = colorBorde;
     }
 
     /*----------------------------------------------------------------------------*/
@@ -628,198 +369,44 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /*----------------------------------------------------------------------------*/
-    public int getCoordenadasFinX() {
-        return coordenadasFinX;
+    public Color getColorRelleno() {
+        return colorRelleno;
     }
 
     /*----------------------------------------------------------------------------*/
-    public void setCoordenadasFinX(int coordenadasFinX) {
-        if(coordenadasFinX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
-                && coordenadasFinX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
-           this.coordenadasFinX = coordenadasFinX;
+    public void setColorRelleno(Color colorRelleno) {
+        this.colorRelleno = colorRelleno;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public float getTamanioBorde() {
+        return tamanioBorde;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setTamanioBorde(float tamanioBorde) {
+        if(tamanioBorde >= Constantes.MINIMO_GROSOR_BORDE
+                &&  tamanioBorde <= Constantes.MAXIMO_GROSOR_BORDE){
+           this.tamanioBorde = tamanioBorde;
         }
     }
 
     /*----------------------------------------------------------------------------*/
-    public int getCoordenadasFinY() {
-        return coordenadasFinY;
+    // Retorna la escala actual de la imagen
+    public double getEscala(){
+        return escala;
     }
 
     /*----------------------------------------------------------------------------*/
-    public void setCoordenadasFinY(int coordenadasFinY) {
-        if(coordenadasFinY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
-                && coordenadasFinY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
-            this.coordenadasFinY = coordenadasFinY;
+    // Asigna la escala actual de la imagen
+    public void setEscala(double escala){
+        if(imagen != null){
+            //double anteriorEscala = this.escala;
+
+            this.escala = escala;
+           // this.firePropertyChange("escala", anteriorEscala, escala);
+            repaint();
         }
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getCoordenadasInicioX() {
-        return coordenadasInicioX;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setCoordenadasInicioX(int coordenadasInicioX) {
-        if(coordenadasInicioX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
-                && coordenadasInicioX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
-            this.coordenadasInicioX = coordenadasInicioX;
-        }
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getCoordenadasInicioY() {
-        return coordenadasInicioY;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setCoordenadasInicioY(int coordenadasInicioY) {
-        if(coordenadasInicioY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
-                && coordenadasInicioY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
-            this.coordenadasInicioY = coordenadasInicioY;
-        }
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getLinex1() {
-        return linex1;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setLinex1(int linex1) {
-        this.linex1 = linex1;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getLinex2() {
-        return linex2;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setLinex2(int linex2) {
-        this.linex2 = linex2;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getLiney1() {
-        return liney1;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setLiney1(int liney1) {
-        this.liney1 = liney1;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getLiney2() {
-        return liney2;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setLiney2(int liney2) {
-        this.liney2 = liney2;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setDrawMode(int mode){
-        modoDibujar = mode;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getDrawMode(){
-        return modoDibujar;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setRelleno(Boolean inSolidMode){
-        relleno = inSolidMode.booleanValue();
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public Boolean getRelleno(){
-        return Boolean.valueOf(relleno);
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getFREE_HAND() {
-        return FREE_HAND;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getLINE() {
-        return LINE;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getOVAL() {
-        return OVAL;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getPOLYGON() {
-        return POLYGON;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getROUND_RECT() {
-        return ROUND_RECT;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getSOLID_OVAL() {
-        return SOLID_OVAL;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getSOLID_POLYGON() {
-        return SOLID_POLYGON;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getSOLID_ROUND_RECT() {
-        return SOLID_ROUND_RECT;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getSOLID_SQUARE() {
-        return SOLID_SQUARE;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getRECTANGULO() {
-        return RECTANGULO;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getCIRCULO() {
-        return CIRCULO;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public static int getSOLID_CIRCULO() {
-        return SOLID_CIRCULO;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    // Retorna la imagen actual
-    public Image getImagenActual(){
-        return imagenActual;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    // Asigna la imagen actual
-    public void setImagenActual(Image imagenActual){
-        //Image old = this.getImagenActual();                     // Imagen anterior
-        this.imagenActual = imagenActual;                       // Imagen actual
-        setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
-        redimensionar();                                        // Se escala la imagen para que quepe en el panel
-        repaint();                                              // Se dibuja la nueva imagen
-        //firePropertyChange("imagenActual", old, this.imagenActual);    // Se dispara un evento de cambio de propiedad
-    }
-    
-    /*----------------------------------------------------------------------------*/
-    // Asigna la imagen actual mediante un archivo
-    public void setImagenActual(File file) throws IOException{
-        setImagenActual(ImageIO.read(file));
     }
 
     /*----------------------------------------------------------------------------*/
@@ -830,80 +417,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /*----------------------------------------------------------------------------*/
     public void setCursorActual(Cursor cursorActual) {
         this.cursorActual = cursorActual;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getEstiloFuente() {
-        return estiloFuente;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setEstiloFuente(int estiloFuente) {
-        this.estiloFuente = estiloFuente;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getTipoFuente() {
-        return tipoFuente;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setTipoFuente(int tipoFuente) {
-        this.tipoFuente = tipoFuente;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public int getTamañoFuente() {
-        return tamañoFuente;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setTamañoFuente(int tamañoFuente) {
-        this.tamañoFuente = tamañoFuente;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public String getTexto() {
-        return texto;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public boolean esObjetoTexto(){
-        return objetoTexto;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setObjetoTexto(boolean objetoTexto){
-        this.objetoTexto = objetoTexto;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    // Redimensiona la imagen para que quepe dentro del panel, si la imagen es mas pequeña
-    // que el panel, la deja en su escala por defecto
-    public void redimensionar(){
-        if(imagen.getHeight(this) > tamañoVisor().getHeight()){
-            double visor = tamañoVisor().getHeight();
-            double imagen = this.imagen.getHeight(this);
-            double escala = visor/imagen;// calculo de escala
-            setEscala(escala);
-        }else{
-            setEscala(1.0);
-        }
-    }
-
-    /*----------------------------------------------------------------------------*/
-    // Retorna el tamaño del visor de imagenes
-    private Dimension tamañoVisor(){
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        int largo = d.width - 10;
-        int ancho = d.height - 188;
-        d.setSize(largo, ancho);
-        return d;
     }
 
     /*----------------------------------------------------------------------------*/
@@ -920,89 +433,131 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /*----------------------------------------------------------------------------*/
-    // Retorna la escala actual de la imagen
-    public double getEscala(){
-        return escala;
+    public int getLineaX1() {
+        return lineaX1;
     }
 
     /*----------------------------------------------------------------------------*/
-    // Asigna la escala actual de la imagen
-    public void setEscala(double escala){
-        if(getImagenActual() != null){
-            //double anteriorEscala = this.escala;
-        
-            this.escala = escala;
-           // this.firePropertyChange("escala", anteriorEscala, escala);
-            repaint();
+    public void setLineaX1(int lineaX1) {
+        this.lineaX1 = lineaX1;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public int getLineaX2() {
+        return lineaX2;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setLineaX2(int lineaX2) {
+        this.lineaX2 = lineaX2;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public int getLineaY1() {
+        return lineaY1;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setLineaY1(int lineaY1) {
+        this.lineaY1 = lineaY1;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public int getLineaY2() {
+        return lineaY2;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setLineaY2(int lineaY2) {
+        this.lineaY2 = lineaY2;
+    }
+    
+    // Metodos varios
+    /**
+     * Añada una figura a la lista de figuras a dibujar
+     *
+     * @param figura Una nueva figura a dibujar
+     */
+    public void agregarFigura(Figura figura){
+        listaFiguras.add(figura);
+    }
+
+    /**
+     * Quita la figura en la lista de figuras a dibujar.
+     *
+     * @param figura figura a quitar de la lista.
+     */
+    public void eliminarFigura(Figura figura){
+        listaFiguras.remove(figura);
+    }
+
+
+    /**
+     * Para ver si el ratón está dentro del rectángulo.
+     * Si está dentro, puede comenzar el arrastre.
+     *
+     * @param e El evento de ratón
+     *
+     * @return true si el ratón está dentro del rectángulo
+     */
+    private Figura dameFigura(MouseEvent e){
+        for (Figura figura : listaFiguras){
+            if (figura.estaDentro(e.getX(), e.getY())){
+                return figura;
+            }
         }
+        return null;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Dibuja
+     *
+     * @param g Graphics con el que dibujar.
+     */
     @Override
-    // Sobreescritura del metodo paintComponent
-    public void paintComponent(Graphics g){
-        // Super necesario agregar este metodo para que aparesca la mesa de dibujo
+    public void paint(Graphics g){
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D)g;
-        
-        if (getImagenActual() != null){
+        setBackground(getColorFondoPantallaDibujo());
+        if (getImagen() != null){
             Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
             if (getUbicacionDeImagen() != null){
                 center = getUbicacionDeImagen();
             }
             Point2D loc = new Point2D.Double();
-            double width = getImagenActual().getWidth(null) * getEscala();
-            double height = getImagenActual().getHeight(null) * getEscala();
+            double width = imagen.getWidth(null) * getEscala();
+            double height = imagen.getHeight(null) * getEscala();
             loc.setLocation(center.getX() - width / 2, center.getY() - height / 2);
             setColorFondoPantallaDibujo(getColorFondoPantallaDibujo());
-            g.drawImage(getImagenActual(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null);
+            g.drawImage(getImagen(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null);
         }
 
-        /*
-        if(imagen != null){
-            setColorFondoPantallaDibujo(Color.WHITE);
-            g2.drawImage(imagen, 0, 0, this);
-
-            BufferedImage mImagen;
-
-            Dimension d = getSize();
-            int ancho = d.width, largo = d.height;
-            mImagen = new BufferedImage(ancho, largo, BufferedImage.TYPE_INT_RGB);
-            Graphics2D gOculta = mImagen.createGraphics();
-            gOculta.drawImage(imagen, 0, 0, this);
-            gOculta.setStroke(new BasicStroke(1.5f));
-            gOculta.setPaint(Color.green);
-            for (int i = -32; i < 40; i += 8) {
-                gOculta.drawLine(i, i, ancho - i * 2, largo - i * 2);
-                gOculta.rotate(0.05f);
-            }
-            g2.drawImage(mImagen, 0, 0, this);
-        }
- *
- */
-
-      	redrawVectorBuffer(g);
-        this.setBackground(colorFondoPantallaDibujo);
-        g.setColor(getColorSeleccion());
-      
-      	if (modoDibujar == LINE) {
+        
+        dibujarFiguras(g);
+        setBackground(getColorFondoPantallaDibujo());
+        //g.setColor(Color.red);
+        Graphics2D g2;
+        
+        if (modoDibujar == LINEA) {
             Line2D line2D = new Line2D.Float(getCoordenadasInicioX(),
                     getCoordenadasInicioY(), getCoordenadasFinX(), getCoordenadasFinY());
             g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(getTamañoBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(getColorSeleccion());
+            Stroke bordeFigura = new BasicStroke(getTamanioBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+            g2.setColor(getColorBorde());
             g2.setStroke(bordeFigura);
-            g2.draw(line2D); 
+            g2.draw(line2D);
       	}
 
-      	if (modoDibujar == OVAL){
+      	if (modoDibujar == OVALO){
+            /*
             if(relleno){
                 g.fillOval(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
             }
+             *
+             */
             Ellipse2D e2;
             Stroke bordeFigura;
 
@@ -1011,8 +566,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                     Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
             g2 = (Graphics2D)g;
-            bordeFigura = new BasicStroke(getTamañoBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(getColorSeleccion());
+            bordeFigura = new BasicStroke(getTamanioBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+            g2.setColor(getColorBorde());
             g2.setStroke(bordeFigura);
             g2.draw(e2);
         }
@@ -1020,29 +575,35 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         if (modoDibujar == CIRCULO){
             double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
                         Math.pow(getCoordenadasFinY() - getCoordenadasInicioY(),2));
+            /*
             if(relleno){
                  g.fillOval(getCoordenadasInicioX() - (int)radio, getCoordenadasInicioY() - (int)radio,
                     (int)radio * 2 , (int)radio * 2);
                 }
+             *
+             */
                 Ellipse2D e2;
                 Stroke bordeFigura;
 
                 e2 = new Ellipse2D.Float(getCoordenadasInicioX() - (int)radio, getCoordenadasInicioY() - (int)radio,
                     (int)radio * 2 , (int)radio * 2);
                 g2 = (Graphics2D)g;
-                bordeFigura = new BasicStroke(getTamañoBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-                g2.setColor(getColorSeleccion());
+                bordeFigura = new BasicStroke(getTamanioBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+                g2.setColor(getColorBorde());
                 g2.setStroke(bordeFigura);
                 g2.draw(e2);
         }
 
-        if (modoDibujar == ROUND_RECT){
+        if (modoDibujar == RECTANGULO_CON_CURVAS_REDONDAS){
+            /*
             if(relleno){
                 g.fillRoundRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()), 25, 25);
             }
+             *
+             */
             RoundRectangle2D rr2;
             Stroke bordeFigura;
             rr2 = new RoundRectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -1050,19 +611,23 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()), 25, 25);
             g2 = (Graphics2D)g;
-            bordeFigura = new BasicStroke(getTamañoBorde(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(getColorSeleccion());
+            bordeFigura = new BasicStroke(getTamanioBorde(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+            g2.setColor(getColorBorde());
             g2.setStroke(bordeFigura);
             g2.draw(rr2);
       	}
 
+
       	if (modoDibujar == RECTANGULO){
+            /*
             if(relleno){
                  g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
             }
+             *
+             */
             Rectangle2D r2;
             Stroke bordeFigura;
             r2 = new Rectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -1070,231 +635,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
             g2 = (Graphics2D)g;
-            bordeFigura = new BasicStroke(getTamañoBorde(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(getColorSeleccion());
-            g2.setStroke(bordeFigura);
-            g2.draw(r2);
-      	}
-
-        if (modoDibujar == TEXT){
-            System.out.println("7- paso");
-            g2 = (Graphics2D)g;    
-            g2.drawString(this.getTexto(), getCoordenadasInicioX(), getCoordenadasInicioY());
-      	}
-
-
-      	if (modoDibujar == FREE_HAND){
-            Line2D line2D = new Line2D.Float(getLinex1(), getLiney1(), getLinex2(), getLiney2());
-            g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(getTamañoBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(getColorSeleccion());
-            g2.setStroke(bordeFigura);
-            g2.draw(line2D);
-      	}
-    }
-
-    /*----------------------------------------------------------------------------*/
-    private void redrawVectorBuffer(Graphics g){
-        for (int i = 0; i < vectorManoAlzada.size(); i++){
-            Line2D line2D = new Line2D.Float(((Coordinate)vectorManoAlzada.elementAt(i)).getX1(),
-                ((Coordinate)vectorManoAlzada.elementAt(i)).getY1(),
-                ((Coordinate)vectorManoAlzada.elementAt(i)).getX2(),
-                ((Coordinate)vectorManoAlzada.elementAt(i)).getY2());
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorManoAlzada.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorManoAlzada.elementAt(i)).colour());
-            g2.setStroke(bordeFigura);
-            g2.draw(line2D);
-        }
-       
-        for (int i = 0; i < vectorLinea.size(); i++){
-            Line2D line2D = new Line2D.Float(((Coordinate)vectorLinea.elementAt(i)).getX1(),
-                    ((Coordinate)vectorLinea.elementAt(i)).getY1(),
-                    ((Coordinate)vectorLinea.elementAt(i)).getX2(),
-                    ((Coordinate)vectorLinea.elementAt(i)).getY2());
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorLinea.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorLinea.elementAt(i)).colour());
-            g2.setStroke(bordeFigura);
-            g2.draw(line2D);
-        }
-
-	for (int i = 0; i < vectorOvalo.size(); i++){
-            Ellipse2D e2 = new Ellipse2D.Float((Math.min((((Coordinate)vectorOvalo.elementAt(i)).getX1()
-                    ), (((Coordinate)vectorOvalo.elementAt(i)).getX2()))),
-                    (Math.min((((Coordinate)vectorOvalo.elementAt(i)).getY1()),
-                    (((Coordinate)vectorOvalo.elementAt(i)).getY2()))),
-                    (Math.abs((((Coordinate)vectorOvalo.elementAt(i)).getX1()) -
-                    (((Coordinate)vectorOvalo.elementAt(i)).getX2()))),
-                    (Math.abs(((Coordinate)vectorOvalo.elementAt(i)).getY1() -
-                    ((Coordinate)vectorOvalo.elementAt(i)).getY2())));
-
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorOvalo.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorOvalo.elementAt(i)).colour());
-            g2.setStroke(bordeFigura);
-            g2.draw(e2);
-      	}
-
-        for (int i = 0; i < vectorCirculo.size(); i++){
-            double radio = Math.sqrt(Math.pow(((Coordinate)vectorCirculo.elementAt(i)).getX2()
-                    - ((Coordinate)vectorCirculo.elementAt(i)).getX1(), 2) +
-                        Math.pow(((Coordinate)vectorCirculo.elementAt(i)).getY2()
-                    - ((Coordinate)vectorCirculo.elementAt(i)).getY1(), 2));
-            Ellipse2D e2 = new Ellipse2D.Float(((Coordinate)vectorCirculo.elementAt(i)).getX1()
-                    - (int)radio, ((Coordinate)vectorCirculo.elementAt(i)).getY1()
-                    - (int)radio, (int)radio * 2 , (int)radio * 2);
-
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorCirculo.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorCirculo.elementAt(i)).colour());
-            g2.setStroke(bordeFigura);
-            g2.draw(e2);
-      	}
-
-      	for (int i = 0; i < vectorRoundRect.size(); i++){
-            RoundRectangle2D rr2 = new RoundRectangle2D.Float((Math.min((((Coordinate)vectorRoundRect.elementAt(i)).getX1()
-                    ), (((Coordinate)vectorRoundRect.elementAt(i)).getX2()))),
-                    (Math.min((((Coordinate)vectorRoundRect.elementAt(i)).getY1()),
-                    (((Coordinate)vectorRoundRect.elementAt(i)).getY2()))),
-                    (Math.abs((((Coordinate)vectorRoundRect.elementAt(i)).getX1()) -
-                    (((Coordinate)vectorRoundRect.elementAt(i)).getX2()))),
-                    (Math.abs(((Coordinate)vectorRoundRect.elementAt(i)).getY1() -
-                    ((Coordinate)vectorRoundRect.elementAt(i)).getY2())), 25, 25);
-
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorRoundRect.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorRoundRect.elementAt(i)).colour());
-            g2.setStroke(bordeFigura);
-            g2.draw(rr2);
-      	}
-
-      	for (int i = 0; i < vectorRellenoOvalo.size(); i++){
-            g.setColor(((Coordinate)vectorRellenoOvalo.elementAt(i)).colour());
-            g.fillOval((Math.min((((Coordinate)vectorRellenoOvalo.elementAt(i)).getX1()
-                    ), (((Coordinate)vectorRellenoOvalo.elementAt(i)).getX2()))),
-                    (Math.min((((Coordinate)vectorRellenoOvalo.elementAt(i)).getY1()),
-                    (((Coordinate)vectorRellenoOvalo.elementAt(i)).getY2()))),
-                    (Math.abs((((Coordinate)vectorRellenoOvalo.elementAt(i)).getX1()) -
-                    (((Coordinate)vectorRellenoOvalo.elementAt(i)).getX2()))),
-                    (Math.abs(((Coordinate)vectorRellenoOvalo.elementAt(i)).getY1() -
-                    ((Coordinate)vectorRellenoOvalo.elementAt(i)).getY2())));
-            Ellipse2D e2 = new Ellipse2D.Float((Math.min((((Coordinate)vectorRellenoOvalo.elementAt(i)).getX1()
-                    ), (((Coordinate)vectorRellenoOvalo.elementAt(i)).getX2()))),
-                    (Math.min((((Coordinate)vectorRellenoOvalo.elementAt(i)).getY1()),
-                    (((Coordinate)vectorRellenoOvalo.elementAt(i)).getY2()))),
-                    (Math.abs((((Coordinate)vectorRellenoOvalo.elementAt(i)).getX1()) -
-                    (((Coordinate)vectorRellenoOvalo.elementAt(i)).getX2()))),
-                    (Math.abs(((Coordinate)vectorRellenoOvalo.elementAt(i)).getY1() -
-                    ((Coordinate)vectorRellenoOvalo.elementAt(i)).getY2())));
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorRellenoOvalo.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorRellenoOvalo.elementAt(i)).colour());
-            g2.setStroke(bordeFigura);
-            g2.draw(e2);
-      	}
-
-        for (int i = 0; i < vectorRellenoCirculo.size(); i++){
-            double radio = Math.sqrt(Math.pow(((Coordinate)vectorRellenoCirculo.elementAt(i)).getX2()
-                    - ((Coordinate)vectorRellenoCirculo.elementAt(i)).getX1(), 2) +
-                        Math.pow(((Coordinate)vectorRellenoCirculo.elementAt(i)).getY2()
-                    - ((Coordinate)vectorRellenoCirculo.elementAt(i)).getY1(), 2));
-            Ellipse2D e2 = new Ellipse2D.Float(((Coordinate)vectorRellenoCirculo.elementAt(i)).getX1()
-                    - (int)radio, ((Coordinate)vectorRellenoCirculo.elementAt(i)).getY1()
-                    - (int)radio, (int)radio * 2 , (int)radio * 2);
-
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorRellenoCirculo.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorRellenoCirculo.elementAt(i)).colour());
-            g2.setStroke(bordeFigura);
-            g2.draw(e2);
-      	}
-
-      	for (int i = 0; i < vectorRellenoRoundRect.size(); i++){
-            g.setColor(((Coordinate)vectorRellenoRoundRect.elementAt(i)).colour());
-
-            // Primer Cuadrante
-            g.fillRoundRect(((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX1(),
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY2(),
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX2() -
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX1(),
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY1() -
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY2(), 25, 25);
-
-            // Segundo, Tercer y Cuarto Cuadrante
-            g.fillRoundRect(((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX1(),
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY1(),
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX2() -
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX1(),
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY2() -
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY1(), 25, 25);
-
-            // Primer, Segundo, Tercer y Cuarto Cuadrante
-            RoundRectangle2D rr2 = new RoundRectangle2D.Float((Math.min((((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX1()
-                    ), (((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX2()))),
-                    (Math.min((((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY1()),
-                    (((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY2()))),
-                    (Math.abs((((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX1()) -
-                    (((Coordinate)vectorRellenoRoundRect.elementAt(i)).getX2()))),
-                    (Math.abs(((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY1() -
-                    ((Coordinate)vectorRellenoRoundRect.elementAt(i)).getY2())), 25, 25);
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorRellenoRoundRect.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorRellenoRoundRect.elementAt(i)).colour());
-            g2.setStroke(bordeFigura);
-            g2.draw(rr2);
-      	}
-
-      	for (int i = 0; i < vectorRectangulo.size(); i++){
-            Rectangle2D r2 = new Rectangle2D.Float((Math.min((((Coordinate)vectorRectangulo.elementAt(i)).getX1()
-                    ), (((Coordinate)vectorRectangulo.elementAt(i)).getX2()))),
-                    (Math.min((((Coordinate)vectorRectangulo.elementAt(i)).getY1()),
-                    (((Coordinate)vectorRectangulo.elementAt(i)).getY2()))),
-                    (Math.abs((((Coordinate)vectorRectangulo.elementAt(i)).getX1()) -
-                    (((Coordinate)vectorRectangulo.elementAt(i)).getX2()))),
-                    (Math.abs(((Coordinate)vectorRectangulo.elementAt(i)).getY1() -
-                    ((Coordinate)vectorRectangulo.elementAt(i)).getY2())));
-
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorRectangulo.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorRectangulo.elementAt(i)).colour());
-            g2.setStroke(bordeFigura);
-            g2.draw(r2);
-      	}
-
-      	for (int i = 0; i < vectorRellenoRectangulo.size(); i++){
-            g.setColor(((Coordinate)vectorRellenoRectangulo.elementAt(i)).colour());
-            g.fillRect((Math.min((((Coordinate)vectorRellenoRectangulo.elementAt(i)).getX1()
-                    ), (((Coordinate)vectorRellenoRectangulo.elementAt(i)).getX2()))),
-                    (Math.min((((Coordinate)vectorRellenoRectangulo.elementAt(i)).getY1()),
-                    (((Coordinate)vectorRellenoRectangulo.elementAt(i)).getY2()))),
-                    (Math.abs((((Coordinate)vectorRellenoRectangulo.elementAt(i)).getX1()) -
-                    (((Coordinate)vectorRellenoRectangulo.elementAt(i)).getX2()))),
-                    (Math.abs(((Coordinate)vectorRellenoRectangulo.elementAt(i)).getY1() -
-                    ((Coordinate)vectorRellenoRectangulo.elementAt(i)).getY2())));
-
-            Rectangle2D r2 = new Rectangle2D.Float((Math.min((((Coordinate)vectorRellenoRectangulo.elementAt(i)).getX1()
-                    ), (((Coordinate)vectorRellenoRectangulo.elementAt(i)).getX2()))),
-                    (Math.min((((Coordinate)vectorRellenoRectangulo.elementAt(i)).getY1()),
-                    (((Coordinate)vectorRellenoRectangulo.elementAt(i)).getY2()))),
-                    (Math.abs((((Coordinate)vectorRellenoRectangulo.elementAt(i)).getX1()) -
-                    (((Coordinate)vectorRellenoRectangulo.elementAt(i)).getX2()))),
-                    (Math.abs(((Coordinate)vectorRellenoRectangulo.elementAt(i)).getY1() -
-                    ((Coordinate)vectorRellenoRectangulo.elementAt(i)).getY2())));
-
-            Graphics2D g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(((Coordinate)vectorRellenoRectangulo.elementAt(i)).getTamañoBorde(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(((Coordinate)vectorRellenoRectangulo.elementAt(i)).colour());
+            bordeFigura = new BasicStroke(getTamanioBorde(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+            g2.setColor(getColorBorde());
             g2.setStroke(bordeFigura);
             g2.draw(r2);
       	}
@@ -1302,76 +644,24 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     public void deshacer(){
-        StepInfo tempInfo;
-
-        if(desHacerPila.isEmpty())
+        if(desHacerPila.isEmpty()){
             JOptionPane.showMessageDialog(null, "Ya no se puede deshacer",
                     Constantes.TITULO_PROGRAMA,
                     JOptionPane.INFORMATION_MESSAGE);
-        else{
-            tempInfo = (StepInfo)desHacerPila.pop();
-
-            switch(tempInfo.getStepType()){
-                case 1:	vectorLinea.remove(vectorLinea.size() - 1);
-                    break;
-                case 2:	vectorRectangulo.remove(vectorRectangulo.size() - 1);
-                    break;
-                case 3:	vectorOvalo.remove(vectorOvalo.size() - 1);
-                    break;
-                case 4:	vectorPolygono.remove(vectorPolygono.size()-1);
-                    break;
-                case 5:	vectorRoundRect.remove(vectorRoundRect.size() - 1);
-                    break;
-                case 6:	vectorManoAlzada.remove(vectorManoAlzada.size() - 1);
-                    break;
-                case 22: vectorRellenoRectangulo.remove(vectorRellenoRectangulo.size() - 1);
-                    break;
-                case 33: vectorRellenoOvalo.remove(vectorRellenoOvalo.size() - 1);
-                    break;
-                case 44: vectorRellenoPolygono.remove(vectorRellenoPolygono.size() - 1);
-                    break;
-                case 55: vectorRellenoRoundRect.remove(vectorRellenoRoundRect.size() - 1);
-                    break;
-            }
-            reHacerPila.push(tempInfo);
-        }
+        }else{
+            Figura objeto = (Figura) desHacerPila.pop();
+        }          
         repaint();
     }
 
     /*----------------------------------------------------------------------------*/
     public void rehacer(){
-        StepInfo tempInfo;
-
-        if(reHacerPila.isEmpty())
+        if(reHacerPila.isEmpty()){
             JOptionPane.showMessageDialog(null,"No hay algo que rehacer",
                     Constantes.TITULO_PROGRAMA,
                     JOptionPane.INFORMATION_MESSAGE);
-        else{
-            tempInfo = (StepInfo)reHacerPila.pop();
-
-            switch(tempInfo.getStepType()){
-                case 1:	vectorLinea.add(tempInfo.getStepCoordinate());
-                    break;
-                case 2:	vectorRectangulo.add(tempInfo.getStepCoordinate());
-                    break;
-                case 3:	vectorOvalo.add(tempInfo.getStepCoordinate());
-                    break;
-                case 4:	vectorPolygono.add(tempInfo.getStepCoordinate());
-                    break;
-                case 5:	vectorRoundRect.add(tempInfo.getStepCoordinate());
-                    break;
-                case 6:	vectorManoAlzada.add(tempInfo.getStepCoordinate());
-                    break;
-                case 22: vectorRellenoRectangulo.add(tempInfo.getStepCoordinate());
-                    break;
-                case 33: vectorOvalo.add(tempInfo.getStepCoordinate());
-                    break;
-                case 44: vectorRellenoPolygono.add(tempInfo.getStepCoordinate());
-                    break;
-                case 55: vectorRellenoRoundRect.add(tempInfo.getStepCoordinate());
-                    break;
-            }
-            desHacerPila.push(tempInfo);
+        }else{
+            //desHacerPila.push();
         }
         repaint();
     }
@@ -1379,122 +669,18 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /*----------------------------------------------------------------------------*/
     // Metodo que borra todos los elementos de la pantalla
     public void borrarTodo(){
-        vectorManoAlzada.removeAllElements();
-        vectorLinea.removeAllElements();
-        vectorOvalo.removeAllElements();
-        vectorPolygono.removeAllElements();
-        vectorRoundRect.removeAllElements();
-        vectorRellenoOvalo.removeAllElements();
-        vectorRellenoPolygono.removeAllElements();
-        vectorRellenoRoundRect.removeAllElements();
-        vectorRellenoRectangulo.removeAllElements();
-        vectorRectangulo.removeAllElements();
-        vectorCirculo.removeAllElements();
-        vectorRellenoCirculo.removeAllElements();
+        listaFiguras.clear();
         desHacerPila.clear();
         reHacerPila.clear();
-        imagenActual = null;
-        
-        GUI_principal.jToggleButtonBorrarIndividual.doClick();
-        //drawMode = drawModeAnterior;
-
+        imagen = null;
         repaint();
     }
 
     /*----------------------------------------------------------------------------*/
-    /*
-        Method will emulate a eraser graphic.
-        By drawing a filled rectangle of background color,
-        with the current mouse coordinates being the center
-        of the rectangle. This is done until the mouse has
-        been release from dragmode
-    */
-    public void eraserOperation(MouseEvent e){
-        Graphics g  = this.getGraphics();
-
-        /*
-          In initial state setup default values
-          for mouse coordinates
-        */
-        if (initialEraser){
-           setGraphicalDefaults(e);
-           initialEraser = false;
-           g.setColor(Color.white);
-           g.fillRect(coordenadasFinX - longitudBorrador, coordenadasFinY
-                   - longitudBorrador, longitudBorrador * 2, longitudBorrador * 2);
-           g.setColor(Color.black);
-           g.drawRect(coordenadasFinX - longitudBorrador, coordenadasFinY
-                   - longitudBorrador, longitudBorrador * 2, longitudBorrador * 2);
-           coordenadasInicioX = coordenadasFinX;
-           coordenadasInicioY = coordenadasFinY;
-        }
-
-
-
-        /*
-          Make sure that the mouse has actually
-          moved from its previous position.
-        */
-        if (mouseHasMoved(e)){
-
-           g.setColor(Color.white);
-           g.drawRect(coordenadasInicioX - longitudBorrador, coordenadasInicioY - longitudBorrador, longitudBorrador * 2, longitudBorrador * 2);
-
-           /* Get current mouse coordinates */
-           coordenadasFinX  = e.getX();
-           coordenadasFinY  = e.getY();
-
-           /* Draw eraser block to panel */
-           g.setColor(Color.white);
-           g.fillRect(coordenadasFinX - longitudBorrador, coordenadasFinY - longitudBorrador, longitudBorrador * 2, longitudBorrador * 2);
-           g.setColor(Color.black);
-           g.drawRect(coordenadasFinX - longitudBorrador, coordenadasFinY - longitudBorrador, longitudBorrador * 2, longitudBorrador * 2);
-           coordenadasInicioX = coordenadasFinX;
-           coordenadasInicioY = coordenadasFinY;
-        }
-    }
-
-    /*----------------------------------------------------------------------------*/
-    /*
-        Method is invoked when mouse has been released
-        and current operation is Eraser
-    */
-    public void releasedEraser(){
-        initialEraser = true;
-        Graphics g  = this.getGraphics();
-        g.setColor(Color.white);
-        g.drawRect(coordenadasFinX - longitudBorrador, coordenadasFinY - longitudBorrador, longitudBorrador * 2, longitudBorrador * 2);
- }
-
-    /*----------------------------------------------------------------------------*/
-     /*
-        Method determines weather the mouse has moved
-        from its last recorded position.
-        If mouse has deviated from previous position,
-        the value returned will be true, otherwise
-        the value that is returned will be false.
-    */
-    public boolean mouseHasMoved(MouseEvent e){
-        return (coordenadasFinX != e.getX() || coordenadasFinY != e.getY());
-    }
-
-    /*----------------------------------------------------------------------------*/
-    /*
-        Method sets all the drawing varibles to the default
-        state which is the current position of the mouse cursor
-        Also the height and width varibles are zeroed off.
-     */
-    public void setGraphicalDefaults(MouseEvent e){
-        coordenadasInicioX   = e.getX();
-        coordenadasInicioY   = e.getY();
-        coordenadasFinX      = e.getX();
-        coordenadasFinY      = e.getY();
-    }
-    
-    /*----------------------------------------------------------------------------*/
     public void guardarImagen(){
         if(nombreArchivo != null){
-            vectorFile.removeAllElements();
+
+            /*vectorFile.removeAllElements();
             vectorFile.addElement(vectorManoAlzada);
             vectorFile.addElement(vectorLinea);
             vectorFile.addElement(vectorOvalo);
@@ -1506,9 +692,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             vectorFile.addElement(vectorRellenoRectangulo);
             vectorFile.addElement(vectorRectangulo);
             vectorFile.addElement(new Color(getColorSeleccion().getRGB()));
+             *
+             */
 
-            RenderedImage rendImage = crearImagen();
-            
+            //RenderedImage rendImage = crearImagen();
+            crearImagen();
+
             try{
                 JOptionPane.showMessageDialog(null,"Archivo guardado",
                         Constantes.TITULO_PROGRAMA,
@@ -1519,7 +708,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
             try{
                 File file = new File(nombreArchivo.toString() + ".png");
-                ImageIO.write(rendImage, "png", file);
+                ImageIO.write(imagen, "png", file);
             }catch (IOException e) {
                  System.out.println(e.getMessage());
             }
@@ -1537,7 +726,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         fileChooser.setFileSelectionMode(0);
         fileChooser.setFileFilter(new FiltroArchivo());
         int resultado = fileChooser.showSaveDialog(null);
-        
+
         if(resultado == JFileChooser.CANCEL_OPTION)
             return;
         nombreArchivo = fileChooser.getSelectedFile();
@@ -1547,6 +736,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     Constantes.TITULO_PROGRAMA,
                     JOptionPane.ERROR_MESSAGE);
         else{
+            /*
             vectorFile.removeAllElements();
             vectorFile.addElement(vectorManoAlzada);
             vectorFile.addElement(vectorLinea);
@@ -1559,8 +749,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             vectorFile.addElement(vectorRellenoRectangulo);
             vectorFile.addElement(vectorRectangulo);
             vectorFile.addElement(new Color(getColorSeleccion().getRGB()));
-
-            RenderedImage rendImagen = crearImagen();
+*
+             */
+            //RenderedImage rendImage = crearImagen();
+            crearImagen();   
+             
 
             try{
                 JOptionPane.showMessageDialog(null,"Archivo Guardado",Constantes.TITULO_PROGRAMA,
@@ -1572,7 +765,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
              try {
                 File file = new File(nombreArchivo.toString() + ".png");
-                ImageIO.write(rendImagen, "png", file);
+                ImageIO.write(imagen, "png", file);
             }catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -1580,51 +773,30 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 	repaint();
     }
 
+
     /*----------------------------------------------------------------------------*/
     public void abrirImagen(){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.setMultiSelectionEnabled(true);
         fileChooser.setFileFilter(new FiltroArchivo());
-        
 
         int result = fileChooser.showOpenDialog(null);
         if(result == JFileChooser.CANCEL_OPTION)
             return;
 
         nombreArchivo = fileChooser.getSelectedFile();
-        
+
         if(nombreArchivo != null){
             try{
-                /*
-                FileInputStream fis = new FileInputStream(nombreArchivo);
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                vectorFile = (Vector) ois.readObject();
-
-                this.borrarTodo();
-                vectorManoAlzada            = (Vector)vectorFile.elementAt(0);
-                vectorLinea                 = (Vector)vectorFile.elementAt(1);
-                vectorOvalo                 = (Vector)vectorFile.elementAt(2);
-                vectorPolygono              = (Vector)vectorFile.elementAt(3);
-                vectorRoundRect             = (Vector)vectorFile.elementAt(4);
-                vectorRellenoOvalo          = (Vector)vectorFile.elementAt(5);
-                vectorRellenoPolygono       = (Vector)vectorFile.elementAt(6);
-                vectorRellenoRoundRect      = (Vector)vectorFile.elementAt(7);
-                vectorRellenoRectangulo     = (Vector)vectorFile.elementAt(8);
-                vectorRectangulo            = (Vector)vectorFile.elementAt(9);
-                setColorSeleccion((Color)vectorFile.elementAt(10));
-                * 
-                */
 
                 BufferedImage image = ImageIO.read(nombreArchivo);
                 imagen = ImageIO.read(nombreArchivo);
-                setImagenActual(nombreArchivo);
+                //setImagenActual(nombreArchivo);
 
-                //this.borrarTodo();
                 Graphics g = image.getGraphics();
                 setColorFondoPantallaDibujo(Color.WHITE);
                 g.drawImage(image, 0, 0, this);
-                //repaint();
             }catch(Exception exp){
                 JOptionPane.showMessageDialog(null,"No se puede abrir el archivo",
                         Constantes.TITULO_PROGRAMA,
@@ -1638,7 +810,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     // Metodo que crea la imagen
-    public RenderedImage crearImagen() {
+    public void crearImagen() {
         // Variables
         int largo = Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO;
         int ancho = Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO;
@@ -1647,12 +819,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         imagen = new BufferedImage(largo, ancho, BufferedImage.TYPE_INT_RGB);
 
         Graphics g = imagen.createGraphics();
-        g.setColor(colorFondoPantallaDibujo);
+        g.setColor(getColorFondoPantallaDibujo());
         g.fillRect(0, 0, largo, ancho);
-        redrawVectorBuffer(g);
+        dibujarFiguras(g);
         g.dispose();
-        return imagen;
-        //return imagenActual;
     }
 
     /*----------------------------------------------------------------------------*/
@@ -1665,6 +835,26 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Metodo para alejar la Imagen Actual
     public void alejar(){
         setEscala(getEscala() * 0.9174311926605505);
+    }
+    
+    /*----------------------------------------------------------------------------*/
+    // Retorna la imagen actual
+    public BufferedImage getImagen(){
+        return imagen;
+    }
+    
+    /*----------------------------------------------------------------------------*/
+    // Establece la imagen actual
+    public void setImagen(Image image){
+        //falta implementar
+    }
+
+    /*----------------------------------------------------------------------------*/
+    // Dibuja todas las figuras de la lista
+    public void dibujarFiguras(Graphics g){
+        for (Figura figura : listaFiguras){
+            figura.dibujar(g);
+        }
     }
 
     /*----------------------------------------------------------------------------*/
@@ -1679,42 +869,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         return( Printable.PAGE_EXISTS );
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Metodo que muestra la ventana Texto
-    public void mostrarVentanaTexto() {
-        if (ventanaTexto == null) {
-            ventanaTexto = new Text();
-            //ventanaTexto.setTexto(getTexto());
-            ventanaTexto.setLocationRelativeTo(this);
-        }
-        ventanaTexto.setVisible(true);
-    }
 
-    // Metodos varios
-    /**
-     * Añada una figura a la lista de figuras a dibujar
-     *
-     * @param figura Una nueva figura a dibujar
-     */
-    public void agregarFigura(Figura figura){
-        listaDeFigurasADibujar.add(figura);
-    }
 
-    /**
-     * Quita la figura en la lista de figuras a dibujar.
-     *
-     * @param figura figura a quitar de la lista.
-     */
-    public void eliminarFigura(Figura figura){
-        listaDeFigurasADibujar.remove(figura);
-    }
-
-    /*----------------------------------------------------------------------------*/
-    /*----------------------------------------------------------------------------*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAceptar;
-    private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JColorChooser jColorChooserSeleccionarColor;
-    private javax.swing.JFrame jFrameColor;
     // End of variables declaration//GEN-END:variables
+
 }
