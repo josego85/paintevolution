@@ -1,16 +1,15 @@
-/**
- * @(#)Figura.java
- *
- * @author fires.
- * @version 1.00 2010/5/23
- */
-
 package Figuras;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
+/**
+ * @(#)Figura.java
+ *
+ * @author fires.
+ * @version 1.00 2010/8/22
+ */
 /**
  *
  * Decalaracion de la clase abstracta Figura
@@ -19,30 +18,24 @@ public abstract class Figura {
     // Variables de clase
     private Point2D inicio;             // Inicio de las coordenadas del Punto(x,y) de la figura
     private Color colorBorde;           // Color del borde de la figura
-    private Color colorRelleno;         // Color del relleno de la figura
     private int tamanhio;               // Tamanhio de la figura
 
     // Constructor Predeterminado
     public Figura(){
         setInicio(new Point2D.Double(0, 0));    // Punto (0, 0)
         setColorBorde(Color.BLACK);             // ColorBorde negro
-        setColorRelleno(Color.WHITE);           // ColorRelleno blanco
         setTamanhio(1);                         // Tamanhio 1
     }
 
-    public Figura(Point2D punto, Color colorBorde, Color colorRelleno,
-             int tamanhio){
+    public Figura(Point2D punto, Color colorBorde, int tamanhio){
         setInicio(punto);               // Punto
         setColorBorde(colorBorde);      // ColorBorde
-        setColorRelleno(colorRelleno);  // ColorRelleno
-        setTamanhio(tamanhio);          // Tamanhio 
+        setTamanhio(tamanhio);          // Tamanhio
     }
 
-    public Figura(int x, int y, Color colorBorde, Color colorRelleno,
-             int tamanhio){
+    public Figura(int x, int y, Color colorBorde, int tamanhio){
         setInicio(new Point2D.Double(x, y));        // Punto
         setColorBorde(colorBorde);                  // ColorBorde
-        setColorRelleno(colorRelleno);              // ColorRelleno
         setTamanhio(tamanhio);                      // Tamanhio
     }
 
@@ -65,23 +58,6 @@ public abstract class Figura {
         this.colorBorde = colorBorde;
     }
 
-    /**
-     * Devuelve el color del relleno
-     *
-     * @return colorRelleno el color del relleno
-     */
-    public Color getColorRelleno() {
-        return colorRelleno;
-    }
-
-    /**
-     * Establece el color del relleno
-     *
-     * @param colorRelleno el color del relleno
-     */
-    public void setColorRelleno(Color colorRelleno) {
-        this.colorRelleno = colorRelleno;
-    }
 
     /**
      * Devuelve la coordenada inicial de Point 2D(x, y)
@@ -132,4 +108,40 @@ public abstract class Figura {
     // Metodos varios
     // Dibuja dependiendo de la figura
     public void dibujar(Graphics g){}
+
+     /**
+     * @(#)InterfaceFigura.java
+     * @author Chuidiang
+     * @co-author Modyfy fires
+     * sitio: http://www.chuidiang.com/
+     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Mi licencia (fires): BSD
+     * Fecha: 22/07/2010 03:38
+    */
+    /**
+     * Debe devolver true si x,y está dentro de la figura, false en caso contrario
+     *
+     * @param x
+     * @param y
+     *
+     * @return true si x,y está dentro de la figura
+     */
+    public abstract boolean estaDentro(int x, int y);
+
+     /**
+     * @(#)InterfaceFigura.java
+     * @author Chuidiang
+     * @co-author Modyfy fires
+     * sitio: http://www.chuidiang.com/
+     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Mi licencia (fires): BSD
+     * Fecha: 22/07/2010 03:44
+    */
+    /**
+     * Fija la posición en la que se debe dibujar la figura
+     *
+     * @param x
+     * @param y
+     */
+    public abstract void setPosicion(int x, int y);
 }
