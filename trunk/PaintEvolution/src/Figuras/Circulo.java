@@ -18,7 +18,7 @@ import java.awt.geom.Point2D;
  *
  * Decalaracion de la clase Circulo que extiende de Figura
  */
-public class Circulo extends Figura{
+public class Circulo extends FiguraConRelleno{
     // Variables de clase
     private double radio;      // el radio del circulo
 
