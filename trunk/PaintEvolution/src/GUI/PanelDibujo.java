@@ -176,7 +176,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             agregarFigura(linea);
             desHacerPila.push(linea);
         }else if (modoDibujar == CIRCULO){
-            Circulo circulo =  new Circulo(50, 50, 10, getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
+            double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
+                        Math.pow(getCoordenadasFinY() - getCoordenadasInicioY(),2));
+            Circulo circulo =  new Circulo(getCoordenadasInicioX(), 
+                    getCoordenadasInicioY(), (int)radio, getColorBorde(),
+                    getColorRelleno(), (int)getTamanioBorde());
             agregarFigura(circulo);
             desHacerPila.push(circulo);
         }else if(modoDibujar == RECTANGULO){
@@ -535,7 +539,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         
         dibujarFiguras(g);
         setBackground(getColorFondoPantallaDibujo());
-        //g.setColor(Color.red);
+        //g.setColor(getColorBorde());
         Graphics2D g2;
         
         if (modoDibujar == LINEA) {
