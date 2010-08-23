@@ -15,7 +15,10 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 
-
+/**
+ *
+ * Decalaracion de la clase RectanguloConCurvasRedondas que extiende de Rectangulo
+ */
 public class RectanguloConCurvasRedondas extends Rectangulo{
     private int curvaEsquinaRedondeada;
 
