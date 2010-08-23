@@ -17,7 +17,7 @@ import java.awt.geom.Point2D;
 
 /**
  *
- * Decalaracion de la clase Ovalo que extiende de Figura
+ * Declaracion de la clase Ovalo que extiende de Rectangulo
  */
 public class Ovalo extends Rectangulo{
 
