@@ -16,9 +16,9 @@ import java.awt.geom.Rectangle2D;
 
 /**
  *
- * Decalaracion de la clase Rectangulo que extiende de Figura
+ * Decalaracion de la clase Rectangulo que extiende de FiguraConRelleno
  */
-public class Rectangulo extends Figura{
+public class Rectangulo extends FiguraConRelleno{
     // Variables de clase
     private int ancho;          // ancho del rectangulo
     private int alto;           // alto del rectangulo
