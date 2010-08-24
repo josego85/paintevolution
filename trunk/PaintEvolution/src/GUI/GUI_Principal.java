@@ -100,7 +100,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         setTitle(Constantes.TITULO_PROGRAMA);
 
         // Maximiza la aplicacion
-        setExtendedState(this.MAXIMIZED_BOTH);
+        setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
         
         // Crea el objeto de Mesa de Dibujo
         mesaDeDibujo = new PanelDibujo();
@@ -398,7 +398,6 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         buttonGroupObjetos.add(jToggleButtonLapiz);
         jToggleButtonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/pencil.png"))); // NOI18N
-        jToggleButtonLapiz.setSelected(true);
         jToggleButtonLapiz.setToolTipText("Lapiz");
         jToggleButtonLapiz.setFocusable(false);
         jToggleButtonLapiz.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1119,6 +1118,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new GUI_Principal().setVisible(true);
             }
