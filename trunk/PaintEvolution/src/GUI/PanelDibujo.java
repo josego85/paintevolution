@@ -607,9 +607,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void redimensionar(){
         if(imagen.getHeight(this) > tamañoVisor().getHeight()){
             double visor = tamañoVisor().getHeight();
-            double imagen = this.imagen.getHeight(this);
-            double escala = visor/imagen;// calculo de escala
-            setEscala(escala);
+            double imagenAuxiliar = this.imagen.getHeight(this);
+            double escalaAuxiliar = visor/imagenAuxiliar;// calculo de escala
+            setEscala(escalaAuxiliar);
         }else{
             setEscala(1.0);
         }
