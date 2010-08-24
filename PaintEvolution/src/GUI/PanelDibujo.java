@@ -522,7 +522,47 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void setImagen(File file) throws IOException{
         setImagen(ImageIO.read(file));
     }
-    
+
+    /*----------------------------------------------------------------------------*/
+    public static int getARRASTRAR() {
+        return ARRASTRAR;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public static int getCIRCULO() {
+        return CIRCULO;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public static int getLAPIZ() {
+        return LAPIZ;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public static int getLINEA() {
+        return LINEA;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public static int getOVALO() {
+        return OVALO;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public static int getPINCEL() {
+        return PINCEL;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public static int getRECTANGULO() {
+        return RECTANGULO;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public static int getRECTANGULO_CON_CURVAS_REDONDAS() {
+        return RECTANGULO_CON_CURVAS_REDONDAS;
+    }
+
     
     // Metodos varios
     /**
