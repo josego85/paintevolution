@@ -695,22 +695,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /*----------------------------------------------------------------------------*/
     public void guardarImagen(){
         if(nombreArchivo != null){
-
-            /*vectorFile.removeAllElements();
-            vectorFile.addElement(vectorManoAlzada);
-            vectorFile.addElement(vectorLinea);
-            vectorFile.addElement(vectorOvalo);
-            vectorFile.addElement(vectorPolygono);
-            vectorFile.addElement(vectorRoundRect);
-            vectorFile.addElement(vectorRellenoOvalo);
-            vectorFile.addElement(vectorRellenoPolygono);
-            vectorFile.addElement(vectorRellenoRoundRect);
-            vectorFile.addElement(vectorRellenoRectangulo);
-            vectorFile.addElement(vectorRectangulo);
-            vectorFile.addElement(new Color(getColorSeleccion().getRGB()));
-             *
-             */
-
             //RenderedImage rendImage = crearImagen();
             crearImagen();
 
@@ -752,21 +736,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     Constantes.TITULO_PROGRAMA,
                     JOptionPane.ERROR_MESSAGE);
         else{
-            /*
-            vectorFile.removeAllElements();
-            vectorFile.addElement(vectorManoAlzada);
-            vectorFile.addElement(vectorLinea);
-            vectorFile.addElement(vectorOvalo);
-            vectorFile.addElement(vectorPolygono);
-            vectorFile.addElement(vectorRoundRect);
-            vectorFile.addElement(vectorRellenoOvalo);
-            vectorFile.addElement(vectorRellenoPolygono);
-            vectorFile.addElement(vectorRellenoRoundRect);
-            vectorFile.addElement(vectorRellenoRectangulo);
-            vectorFile.addElement(vectorRectangulo);
-            vectorFile.addElement(new Color(getColorSeleccion().getRGB()));
-*
-             */
             //RenderedImage rendImage = crearImagen();
             crearImagen();   
              
@@ -875,6 +844,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     // Este es el metodo que se encarga de la impresion
+    @Override
     public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
         if( pageIndex >= 1 ) {
             return( Printable.NO_SUCH_PAGE );
