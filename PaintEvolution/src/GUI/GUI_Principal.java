@@ -398,6 +398,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         buttonGroupObjetos.add(jToggleButtonLapiz);
         jToggleButtonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/pencil.png"))); // NOI18N
+        jToggleButtonLapiz.setSelected(true);
         jToggleButtonLapiz.setToolTipText("Lapiz");
         jToggleButtonLapiz.setFocusable(false);
         jToggleButtonLapiz.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1081,6 +1082,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setDrawMode(5);                                // Trazo a mano alzada
         mesaDeDibujo.setCursorActual(cursorPredeterminado);         // Cursor Predeterminado
 	mesaDeDibujo.setColorFondoPantallaDibujo(Color.WHITE);
+        jToggleButtonLapiz.setSelected(true);                       // marcar por defecto el boton
 	mesaDeDibujo.setColorBorde(Color.BLACK);
         mesaDeDibujo.setColorRelleno(Color.WHITE);
 	mesaDeDibujo.repaint();
