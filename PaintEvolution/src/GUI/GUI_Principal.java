@@ -870,7 +870,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         // Centrar el JDialogColor
         jDialogColor.setLocationRelativeTo(this);
 
-        jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(false);
