@@ -754,6 +754,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
+        jButtonColorRelleno.setVisible(true);
+        jButtonColorRelleno.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(true);
@@ -774,6 +776,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
+        jButtonColorRelleno.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(true);
@@ -784,6 +787,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
+        jButtonColorRelleno.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(true);
