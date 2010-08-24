@@ -397,6 +397,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         buttonGroupObjetos.add(jToggleButtonLapiz);
         jToggleButtonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/pencil.png"))); // NOI18N
+        jToggleButtonLapiz.setSelected(true);
         jToggleButtonLapiz.setToolTipText("Lapiz");
         jToggleButtonLapiz.setFocusable(false);
         jToggleButtonLapiz.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -871,6 +872,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         colorDeFondoPantalla = false;
         colorRelleno = true;
         jDialogColor.setVisible(true);
+        mesaDeDibujo.setConRelleno(true);
     }//GEN-LAST:event_jButtonColorRellenoActionPerformed
 
     private void jMenuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCerrarActionPerformed
@@ -942,6 +944,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
+        jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(false);
