@@ -129,7 +129,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
-        jToggleButtonArrastrarObjetos.setVisible(false);
+        jToggleButtonArrastrarObjetos.setVisible(true);
         //pack();
     }
 
