@@ -53,7 +53,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Constantes
     private final static int CIRCULO = 1, RECTANGULO = 2, OVALO = 3,
             RECTANGULO_CON_CURVAS_REDONDAS = 4, PINCEL = 5, LINEA = 6, LAPIZ = 7,
-            ARRASTRAR = 10;
+            ARRASTRAR = 10, NULO = 0;
     
     private int coordenadasInicioX, coordenadasFinX;
     private int coordenadasInicioY, coordenadasFinY;
@@ -64,6 +64,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     private Color colorRelleno;
     private float tamanioBorde;
     private File nombreArchivo;
+
+    private boolean conRelleno = false;
 
     // La imagen que se mostrará
     private BufferedImage imagen;
@@ -475,6 +477,27 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void setLineaY2(int lineaY2) {
         this.lineaY2 = lineaY2;
     }
+
+    /*----------------------------------------------------------------------------*/
+    public boolean isConRelleno() {
+        return conRelleno;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setConRelleno(boolean conRelleno) {
+        this.conRelleno = conRelleno;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public int getModoDibujar() {
+        return modoDibujar;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setModoDibujar(int modoDibujar) {
+        this.modoDibujar = modoDibujar;
+    }
+    
     
     // Metodos varios
     /**
@@ -553,15 +576,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
       	}
 
       	if (modoDibujar == OVALO){
-            /*
-            if(relleno){
+            if(conRelleno){
                 g.fillOval(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
             }
-             *
-             */
             Ellipse2D e2;
             Stroke bordeFigura;
 
@@ -579,13 +599,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         if (modoDibujar == CIRCULO){
             double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
                         Math.pow(getCoordenadasFinY() - getCoordenadasInicioY(),2));
-            /*
-            if(relleno){
+            if(conRelleno){
                  g.fillOval(getCoordenadasInicioX() - (int)radio, getCoordenadasInicioY() - (int)radio,
                     (int)radio * 2 , (int)radio * 2);
                 }
-             *
-             */
                 Ellipse2D e2;
                 Stroke bordeFigura;
 
@@ -599,15 +616,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
 
         if (modoDibujar == RECTANGULO_CON_CURVAS_REDONDAS){
-            /*
-            if(relleno){
+            if(conRelleno){
                 g.fillRoundRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()), 25, 25);
             }
-             *
-             */
             RoundRectangle2D rr2;
             Stroke bordeFigura;
             rr2 = new RoundRectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -623,15 +637,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
 
       	if (modoDibujar == RECTANGULO){
-            /*
-            if(relleno){
+            if(conRelleno){
                  g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
             }
-             *
-             */
             Rectangle2D r2;
             Stroke bordeFigura;
             r2 = new Rectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -677,6 +688,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         desHacerPila.clear();
         reHacerPila.clear();
         imagen = null;
+        setModoDibujar(0);
         repaint();
     }
 
