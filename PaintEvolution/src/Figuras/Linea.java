@@ -87,11 +87,11 @@ public class Linea extends Figura{
 
      @Override
     public boolean estaDentro(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false; // no se va a arrastrar la linea
     }
 
     @Override
     public void setPosicion(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ;
     }
 }
