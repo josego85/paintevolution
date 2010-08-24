@@ -516,6 +516,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         repaint();                                              // Se dibuja la nueva imagen
         //firePropertyChange("imagenActual", old, this.imagenActual);    // Se dispara un evento de cambio de propiedad
     }
+
+    /*----------------------------------------------------------------------------*/
+    // Asigna la imagen actual mediante un archivo
+    public void setImagen(File file) throws IOException{
+        setImagen(ImageIO.read(file));
+    }
     
     
     // Metodos varios
@@ -818,7 +824,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
                 BufferedImage image = ImageIO.read(nombreArchivo);
                 imagen = ImageIO.read(nombreArchivo);
-                //setImagenActual(nombreArchivo);
+                setImagen(nombreArchivo);
 
                 Graphics g = image.getGraphics();
                 setColorFondoPantallaDibujo(Color.WHITE);
