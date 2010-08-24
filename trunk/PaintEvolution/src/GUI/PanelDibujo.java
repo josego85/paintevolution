@@ -497,6 +497,18 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void setModoDibujar(int modoDibujar) {
         this.modoDibujar = modoDibujar;
     }
+
+    /*----------------------------------------------------------------------------*/
+    // Retorna la imagen actual
+    public BufferedImage getImagen(){
+        return imagen;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    // Establece la imagen actual
+    public void setImagen(Image image){
+        //falta implementar
+    }
     
     
     // Metodos varios
@@ -820,18 +832,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Metodo para alejar la Imagen Actual
     public void alejar(){
         setEscala(getEscala() * 0.9174311926605505);
-    }
-    
-    /*----------------------------------------------------------------------------*/
-    // Retorna la imagen actual
-    public BufferedImage getImagen(){
-        return imagen;
-    }
-    
-    /*----------------------------------------------------------------------------*/
-    // Establece la imagen actual
-    public void setImagen(Image image){
-        //falta implementar
     }
 
     /*----------------------------------------------------------------------------*/
