@@ -125,7 +125,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         cursorPredeterminado =  toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = cursorPredeterminado;
         mesaDeDibujo.setCursorActual(cursorActual);
-        mesaDeDibujo.setDrawMode(7);                        // Lapiz como objeto predeterminado
+        mesaDeDibujo.setDrawMode(PanelDibujo.getLAPIZ());       // Lapiz como objeto predeterminado
         jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
@@ -801,7 +801,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jToggleButtonArrastrarObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonArrastrarObjetosActionPerformed
         cursorActual = new Cursor(Cursor.DEFAULT_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
-        mesaDeDibujo.setDrawMode(10);
+        mesaDeDibujo.setDrawMode(PanelDibujo.getARRASTRAR());
     }//GEN-LAST:event_jToggleButtonArrastrarObjetosActionPerformed
 
     private void jButtonDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeshacerActionPerformed
@@ -816,7 +816,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
         jToggleButtonLapiz.setSelected(true);
-        mesaDeDibujo.setModoDibujar(7);
+        mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
     }//GEN-LAST:event_jButtonBorraTodoLosObjetosActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
@@ -1041,31 +1041,31 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     public void llamarObjetosDiferentes(ActionEvent event){
         if(event.getSource() == jToggleButtonLinea){
-            mesaDeDibujo.setDrawMode(6);
+            mesaDeDibujo.setDrawMode(PanelDibujo.getLAPIZ());
             jLabelHerramientaSeleccionadaObjeto.setText("Linea");
         }
         if(event.getSource() == jToggleButtonRectangulo){
-            mesaDeDibujo.setDrawMode(2);
+            mesaDeDibujo.setDrawMode(PanelDibujo.getRECTANGULO());
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo");
         }
         if(event.getSource() == jToggleButtonOvalo){
-            mesaDeDibujo.setDrawMode(3);
+            mesaDeDibujo.setDrawMode(PanelDibujo.getOVALO());
             jLabelHerramientaSeleccionadaObjeto.setText("Ovalo");
         }
          if(event.getSource() == jToggleButtonCirculo){
-            mesaDeDibujo.setDrawMode(1);
+            mesaDeDibujo.setDrawMode(PanelDibujo.getCIRCULO());
             jLabelHerramientaSeleccionadaObjeto.setText("Círculo");
         }
         if(event.getSource() == jToggleButtonRectanguloConCurvasRedondas){
-            mesaDeDibujo.setDrawMode(4);
+            mesaDeDibujo.setDrawMode(PanelDibujo.getRECTANGULO_CON_CURVAS_REDONDAS());
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo Redondo");
         }
         if(event.getSource() == jToggleButtonLapiz){
-            mesaDeDibujo.setDrawMode(7);
+            mesaDeDibujo.setDrawMode(PanelDibujo.getLINEA());
             jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
         }
         if(event.getSource() == jToggleButtonPincel){
-            mesaDeDibujo.setDrawMode(5);
+            mesaDeDibujo.setDrawMode(PanelDibujo.getPINCEL());
             jLabelHerramientaSeleccionadaObjeto.setText("Pincel");
         }
         if(event.getSource() == jButtonDeshacer || event.getSource() == jMenuItemDeshacer){
@@ -1081,7 +1081,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     public void operacionNuevo(){
         mesaDeDibujo.borrarTodo();
-        mesaDeDibujo.setDrawMode(5);                                // Trazo a mano alzada
+        mesaDeDibujo.setDrawMode(PanelDibujo.getPINCEL());          // Trazo a mano alzada
         mesaDeDibujo.setCursorActual(cursorPredeterminado);         // Cursor Predeterminado
 	mesaDeDibujo.setColorFondoPantallaDibujo(Color.WHITE);
         jToggleButtonLapiz.setSelected(true);                       // marcar por defecto el boton
@@ -1114,11 +1114,7 @@ public class GUI_Principal extends javax.swing.JFrame {
             catch( Exception e ) {
                 e.printStackTrace();
             }
-        }
-
-        
-
-           
+        }    
     }
 
     
