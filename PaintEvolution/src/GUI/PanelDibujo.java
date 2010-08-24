@@ -822,6 +822,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         if(nombreArchivo != null){
             try{
 
+                borrarTodo();
                 BufferedImage image = ImageIO.read(nombreArchivo);
                 imagen = ImageIO.read(nombreArchivo);
                 setImagen(nombreArchivo);
