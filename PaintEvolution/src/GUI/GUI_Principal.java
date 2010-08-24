@@ -1041,7 +1041,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     public void llamarObjetosDiferentes(ActionEvent event){
         if(event.getSource() == jToggleButtonLinea){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getLAPIZ());
+            mesaDeDibujo.setDrawMode(PanelDibujo.getLINEA());
             jLabelHerramientaSeleccionadaObjeto.setText("Linea");
         }
         if(event.getSource() == jToggleButtonRectangulo){
@@ -1061,7 +1061,7 @@ public class GUI_Principal extends javax.swing.JFrame {
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo Redondo");
         }
         if(event.getSource() == jToggleButtonLapiz){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getLINEA());
+            mesaDeDibujo.setDrawMode(PanelDibujo.getLAPIZ());
             jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
         }
         if(event.getSource() == jToggleButtonPincel){
