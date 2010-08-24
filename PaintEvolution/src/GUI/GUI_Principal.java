@@ -815,6 +815,8 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jButtonBorraTodoLosObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorraTodoLosObjetosActionPerformed
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
+        jToggleButtonLapiz.setSelected(true);
+        mesaDeDibujo.setModoDibujar(7);
     }//GEN-LAST:event_jButtonBorraTodoLosObjetosActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
