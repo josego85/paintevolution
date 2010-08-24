@@ -22,10 +22,12 @@ import Figuras.RectanguloConCurvasRedondas;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Stroke;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -506,8 +508,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /*----------------------------------------------------------------------------*/
     // Establece la imagen actual
-    public void setImagen(Image image){
-        //falta implementar
+    public void setImagen(Image imagen){
+        //Image old = this.getImagenActual();                   // Imagen anterior
+        this.imagen = (BufferedImage) imagen;                   // Imagen actual
+        setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
+        redimensionar();                                        // Se escala la imagen para que quepe en el panel
+        repaint();                                              // Se dibuja la nueva imagen
+        //firePropertyChange("imagenActual", old, this.imagenActual);    // Se dispara un evento de cambio de propiedad
     }
     
     
@@ -548,6 +555,30 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         return null;
     }
 
+    /*----------------------------------------------------------------------------*/
+    // Redimensiona la imagen para que quepe dentro del panel, si la imagen es mas pequeña
+    // que el panel, la deja en su escala por defecto
+    public void redimensionar(){
+        if(imagen.getHeight(this) > tamañoVisor().getHeight()){
+            double visor = tamañoVisor().getHeight();
+            double imagen = this.imagen.getHeight(this);
+            double escala = visor/imagen;// calculo de escala
+            setEscala(escala);
+        }else{
+            setEscala(1.0);
+        }
+    }
+
+    /*----------------------------------------------------------------------------*/
+    // Retorna el tamaño del visor de imagenes
+    private Dimension tamañoVisor(){
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        int largo = d.width - 10;
+        int ancho = d.height - 188;
+        d.setSize(largo, ancho);
+        return d;
+    }
+
     /**
      * Dibuja
      *
@@ -574,7 +605,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         
         dibujarFiguras(g);
         setBackground(getColorFondoPantallaDibujo());
-        //g.setColor(getColorBorde());
+        g.setColor(getColorBorde());
         Graphics2D g2;
         
         if (modoDibujar == LINEA) {
@@ -728,7 +759,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 	else{
             guardarComoImagen();
 	}
-	repaint();
+	//repaint();
     }
 
     /*----------------------------------------------------------------------------*/
@@ -767,7 +798,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 System.out.println(e.getMessage());
             }
         }
-	repaint();
+	//repaint();
     }
 
 
