@@ -738,7 +738,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /*----------------------------------------------------------------------------*/
     public void guardarImagen(){
         if(nombreArchivo != null){
-            //RenderedImage rendImage = crearImagen();
             crearImagen();
 
             try{
@@ -779,7 +778,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     Constantes.TITULO_PROGRAMA,
                     JOptionPane.ERROR_MESSAGE);
         else{
-            //RenderedImage rendImage = crearImagen();
             crearImagen();   
              
 
