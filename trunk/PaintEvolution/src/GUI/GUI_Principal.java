@@ -752,6 +752,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jToggleButtonCirculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCirculoActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
         jButtonColorRelleno.setVisible(true);
         jButtonColorRelleno.setVisible(true);
@@ -764,6 +765,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jToggleButtonRectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectanguloActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
@@ -774,6 +776,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jToggleButtonRectanguloConCurvasRedondasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectanguloConCurvasRedondasActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
         jButtonColorRelleno.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
@@ -785,6 +788,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jToggleButtonOvaloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonOvaloActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
         jButtonColorRelleno.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
@@ -876,7 +880,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         colorDeFondoPantalla = false;
         colorRelleno = true;
         jDialogColor.setVisible(true);
-        mesaDeDibujo.setConRelleno(true);
+        mesaDeDibujo.setConRelleno(false);  // no funciona bien esto
     }//GEN-LAST:event_jButtonColorRellenoActionPerformed
 
     private void jMenuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCerrarActionPerformed
@@ -970,6 +974,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jToggleButtonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLineaActionPerformed
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
+        mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
         jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(true);
