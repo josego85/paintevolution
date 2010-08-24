@@ -126,6 +126,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         cursorActual = cursorPredeterminado;
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setDrawMode(7);                        // Lapiz como objeto predeterminado
+        jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(false);
@@ -865,6 +866,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         // Centrar el JDialogColor
         jDialogColor.setLocationRelativeTo(this);
 
+        jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(false);
@@ -967,6 +969,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         cursorActual = new Cursor(Cursor.CROSSHAIR_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
+        jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(false);
