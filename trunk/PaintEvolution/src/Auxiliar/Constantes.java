@@ -8,8 +8,8 @@ package Auxiliar;
 public class Constantes {
 
     // Constantes
-    public static final int MAXIMO_LARGO_PANTALLA_DIBUJO = 650;
-    public static final int MAXIMO_ANCHO_PANTALLA_DIBUJO = 350;
+    public static final int MAXIMO_LARGO_PANTALLA_DIBUJO = 1024;
+    public static final int MAXIMO_ANCHO_PANTALLA_DIBUJO = 780;
     public static final int MINIMO_LARGO_PANTALLA_DIBUJO = 0;
     public static final int MINIMO_ANCHO_PANTALLA_DIBUJO = 0;
     public static final String TITULO_PROGRAMA = "Paint Evolution v1.0";
