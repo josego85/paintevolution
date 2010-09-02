@@ -178,6 +178,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getCoordenadasFinX(), getCoordenadasFinY(), getColorBorde(), 
                     (int)getTamanioBorde());    
             agregarFigura(linea);
+            crearImagen();
             desHacerPila.push(linea);
         }else if (modoDibujar == CIRCULO){
             double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
@@ -194,7 +195,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()),
                         getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
             agregarFigura(rectangulo);
-
+            crearImagen();
             desHacerPila.push(rectangulo);
         }else if(modoDibujar == OVALO){
             Ovalo ovalo = new Ovalo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -409,10 +410,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Asigna la escala actual de la imagen
     public void setEscala(double escala){
         if(imagen != null){
-            //double anteriorEscala = this.escala;
+            double anteriorEscala = this.escala;
 
             this.escala = escala;
-           // this.firePropertyChange("escala", anteriorEscala, escala);
+            this.firePropertyChange("escala", anteriorEscala, escala);
             repaint();
         }
     }
@@ -509,12 +510,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /*----------------------------------------------------------------------------*/
     // Establece la imagen actual
     public void setImagen(Image imagen){
-        //Image old = this.getImagenActual();                   // Imagen anterior
+        Image old = this.getImagen();                   // Imagen anterior
         this.imagen = (BufferedImage) imagen;                   // Imagen actual
         setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
         redimensionar();                                        // Se escala la imagen para que quepe en el panel
         repaint();                                              // Se dibuja la nueva imagen
-        //firePropertyChange("imagenActual", old, this.imagenActual);    // Se dispara un evento de cambio de propiedad
+        firePropertyChange("imagenActual", old, this.imagen);    // Se dispara un evento de cambio de propiedad
     }
 
     /*----------------------------------------------------------------------------*/
@@ -640,17 +641,19 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         super.paintComponent(g);
 
         setBackground(getColorFondoPantallaDibujo());
+
         if (getImagen() != null){
             Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
             if (getUbicacionDeImagen() != null){
                 center = getUbicacionDeImagen();
             }
             Point2D loc = new Point2D.Double();
-            double width = imagen.getWidth(null) * getEscala();
-            double height = imagen.getHeight(null) * getEscala();
+            double width = imagen.getWidth() * getEscala();
+            double height = imagen.getHeight() * getEscala();
             loc.setLocation(center.getX() - width / 2, center.getY() - height / 2);
             setColorFondoPantallaDibujo(getColorFondoPantallaDibujo());
             g.drawImage(getImagen(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null);
+            //g.drawImage(getImagen(), 0, 0,(int) width, (int) height, null);
         }
 
         
@@ -901,6 +904,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         g.fillRect(0, 0, largo, ancho);
         dibujarFiguras(g);
         g.dispose();
+        setImagen(imagen);
     }
 
     /*----------------------------------------------------------------------------*/
