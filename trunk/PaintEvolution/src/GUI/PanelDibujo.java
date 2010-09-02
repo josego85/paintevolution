@@ -55,7 +55,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Constantes
     private final static int CIRCULO = 1, RECTANGULO = 2, OVALO = 3,
             RECTANGULO_CON_CURVAS_REDONDAS = 4, PINCEL = 5, LINEA = 6, LAPIZ = 7,
-            ARRASTRAR = 10, NULO = 0;
+            TEXTO = 8, ARRASTRAR = 10, NULO = 0;
     
     private int coordenadasInicioX, coordenadasFinX;
     private int coordenadasInicioY, coordenadasFinY;
@@ -561,6 +561,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /*----------------------------------------------------------------------------*/
     public static int getRECTANGULO_CON_CURVAS_REDONDAS() {
         return RECTANGULO_CON_CURVAS_REDONDAS;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public static int getTEXTO() {
+        return TEXTO;
     }
 
     
