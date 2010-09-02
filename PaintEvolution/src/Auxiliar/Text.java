@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * Text.java
  *
  * Created on 16/05/2010, 10:49:07 PM
