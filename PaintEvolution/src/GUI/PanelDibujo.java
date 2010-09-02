@@ -890,8 +890,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Metodo que crea la imagen
     public void crearImagen() {
         // Variables
-        int largo = Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO;
-        int ancho = Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO;
+        int largo = Math.min(getWidth(), Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO);
+        int ancho = Math.min(getHeight(),Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);
 
         // Objetos
         imagen = new BufferedImage(largo, ancho, BufferedImage.TYPE_INT_RGB);
