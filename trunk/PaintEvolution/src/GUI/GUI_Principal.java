@@ -871,6 +871,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         colorBordeObjetos = false;
         colorDeFondoPantalla = true;
         colorRelleno = false;
+
+        jDialogColor.setTitle("Color Fondo de Pantalla");
         jDialogColor.setVisible(true);
     }//GEN-LAST:event_jButtonColorDeFondoPantallaActionPerformed
 
@@ -884,6 +886,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         colorBordeObjetos = true;
         colorDeFondoPantalla = false;
         colorRelleno = false;
+
+        jDialogColor.setTitle("Color Borde");
         jDialogColor.setVisible(true);
     }//GEN-LAST:event_jButtonColorBordeObjetosActionPerformed
 
@@ -897,6 +901,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         colorBordeObjetos = false;
         colorDeFondoPantalla = false;
         colorRelleno = true;
+
+        jDialogColor.setTitle("Color Relleno");
         jDialogColor.setVisible(true);
         mesaDeDibujo.setConRelleno(false);  // no funciona bien esto
     }//GEN-LAST:event_jButtonColorRellenoActionPerformed
