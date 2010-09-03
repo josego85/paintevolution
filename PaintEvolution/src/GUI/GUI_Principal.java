@@ -170,13 +170,13 @@ public class GUI_Principal extends javax.swing.JFrame {
         jToggleButtonRectanguloConCurvasRedondas = new javax.swing.JToggleButton();
         jToggleButtonTexto = new javax.swing.JToggleButton();
         jButtonBorraTodoLosObjetos = new javax.swing.JButton();
-        jToggleButtonBorrador = new javax.swing.JToggleButton();
         jButtonColorDeFondoPantalla = new javax.swing.JButton();
         jButtonColorBordeObjetos = new javax.swing.JButton();
         jButtonColorRelleno = new javax.swing.JButton();
-        jToggleButtonArrastrarObjetos = new javax.swing.JToggleButton();
         jLabelTamanioGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
+        jToggleButtonArrastrarObjetos = new javax.swing.JToggleButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
         jPanelInformacionExtra = new javax.swing.JPanel();
         jLabelCoordenadasPuntero = new javax.swing.JLabel();
         jLabelHerramientaSeleccionada = new javax.swing.JLabel();
@@ -208,6 +208,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jDialogColor.setMinimumSize(new java.awt.Dimension(450, 450));
         jDialogColor.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         jDialogColor.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        jDialogColor.setResizable(false);
 
         jButtonAceptar.setText("Aceptar");
         jButtonAceptar.setToolTipText("Aceptar");
@@ -230,14 +231,14 @@ public class GUI_Principal extends javax.swing.JFrame {
         jDialogColorLayout.setHorizontalGroup(
             jDialogColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogColorLayout.createSequentialGroup()
-                .addGroup(jDialogColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jDialogColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jColorChooserColores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jDialogColorLayout.createSequentialGroup()
-                        .addGap(106, 106, 106)
                         .addComponent(jButtonAceptar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancelar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jDialogColorLayout.setVerticalGroup(
             jDialogColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +248,7 @@ public class GUI_Principal extends javax.swing.JFrame {
                 .addGroup(jDialogColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAceptar)
                     .addComponent(jButtonCancelar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jDialogColor.getAccessibleContext().setAccessibleParent(null);
@@ -500,16 +501,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonBorraTodoLosObjetos);
 
-        buttonGroupObjetos.add(jToggleButtonBorrador);
-        jToggleButtonBorrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/eraser_16_16.gif"))); // NOI18N
-        jToggleButtonBorrador.setToolTipText("Borrador");
-        jToggleButtonBorrador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonBorradorActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jToggleButtonBorrador);
-
         jButtonColorDeFondoPantalla.setText("Fondo");
         jButtonColorDeFondoPantalla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -535,19 +526,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonColorRelleno);
 
-        buttonGroupObjetos.add(jToggleButtonArrastrarObjetos);
-        jToggleButtonArrastrarObjetos.setText("Arrastrar");
-        jToggleButtonArrastrarObjetos.setToolTipText("Arrastrar Objetos");
-        jToggleButtonArrastrarObjetos.setFocusable(false);
-        jToggleButtonArrastrarObjetos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButtonArrastrarObjetos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToggleButtonArrastrarObjetos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonArrastrarObjetosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jToggleButtonArrastrarObjetos);
-
         jLabelTamanioGrosor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTamanioGrosor.setText("Grosor:");
         jPanel1.add(jLabelTamanioGrosor);
@@ -563,6 +541,20 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jComboBoxGrosorBorde);
+
+        buttonGroupObjetos.add(jToggleButtonArrastrarObjetos);
+        jToggleButtonArrastrarObjetos.setText("Arrastrar");
+        jToggleButtonArrastrarObjetos.setToolTipText("Arrastrar Objetos");
+        jToggleButtonArrastrarObjetos.setFocusable(false);
+        jToggleButtonArrastrarObjetos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButtonArrastrarObjetos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButtonArrastrarObjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonArrastrarObjetosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButtonArrastrarObjetos);
+        jPanel1.add(jToggleButton1);
 
         jToolBarBarraDeHerramientas.add(jPanel1);
 
@@ -1046,14 +1038,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mostrarVentanaImpresora();
     }//GEN-LAST:event_jMenuItemImprimirActionPerformed
 
-    private void jToggleButtonBorradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonBorradorActionPerformed
-        // Icono del borrador
-        Cursor borradorCursor = toolKit.createCustomCursor(eraserImg, new Point(10,24),"Eraser Cursor");
-        cursorActual = borradorCursor;
-        mesaDeDibujo.setCursorActual(cursorActual);
-        llamarObjetosDiferentes(evt);
-    }//GEN-LAST:event_jToggleButtonBorradorActionPerformed
-
     // Metodos varios
     // Comprobar si tiene soporte a pantalla completa
     public boolean soportaPantallaCompleta(){
@@ -1113,7 +1097,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         if(event.getSource() == jButtonBorraTodoLosObjetos){
             mesaDeDibujo.borrarTodo();
         }
-        if(event.getSource() == jToggleButtonBorrador){
+        if(event.getSource() == jToggleButton1){
             mesaDeDibujo.setDrawMode(PanelDibujo.getBORRADOR());
             jLabelHerramientaSeleccionadaObjeto.setText("Borrador");
         }
@@ -1221,8 +1205,8 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButtonArrastrarObjetos;
-    private javax.swing.JToggleButton jToggleButtonBorrador;
     private javax.swing.JToggleButton jToggleButtonCirculo;
     private javax.swing.JToggleButton jToggleButtonLapiz;
     private javax.swing.JToggleButton jToggleButtonLinea;
