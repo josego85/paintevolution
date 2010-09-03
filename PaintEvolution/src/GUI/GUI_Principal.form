@@ -431,6 +431,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Zoom In"/>
             <Property name="toolTipText" type="java.lang.String" value="Zoom In"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -445,6 +446,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Zoom Out"/>
             <Property name="toolTipText" type="java.lang.String" value="Zoom Out"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
