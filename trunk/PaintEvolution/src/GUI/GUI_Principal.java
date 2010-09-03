@@ -881,7 +881,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
-        jToggleButtonArrastrarObjetos.setVisible(false);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         colorBordeObjetos = false;
         colorDeFondoPantalla = true;
         colorRelleno = false;
@@ -896,7 +896,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
-        jToggleButtonArrastrarObjetos.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         colorBordeObjetos = true;
         colorDeFondoPantalla = false;
         colorRelleno = false;
@@ -911,7 +911,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
-        jToggleButtonArrastrarObjetos.setVisible(false);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         colorBordeObjetos = false;
         colorDeFondoPantalla = false;
         colorRelleno = true;
