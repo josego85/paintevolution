@@ -208,6 +208,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jDialogColor.setMinimumSize(new java.awt.Dimension(450, 450));
         jDialogColor.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         jDialogColor.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        jDialogColor.setResizable(false);
 
         jButtonAceptar.setText("Aceptar");
         jButtonAceptar.setToolTipText("Aceptar");
