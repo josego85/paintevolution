@@ -129,7 +129,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
-        jToggleButtonArrastrarObjetos.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(false);
         //pack();
     }
 
@@ -770,8 +770,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonColorRelleno.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
-        jToggleButtonArrastrarObjetos.setVisible(true);
-        //jPanelOpcionesObjeto.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
     }//GEN-LAST:event_jToggleButtonCirculoActionPerformed
 
     private void jToggleButtonRectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectanguloActionPerformed
@@ -781,8 +781,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
-        jToggleButtonArrastrarObjetos.setVisible(true);
-        //jPanelOpcionesObjeto.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
     }//GEN-LAST:event_jToggleButtonRectanguloActionPerformed
 
     private void jToggleButtonRectanguloConCurvasRedondasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectanguloConCurvasRedondasActionPerformed
@@ -793,8 +793,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonColorRelleno.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
-        jToggleButtonArrastrarObjetos.setVisible(true);
-        //jPanelOpcionesObjeto.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
     }//GEN-LAST:event_jToggleButtonRectanguloConCurvasRedondasActionPerformed
 
     private void jToggleButtonOvaloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonOvaloActionPerformed
@@ -805,8 +805,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonColorRelleno.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
-        jToggleButtonArrastrarObjetos.setVisible(true);
-        //jPanelOpcionesObjeto.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
     }//GEN-LAST:event_jToggleButtonOvaloActionPerformed
 
     private void jToggleButtonArrastrarObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonArrastrarObjetosActionPerformed
@@ -832,6 +832,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         jToggleButtonLapiz.setSelected(true);
         mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
     }//GEN-LAST:event_jButtonBorraTodoLosObjetosActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
@@ -979,8 +981,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
-        jToggleButtonArrastrarObjetos.setVisible(true);
-        //jPanelOpcionesObjeto.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
     }//GEN-LAST:event_jToggleButtonPincelActionPerformed
 
     private void jToggleButtonLapizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLapizActionPerformed
@@ -991,8 +993,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
-        jToggleButtonArrastrarObjetos.setVisible(true);
-        //jPanelOpcionesObjeto.setVisible(false);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
     }//GEN-LAST:event_jToggleButtonLapizActionPerformed
 
     private void jToggleButtonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLineaActionPerformed
@@ -1003,8 +1005,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
-        jToggleButtonArrastrarObjetos.setVisible(true);
-        //jPanelOpcionesObjeto.setVisible(true);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
     }//GEN-LAST:event_jToggleButtonLineaActionPerformed
 
     private void jToggleButtonTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonTextoActionPerformed
@@ -1013,10 +1015,10 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
-        jToggleButtonArrastrarObjetos.setVisible(false);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
         //mesaDeDibujo.setObjetoTexto(true);
         //llamarObjetosDiferentes(evt);
-        //jPanelOpcionesObjeto.setVisible(false);
     }//GEN-LAST:event_jToggleButtonTextoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -1045,6 +1047,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         cursorActual = borradorCursor;
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
+        jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
+        jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
     }//GEN-LAST:event_jToggleButtonBorradorActionPerformed
 
     // Metodos varios
@@ -1148,6 +1152,40 @@ public class GUI_Principal extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }    
+    }
+
+    // Metodo que retorna:
+    //   - true en caso que se pueda arrastrar los objetos
+    //   - false en caso que no se pueda arrastrar los objetos
+    // Solo se arrastran los objetos siguientes:
+    //   - Rectangulo
+    //   - Ovalo
+    //   - Circulo
+    //   - RectanguloConCurvasRedondas
+    public boolean esObjetoArrastrable(ActionEvent event){
+        if(event.getSource() == jToggleButtonRectangulo || event.getSource() == jToggleButtonOvalo
+                || event.getSource() == jToggleButtonCirculo
+                || event.getSource() == jToggleButtonRectanguloConCurvasRedondas){
+            return true;
+        }
+       return false;
+    }
+
+    // Metodo que retorna:
+    //   - true en caso que se pueda rellenar los objetos
+    //   - false en caso que no se pueda rellenar los objetos
+    // Solo se rellenan los objetos siguientes:
+    //   - Rectangulo
+    //   - Ovalo
+    //   - Circulo
+    //   - RectanguloConCurvasRedondas
+    public boolean esObjetoRellenable(ActionEvent event){
+        if(event.getSource() == jToggleButtonRectangulo || event.getSource() == jToggleButtonOvalo
+                || event.getSource() == jToggleButtonCirculo
+                || event.getSource() == jToggleButtonRectanguloConCurvasRedondas){
+            return true;
+        }
+       return false;
     }
 
     
