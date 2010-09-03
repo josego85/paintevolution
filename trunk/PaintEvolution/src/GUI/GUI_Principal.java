@@ -774,6 +774,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonCirculoActionPerformed
 
     private void jToggleButtonRectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectanguloActionPerformed
@@ -785,6 +787,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonRectanguloActionPerformed
 
     private void jToggleButtonRectanguloConCurvasRedondasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectanguloConCurvasRedondasActionPerformed
@@ -797,6 +801,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonRectanguloConCurvasRedondasActionPerformed
 
     private void jToggleButtonOvaloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonOvaloActionPerformed
@@ -809,6 +815,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonOvaloActionPerformed
 
     private void jToggleButtonArrastrarObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonArrastrarObjetosActionPerformed
@@ -836,6 +844,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jButtonBorraTodoLosObjetosActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
@@ -985,6 +995,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonPincelActionPerformed
 
     private void jToggleButtonLapizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLapizActionPerformed
@@ -997,6 +1009,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonLapizActionPerformed
 
     private void jToggleButtonLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLineaActionPerformed
@@ -1009,6 +1023,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonLineaActionPerformed
 
     private void jToggleButtonTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonTextoActionPerformed
@@ -1019,6 +1035,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
         //mesaDeDibujo.setObjetoTexto(true);
         //llamarObjetosDiferentes(evt);
     }//GEN-LAST:event_jToggleButtonTextoActionPerformed
@@ -1051,6 +1069,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
+        jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonBorradorActionPerformed
 
     // Metodos varios
@@ -1185,6 +1205,25 @@ public class GUI_Principal extends javax.swing.JFrame {
         if(event.getSource() == jToggleButtonRectangulo || event.getSource() == jToggleButtonOvalo
                 || event.getSource() == jToggleButtonCirculo
                 || event.getSource() == jToggleButtonRectanguloConCurvasRedondas){
+            return true;
+        }
+       return false;
+    }
+
+    // Metodo que retorna:
+    //   - true en caso que se tenga tamanhio en el borde de los objetos
+    //   - false en caso que no se tenga tamanhio en el borde de los objetos
+    // Solo tienen tamanhio en el borde los objetos siguientes:
+    //   - Rectangulo
+    //   - Ovalo
+    //   - Circulo
+    //   - RectanguloConCurvasRedondas
+    public boolean tieneTamanhioBordeObjeto(ActionEvent event){
+        if(event.getSource() == jToggleButtonRectangulo || event.getSource() == jToggleButtonOvalo
+                || event.getSource() == jToggleButtonCirculo
+                || event.getSource() == jToggleButtonRectanguloConCurvasRedondas
+                || event.getSource() == jToggleButtonLinea
+                || event.getSource() == jToggleButtonPincel){
             return true;
         }
        return false;
