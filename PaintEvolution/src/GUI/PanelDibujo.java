@@ -55,7 +55,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Constantes
     private final static int CIRCULO = 1, RECTANGULO = 2, OVALO = 3,
             RECTANGULO_CON_CURVAS_REDONDAS = 4, PINCEL = 5, LINEA = 6, LAPIZ = 7,
-            TEXTO = 8, ARRASTRAR = 10, NULO = 0;
+            TEXTO = 8, BORRADOR = 9, ARRASTRAR = 10, NULO = 0;
     
     private int coordenadasInicioX, coordenadasFinX;
     private int coordenadasInicioY, coordenadasFinY;
@@ -178,7 +178,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getCoordenadasFinX(), getCoordenadasFinY(), getColorBorde(), 
                     (int)getTamanioBorde());    
             agregarFigura(linea);
-            crearImagen();
+            //crearImagen();
             desHacerPila.push(linea);
         }else if (modoDibujar == CIRCULO){
             double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
@@ -195,7 +195,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()),
                         getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
             agregarFigura(rectangulo);
-            crearImagen();
+            //crearImagen();
             desHacerPila.push(rectangulo);
         }else if(modoDibujar == OVALO){
             Ovalo ovalo = new Ovalo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -513,7 +513,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Image old = this.getImagen();                   // Imagen anterior
         this.imagen = (BufferedImage) imagen;                   // Imagen actual
         setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
-        redimensionar();                                        // Se escala la imagen para que quepe en el panel
+        //redimensionar();                                        // Se escala la imagen para que quepe en el panel
         repaint();                                              // Se dibuja la nueva imagen
         firePropertyChange("imagenActual", old, this.imagen);    // Se dispara un evento de cambio de propiedad
     }
@@ -569,7 +569,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         return TEXTO;
     }
 
+    /*----------------------------------------------------------------------------*/
+    public static int getBORRADOR() {
+        return BORRADOR;
+    }
     
+   
+
     // Metodos varios
     /**
      * Añada una figura a la lista de figuras a dibujar
