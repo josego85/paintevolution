@@ -1038,7 +1038,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
         //mesaDeDibujo.setObjetoTexto(true);
-        //llamarObjetosDiferentes(evt);
+        llamarObjetosDiferentes(evt);
     }//GEN-LAST:event_jToggleButtonTextoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -1136,6 +1136,11 @@ public class GUI_Principal extends javax.swing.JFrame {
             mesaDeDibujo.setDrawMode(PanelDibujo.getBORRADOR());
             jLabelHerramientaSeleccionadaObjeto.setText("Borrador");
         }
+        if(event.getSource() == jToggleButtonTexto){
+            mesaDeDibujo.setDrawMode(PanelDibujo.getTEXTO());
+            jLabelHerramientaSeleccionadaObjeto.setText("Texto");
+        }
+
     }
 
     public void operacionNuevo(){
