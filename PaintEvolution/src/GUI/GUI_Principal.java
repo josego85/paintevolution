@@ -170,12 +170,13 @@ public class GUI_Principal extends javax.swing.JFrame {
         jToggleButtonRectanguloConCurvasRedondas = new javax.swing.JToggleButton();
         jToggleButtonTexto = new javax.swing.JToggleButton();
         jButtonBorraTodoLosObjetos = new javax.swing.JButton();
+        jToggleButtonBorrador = new javax.swing.JToggleButton();
         jButtonColorDeFondoPantalla = new javax.swing.JButton();
         jButtonColorBordeObjetos = new javax.swing.JButton();
         jButtonColorRelleno = new javax.swing.JButton();
+        jToggleButtonArrastrarObjetos = new javax.swing.JToggleButton();
         jLabelTamanioGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
-        jToggleButtonArrastrarObjetos = new javax.swing.JToggleButton();
         jPanelInformacionExtra = new javax.swing.JPanel();
         jLabelCoordenadasPuntero = new javax.swing.JLabel();
         jLabelHerramientaSeleccionada = new javax.swing.JLabel();
@@ -330,6 +331,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"))); // NOI18N
         jButtonZoomIn.setText("Zoom In");
         jButtonZoomIn.setToolTipText("Zoom In");
+        jButtonZoomIn.setEnabled(false);
         jButtonZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomIn.addActionListener(new java.awt.event.ActionListener() {
@@ -342,6 +344,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_out_32px.png"))); // NOI18N
         jButtonZoomOut.setText("Zoom Out");
         jButtonZoomOut.setToolTipText("Zoom Out");
+        jButtonZoomOut.setEnabled(false);
         jButtonZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomOut.addActionListener(new java.awt.event.ActionListener() {
@@ -497,6 +500,16 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonBorraTodoLosObjetos);
 
+        buttonGroupObjetos.add(jToggleButtonBorrador);
+        jToggleButtonBorrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/eraser_16_16.gif"))); // NOI18N
+        jToggleButtonBorrador.setToolTipText("Borrador");
+        jToggleButtonBorrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonBorradorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButtonBorrador);
+
         jButtonColorDeFondoPantalla.setText("Fondo");
         jButtonColorDeFondoPantalla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -522,6 +535,19 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonColorRelleno);
 
+        buttonGroupObjetos.add(jToggleButtonArrastrarObjetos);
+        jToggleButtonArrastrarObjetos.setText("Arrastrar");
+        jToggleButtonArrastrarObjetos.setToolTipText("Arrastrar Objetos");
+        jToggleButtonArrastrarObjetos.setFocusable(false);
+        jToggleButtonArrastrarObjetos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButtonArrastrarObjetos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButtonArrastrarObjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonArrastrarObjetosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButtonArrastrarObjetos);
+
         jLabelTamanioGrosor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTamanioGrosor.setText("Grosor:");
         jPanel1.add(jLabelTamanioGrosor);
@@ -537,19 +563,6 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jComboBoxGrosorBorde);
-
-        buttonGroupObjetos.add(jToggleButtonArrastrarObjetos);
-        jToggleButtonArrastrarObjetos.setText("Arrastrar");
-        jToggleButtonArrastrarObjetos.setToolTipText("Arrastrar Objetos");
-        jToggleButtonArrastrarObjetos.setFocusable(false);
-        jToggleButtonArrastrarObjetos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButtonArrastrarObjetos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToggleButtonArrastrarObjetos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonArrastrarObjetosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jToggleButtonArrastrarObjetos);
 
         jToolBarBarraDeHerramientas.add(jPanel1);
 
@@ -813,7 +826,11 @@ public class GUI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRehacerActionPerformed
 
     private void jButtonBorraTodoLosObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorraTodoLosObjetosActionPerformed
+        // Icono del lapiz
+        Cursor pencilCursor = toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
+        cursorActual = pencilCursor;
         mesaDeDibujo.setCursorActual(cursorActual);
+
         llamarObjetosDiferentes(evt);
         jToggleButtonLapiz.setSelected(true);
         mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
@@ -1018,6 +1035,14 @@ public class GUI_Principal extends javax.swing.JFrame {
         mostrarVentanaImpresora();
     }//GEN-LAST:event_jMenuItemImprimirActionPerformed
 
+    private void jToggleButtonBorradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonBorradorActionPerformed
+        // Icono del borrador
+        Cursor borradorCursor = toolKit.createCustomCursor(eraserImg, new Point(10,24),"Eraser Cursor");
+        cursorActual = borradorCursor;
+        mesaDeDibujo.setCursorActual(cursorActual);
+        llamarObjetosDiferentes(evt);
+    }//GEN-LAST:event_jToggleButtonBorradorActionPerformed
+
     // Metodos varios
     // Comprobar si tiene soporte a pantalla completa
     public boolean soportaPantallaCompleta(){
@@ -1076,6 +1101,10 @@ public class GUI_Principal extends javax.swing.JFrame {
         }
         if(event.getSource() == jButtonBorraTodoLosObjetos){
             mesaDeDibujo.borrarTodo();
+        }
+        if(event.getSource() == jToggleButtonBorrador){
+            mesaDeDibujo.setDrawMode(PanelDibujo.getBORRADOR());
+            jLabelHerramientaSeleccionadaObjeto.setText("Borrador");
         }
     }
 
@@ -1182,6 +1211,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JToggleButton jToggleButtonArrastrarObjetos;
+    private javax.swing.JToggleButton jToggleButtonBorrador;
     private javax.swing.JToggleButton jToggleButtonCirculo;
     private javax.swing.JToggleButton jToggleButtonLapiz;
     private javax.swing.JToggleButton jToggleButtonLinea;
