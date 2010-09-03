@@ -331,7 +331,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"))); // NOI18N
         jButtonZoomIn.setText("Zoom In");
         jButtonZoomIn.setToolTipText("Zoom In");
-        jButtonZoomIn.setEnabled(false);
         jButtonZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomIn.addActionListener(new java.awt.event.ActionListener() {
@@ -344,7 +343,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_out_32px.png"))); // NOI18N
         jButtonZoomOut.setText("Zoom Out");
         jButtonZoomOut.setToolTipText("Zoom Out");
-        jButtonZoomOut.setEnabled(false);
         jButtonZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomOut.addActionListener(new java.awt.event.ActionListener() {
@@ -769,7 +767,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
         jButtonColorRelleno.setVisible(true);
-        jButtonColorRelleno.setVisible(true);
+        jButtonColorBordeObjetos.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(true);
@@ -781,6 +779,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
+        jButtonColorRelleno.setVisible(true);
+        jButtonColorBordeObjetos.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(true);
@@ -793,6 +793,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
         jButtonColorRelleno.setVisible(true);
+        jButtonColorBordeObjetos.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(true);
@@ -805,6 +806,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
         jButtonColorRelleno.setVisible(true);
+        jButtonColorBordeObjetos.setVisible(true);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(true);
@@ -826,14 +828,16 @@ public class GUI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRehacerActionPerformed
 
     private void jButtonBorraTodoLosObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorraTodoLosObjetosActionPerformed
+        llamarObjetosDiferentes(evt);
+        jToggleButtonLapiz.setSelected(true);
+        mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
+        
         // Icono del lapiz
         Cursor pencilCursor = toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = pencilCursor;
         mesaDeDibujo.setCursorActual(cursorActual);
 
-        llamarObjetosDiferentes(evt);
-        jToggleButtonLapiz.setSelected(true);
-        mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
+        jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
     }//GEN-LAST:event_jButtonBorraTodoLosObjetosActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
@@ -972,6 +976,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
+        jButtonColorBordeObjetos.setVisible(true);
         jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
@@ -985,6 +990,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setTamanioBorde(1);
         llamarObjetosDiferentes(evt);
+        jButtonColorBordeObjetos.setVisible(true);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(true);
@@ -996,6 +1002,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
+        jButtonColorBordeObjetos.setVisible(true);
         jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(true);
         jComboBoxGrosorBorde.setVisible(true);
@@ -1007,6 +1014,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         Cursor cursorLetra = new Cursor(Cursor.TEXT_CURSOR);
 	cursorActual = cursorLetra;
         mesaDeDibujo.setCursorActual(cursorActual);
+        jButtonColorBordeObjetos.setVisible(false);
+        jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(false);
