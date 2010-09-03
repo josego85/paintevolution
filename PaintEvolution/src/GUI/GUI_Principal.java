@@ -331,6 +331,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"))); // NOI18N
         jButtonZoomIn.setText("Zoom In");
         jButtonZoomIn.setToolTipText("Zoom In");
+        jButtonZoomIn.setEnabled(false);
         jButtonZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomIn.addActionListener(new java.awt.event.ActionListener() {
@@ -343,6 +344,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_out_32px.png"))); // NOI18N
         jButtonZoomOut.setText("Zoom Out");
         jButtonZoomOut.setToolTipText("Zoom Out");
+        jButtonZoomOut.setEnabled(false);
         jButtonZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomOut.addActionListener(new java.awt.event.ActionListener() {
