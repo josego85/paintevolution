@@ -431,6 +431,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Zoom In"/>
             <Property name="toolTipText" type="java.lang.String" value="Zoom In"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -445,6 +446,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Zoom Out"/>
             <Property name="toolTipText" type="java.lang.String" value="Zoom Out"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -651,6 +653,20 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBorraTodoLosObjetosActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JToggleButton" name="jToggleButtonBorrador">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroupObjetos"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/imagenes/iconos/BarraHerramientas/eraser_16_16.gif"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Borrador"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonBorradorActionPerformed"/>
+                  </Events>
+                </Component>
                 <Component class="javax.swing.JButton" name="jButtonColorDeFondoPantalla">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Fondo"/>
@@ -674,6 +690,21 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonColorRellenoActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JToggleButton" name="jToggleButtonArrastrarObjetos">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroupObjetos"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Arrastrar"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Arrastrar Objetos"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                    <Property name="verticalTextPosition" type="int" value="3"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonArrastrarObjetosActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelTamanioGrosor">
@@ -711,21 +742,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxGrosorBordeActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JToggleButton" name="jToggleButtonArrastrarObjetos">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupObjetos"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Arrastrar"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Arrastrar Objetos"/>
-                    <Property name="focusable" type="boolean" value="false"/>
-                    <Property name="horizontalTextPosition" type="int" value="0"/>
-                    <Property name="verticalTextPosition" type="int" value="3"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonArrastrarObjetosActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
