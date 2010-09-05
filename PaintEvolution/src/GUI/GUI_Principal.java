@@ -440,7 +440,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jPanel1.add(jToggleButtonOvalo);
 
         buttonGroupObjetos.add(jToggleButtonCirculo);
-        jToggleButtonCirculo.setText("Círculo");
+        jToggleButtonCirculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/circulo_16px.png"))); // NOI18N
         jToggleButtonCirculo.setToolTipText("Círculo");
         jToggleButtonCirculo.setFocusable(false);
         jToggleButtonCirculo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
