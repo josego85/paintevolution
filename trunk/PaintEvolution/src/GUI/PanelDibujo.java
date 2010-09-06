@@ -13,6 +13,7 @@ package GUI;
 
 import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
+import Auxiliar.Texto;
 import Figuras.Circulo;
 import Figuras.Figura;
 import Figuras.Linea;
@@ -23,12 +24,15 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -66,6 +70,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     private Color colorRelleno;
     private float tamanioBorde;
     private File nombreArchivo;
+    private int longitudBorrador;
+    private VentanaTexto ventanaTexto;                      // Ventana Texto
+    private boolean habilitarDibujarTexto;
+    Texto texto;
 
     private boolean conRelleno = false;
 
@@ -81,6 +89,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * Lista de figuras a dibujar.
      */
     private LinkedList<Figura> listaFiguras = new LinkedList<Figura>();
+
+    /**
+     * Lista de figuras a dibujar.
+     */
+    private LinkedList<Texto> listaTexto = new LinkedList<Texto>();
 
     /**
      * Si actualmente se está arrastrando o no el rectángulo.
@@ -107,7 +120,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         initComponents();
         modoDibujar = 0;
         tamanioBorde = 1.0f;
+        longitudBorrador = 5;
+        habilitarDibujarTexto = false;
+        ubicacionDeImagen = null;
         nombreArchivo = null;
+        ventanaTexto = null;
         desHacerPila = new Stack();
 	reHacerPila = new Stack();
         colorFondoPantallaDibujo    = Color.WHITE;          // De color blanco
@@ -128,6 +145,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
         setBackground(new java.awt.Color(255, 255, 255));
         addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 formMouseEntered(evt);
             }
@@ -178,7 +198,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getCoordenadasFinX(), getCoordenadasFinY(), getColorBorde(), 
                     (int)getTamanioBorde());    
             agregarFigura(linea);
-            //crearImagen();
             desHacerPila.push(linea);
         }else if (modoDibujar == CIRCULO){
             double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
@@ -195,7 +214,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()),
                         getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
             agregarFigura(rectangulo);
-            //crearImagen();
             desHacerPila.push(rectangulo);
         }else if(modoDibujar == OVALO){
             Ovalo ovalo = new Ovalo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -214,8 +232,15 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
             agregarFigura(rectanguloConCurvasRedondas);
             desHacerPila.push(rectanguloConCurvasRedondas);
+        }else if(modoDibujar == BORRADOR){
+            Rectangulo borrador = new Rectangulo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                        getLongitudBorrador() * 2, getLongitudBorrador() * 2,
+                        Color.WHITE, Color.WHITE, 1);
+            agregarFigura(borrador);
+            desHacerPila.push(borrador);
         }
-        //crearImagen();
+        crearImagen();
         GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
         repaint();
     }//GEN-LAST:event_formMouseReleased
@@ -303,6 +328,16 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         setCursor(getCursorActual());
     }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        if(modoDibujar == getTEXTO()){
+            mostrarVentanaTexto();
+            texto = ventanaTexto.getTexto();
+            setHabilitarDibujarTexto(true);
+            agregarTexto(texto);
+        }
+        repaint();
+    }//GEN-LAST:event_formMouseClicked
 
     ////////////////////////////////////////////////////////////////////////////
     // Metodos SETTERS y GETTERS
@@ -573,8 +608,27 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public static int getBORRADOR() {
         return BORRADOR;
     }
+
+    /*----------------------------------------------------------------------------*/
+    public int getLongitudBorrador() {
+        return longitudBorrador;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setLongitudBorrador(int longitudBorrador) {
+        this.longitudBorrador = longitudBorrador;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public boolean isHabilitarDibujarTexto() {
+        return habilitarDibujarTexto;
+    }
+
+    /*----------------------------------------------------------------------------*/
+    public void setHabilitarDibujarTexto(boolean habilitarDibujarTexto) {
+        this.habilitarDibujarTexto = habilitarDibujarTexto;
+    }
     
-   
 
     // Metodos varios
     /**
@@ -595,6 +649,23 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         listaFiguras.remove(figura);
     }
 
+    /**
+     * Añada un objeto Texto a la lista de texto a dibujar
+     *
+     * @param texto Una nuevo objeto Texto a dibujar
+     */
+    public void agregarTexto(Texto texto){
+        listaTexto.add(texto);
+    }
+
+    /**
+     * Quita el texto en la lista de trxtos a dibujar.
+     *
+     * @param texto texto a quitar de la lista.
+     */
+    public void eliminarTexto(Texto texto){
+        listaTexto.remove(texto);
+    }
 
     /**
      * Para ver si el ratón está dentro del rectángulo.
@@ -648,7 +719,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
         setBackground(getColorFondoPantallaDibujo());
 
-        if (getImagen() != null){
+        if (getImagen() != null && (modoDibujar != ARRASTRAR)){
             Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
             if (getUbicacionDeImagen() != null){
                 center = getUbicacionDeImagen();
@@ -658,53 +729,54 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             double height = imagen.getHeight() * getEscala();
             loc.setLocation(center.getX() - width / 2, center.getY() - height / 2);
             setColorFondoPantallaDibujo(getColorFondoPantallaDibujo());
-            g.drawImage(getImagen(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null);
-            //g.drawImage(getImagen(), 0, 0,(int) width, (int) height, null);
+            //g.drawImage(getImagen(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null);
+            g.drawImage(getImagen(), 0, 0,(int) width, (int) height, null);
         }
 
-        
         dibujarFiguras(g);
+        dibujarTexto(g);
         setBackground(getColorFondoPantallaDibujo());
         g.setColor(getColorBorde());
         Graphics2D g2;
-        
-        if (modoDibujar == LINEA) {
-            Line2D line2D = new Line2D.Float(getCoordenadasInicioX(),
-                    getCoordenadasInicioY(), getCoordenadasFinX(), getCoordenadasFinY());
-            g2 = (Graphics2D)g;
-            Stroke bordeFigura = new BasicStroke(getTamanioBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(getColorBorde());
-            g2.setStroke(bordeFigura);
-            g2.draw(line2D);
-      	}
 
-      	if (modoDibujar == OVALO){
-            if(conRelleno){
-                g.fillOval(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+        if(modoDibujar != ARRASTRAR){
+            if (modoDibujar == LINEA) {
+                Line2D line2D = new Line2D.Float(getCoordenadasInicioX(),
+                    getCoordenadasInicioY(), getCoordenadasFinX(), getCoordenadasFinY());
+                g2 = (Graphics2D)g;
+                Stroke bordeFigura = new BasicStroke(getTamanioBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+                g2.setColor(getColorBorde());
+                g2.setStroke(bordeFigura);
+                g2.draw(line2D);
+            }
+
+            if (modoDibujar == OVALO){
+                if(conRelleno){
+                    g.fillOval(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                            Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                            Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                            Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
+                }
+                Ellipse2D e2;
+                Stroke bordeFigura;
+
+                e2 = new Ellipse2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
                         Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
+                g2 = (Graphics2D)g;
+                bordeFigura = new BasicStroke(getTamanioBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+                g2.setColor(getColorBorde());
+                g2.setStroke(bordeFigura);
+                g2.draw(e2);
             }
-            Ellipse2D e2;
-            Stroke bordeFigura;
 
-            e2 = new Ellipse2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
-                    Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
-                    Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
-                    Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
-            g2 = (Graphics2D)g;
-            bordeFigura = new BasicStroke(getTamanioBorde(),  BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(getColorBorde());
-            g2.setStroke(bordeFigura);
-            g2.draw(e2);
-        }
-
-        if (modoDibujar == CIRCULO){
-            double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
+            if (modoDibujar == CIRCULO){
+                double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
                         Math.pow(getCoordenadasFinY() - getCoordenadasInicioY(),2));
-            if(conRelleno){
-                 g.fillOval(getCoordenadasInicioX() - (int)radio, getCoordenadasInicioY() - (int)radio,
-                    (int)radio * 2 , (int)radio * 2);
+                if(conRelleno){
+                    g.fillOval(getCoordenadasInicioX() - (int)radio, getCoordenadasInicioY() - (int)radio,
+                        (int)radio * 2 , (int)radio * 2);
                 }
                 Ellipse2D e2;
                 Stroke bordeFigura;
@@ -716,48 +788,83 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 g2.setColor(getColorBorde());
                 g2.setStroke(bordeFigura);
                 g2.draw(e2);
+            }
+
+            if (modoDibujar == RECTANGULO_CON_CURVAS_REDONDAS){
+                if(conRelleno){
+                    g.fillRoundRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                            Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                            Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                            Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()), 25, 25);
+                }
+                RoundRectangle2D rr2;
+                Stroke bordeFigura;
+                rr2 = new RoundRectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()), 25, 25);
+                g2 = (Graphics2D)g;
+                bordeFigura = new BasicStroke(getTamanioBorde(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+                g2.setColor(getColorBorde());
+                g2.setStroke(bordeFigura);
+                g2.draw(rr2);
+            }
+
+
+            if (modoDibujar == RECTANGULO){
+                if(conRelleno){
+                    g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                            Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                            Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                            Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
+                }
+                Rectangle2D r2;
+                Stroke bordeFigura;
+                r2 = new Rectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
+                g2 = (Graphics2D)g;
+                bordeFigura = new BasicStroke(getTamanioBorde(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+                g2.setColor(getColorBorde());
+                g2.setStroke(bordeFigura);
+                g2.draw(r2);
+            }
+
+            if (modoDibujar == BORRADOR){
+                if(conRelleno){
+                    g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                            Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                            Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
+                            Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
+                }
+                Rectangle2D borrador;
+                Stroke bordeFigura;
+                borrador = new Rectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
+                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
+                        getLongitudBorrador() * 2, getLongitudBorrador() * 2);
+                g2 = (Graphics2D)g;
+                bordeFigura = new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+                g2.setColor(Color.WHITE);
+                g2.setStroke(bordeFigura);
+                g2.draw(borrador);
+            }
+
+            if (modoDibujar == TEXTO && isHabilitarDibujarTexto()
+                    && ventanaTexto.isDibujaTexto()){
+                texto.setPosicionInicialX(coordenadasInicioX);
+                texto.setPosicionInicialY(coordenadasInicioY);
+                g2 = (Graphics2D)g;
+
+                FontRenderContext contextoFuente = g2.getFontRenderContext();
+                Font fuente = new Font( "Times", texto.getEstilo(), texto.getTamanio());
+                TextLayout layout = new TextLayout( texto.getContenidoTexto(), fuente, contextoFuente );
+                g2.setColor( Color.red );
+                layout.draw( g2,getCoordenadasInicioX(), getCoordenadasInicioY());
+                //g2.drawString(texto.getContenidoTexto(), getCoordenadasInicioX(), getCoordenadasInicioY());
+                setHabilitarDibujarTexto(false);
+            }
         }
-
-        if (modoDibujar == RECTANGULO_CON_CURVAS_REDONDAS){
-            if(conRelleno){
-                g.fillRoundRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
-                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
-                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
-                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()), 25, 25);
-            }
-            RoundRectangle2D rr2;
-            Stroke bordeFigura;
-            rr2 = new RoundRectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
-                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
-                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
-                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()), 25, 25);
-            g2 = (Graphics2D)g;
-            bordeFigura = new BasicStroke(getTamanioBorde(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(getColorBorde());
-            g2.setStroke(bordeFigura);
-            g2.draw(rr2);
-      	}
-
-
-      	if (modoDibujar == RECTANGULO){
-            if(conRelleno){
-                 g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
-                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
-                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
-                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
-            }
-            Rectangle2D r2;
-            Stroke bordeFigura;
-            r2 = new Rectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
-                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
-                        Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
-                        Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
-            g2 = (Graphics2D)g;
-            bordeFigura = new BasicStroke(getTamanioBorde(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-            g2.setColor(getColorBorde());
-            g2.setStroke(bordeFigura);
-            g2.draw(r2);
-      	}
     }
 
     /*----------------------------------------------------------------------------*/
@@ -900,7 +1007,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void crearImagen() {
         // Variables
         int largo = Math.min(getWidth(), Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO);
-        int ancho = Math.min(getHeight(),Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);
+        int ancho = Math.min(getHeight(), Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);
 
         // Objetos
         imagen = new BufferedImage(largo, ancho, BufferedImage.TYPE_INT_RGB);
@@ -934,6 +1041,14 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /*----------------------------------------------------------------------------*/
+    // Dibuja todos los objetos texto de la lista
+    public void dibujarTexto(Graphics g){
+        for (Texto texto : listaTexto){
+            texto.dibujar(g);
+        }
+    }
+
+    /*----------------------------------------------------------------------------*/
     // Este es el metodo que se encarga de la impresion
     @Override
     public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
@@ -946,6 +1061,15 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         return( Printable.PAGE_EXISTS );
     }
 
+    /*----------------------------------------------------------------------------*/
+    // Metodo que muestra la ventana Texto
+    public void mostrarVentanaTexto() {
+        if (ventanaTexto == null) {
+            ventanaTexto = new VentanaTexto(null, true);
+            ventanaTexto.setLocationRelativeTo(this);
+        }
+        ventanaTexto.setVisible(true);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
