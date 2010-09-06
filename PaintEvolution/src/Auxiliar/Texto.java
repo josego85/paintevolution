@@ -21,26 +21,30 @@ public class Texto {
     private int tamanio;
     private int posicionInicialX;
     private int posicionInicialY;
+    private Color color;
 
 
     // Constructor con todos los valores
-    public Texto(String contenidoTexto, int tipo, int estilo, int tamanio, int posicionInicialX,
-            int posicionInicialY){
+    public Texto(String contenidoTexto, int tipo, int estilo, int tamanio, 
+            Color color, int posicionInicialX, int posicionInicialY){
         setContenidoTexto(contenidoTexto);
         setTipo(tipo);
         setEstilo(estilo);
         setTamanio(tamanio);
+        setColor(color);
         setPosicionInicialX(posicionInicialX);
         setPosicionInicialY(posicionInicialX);
     }
 
     // Constructor sin las posiciones iniciales X e Y
     // Se coloca las posicionInicialX e posicionInicialY con valor 0
-    public Texto(String contenidoTexto, int tipo, int estilo, int tamanio){
+    public Texto(String contenidoTexto, int tipo, int estilo, int tamanio,
+            Color color){
         setContenidoTexto(contenidoTexto);
         setTipo(tipo);
         setEstilo(estilo);
         setTamanio(tamanio);
+        setColor(color);
         setPosicionInicialX(0);
         setPosicionInicialY(0);
     }
@@ -95,6 +99,14 @@ public class Texto {
         this.posicionInicialY = posicionInicialY;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
 
     // Metodos varios
     public void dibujar(Graphics g){
@@ -108,7 +120,7 @@ public class Texto {
         contextoFuente = g2.getFontRenderContext();
         fuente = new Font( "Times", getEstilo(), getTamanio());
         layout = new TextLayout(getContenidoTexto(), fuente, contextoFuente );
-        g2.setColor( Color.red );
+        g2.setColor(getColor());
         layout.draw( g2,getPosicionInicialX(), getPosicionInicialY());
     }
 }
