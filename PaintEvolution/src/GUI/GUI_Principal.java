@@ -851,17 +851,14 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         if(colorDeFondoPantalla){
             mesaDeDibujo.setColorFondoPantallaDibujo(jColorChooserColores.getColor());
-            mesaDeDibujo.repaint();
         }
 
         if(colorBordeObjetos){
             mesaDeDibujo.setColorBorde(jColorChooserColores.getColor());
-            mesaDeDibujo.repaint();
         }
         
         if(colorRelleno){
             mesaDeDibujo.setColorRelleno(jColorChooserColores.getColor());
-            mesaDeDibujo.repaint();
         }
         colorBordeObjetos = false;
         colorDeFondoPantalla = false;
