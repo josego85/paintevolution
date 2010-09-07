@@ -130,8 +130,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         colorFondoPantallaDibujo    = Color.WHITE;          // De color blanco
         colorBorde                  = Color.BLACK;          // De color negro
         colorRelleno                = Color.WHITE;          // De color blanco
-        setBackground(colorFondoPantallaDibujo);
-        repaint();
+        setBackground(getColorFondoPantallaDibujo());
+        //repaint();
     }
 
     /** This method is called from within the constructor to
@@ -238,7 +238,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         getLongitudBorrador() * 2, getLongitudBorrador() * 2,
                         Color.WHITE, Color.WHITE, 1);
             agregarFigura(borrador);
-            desHacerPila.push(borrador);
+            //desHacerPila.push(borrador);
         }
         crearImagen();
         GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
@@ -717,7 +717,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void paint(Graphics g){
         super.paintComponent(g);
 
-        setBackground(getColorFondoPantallaDibujo());
+        //setBackground(getColorFondoPantallaDibujo());
 
         if (getImagen() != null && (modoDibujar != ARRASTRAR)){
             Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
@@ -734,8 +734,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
 
         dibujarFiguras(g);
-        dibujarTexto(g);
-        setBackground(getColorFondoPantallaDibujo());
+        //dibujarTexto(g);
+        this.setBackground(getColorFondoPantallaDibujo());
         g.setColor(getColorBorde());
         Graphics2D g2;
 
@@ -874,7 +874,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     JOptionPane.INFORMATION_MESSAGE);
         }else{
             Figura objeto = (Figura) desHacerPila.pop();
-        }          
+            eliminarFigura(objeto);
+        }
         repaint();
     }
 
@@ -905,20 +906,25 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void guardarImagen(){
         if(nombreArchivo != null){
             crearImagen();
-
             try{
-                JOptionPane.showMessageDialog(null,"Archivo guardado",
-                        Constantes.TITULO_PROGRAMA,
+                JOptionPane.showMessageDialog(null,"Archivo Guardado",Constantes.TITULO_PROGRAMA,
                         JOptionPane.INFORMATION_MESSAGE);
+
             }catch(Exception e){
                 System.out.println(e.getMessage());
             }
 
-            try{
-                File file = new File(nombreArchivo.toString() + ".png");
+            try {
+                File file;
+                // Compara si tiene una extension .png
+                if(nombreArchivo.toString().endsWith(".png")){
+                     file = new File(nombreArchivo.toString());
+                }else{
+                     file = new File(nombreArchivo.toString() + ".png");
+                }
                 ImageIO.write(imagen, "png", file);
             }catch (IOException e) {
-                 System.out.println(e.getMessage());
+                System.out.println(e.getMessage());
             }
 	}
 	else{
@@ -945,8 +951,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     JOptionPane.ERROR_MESSAGE);
         else{
             crearImagen();   
-             
-
             try{
                 JOptionPane.showMessageDialog(null,"Archivo Guardado",Constantes.TITULO_PROGRAMA,
                         JOptionPane.INFORMATION_MESSAGE);
@@ -955,8 +959,14 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 System.out.println(e.getMessage());
             }
 
-             try {
-                File file = new File(nombreArchivo.toString() + ".png");
+            try {
+                File file;
+                // Compara si tiene una extension .png
+                if(nombreArchivo.toString().endsWith(".png")){
+                     file = new File(nombreArchivo.toString());
+                }else{
+                     file = new File(nombreArchivo.toString() + ".png");
+                }
                 ImageIO.write(imagen, "png", file);
             }catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -1044,7 +1054,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Dibuja todos los objetos texto de la lista
     public void dibujarTexto(Graphics g){
         for (Texto texto : listaTexto){
-            texto.dibujar(g);
+                texto.dibujar(g);
         }
     }
 
