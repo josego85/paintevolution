@@ -28,5 +28,5 @@ public class Constantes {
     public static final int INCREMENTO_SPINNER_NUMBER_MODEL = 1;
 
     // Varios
-    public static final String INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO = "  ";
+    public static final String INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO = "     ";
 }
