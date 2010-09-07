@@ -77,7 +77,6 @@ public class GUI_Principal extends javax.swing.JFrame {
      Image iconoAplicacion;
 
 
-
     /** Creates new form GUI_Principal */
     public GUI_Principal() {
         // Se elije el tema por defecto de la aplicación
@@ -129,6 +128,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonColorRelleno.setVisible(false);
         jLabelTamanioGrosor.setVisible(false);
         jComboBoxGrosorBorde.setVisible(false);
+        jCheckBoxActivarRelleno.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(false);
         //pack();
     }
@@ -169,14 +169,15 @@ public class GUI_Principal extends javax.swing.JFrame {
         jToggleButtonRectangulo = new javax.swing.JToggleButton();
         jToggleButtonRectanguloConCurvasRedondas = new javax.swing.JToggleButton();
         jToggleButtonTexto = new javax.swing.JToggleButton();
-        jButtonBorraTodoLosObjetos = new javax.swing.JButton();
         jToggleButtonBorrador = new javax.swing.JToggleButton();
+        jButtonBorraTodoLosObjetos = new javax.swing.JButton();
         jButtonColorDeFondoPantalla = new javax.swing.JButton();
         jButtonColorBordeObjetos = new javax.swing.JButton();
         jButtonColorRelleno = new javax.swing.JButton();
-        jToggleButtonArrastrarObjetos = new javax.swing.JToggleButton();
+        jCheckBoxActivarRelleno = new javax.swing.JCheckBox();
         jLabelTamanioGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
+        jToggleButtonArrastrarObjetos = new javax.swing.JToggleButton();
         jPanelInformacionExtra = new javax.swing.JPanel();
         jLabelCoordenadasPuntero = new javax.swing.JLabel();
         jLabelHerramientaSeleccionada = new javax.swing.JLabel();
@@ -319,6 +320,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonRehacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/reHacer_32px.png"))); // NOI18N
         jButtonRehacer.setText("Rehacer");
         jButtonRehacer.setToolTipText("Rehacer");
+        jButtonRehacer.setEnabled(false);
         jButtonRehacer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonRehacer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonRehacer.addActionListener(new java.awt.event.ActionListener() {
@@ -380,11 +382,11 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         getContentPane().add(jPanelBarraAccesoDirecto, java.awt.BorderLayout.NORTH);
 
-        jPanelBarraDeHerramientas.setLayout(new javax.swing.BoxLayout(jPanelBarraDeHerramientas, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelBarraDeHerramientas.setLayout(new javax.swing.BoxLayout(jPanelBarraDeHerramientas, javax.swing.BoxLayout.PAGE_AXIS));
 
         jToolBarBarraDeHerramientas.setRollover(true);
 
-        jPanel1.setLayout(new java.awt.GridLayout(8, 2));
+        jPanel1.setLayout(new java.awt.GridLayout(9, 2));
 
         buttonGroupObjetos.add(jToggleButtonPincel);
         jToggleButtonPincel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/brush_16_16.gif"))); // NOI18N
@@ -491,15 +493,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jToggleButtonTexto);
 
-        jButtonBorraTodoLosObjetos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/eraser.png"))); // NOI18N
-        jButtonBorraTodoLosObjetos.setToolTipText("Borra todos los objetos");
-        jButtonBorraTodoLosObjetos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBorraTodoLosObjetosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonBorraTodoLosObjetos);
-
         buttonGroupObjetos.add(jToggleButtonBorrador);
         jToggleButtonBorrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/eraser_16_16.gif"))); // NOI18N
         jToggleButtonBorrador.setToolTipText("Borrador");
@@ -509,6 +502,15 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jToggleButtonBorrador);
+
+        jButtonBorraTodoLosObjetos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/eraser.png"))); // NOI18N
+        jButtonBorraTodoLosObjetos.setToolTipText("Borra todos los objetos");
+        jButtonBorraTodoLosObjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorraTodoLosObjetosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonBorraTodoLosObjetos);
 
         jButtonColorDeFondoPantalla.setText("Fondo");
         jButtonColorDeFondoPantalla.addActionListener(new java.awt.event.ActionListener() {
@@ -528,6 +530,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jPanel1.add(jButtonColorBordeObjetos);
 
         jButtonColorRelleno.setText("Color Relleno");
+        jButtonColorRelleno.setEnabled(false);
         jButtonColorRelleno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonColorRellenoActionPerformed(evt);
@@ -535,18 +538,16 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonColorRelleno);
 
-        buttonGroupObjetos.add(jToggleButtonArrastrarObjetos);
-        jToggleButtonArrastrarObjetos.setText("Arrastrar");
-        jToggleButtonArrastrarObjetos.setToolTipText("Arrastrar Objetos");
-        jToggleButtonArrastrarObjetos.setFocusable(false);
-        jToggleButtonArrastrarObjetos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleButtonArrastrarObjetos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToggleButtonArrastrarObjetos.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBoxActivarRelleno.setText("Relleno");
+        jCheckBoxActivarRelleno.setToolTipText("Relleno");
+        jCheckBoxActivarRelleno.setBorderPainted(true);
+        jCheckBoxActivarRelleno.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jCheckBoxActivarRelleno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonArrastrarObjetosActionPerformed(evt);
+                jCheckBoxActivarRellenoActionPerformed(evt);
             }
         });
-        jPanel1.add(jToggleButtonArrastrarObjetos);
+        jPanel1.add(jCheckBoxActivarRelleno);
 
         jLabelTamanioGrosor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTamanioGrosor.setText("Grosor:");
@@ -563,6 +564,19 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jComboBoxGrosorBorde);
+
+        buttonGroupObjetos.add(jToggleButtonArrastrarObjetos);
+        jToggleButtonArrastrarObjetos.setText("Arrastrar");
+        jToggleButtonArrastrarObjetos.setToolTipText("Arrastrar Objetos");
+        jToggleButtonArrastrarObjetos.setFocusable(false);
+        jToggleButtonArrastrarObjetos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButtonArrastrarObjetos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButtonArrastrarObjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonArrastrarObjetosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButtonArrastrarObjetos);
 
         jToolBarBarraDeHerramientas.add(jPanel1);
 
@@ -774,6 +788,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonCirculoActionPerformed
@@ -787,6 +802,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonRectanguloActionPerformed
@@ -801,6 +817,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonRectanguloConCurvasRedondasActionPerformed
@@ -815,6 +832,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonOvaloActionPerformed
@@ -844,6 +862,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jButtonBorraTodoLosObjetosActionPerformed
@@ -851,6 +870,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         if(colorDeFondoPantalla){
             mesaDeDibujo.setColorFondoPantallaDibujo(jColorChooserColores.getColor());
+            mesaDeDibujo.repaint();
         }
 
         if(colorBordeObjetos){
@@ -859,16 +879,17 @@ public class GUI_Principal extends javax.swing.JFrame {
         
         if(colorRelleno){
             mesaDeDibujo.setColorRelleno(jColorChooserColores.getColor());
-        }
+            activarRellenoDeFiguras();
+        }       
         colorBordeObjetos = false;
         colorDeFondoPantalla = false;
         colorRelleno = false;
-        mesaDeDibujo.repaint();
         jDialogColor.setVisible(false);
+        //mesaDeDibujo.repaint();  
 }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        jColorChooserColores.setColor(Color.WHITE);
+        //jColorChooserColores.setColor(Color.WHITE);
         jDialogColor.setVisible(false);
 }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -915,7 +936,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         jColorChooserColores.setColor(mesaDeDibujo.getColorRelleno());
         jDialogColor.setTitle("Color Relleno");
         jDialogColor.setVisible(true);
-        mesaDeDibujo.setConRelleno(false);  // no funciona bien esto
     }//GEN-LAST:event_jButtonColorRellenoActionPerformed
 
     private void jMenuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCerrarActionPerformed
@@ -992,6 +1012,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonPincelActionPerformed
@@ -1006,6 +1027,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonLapizActionPerformed
@@ -1020,6 +1042,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonLineaActionPerformed
@@ -1032,6 +1055,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
         //mesaDeDibujo.setObjetoTexto(true);
@@ -1066,9 +1090,22 @@ public class GUI_Principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
+        jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto(evt));
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto(evt));
     }//GEN-LAST:event_jToggleButtonBorradorActionPerformed
+
+    private void jCheckBoxActivarRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxActivarRellenoActionPerformed
+        if(jCheckBoxActivarRelleno.isSelected()){
+            jButtonColorRelleno.setEnabled(true);
+            mesaDeDibujo.setConRelleno(true);
+            mesaDeDibujo.setColorRelleno(mesaDeDibujo.getColorRelleno());
+        }else{
+            jButtonColorRelleno.setEnabled(false);
+            mesaDeDibujo.setConRelleno(false);
+            mesaDeDibujo.setColorRelleno(null);
+        }
+    }//GEN-LAST:event_jCheckBoxActivarRellenoActionPerformed
 
     // Metodos varios
     // Comprobar si tiene soporte a pantalla completa
@@ -1206,7 +1243,8 @@ public class GUI_Principal extends javax.swing.JFrame {
     public boolean esObjetoRellenable(ActionEvent event){
         if(event.getSource() == jToggleButtonRectangulo || event.getSource() == jToggleButtonOvalo
                 || event.getSource() == jToggleButtonCirculo
-                || event.getSource() == jToggleButtonRectanguloConCurvasRedondas){
+                || event.getSource() == jToggleButtonRectanguloConCurvasRedondas
+                || event.getSource() == jCheckBoxActivarRelleno){
             return true;
         }
        return false;
@@ -1229,6 +1267,12 @@ public class GUI_Principal extends javax.swing.JFrame {
             return true;
         }
        return false;
+    }
+
+    public void activarRellenoDeFiguras(){
+        if(colorRelleno){
+            mesaDeDibujo.setConRelleno(true);
+        }
     }
 
     
@@ -1262,6 +1306,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRehacer;
     private javax.swing.JButton jButtonZoomIn;
     private javax.swing.JButton jButtonZoomOut;
+    private javax.swing.JCheckBox jCheckBoxActivarRelleno;
     private javax.swing.JColorChooser jColorChooserColores;
     private javax.swing.JComboBox jComboBoxGrosorBorde;
     private javax.swing.JDialog jDialogColor;
