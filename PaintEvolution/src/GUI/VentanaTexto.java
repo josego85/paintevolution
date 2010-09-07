@@ -8,6 +8,7 @@ package GUI;
 
 import Auxiliar.Constantes;
 import Auxiliar.Texto;
+import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
@@ -25,6 +26,7 @@ public class VentanaTexto extends javax.swing.JDialog {
     private String tipoFuentePredeterminada = "Dialog";
     private Texto texto;
     private boolean dibujaTexto;
+    private VentanaColor ventanaColor;
 
     /** Creates new form VentanaTexto */
     public VentanaTexto(java.awt.Frame parent, boolean modal) {
@@ -35,6 +37,7 @@ public class VentanaTexto extends javax.swing.JDialog {
         gEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
         initComponents();
         texto = null;
+        ventanaColor = null;
         dibujaTexto = false;
         this.setTitle("Introduzca un texto");   // titulo de la ventana
         this.setResizable(false);               // No redimensiona la ventana
@@ -58,8 +61,9 @@ public class VentanaTexto extends javax.swing.JDialog {
         jLabelEstilo = new javax.swing.JLabel();
         jComboBoxTipoEstilo = new javax.swing.JComboBox();
         jLabelTamañoTexto = new javax.swing.JLabel();
-        jSpinnerTamañoTexto = new javax.swing.JSpinner(new SpinnerNumberModel(36, 6, 150, 1));
+        jSpinnerTamañoTexto = new javax.swing.JSpinner(new SpinnerNumberModel(Constantes.VALOR_PREDETERMINADO_SPINNER_NUMBER_MODEL, Constantes.VALOR_MINIMO_SPINNER_NUMBER_MODEL, Constantes.VALOR_MAXIMO_SPINNER_NUMBER_MODEL, Constantes.INCREMENTO_SPINNER_NUMBER_MODEL));
         jPanelConfirmacion = new javax.swing.JPanel();
+        jButtonColor = new javax.swing.JButton();
         jButtonAceptar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
@@ -108,6 +112,29 @@ public class VentanaTexto extends javax.swing.JDialog {
 
         jSpinnerTamañoTexto.setToolTipText("Tamaño");
 
+        jButtonColor.setText("Color");
+        jButtonColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonColorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelConfirmacionLayout = new javax.swing.GroupLayout(jPanelConfirmacion);
+        jPanelConfirmacion.setLayout(jPanelConfirmacionLayout);
+        jPanelConfirmacionLayout.setHorizontalGroup(
+            jPanelConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConfirmacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonColor)
+                .addContainerGap(310, Short.MAX_VALUE))
+        );
+        jPanelConfirmacionLayout.setVerticalGroup(
+            jPanelConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConfirmacionLayout.createSequentialGroup()
+                .addComponent(jButtonColor)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         jButtonAceptar.setText("Aceptar");
         jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,27 +149,6 @@ public class VentanaTexto extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanelConfirmacionLayout = new javax.swing.GroupLayout(jPanelConfirmacion);
-        jPanelConfirmacion.setLayout(jPanelConfirmacionLayout);
-        jPanelConfirmacionLayout.setHorizontalGroup(
-            jPanelConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelConfirmacionLayout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(jButtonAceptar)
-                .addGap(31, 31, 31)
-                .addComponent(jButtonCancelar)
-                .addContainerGap(106, Short.MAX_VALUE))
-        );
-        jPanelConfirmacionLayout.setVerticalGroup(
-            jPanelConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConfirmacionLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addGroup(jPanelConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonAceptar))
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanelOpcionesTextoLayout = new javax.swing.GroupLayout(jPanelOpcionesTexto);
         jPanelOpcionesTexto.setLayout(jPanelOpcionesTextoLayout);
         jPanelOpcionesTextoLayout.setHorizontalGroup(
@@ -151,17 +157,23 @@ public class VentanaTexto extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabelTipolFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jComboBoxTipoFuentes, 0, 57, Short.MAX_VALUE)
+                .addComponent(jComboBoxTipoFuentes, 0, 52, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
                 .addComponent(jLabelEstilo)
                 .addGap(5, 5, 5)
-                .addComponent(jComboBoxTipoEstilo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBoxTipoEstilo, 0, 95, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
                 .addComponent(jLabelTamañoTexto)
                 .addGap(5, 5, 5)
                 .addComponent(jSpinnerTamañoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44))
             .addComponent(jPanelConfirmacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOpcionesTextoLayout.createSequentialGroup()
+                .addContainerGap(102, Short.MAX_VALUE)
+                .addComponent(jButtonAceptar)
+                .addGap(31, 31, 31)
+                .addComponent(jButtonCancelar)
+                .addGap(96, 96, 96))
         );
         jPanelOpcionesTextoLayout.setVerticalGroup(
             jPanelOpcionesTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +194,11 @@ public class VentanaTexto extends javax.swing.JDialog {
                     .addComponent(jSpinnerTamañoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanelConfirmacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(26, 26, 26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelOpcionesTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonAceptar))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,14 +206,17 @@ public class VentanaTexto extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelTextPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanelOpcionesTexto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelOpcionesTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelTextPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelOpcionesTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelOpcionesTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -210,10 +229,15 @@ public class VentanaTexto extends javax.swing.JDialog {
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         if(!jTextFieldTexto.getText().equals("")){
             int numeroEntero = Integer.parseInt(jSpinnerTamañoTexto.getValue().toString());
+            Color colorTexto;
+            if(ventanaColor != null){
+                colorTexto = ventanaColor.getJColorChooserColores().getColor();
+            }else{
+                colorTexto = Color.BLACK; // color negro predeterminado
+            }
+                
             texto = new Texto(jTextFieldTexto.getText(), jComboBoxTipoFuentes.getSelectedIndex(),
-                jComboBoxTipoEstilo.getSelectedIndex(), numeroEntero);
-            //        pantallaDibujo.setTipoFuente(jComboBoxTipoFuentes.getSelectedIndex());
-            //    pantallaDibujo.setEstiloFuente(jComboBoxTipoEstilo.getSelectedIndex());
+                jComboBoxTipoEstilo.getSelectedIndex(), numeroEntero, colorTexto);
             this.setVisible(false);
             setDibujaTexto(true);
           //repaint();
@@ -232,6 +256,16 @@ public class VentanaTexto extends javax.swing.JDialog {
         setDibujaTexto(false);
 }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jButtonColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColorActionPerformed
+        mostrarVentanaColor();
+        // Centrar el ventana Color
+        ventanaColor.setLocationRelativeTo(this);
+
+        //texto.setColor(Color.BLACK);
+        ventanaColor.getJColorChooserColores().setColor(texto.getColor());
+        ventanaColor.setTitle("Color del texto");
+    }//GEN-LAST:event_jButtonColorActionPerformed
+
     // Metodos get y set
     public Texto getTexto() {
         return texto;
@@ -247,6 +281,15 @@ public class VentanaTexto extends javax.swing.JDialog {
 
     public void setDibujaTexto(boolean dibujaTexto) {
         this.dibujaTexto = dibujaTexto;
+    }
+
+    // Metodo que muestra la ventana Color
+    public void mostrarVentanaColor() {
+        if (ventanaColor == null) {
+            ventanaColor = new VentanaColor(null, rootPaneCheckingEnabled);
+            ventanaColor.setLocationRelativeTo(this);
+        }
+        ventanaColor.setVisible(true);
     }
 
 
@@ -272,6 +315,7 @@ public class VentanaTexto extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonColor;
     private javax.swing.JComboBox jComboBoxTipoEstilo;
     private javax.swing.JComboBox jComboBoxTipoFuentes;
     private javax.swing.JLabel jLabelEstilo;
