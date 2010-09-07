@@ -55,15 +55,13 @@ public class VentanaTexto extends javax.swing.JDialog {
         jPanelTextPanel = new javax.swing.JPanel();
         jLabelIntroduzcaTexto = new javax.swing.JLabel();
         jTextFieldTexto = new javax.swing.JTextField();
-        jPanelOpcionesTexto = new javax.swing.JPanel();
         jLabelTipolFuente = new javax.swing.JLabel();
-        jComboBoxTipoFuentes = new javax.swing.JComboBox(gEnv.getAvailableFontFamilyNames());
-        jLabelEstilo = new javax.swing.JLabel();
-        jComboBoxTipoEstilo = new javax.swing.JComboBox();
         jLabelTamañoTexto = new javax.swing.JLabel();
         jSpinnerTamañoTexto = new javax.swing.JSpinner(new SpinnerNumberModel(Constantes.VALOR_PREDETERMINADO_SPINNER_NUMBER_MODEL, Constantes.VALOR_MINIMO_SPINNER_NUMBER_MODEL, Constantes.VALOR_MAXIMO_SPINNER_NUMBER_MODEL, Constantes.INCREMENTO_SPINNER_NUMBER_MODEL));
-        jPanelConfirmacion = new javax.swing.JPanel();
+        jComboBoxTipoFuentes = new javax.swing.JComboBox(gEnv.getAvailableFontFamilyNames());
         jButtonColor = new javax.swing.JButton();
+        jLabelEstilo = new javax.swing.JLabel();
+        jComboBoxTipoEstilo = new javax.swing.JComboBox();
         jButtonAceptar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
@@ -77,22 +75,26 @@ public class VentanaTexto extends javax.swing.JDialog {
             jPanelTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTextPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelIntroduzcaTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabelIntroduzcaTexto)
+                .addGap(18, 18, 18)
+                .addComponent(jTextFieldTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelTextPanelLayout.setVerticalGroup(
             jPanelTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTextPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelIntroduzcaTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(jLabelIntroduzcaTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                     .addComponent(jTextFieldTexto)))
         );
 
         jLabelTipolFuente.setText("Fuentes:");
         jLabelTipolFuente.setToolTipText("Tipo de Fuentes");
+
+        jLabelTamañoTexto.setText("Tamaño:");
+
+        jSpinnerTamañoTexto.setToolTipText("Tamaño");
 
         jComboBoxTipoFuentes.setMaximumRowCount(5);
         jComboBoxTipoFuentes.setSelectedItem(tipoFuentePredeterminada);
@@ -103,15 +105,6 @@ public class VentanaTexto extends javax.swing.JDialog {
             }
         });
 
-        jLabelEstilo.setText("Estilo:");
-
-        jComboBoxTipoEstilo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Negrita", "Cursiva", "Negrita Cursiva" }));
-        jComboBoxTipoEstilo.setToolTipText("Tipo de Estilos");
-
-        jLabelTamañoTexto.setText("Tamaño:");
-
-        jSpinnerTamañoTexto.setToolTipText("Tamaño");
-
         jButtonColor.setText("Color");
         jButtonColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,21 +112,10 @@ public class VentanaTexto extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanelConfirmacionLayout = new javax.swing.GroupLayout(jPanelConfirmacion);
-        jPanelConfirmacion.setLayout(jPanelConfirmacionLayout);
-        jPanelConfirmacionLayout.setHorizontalGroup(
-            jPanelConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelConfirmacionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonColor)
-                .addContainerGap(310, Short.MAX_VALUE))
-        );
-        jPanelConfirmacionLayout.setVerticalGroup(
-            jPanelConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelConfirmacionLayout.createSequentialGroup()
-                .addComponent(jButtonColor)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabelEstilo.setText("Estilo:");
+
+        jComboBoxTipoEstilo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Negrita", "Cursiva", "Negrita Cursiva" }));
+        jComboBoxTipoEstilo.setToolTipText("Tipo de Estilos");
 
         jButtonAceptar.setText("Aceptar");
         jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -149,74 +131,66 @@ public class VentanaTexto extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanelOpcionesTextoLayout = new javax.swing.GroupLayout(jPanelOpcionesTexto);
-        jPanelOpcionesTexto.setLayout(jPanelOpcionesTextoLayout);
-        jPanelOpcionesTextoLayout.setHorizontalGroup(
-            jPanelOpcionesTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelOpcionesTextoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelTipolFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                .addGap(5, 5, 5)
-                .addComponent(jComboBoxTipoFuentes, 0, 52, Short.MAX_VALUE)
-                .addGap(5, 5, 5)
-                .addComponent(jLabelEstilo)
-                .addGap(5, 5, 5)
-                .addComponent(jComboBoxTipoEstilo, 0, 95, Short.MAX_VALUE)
-                .addGap(5, 5, 5)
-                .addComponent(jLabelTamañoTexto)
-                .addGap(5, 5, 5)
-                .addComponent(jSpinnerTamañoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
-            .addComponent(jPanelConfirmacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOpcionesTextoLayout.createSequentialGroup()
-                .addContainerGap(102, Short.MAX_VALUE)
-                .addComponent(jButtonAceptar)
-                .addGap(31, 31, 31)
-                .addComponent(jButtonCancelar)
-                .addGap(96, 96, 96))
-        );
-        jPanelOpcionesTextoLayout.setVerticalGroup(
-            jPanelOpcionesTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelOpcionesTextoLayout.createSequentialGroup()
-                .addGroup(jPanelOpcionesTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelOpcionesTextoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabelTipolFuente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(5, 5, 5))
-                    .addComponent(jComboBoxTipoFuentes)
-                    .addGroup(jPanelOpcionesTextoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabelEstilo))
-                    .addComponent(jComboBoxTipoEstilo)
-                    .addGroup(jPanelOpcionesTextoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabelTamañoTexto))
-                    .addComponent(jSpinnerTamañoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanelConfirmacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelOpcionesTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonAceptar))
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelTextPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelOpcionesTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelTextPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabelTipolFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jComboBoxTipoFuentes, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabelTamañoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jSpinnerTamañoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jButtonColor))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabelEstilo)
+                        .addGap(41, 41, 41)
+                        .addComponent(jComboBoxTipoEstilo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jButtonAceptar)
+                        .addGap(27, 27, 27)
+                        .addComponent(jButtonCancelar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelTextPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelOpcionesTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelTipolFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jComboBoxTipoFuentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelTamañoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinnerTamañoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jButtonColor)))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabelEstilo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTipoEstilo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonAceptar)
+                    .addComponent(jButtonCancelar))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -322,8 +296,6 @@ public class VentanaTexto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelIntroduzcaTexto;
     private javax.swing.JLabel jLabelTamañoTexto;
     private javax.swing.JLabel jLabelTipolFuente;
-    private javax.swing.JPanel jPanelConfirmacion;
-    private javax.swing.JPanel jPanelOpcionesTexto;
     private javax.swing.JPanel jPanelTextPanel;
     private javax.swing.JSpinner jSpinnerTamañoTexto;
     private javax.swing.JTextField jTextFieldTexto;
