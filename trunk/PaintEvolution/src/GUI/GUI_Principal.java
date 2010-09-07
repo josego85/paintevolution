@@ -130,6 +130,9 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(false);
         jCheckBoxActivarRelleno.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(false);
+        jButtonRehacer.setVisible(false);   // por ahora ocultar
+        jButtonZoomIn.setVisible(false);   // por ahora ocultar
+        jButtonZoomOut.setVisible(false);   // por ahora ocultar
         //pack();
     }
 
@@ -904,7 +907,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         colorDeFondoPantalla = true;
         colorRelleno = false;
         jColorChooserColores.setColor(mesaDeDibujo.getColorFondoPantallaDibujo());
-        jDialogColor.setTitle("Color Fondo de Pantalla");
+        jDialogColor.setTitle("" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO + 
+                "Color Fondo de Pantalla");
         jDialogColor.setVisible(true);
     }//GEN-LAST:event_jButtonColorDeFondoPantallaActionPerformed
 
@@ -919,7 +923,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         colorDeFondoPantalla = false;
         colorRelleno = false;
         jColorChooserColores.setColor(mesaDeDibujo.getColorBorde());
-        jDialogColor.setTitle("Color Borde");
+        jDialogColor.setTitle("" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                "Color Borde");
         jDialogColor.setVisible(true);
     }//GEN-LAST:event_jButtonColorBordeObjetosActionPerformed
 
@@ -934,7 +939,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         colorDeFondoPantalla = false;
         colorRelleno = true;
         jColorChooserColores.setColor(mesaDeDibujo.getColorRelleno());
-        jDialogColor.setTitle("Color Relleno");
+        jDialogColor.setTitle("" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                "Color Relleno");
         jDialogColor.setVisible(true);
     }//GEN-LAST:event_jButtonColorRellenoActionPerformed
 
@@ -960,8 +966,8 @@ public class GUI_Principal extends javax.swing.JFrame {
                 "josego85@gmail.com<br><b>&nbsp;&nbsp;&nbsp;&nbsp;Año:</b> 2010" +
                 "<br><b>&nbsp;&nbsp;&nbsp;&nbsp;Paint Evolution v.1.0</b></body></html>";
         JOptionPane.showMessageDialog(this, codigoHTML,
-                Constantes.TITULO_PROGRAMA,
-                JOptionPane.PLAIN_MESSAGE);
+                "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO + 
+                Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
         mesaDeDibujo.repaint();
     }//GEN-LAST:event_jMenuItemAcercaDeActionPerformed
 
