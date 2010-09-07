@@ -1102,6 +1102,10 @@ public class GUI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonBorradorActionPerformed
 
     private void jCheckBoxActivarRellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxActivarRellenoActionPerformed
+        if(mesaDeDibujo.getColorRelleno() == null){
+            mesaDeDibujo.setColorRelleno(Color.BLACK);
+        }
+
         if(jCheckBoxActivarRelleno.isSelected()){
             jButtonColorRelleno.setEnabled(true);
             mesaDeDibujo.setConRelleno(true);
