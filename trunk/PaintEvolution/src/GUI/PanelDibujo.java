@@ -900,6 +900,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Metodo que borra todos los elementos de la pantalla
     public void borrarTodo(){
         listaFiguras.clear();
+        listaTexto.clear();
         desHacerPila.clear();
         reHacerPila.clear();
         imagen = null;
