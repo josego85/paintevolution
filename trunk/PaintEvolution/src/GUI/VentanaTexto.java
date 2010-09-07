@@ -39,7 +39,8 @@ public class VentanaTexto extends javax.swing.JDialog {
         texto = null;
         ventanaColor = null;
         dibujaTexto = false;
-        this.setTitle("Introduzca un texto");   // titulo de la ventana
+        this.setTitle("" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                "Introduzca un texto");   // titulo de la ventana
         this.setResizable(false);               // No redimensiona la ventana
     }
 
@@ -58,7 +59,7 @@ public class VentanaTexto extends javax.swing.JDialog {
         jLabelTipolFuente = new javax.swing.JLabel();
         jLabelTamañoTexto = new javax.swing.JLabel();
         jSpinnerTamañoTexto = new javax.swing.JSpinner(new SpinnerNumberModel(Constantes.VALOR_PREDETERMINADO_SPINNER_NUMBER_MODEL, Constantes.VALOR_MINIMO_SPINNER_NUMBER_MODEL, Constantes.VALOR_MAXIMO_SPINNER_NUMBER_MODEL, Constantes.INCREMENTO_SPINNER_NUMBER_MODEL));
-        jComboBoxTipoFuentes = new javax.swing.JComboBox(gEnv.getAvailableFontFamilyNames());
+        jComboBoxTipoFuentes = new javax.swing.JComboBox();
         jButtonColor = new javax.swing.JButton();
         jLabelEstilo = new javax.swing.JLabel();
         jComboBoxTipoEstilo = new javax.swing.JComboBox();
@@ -68,6 +69,8 @@ public class VentanaTexto extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabelIntroduzcaTexto.setText("Introduzca un texto:");
+
+        jTextFieldTexto.setToolTipText("texto");
 
         javax.swing.GroupLayout jPanelTextPanelLayout = new javax.swing.GroupLayout(jPanelTextPanel);
         jPanelTextPanel.setLayout(jPanelTextPanelLayout);
@@ -97,6 +100,7 @@ public class VentanaTexto extends javax.swing.JDialog {
         jSpinnerTamañoTexto.setToolTipText("Tamaño");
 
         jComboBoxTipoFuentes.setMaximumRowCount(5);
+        jComboBoxTipoFuentes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Serif", "SansSerif", "Monospaced", "Dialog", "DialogInput" }));
         jComboBoxTipoFuentes.setSelectedItem(tipoFuentePredeterminada);
         jComboBoxTipoFuentes.setToolTipText("Tipos de Fuente");
         jComboBoxTipoFuentes.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +110,7 @@ public class VentanaTexto extends javax.swing.JDialog {
         });
 
         jButtonColor.setText("Color");
+        jButtonColor.setToolTipText("Color");
         jButtonColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonColorActionPerformed(evt);
@@ -209,8 +214,7 @@ public class VentanaTexto extends javax.swing.JDialog {
             }else{
                 colorTexto = Color.BLACK; // color negro predeterminado
             }
-                
-            texto = new Texto(jTextFieldTexto.getText(), jComboBoxTipoFuentes.getSelectedIndex(),
+            texto = new Texto(jTextFieldTexto.getText(), seleccionarTipoFuente(jComboBoxTipoFuentes.getSelectedIndex()),
                 jComboBoxTipoEstilo.getSelectedIndex(), numeroEntero, colorTexto);
             this.setVisible(false);
             setDibujaTexto(true);
@@ -264,6 +268,30 @@ public class VentanaTexto extends javax.swing.JDialog {
             ventanaColor.setLocationRelativeTo(this);
         }
         ventanaColor.setVisible(true);
+    }
+
+    // Metodo que retorna la fuente dependiendo de lo selecciono en el combobox
+    public String  seleccionarTipoFuente(int indice){
+        String tipoFuente = "Dialog";       // como valor predeterminado
+
+        switch(indice){
+            case 1:
+                tipoFuente = "Serif";
+                break;
+            case 2:
+                tipoFuente = "SansSerif";
+                break;
+            case 3:
+                tipoFuente = "Monospaced";
+                break;
+            case 4:
+                tipoFuente = "Dialog";
+                break;
+            case 5:
+                tipoFuente = "DialogInput";
+                break;
+        }
+        return tipoFuente;
     }
 
 
