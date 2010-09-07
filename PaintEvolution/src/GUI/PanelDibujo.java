@@ -660,7 +660,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /**
-     * Quita el texto en la lista de trxtos a dibujar.
+     * Quita el texto en la lista de textos a dibujar.
      *
      * @param texto texto a quitar de la lista.
      */
