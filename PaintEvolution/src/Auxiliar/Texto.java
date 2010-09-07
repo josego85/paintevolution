@@ -14,9 +14,8 @@ import java.awt.font.TextLayout;
  */
 public class Texto {
     // Variables
-    //private String tipoFuentePredeterminada = "Dialog";
     private String contenidoTexto;
-    private int tipo;
+    private String tipo;
     private int estilo;
     private int tamanio;
     private int posicionInicialX;
@@ -25,7 +24,7 @@ public class Texto {
 
 
     // Constructor con todos los valores
-    public Texto(String contenidoTexto, int tipo, int estilo, int tamanio, 
+    public Texto(String contenidoTexto, String tipo, int estilo, int tamanio,
             Color color, int posicionInicialX, int posicionInicialY){
         setContenidoTexto(contenidoTexto);
         setTipo(tipo);
@@ -38,7 +37,7 @@ public class Texto {
 
     // Constructor sin las posiciones iniciales X e Y
     // Se coloca las posicionInicialX e posicionInicialY con valor 0
-    public Texto(String contenidoTexto, int tipo, int estilo, int tamanio,
+    public Texto(String contenidoTexto, String tipo, int estilo, int tamanio,
             Color color){
         setContenidoTexto(contenidoTexto);
         setTipo(tipo);
@@ -75,11 +74,11 @@ public class Texto {
         this.tamanio = tamanio;
     }
 
-    public int getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
@@ -118,7 +117,7 @@ public class Texto {
 
         g2 = (Graphics2D)g;
         contextoFuente = g2.getFontRenderContext();
-        fuente = new Font( "Times", getEstilo(), getTamanio());
+        fuente = new Font(getTipo(), getEstilo(), getTamanio());
         layout = new TextLayout(getContenidoTexto(), fuente, contextoFuente );
         g2.setColor(getColor());
         layout.draw( g2,getPosicionInicialX(), getPosicionInicialY());
