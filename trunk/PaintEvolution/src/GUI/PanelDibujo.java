@@ -28,6 +28,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -73,7 +74,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     private int longitudBorrador;
     private VentanaTexto ventanaTexto;                      // Ventana Texto
     private boolean habilitarDibujarTexto;
-    Texto texto;
+    private Texto texto;
 
     private boolean conRelleno = false;
 
@@ -129,7 +130,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 	reHacerPila = new Stack();
         colorFondoPantallaDibujo    = Color.WHITE;          // De color blanco
         colorBorde                  = Color.BLACK;          // De color negro
-        colorRelleno                = Color.WHITE;          // De color blanco
+        colorRelleno                = null;                 // Sin relleno
         setBackground(getColorFondoPantallaDibujo());
         //repaint();
     }
@@ -240,9 +241,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             agregarFigura(borrador);
             //desHacerPila.push(borrador);
         }
-        crearImagen();
+        //crearImagen();
         GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
-        repaint();
+        //repaint();
     }//GEN-LAST:event_formMouseReleased
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
@@ -717,6 +718,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void paint(Graphics g){
         super.paintComponent(g);
 
+        Graphics2D g2 = (Graphics2D)g;
         //setBackground(getColorFondoPantallaDibujo());
 
         if (getImagen() != null && (modoDibujar != ARRASTRAR)){
@@ -734,10 +736,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
 
         dibujarFiguras(g);
-        //dibujarTexto(g);
+        dibujarTexto(g);
         this.setBackground(getColorFondoPantallaDibujo());
-        g.setColor(getColorBorde());
-        Graphics2D g2;
+        g.setColor(getColorBorde());      
 
         if(modoDibujar != ARRASTRAR){
             if (modoDibujar == LINEA) {
@@ -752,6 +753,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
             if (modoDibujar == OVALO){
                 if(conRelleno){
+                    g.setColor(getColorRelleno());
                     g.fillOval(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                             Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                             Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
@@ -775,6 +777,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
                         Math.pow(getCoordenadasFinY() - getCoordenadasInicioY(),2));
                 if(conRelleno){
+                    g.setColor(getColorRelleno());
                     g.fillOval(getCoordenadasInicioX() - (int)radio, getCoordenadasInicioY() - (int)radio,
                         (int)radio * 2 , (int)radio * 2);
                 }
@@ -792,6 +795,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
             if (modoDibujar == RECTANGULO_CON_CURVAS_REDONDAS){
                 if(conRelleno){
+                    g.setColor(getColorRelleno());
                     g.fillRoundRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                             Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                             Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
@@ -813,6 +817,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
             if (modoDibujar == RECTANGULO){
                 if(conRelleno){
+                    g.setColor(getColorRelleno());
                     g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                             Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                             Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
@@ -930,7 +935,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 	else{
             guardarComoImagen();
 	}
-	//repaint();
+	repaint();
     }
 
     /*----------------------------------------------------------------------------*/
@@ -972,7 +977,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 System.out.println(e.getMessage());
             }
         }
-	//repaint();
+	repaint();
     }
 
 
@@ -1014,20 +1019,18 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /*----------------------------------------------------------------------------*/
     // Metodo que crea la imagen
     public void crearImagen() {
-        // Variables
-        int largo = Math.min(getWidth(), Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO);
-        int ancho = Math.min(getHeight(), Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);
-
         // Objetos
-        imagen = new BufferedImage(largo, ancho, BufferedImage.TYPE_INT_RGB);
+        imagen = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        Graphics g = imagen.createGraphics();
-        g.setColor(getColorFondoPantallaDibujo());
-        g.fillRect(0, 0, largo, ancho);
-        dibujarFiguras(g);
-        dibujarTexto(g);
-        g.dispose();
-        setImagen(imagen);
+        Graphics2D g2 = imagen.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(getColorFondoPantallaDibujo());
+        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+        dibujarFiguras(g2);
+        dibujarTexto(g2);
+        g2.dispose();
+
+        //setImagen(imagen);
     }
 
     /*----------------------------------------------------------------------------*/
