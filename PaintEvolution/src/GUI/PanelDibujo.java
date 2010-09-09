@@ -982,7 +982,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 setColorFondoPantallaDibujo(Color.WHITE);
                 g.drawImage(image, 0, 0, this);
             }catch(Exception exp){
-                JOptionPane.showMessageDialog(null,"No se puede abrir el archivo", 
+                JOptionPane.showMessageDialog(null,"No se puede abrir el archivo",
                         "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
                         Constantes.TITULO_PROGRAMA, JOptionPane.INFORMATION_MESSAGE);
             }
