@@ -909,7 +909,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         reHacerPila.clear();
         imagen = null;
         setModoDibujar(0);
-        //nombreArchivo = null;
         repaint();
     }
 
