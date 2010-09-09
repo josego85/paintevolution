@@ -1073,6 +1073,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jMenuItemGuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarComoActionPerformed
+        mesaDeDibujo.setNombreArchivo(null);
         mesaDeDibujo.guardarImagen();
     }//GEN-LAST:event_jMenuItemGuardarComoActionPerformed
 
@@ -1188,6 +1189,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     }
 
     public void operacionNuevo(){
+        mesaDeDibujo.setNombreArchivo(null);
         mesaDeDibujo.borrarTodo();
         mesaDeDibujo.setDrawMode(PanelDibujo.getPINCEL());          // Trazo a mano alzada
         mesaDeDibujo.setCursorActual(cursorPredeterminado);         // Cursor Predeterminado
