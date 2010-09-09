@@ -927,6 +927,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
             if(nombreArchivo == null || nombreArchivo.getName().equals("")){
                 JOptionPane.showMessageDialog(null,"Nombre de archivo inválido",
+                        "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
                         Constantes.TITULO_PROGRAMA, JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -981,9 +982,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 setColorFondoPantallaDibujo(Color.WHITE);
                 g.drawImage(image, 0, 0, this);
             }catch(Exception exp){
-                JOptionPane.showMessageDialog(null,"No se puede abrir el archivo",
-                        Constantes.TITULO_PROGRAMA,
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"No se puede abrir el archivo", 
+                        "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                        Constantes.TITULO_PROGRAMA, JOptionPane.INFORMATION_MESSAGE);
             }
         }else{
             nombreArchivo = null;
