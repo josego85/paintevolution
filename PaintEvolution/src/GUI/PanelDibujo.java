@@ -28,7 +28,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -629,7 +628,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void setHabilitarDibujarTexto(boolean habilitarDibujarTexto) {
         this.habilitarDibujarTexto = habilitarDibujarTexto;
     }
-    
+
+    /*----------------------------------------------------------------------------*/
+    public void setNombreArchivo(File nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
 
     // Metodos varios
     /**
