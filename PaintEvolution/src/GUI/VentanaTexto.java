@@ -218,11 +218,12 @@ public class VentanaTexto extends javax.swing.JDialog {
                 jComboBoxTipoEstilo.getSelectedIndex(), numeroEntero, colorTexto);
             this.setVisible(false);
             setDibujaTexto(true);
-          //repaint();
+            repaint();
         }else {
-            String mensaje = "Introdusca un texto!!!";
+            String mensaje = "Introduzca un texto!!!";
             JOptionPane.showMessageDialog(this, mensaje, Constantes.TITULO_PROGRAMA,
                 JOptionPane.PLAIN_MESSAGE);
+            jTextFieldTexto.requestFocus();
             repaint();
         }
 }//GEN-LAST:event_jButtonAceptarActionPerformed
