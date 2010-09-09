@@ -905,85 +905,53 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         reHacerPila.clear();
         imagen = null;
         setModoDibujar(0);
+        //nombreArchivo = null;
         repaint();
     }
 
     /*----------------------------------------------------------------------------*/
     public void guardarImagen(){
-        if(nombreArchivo != null){
-            crearImagen();
-            try{
-                JOptionPane.showMessageDialog(null, "Archivo Guardado",
-                        "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
-                        + Constantes.TITULO_PROGRAMA,
-                        JOptionPane.INFORMATION_MESSAGE);
+        if(nombreArchivo == null){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fileChooser.setFileSelectionMode(0);
+            fileChooser.setFileFilter(new FiltroArchivo());
+            int resultado = fileChooser.showSaveDialog(null);
 
-            }catch(Exception e){
-                System.out.println(e.getMessage());
-            }
+            if(resultado == JFileChooser.CANCEL_OPTION)
+                return;
+            nombreArchivo = fileChooser.getSelectedFile();
 
-            try {
-                File file;
-                // Compara si tiene una extension .png
-                if(nombreArchivo.toString().endsWith(".png")){
-                     file = new File(nombreArchivo.toString());
-                }else{
-                     file = new File(nombreArchivo.toString() + ".png");
-                }
-                ImageIO.write(imagen, "png", file);
-            }catch (IOException e) {
-                System.out.println(e.getMessage());
+            if(nombreArchivo == null || nombreArchivo.getName().equals("")){
+                JOptionPane.showMessageDialog(null,"Nombre de archivo inválido",
+                        Constantes.TITULO_PROGRAMA, JOptionPane.ERROR_MESSAGE);
+                return;
             }
 	}
-	else{
-            guardarComoImagen();
-	}
-	repaint();
-    }
+	crearImagen();
+        try{
+            JOptionPane.showMessageDialog(null, "Archivo Guardado",
+                    "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
+                    + Constantes.TITULO_PROGRAMA,
+                    JOptionPane.INFORMATION_MESSAGE);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
-    /*----------------------------------------------------------------------------*/
-    public void guardarComoImagen(){
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setFileSelectionMode(0);
-        fileChooser.setFileFilter(new FiltroArchivo());
-        int resultado = fileChooser.showSaveDialog(null);
-
-        if(resultado == JFileChooser.CANCEL_OPTION)
-            return;
-        nombreArchivo = fileChooser.getSelectedFile();
-
-        if(nombreArchivo == null || nombreArchivo.getName().equals(""))
-            JOptionPane.showMessageDialog(null,"Nombre de archivo inválido",
-                    Constantes.TITULO_PROGRAMA,
-                    JOptionPane.ERROR_MESSAGE);
-        else{
-            crearImagen();   
-            try{
-                JOptionPane.showMessageDialog(null, "Archivo Guardado",
-                        "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
-                        + Constantes.TITULO_PROGRAMA,
-                        JOptionPane.INFORMATION_MESSAGE);
-            }catch(Exception e){
-                System.out.println(e.getMessage());
+        try {
+            File file;
+            // Compara si tiene una extension .png
+            if(nombreArchivo.toString().endsWith(".png")){
+                 file = new File(nombreArchivo.toString());
+            }else{
+                 file = new File(nombreArchivo.toString() + ".png");
             }
-
-            try {
-                File file;
-                // Compara si tiene una extension .png
-                if(nombreArchivo.toString().endsWith(".png")){
-                     file = new File(nombreArchivo.toString());
-                }else{
-                     file = new File(nombreArchivo.toString() + ".png");
-                }
-                ImageIO.write(imagen, "png", file);
-            }catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+            ImageIO.write(imagen, "png", file);
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
         }
 	repaint();
     }
-
 
     /*----------------------------------------------------------------------------*/
     public void abrirImagen(){
@@ -1027,7 +995,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         imagen = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         Graphics2D g2 = imagen.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getColorFondoPantallaDibujo());
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
         dibujarFiguras(g2);
