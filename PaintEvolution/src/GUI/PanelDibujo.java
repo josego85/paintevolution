@@ -913,7 +913,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         if(nombreArchivo != null){
             crearImagen();
             try{
-                JOptionPane.showMessageDialog(null,"Archivo Guardado",Constantes.TITULO_PROGRAMA,
+                JOptionPane.showMessageDialog(null, "Archivo Guardado",
+                        "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
+                        + Constantes.TITULO_PROGRAMA,
                         JOptionPane.INFORMATION_MESSAGE);
 
             }catch(Exception e){
@@ -958,9 +960,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         else{
             crearImagen();   
             try{
-                JOptionPane.showMessageDialog(null,"Archivo Guardado",Constantes.TITULO_PROGRAMA,
+                JOptionPane.showMessageDialog(null, "Archivo Guardado",
+                        "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
+                        + Constantes.TITULO_PROGRAMA,
                         JOptionPane.INFORMATION_MESSAGE);
-
             }catch(Exception e){
                 System.out.println(e.getMessage());
             }
