@@ -785,10 +785,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
-        jButtonColorRelleno.setVisible(true);
-        jButtonColorRelleno.setVisible(true);
-        jLabelTamanioGrosor.setVisible(true);
-        jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
@@ -801,8 +797,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
-        jLabelTamanioGrosor.setVisible(true);
-        jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
@@ -815,9 +809,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
-        jButtonColorRelleno.setVisible(true);
-        jLabelTamanioGrosor.setVisible(true);
-        jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
@@ -830,9 +821,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
-        jButtonColorRelleno.setVisible(true);
-        jLabelTamanioGrosor.setVisible(true);
-        jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
@@ -1013,9 +1001,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
-        jButtonColorRelleno.setVisible(false);
-        jLabelTamanioGrosor.setVisible(true);
-        jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
@@ -1029,8 +1014,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setTamanioBorde(1);
         llamarObjetosDiferentes(evt);
-        jLabelTamanioGrosor.setVisible(false);
-        jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
@@ -1043,9 +1026,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
         llamarObjetosDiferentes(evt);
-        jButtonColorRelleno.setVisible(false);
-        jLabelTamanioGrosor.setVisible(true);
-        jComboBoxGrosorBorde.setVisible(true);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
@@ -1057,8 +1037,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         Cursor cursorLetra = new Cursor(Cursor.TEXT_CURSOR);
 	cursorActual = cursorLetra;
         mesaDeDibujo.setCursorActual(cursorActual);
-        jLabelTamanioGrosor.setVisible(false);
-        jComboBoxGrosorBorde.setVisible(false);
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable(evt));
         jButtonColorRelleno.setVisible(esObjetoRellenable(evt));
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable(evt));
