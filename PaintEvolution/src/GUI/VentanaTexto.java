@@ -220,8 +220,8 @@ public class VentanaTexto extends javax.swing.JDialog {
             setDibujaTexto(true);
         }else {
             String mensaje = "Introduzca un texto!!!";
-            JOptionPane.showMessageDialog(this, mensaje, "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO + 
-                    Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this, mensaje, "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                    Constantes.TITULO_PROGRAMA,JOptionPane.PLAIN_MESSAGE);
             jTextFieldTexto.requestFocus();    
         }
         repaint();
@@ -229,9 +229,10 @@ public class VentanaTexto extends javax.swing.JDialog {
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         setVisible(false);
+        setDibujaTexto(false);
         dispose();
         //repaint();
-        setDibujaTexto(false);
+        
 }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonColorActionPerformed
@@ -239,8 +240,7 @@ public class VentanaTexto extends javax.swing.JDialog {
         // Centrar el ventana Color
         ventanaColor.setLocationRelativeTo(this);
 
-        //texto.setColor(Color.BLACK);
-        ventanaColor.getJColorChooserColores().setColor(texto.getColor());
+        texto.setColor(ventanaColor.getJColorChooserColores().getColor());
         ventanaColor.setTitle("Color del texto");
     }//GEN-LAST:event_jButtonColorActionPerformed
 
