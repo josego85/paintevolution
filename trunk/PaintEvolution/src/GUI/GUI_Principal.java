@@ -106,7 +106,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         ventanaAyuda = null;
 
-        jLabelHerramientaSeleccionadaObjeto.setText("Mano Alzada");
+        jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
 
         // Establece un esquema para la mesa de dibujo y agrega a la ventana
         // principal
@@ -934,6 +934,8 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     private void jButtonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirActionPerformed
         mesaDeDibujo.abrirImagen();
+        seleccionarObjetoPredeterminado();
+        activarPropiedadesObjetos();
     }//GEN-LAST:event_jButtonAbrirActionPerformed
 
     private void jMenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAbrirActionPerformed
@@ -1111,10 +1113,9 @@ public class GUI_Principal extends javax.swing.JFrame {
     public void operacionNuevo(){
         mesaDeDibujo.setNombreArchivo(null);
         mesaDeDibujo.borrarTodo();
-        mesaDeDibujo.setModoDibujar(PanelDibujo.getPINCEL());          // Trazo a mano alzada
-        mesaDeDibujo.setCursorActual(cursorPredeterminado);         // Cursor Predeterminado
+        seleccionarObjetoPredeterminado();
+        activarPropiedadesObjetos();
 	mesaDeDibujo.setColorFondoPantallaDibujo(Color.WHITE);
-        jToggleButtonLapiz.setSelected(true);                       // marcar por defecto el boton
 	mesaDeDibujo.setColorBorde(Color.BLACK);
         mesaDeDibujo.setColorRelleno(Color.WHITE);
 	mesaDeDibujo.repaint();
