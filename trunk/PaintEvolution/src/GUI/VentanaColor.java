@@ -21,6 +21,7 @@ public class VentanaColor extends javax.swing.JDialog {
     public VentanaColor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jColorChooserColores.setColor(Color.BLACK); // color negro como predeterminado
     }
 
     /** This method is called from within the constructor to
@@ -88,7 +89,7 @@ public class VentanaColor extends javax.swing.JDialog {
 }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        jColorChooserColores.setColor(Color.WHITE);
+        jColorChooserColores.setColor(getColorTexto());
         setVisible(false);
 }//GEN-LAST:event_jButtonCancelarActionPerformed
 
