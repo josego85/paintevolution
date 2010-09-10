@@ -908,7 +908,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /*----------------------------------------------------------------------------*/
-    public void guardarImagen(){
+    public boolean guardarImagen(){
         if(nombreArchivo == null){
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -917,14 +917,14 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             int resultado = fileChooser.showSaveDialog(null);
 
             if(resultado == JFileChooser.CANCEL_OPTION)
-                return;
+                return false;
             nombreArchivo = fileChooser.getSelectedFile();
 
             if(nombreArchivo == null || nombreArchivo.getName().equals("")){
                 JOptionPane.showMessageDialog(null,"Nombre de archivo inválido",
                         "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
                         Constantes.TITULO_PROGRAMA, JOptionPane.ERROR_MESSAGE);
-                return;
+                return false;
             }
 	}
 	crearImagen();
@@ -950,6 +950,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             System.out.println(e.getMessage());
         }
 	repaint();
+        return true;
     }
 
     /*----------------------------------------------------------------------------*/
