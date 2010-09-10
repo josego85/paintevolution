@@ -23,7 +23,6 @@ public class VentanaTexto extends javax.swing.JDialog {
     private GraphicsEnvironment gEnv;
 
     // Variables
-    private String tipoFuentePredeterminada = "Dialog";
     private Texto texto;
     private boolean dibujaTexto;
     private VentanaColor ventanaColor;
@@ -101,7 +100,7 @@ public class VentanaTexto extends javax.swing.JDialog {
 
         jComboBoxTipoFuentes.setMaximumRowCount(5);
         jComboBoxTipoFuentes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Serif", "SansSerif", "Monospaced", "Dialog", "DialogInput" }));
-        jComboBoxTipoFuentes.setSelectedItem(tipoFuentePredeterminada);
+        jComboBoxTipoFuentes.setSelectedItem(Constantes.TIPO_FUENTE_LETRA_PREDETERMINADO);
         jComboBoxTipoFuentes.setToolTipText("Tipos de Fuente");
         jComboBoxTipoFuentes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,6 +229,7 @@ public class VentanaTexto extends javax.swing.JDialog {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         setVisible(false);
         setDibujaTexto(false);
+
         dispose();
         //repaint();
         
@@ -271,7 +271,7 @@ public class VentanaTexto extends javax.swing.JDialog {
     }
 
     // Metodo que retorna la fuente dependiendo de lo selecciono en el combobox
-    public String  seleccionarTipoFuente(int indice){
+    public String seleccionarTipoFuente(int indice){
         String tipoFuente = "Dialog";       // como valor predeterminado
 
         switch(indice){
