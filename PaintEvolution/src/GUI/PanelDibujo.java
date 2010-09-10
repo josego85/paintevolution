@@ -388,16 +388,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /*----------------------------------------------------------------------------*/
-    public int getDrawMode() {
-        return modoDibujar;
-    }
-
-    /*----------------------------------------------------------------------------*/
-    public void setDrawMode(int drawMode) {
-        this.modoDibujar = drawMode;
-    }
-
-    /*----------------------------------------------------------------------------*/
     public Color getColorBorde() {
         return colorBorde;
     }
