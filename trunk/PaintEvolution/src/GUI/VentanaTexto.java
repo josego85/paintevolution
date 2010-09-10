@@ -40,7 +40,7 @@ public class VentanaTexto extends javax.swing.JDialog {
         ventanaColor = null;
         dibujaTexto = false;
         this.setTitle("" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
-                "Introduzca un texto");   // titulo de la ventana
+                "Introduzca un texto");         // titulo de la ventana
         this.setResizable(false);               // No redimensiona la ventana
     }
 
@@ -218,14 +218,13 @@ public class VentanaTexto extends javax.swing.JDialog {
                 jComboBoxTipoEstilo.getSelectedIndex(), numeroEntero, colorTexto);
             this.setVisible(false);
             setDibujaTexto(true);
-            repaint();
         }else {
             String mensaje = "Introduzca un texto!!!";
-            JOptionPane.showMessageDialog(this, mensaje, Constantes.TITULO_PROGRAMA,
-                JOptionPane.PLAIN_MESSAGE);
-            jTextFieldTexto.requestFocus();
-            repaint();
+            JOptionPane.showMessageDialog(this, mensaje, "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO + 
+                    Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
+            jTextFieldTexto.requestFocus();    
         }
+        repaint();
 }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
