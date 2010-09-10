@@ -26,6 +26,7 @@ public class Constantes {
     public static final int VALOR_MINIMO_SPINNER_NUMBER_MODEL = 6;
     public static final int VALOR_MAXIMO_SPINNER_NUMBER_MODEL = 150;
     public static final int INCREMENTO_SPINNER_NUMBER_MODEL = 1;
+    public static final String TIPO_FUENTE_LETRA_PREDETERMINADO = "Dialog";
 
     // Varios
     public static final String INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO = "     ";
