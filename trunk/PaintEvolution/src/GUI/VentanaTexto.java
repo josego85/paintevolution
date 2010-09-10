@@ -221,7 +221,8 @@ public class VentanaTexto extends javax.swing.JDialog {
             String mensaje = "Introduzca un texto!!!";
             JOptionPane.showMessageDialog(this, mensaje, "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
                     Constantes.TITULO_PROGRAMA,JOptionPane.PLAIN_MESSAGE);
-            jTextFieldTexto.requestFocus();    
+            jTextFieldTexto.requestFocus();
+            setDibujaTexto(false);
         }
         repaint();
 }//GEN-LAST:event_jButtonAceptarActionPerformed

@@ -125,6 +125,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         ubicacionDeImagen = null;
         nombreArchivo = null;
         ventanaTexto = null;
+        texto = null;
         desHacerPila = new Stack();
 	reHacerPila = new Stack();
         colorFondoPantallaDibujo    = Color.WHITE;          // De color blanco
@@ -332,9 +333,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         if(modoDibujar == getTEXTO()){
             mostrarVentanaTexto();
-            texto = ventanaTexto.getTexto();
-            setHabilitarDibujarTexto(true);
-            agregarTexto(texto);
+            if(ventanaTexto.isDibujaTexto()){
+                texto = ventanaTexto.getTexto();
+                setHabilitarDibujarTexto(true);
+                agregarTexto(texto);
+            }else{
+                setHabilitarDibujarTexto(false);
+            }
         }
         repaint();
     }//GEN-LAST:event_formMouseClicked
