@@ -125,11 +125,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         cursorActual = cursorPredeterminado;
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setDrawMode(PanelDibujo.getLAPIZ());       // Lapiz como objeto predeterminado
-        jButtonColorRelleno.setVisible(false);
-        jLabelTamanioGrosor.setVisible(false);
-        jComboBoxGrosorBorde.setVisible(false);
-        jCheckBoxActivarRelleno.setVisible(false);
-        jToggleButtonArrastrarObjetos.setVisible(false);
+        activarPropiedadesObjetos();
         jButtonRehacer.setVisible(false);   // por ahora ocultar
         jButtonZoomIn.setVisible(false);   // por ahora ocultar
         jButtonZoomOut.setVisible(false);   // por ahora ocultar
