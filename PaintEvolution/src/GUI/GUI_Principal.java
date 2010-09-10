@@ -820,6 +820,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRehacerActionPerformed
 
     private void jButtonBorraTodoLosObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorraTodoLosObjetosActionPerformed
+        mesaDeDibujo.borrarTodo();
         seleccionarObjetoPredeterminado();
         activarPropiedadesObjetos();
     }//GEN-LAST:event_jButtonBorraTodoLosObjetosActionPerformed
