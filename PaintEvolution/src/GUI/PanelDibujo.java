@@ -866,7 +866,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 g2 = (Graphics2D)g;
 
                 FontRenderContext contextoFuente = g2.getFontRenderContext();
-                Font fuente = new Font( "Times", texto.getEstilo(), texto.getTamanio());
+                Font fuente = new Font(texto.getTipo(), texto.getEstilo(), texto.getTamanio());
                 TextLayout layout = new TextLayout( texto.getContenidoTexto(), fuente, contextoFuente );
                 g2.setColor( texto.getColor());
                 layout.draw( g2,getCoordenadasInicioX(), getCoordenadasInicioY());
