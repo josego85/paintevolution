@@ -124,11 +124,9 @@ public class GUI_Principal extends javax.swing.JFrame {
         cursorPredeterminado =  toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = cursorPredeterminado;
         mesaDeDibujo.setCursorActual(cursorActual);
-        mesaDeDibujo.setDrawMode(PanelDibujo.getLAPIZ());       // Lapiz como objeto predeterminado
+        mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());       // Lapiz como objeto predeterminado
         activarPropiedadesObjetos();
         jButtonRehacer.setVisible(false);   // por ahora ocultar
-        jButtonZoomIn.setVisible(false);   // por ahora ocultar
-        jButtonZoomOut.setVisible(false);   // por ahora ocultar
         //pack();
     }
 
@@ -332,7 +330,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"))); // NOI18N
         jButtonZoomIn.setText("Zoom In");
         jButtonZoomIn.setToolTipText("Zoom In");
-        jButtonZoomIn.setEnabled(false);
         jButtonZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomIn.addActionListener(new java.awt.event.ActionListener() {
@@ -345,7 +342,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_out_32px.png"))); // NOI18N
         jButtonZoomOut.setText("Zoom Out");
         jButtonZoomOut.setToolTipText("Zoom Out");
-        jButtonZoomOut.setEnabled(false);
         jButtonZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonZoomOut.addActionListener(new java.awt.event.ActionListener() {
@@ -495,6 +491,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         buttonGroupObjetos.add(jToggleButtonBorrador);
         jToggleButtonBorrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/eraser_16_16.gif"))); // NOI18N
         jToggleButtonBorrador.setToolTipText("Borrador");
+        jToggleButtonBorrador.setEnabled(false);
         jToggleButtonBorrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButtonBorradorActionPerformed(evt);
@@ -811,7 +808,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jToggleButtonArrastrarObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonArrastrarObjetosActionPerformed
         cursorActual = new Cursor(Cursor.DEFAULT_CURSOR);
         mesaDeDibujo.setCursorActual(cursorActual);
-        mesaDeDibujo.setDrawMode(PanelDibujo.getARRASTRAR());
+        mesaDeDibujo.setModoDibujar(PanelDibujo.getARRASTRAR());
     }//GEN-LAST:event_jToggleButtonArrastrarObjetosActionPerformed
 
     private void jButtonDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeshacerActionPerformed
@@ -823,14 +820,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRehacerActionPerformed
 
     private void jButtonBorraTodoLosObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorraTodoLosObjetosActionPerformed
-        // Icono del lapiz
-        Cursor pencilCursor = toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
-        cursorActual = pencilCursor;
-        mesaDeDibujo.setCursorActual(cursorActual);
-
-        llamarObjetosDiferentes(evt);
-        jToggleButtonLapiz.setSelected(true);
-        mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
+        seleccionarObjetoPredeterminado();
         activarPropiedadesObjetos();
     }//GEN-LAST:event_jButtonBorraTodoLosObjetosActionPerformed
 
@@ -1070,31 +1060,31 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     public void llamarObjetosDiferentes(ActionEvent event){
         if(event.getSource() == jToggleButtonLinea){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getLINEA());
+            mesaDeDibujo.setModoDibujar(PanelDibujo.getLINEA());
             jLabelHerramientaSeleccionadaObjeto.setText("Linea");
         }
         if(event.getSource() == jToggleButtonRectangulo){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getRECTANGULO());
+            mesaDeDibujo.setModoDibujar(PanelDibujo.getRECTANGULO());
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo");
         }
         if(event.getSource() == jToggleButtonOvalo){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getOVALO());
+            mesaDeDibujo.setModoDibujar(PanelDibujo.getOVALO());
             jLabelHerramientaSeleccionadaObjeto.setText("Ovalo");
         }
          if(event.getSource() == jToggleButtonCirculo){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getCIRCULO());
+            mesaDeDibujo.setModoDibujar(PanelDibujo.getCIRCULO());
             jLabelHerramientaSeleccionadaObjeto.setText("Círculo");
         }
         if(event.getSource() == jToggleButtonRectanguloConCurvasRedondas){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getRECTANGULO_CON_CURVAS_REDONDAS());
+            mesaDeDibujo.setModoDibujar(PanelDibujo.getRECTANGULO_CON_CURVAS_REDONDAS());
             jLabelHerramientaSeleccionadaObjeto.setText("Rectangulo Redondo");
         }
         if(event.getSource() == jToggleButtonLapiz){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getLAPIZ());
+            mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
             jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
         }
         if(event.getSource() == jToggleButtonPincel){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getPINCEL());
+            mesaDeDibujo.setModoDibujar(PanelDibujo.getPINCEL());
             jLabelHerramientaSeleccionadaObjeto.setText("Pincel");
         }
         if(event.getSource() == jButtonDeshacer || event.getSource() == jMenuItemDeshacer){
@@ -1107,11 +1097,11 @@ public class GUI_Principal extends javax.swing.JFrame {
             mesaDeDibujo.borrarTodo();
         }
         if(event.getSource() == jToggleButtonBorrador){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getBORRADOR());
+            mesaDeDibujo.setModoDibujar(PanelDibujo.getBORRADOR());
             jLabelHerramientaSeleccionadaObjeto.setText("Borrador");
         }
         if(event.getSource() == jToggleButtonTexto){
-            mesaDeDibujo.setDrawMode(PanelDibujo.getTEXTO());
+            mesaDeDibujo.setModoDibujar(PanelDibujo.getTEXTO());
             jLabelHerramientaSeleccionadaObjeto.setText("Texto");
         }
 
@@ -1120,7 +1110,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     public void operacionNuevo(){
         mesaDeDibujo.setNombreArchivo(null);
         mesaDeDibujo.borrarTodo();
-        mesaDeDibujo.setDrawMode(PanelDibujo.getPINCEL());          // Trazo a mano alzada
+        mesaDeDibujo.setModoDibujar(PanelDibujo.getPINCEL());          // Trazo a mano alzada
         mesaDeDibujo.setCursorActual(cursorPredeterminado);         // Cursor Predeterminado
 	mesaDeDibujo.setColorFondoPantallaDibujo(Color.WHITE);
         jToggleButtonLapiz.setSelected(true);                       // marcar por defecto el boton
@@ -1224,6 +1214,17 @@ public class GUI_Principal extends javax.swing.JFrame {
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable());
         jLabelTamanioGrosor.setVisible(tieneTamanhioBordeObjeto());
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto());
+    }
+
+    public void seleccionarObjetoPredeterminado(){
+        // Icono del lapiz
+        Cursor pencilCursor = toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
+        cursorActual = pencilCursor;
+        mesaDeDibujo.setCursorActual(cursorActual);
+
+        jToggleButtonLapiz.setSelected(true);
+        mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
+        jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
     }
 
     
