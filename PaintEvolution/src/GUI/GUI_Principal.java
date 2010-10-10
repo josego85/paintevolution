@@ -46,6 +46,8 @@ public class GUI_Principal extends javax.swing.JFrame {
     boolean colorBordeObjetos = false;
     boolean colorDeFondoPantalla = false;
     boolean colorRelleno = false;
+    boolean archivoGuardadoUltimaVersion = false;
+    boolean modificarImagenSinGuardar = false;
 
     // Cursor Predeterminado
     private Cursor cursorPredeterminado;
@@ -940,22 +942,24 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     private void jMenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAbrirActionPerformed
         mesaDeDibujo.abrirImagen();
+        seleccionarObjetoPredeterminado();
+        activarPropiedadesObjetos();
     }//GEN-LAST:event_jMenuItemAbrirActionPerformed
 
     private void jButtonZoomInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZoomInActionPerformed
-        mesaDeDibujo.acercar();
+        acercarImagen();
     }//GEN-LAST:event_jButtonZoomInActionPerformed
 
     private void jMenuItemZoomInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemZoomInActionPerformed
-        mesaDeDibujo.acercar();
+        acercarImagen();
     }//GEN-LAST:event_jMenuItemZoomInActionPerformed
 
     private void jMenuItemZoomOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemZoomOutActionPerformed
-        mesaDeDibujo.alejar();
+        alejarImagen();
     }//GEN-LAST:event_jMenuItemZoomOutActionPerformed
 
     private void jButtonZoomOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZoomOutActionPerformed
-        mesaDeDibujo.alejar();
+        alejarImagen();
     }//GEN-LAST:event_jButtonZoomOutActionPerformed
 
     private void jToggleButtonPincelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPincelActionPerformed
@@ -994,16 +998,22 @@ public class GUI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonTextoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        mesaDeDibujo.guardarImagen();
+        if(mesaDeDibujo.guardarImagen()){
+            archivoGuardadoUltimaVersion = true;
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jMenuItemGuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarComoActionPerformed
         mesaDeDibujo.setNombreArchivo(null);
-        mesaDeDibujo.guardarImagen();
+        if(mesaDeDibujo.guardarImagen()){
+            archivoGuardadoUltimaVersion = true;
+        }
     }//GEN-LAST:event_jMenuItemGuardarComoActionPerformed
 
     private void jMenuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarActionPerformed
-        mesaDeDibujo.guardarImagen();
+        if(mesaDeDibujo.guardarImagen()){
+            archivoGuardadoUltimaVersion = true;
+        }
     }//GEN-LAST:event_jMenuItemGuardarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
@@ -1227,6 +1237,42 @@ public class GUI_Principal extends javax.swing.JFrame {
         jToggleButtonLapiz.setSelected(true);
         mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());
         jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
+    }
+
+    public boolean archivoGuardadoUltimaVersion(){
+        return archivoGuardadoUltimaVersion;
+    }
+
+    public boolean modificarImagenSinGuardar(){
+        if(modificarImagenSinGuardar){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public void acercarImagen(){
+        if(archivoGuardadoUltimaVersion()) {
+            mesaDeDibujo.acercar();
+        }else{
+            String mensaje = "Primero guarde la imagen para luego usar el Zoom In";
+            JOptionPane.showMessageDialog(this, mensaje,
+                "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
+        mesaDeDibujo.repaint();
+        }
+    }
+
+    public void alejarImagen(){
+        if(archivoGuardadoUltimaVersion()) {
+            mesaDeDibujo.alejar();
+        }else{
+            String mensaje = "Primero guarde la imagen para luego usar el Zoom Out";
+            JOptionPane.showMessageDialog(this, mensaje,
+                "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
+        mesaDeDibujo.repaint();
+        }
     }
 
     
