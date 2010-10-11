@@ -176,8 +176,8 @@ public abstract class Figura {
      * @(#)InterfaceFigura.java
      * @author Chuidiang
      * @co-author Modyfy fires
-     * sitio: http://www.chuidiang.com/
-     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Sitio: http://www.chuidiang.com/
+     * Licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
      * Mi licencia (fires): BSD
      * Fecha: 22/07/2010 03:38
     */
@@ -197,8 +197,8 @@ public abstract class Figura {
      * @(#)InterfaceFigura.java
      * @author Chuidiang
      * @co-author Modyfy fires
-     * sitio: http://www.chuidiang.com/
-     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Sitio: http://www.chuidiang.com/
+     * Licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
      * Mi licencia (fires): BSD
      * Fecha: 22/07/2010 03:44
     */
