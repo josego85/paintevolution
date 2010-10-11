@@ -54,7 +54,6 @@ public class VentanaTexto extends javax.swing.JDialog {
      * Construye una Ventana de Texto.
      * @since 1.6
      */
-    /** Creates new form VentanaTexto */
     public VentanaTexto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         try {
@@ -337,7 +336,8 @@ public class VentanaTexto extends javax.swing.JDialog {
      * @since 1.6
      */
     public String seleccionarTipoFuente(int indice){
-        String tipoFuente = "Dialog";       // como valor predeterminado
+        // Como valor predeterminado
+        String tipoFuente = "Dialog";
 
         switch(indice){
             case 1:
