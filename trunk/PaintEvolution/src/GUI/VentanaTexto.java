@@ -341,7 +341,7 @@ public class VentanaTexto extends javax.swing.JDialog {
      * @since 1.6
      */
     public String seleccionarTipoFuente(int indice){
-        // Como valor predeterminado
+        // Tipo de Fuente como valor predeterminado
         String tipoFuente = "Dialog";
 
         switch(indice){
