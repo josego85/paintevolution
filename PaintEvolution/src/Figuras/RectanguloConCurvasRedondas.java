@@ -3,6 +3,7 @@
  *
  * @author fires.
  * @version 1.00 2010/7/22
+ * @since 1.6
  */
 
 package Figuras;
@@ -16,48 +17,93 @@ import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 
 /**
- *
- * Decalaracion de la clase RectanguloConCurvasRedondas que extiende de Rectangulo
+ * Clase RectanguloConCurvasRedondas que extiende de la clase Rectangulo y se pueden
+ * manipular objetos Rectangulo con curvas redondas.
+ * @since 1.6
  */
 public class RectanguloConCurvasRedondas extends Rectangulo{
+    ////////////////////////////////////////////////////////////////////////////
+    // Variables de clase
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Tamanhio de todas las curvas redondeadas de la esquina.
+     */
     private int curvaEsquinaRedondeada;
 
-    // Constructor
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Construye Ravtangulos con curvas redondeadas. El valor de las curvas redondeadas
+     * de la esquina es simpre 25.
+     *
+     * @param punto La coordenada inicial (x, y)
+     * @param ancho El ancho
+     * @param alto El alto
+     * @param colorBorde El color del borde
+     * @param colorRelleno El color del relleno
+     * @param tamanhio El tamañio del borde
+     * @since 1.6
+     */
     public RectanguloConCurvasRedondas(Point2D punto, int ancho, int alto, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(punto, ancho, alto, colorBorde, colorRelleno, tamanhio);
         setCurvaEsquinaRedondeada(25);
     }
 
-    // Constructor
+    /**
+     * Construye Ravtangulos con curvas redondeadas. El valor de las curvas redondeadas
+     * de la esquina es simpre 25.
+     *
+     * @param x La coordenada x
+     * @param y La coordenada y
+     * @param ancho El ancho
+     * @param alto El alto
+     * @param colorBorde El color del borde
+     * @param colorRelleno El color del relleno
+     * @param tamanhio El tamañio del borde
+     * @since 1.6
+     */
     public RectanguloConCurvasRedondas(int x, int y, int ancho, int alto, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(x, y, ancho, alto, colorBorde, colorRelleno, tamanhio);
         setCurvaEsquinaRedondeada(25);
     }
 
-    // Setters y getters
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Setters y Getters
+    ////////////////////////////////////////////////////////////////////////////
     /**
-     * Devuelve el numero de curvatura de la esquina del rectangulo con curvas redondas
+     * Devuelve el numero de curvatura de la esquina del rectangulo con curvas redondas.
      *
-     * @return CurvaEsquinaRedondeada el numero de curvatura de la esquina del rectangulo con curvas redondas
+     * @return CurvaEsquinaRedondeada El numero de curvatura de la esquina del rectangulo con curvas redondas
+     * @since 1.6
      */
     public int getCurvaEsquinaRedondeada() {
         return curvaEsquinaRedondeada;
     }
 
      /**
-     * Establece el numero de curvatura de la esquina del rectangulo con curvas redondas
+     * Establece el numero de curvatura de la esquina del rectangulo con curvas redondas.
      *
-     * @param CurvaEsquinaRedondeada el numero de curvatura de la esquina del rectangulo con curvas redondas
+     * @param curvaEsquinaRedondeada El numero de curvatura de la esquina del rectangulo con curvas redondas
+      * @since 1.6
      */
     public void setCurvaEsquinaRedondeada(int curvaEsquinaRedondeada) {
         this.curvaEsquinaRedondeada = curvaEsquinaRedondeada;
     }
 
 
+    ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
-    // Sobre escribe el metodo dibujar
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Dibuja el rectangulo de curvas redondeadas.
+     * @param g El objeto Graphics
+     * @since 1.6
+     */
     @Override
     public void dibujar(Graphics g){
         // Objetos
