@@ -51,7 +51,7 @@ public abstract class FiguraConRelleno extends Figura{
     public FiguraConRelleno(Point2D punto, Color colorBorde, Color colorRelleno,
              int tamanhio){
         super(punto, colorBorde, tamanhio);
-        setColorRelleno(colorRelleno);  // ColorRelleno
+        setColorRelleno(colorRelleno);  
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class FiguraConRelleno extends Figura{
     public FiguraConRelleno(int x, int y, Color colorBorde, Color colorRelleno,
              int tamanhio){
         super(x, y, colorBorde, tamanhio);
-        setColorRelleno(colorRelleno);              // ColorRelleno
+        setColorRelleno(colorRelleno);              
     }
 
 
