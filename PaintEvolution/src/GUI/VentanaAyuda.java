@@ -52,16 +52,18 @@ public class VentanaAyuda extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
    /**
-    * Donde se ejecuta el programa.
+    * Donde se ejecuta la Ventana Ayuda.
     *
     * @param args La linea de argumentos del comando
     * @since 1.6
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 VentanaAyuda dialog = new VentanaAyuda(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
