@@ -75,7 +75,7 @@ public class Constantes {
      */
     public static final int MINIMO_GROSOR_BORDE = 1;
 
-    /*
+    /**
      * Tamanhio maximo del grosor del borde.
      * @since 1.6
      */
