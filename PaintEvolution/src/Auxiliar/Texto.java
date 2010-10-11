@@ -15,7 +15,7 @@ import java.awt.font.TextLayout;
  * @since 1.6
  */
 /**
- * Clase Texto para poder manupular texto.
+ * Clase Texto para poder manipular texto.
  * @since 1.6
  */
 public class Texto {
@@ -142,6 +142,7 @@ public class Texto {
      * Devuelve el estilo del texto.
      *
      * @return El estilo delo texto.
+     * @since 1.6
      */
     public int getEstilo() {
         return estilo;
@@ -151,6 +152,7 @@ public class Texto {
      * Establece el estilo del texto.
      *
      * @param estilo El estilo del texto
+     * @since 1.6
      */
     public void setEstilo(int estilo) {
         this.estilo = estilo;
@@ -160,6 +162,7 @@ public class Texto {
      * Devuelve el tamanhio del texto.
      *
      * @return El tamanhio del texto.
+     * @since 1.6
      */
     public int getTamanio() {
         return tamanio;
@@ -169,6 +172,7 @@ public class Texto {
      * Estblece el tamanhio del texto.
      *
      * @param tamanio El tamanhio del texto
+     * @since 1.6
      */
     public void setTamanio(int tamanio) {
         this.tamanio = tamanio;
@@ -178,6 +182,7 @@ public class Texto {
      * Devuelve el tipo del texto.
      *
      * @return El tipo de texto.
+     * @since 1.6
      */
     public String getTipo() {
         return tipo;
@@ -187,6 +192,7 @@ public class Texto {
      * Establece el tipo de texto.
      *
      * @param tipo El tipo de texto.
+     * @since 1.6
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
@@ -196,6 +202,7 @@ public class Texto {
      * Devuelve la posicion inicial de x.
      *
      * @return La posicion inicial de x
+     * @since 1.6
      */
     public int getPosicionInicialX() {
         return posicionInicialX;
@@ -205,6 +212,7 @@ public class Texto {
      * Establece la posicion inicial de x.
      *
      * @param posicionInicialX La posicion inicial de x
+     * @since 1.6
      */
     public void setPosicionInicialX(int posicionInicialX) {
         this.posicionInicialX = posicionInicialX;
@@ -214,6 +222,7 @@ public class Texto {
      * Devuelve la posicion inicial de y.
      *
      * @return la posicion inicial de y.
+     * @since 1.6
      */
     public int getPosicionInicialY() {
         return posicionInicialY;
@@ -223,6 +232,7 @@ public class Texto {
      * Establece la posicion inicial de y.
      *
      * @param posicionInicialY La posicion inicial de y
+     * @since 1.6
      */
     public void setPosicionInicialY(int posicionInicialY) {
         this.posicionInicialY = posicionInicialY;
@@ -232,6 +242,7 @@ public class Texto {
      * Devuelve el color del texto.
      *
      * @return El color del texto.
+     * @since 1.6
      */
     public Color getColor() {
         return color;
@@ -241,6 +252,7 @@ public class Texto {
      * Establece el color del texto.
      *
      * @param color El color del texto
+     * @since 1.6
      */
     public void setColor(Color color) {
         this.color = color;
