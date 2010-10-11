@@ -149,7 +149,7 @@ public class Linea extends Figura{
 
     /**
      * Establece la posición en la que se debe dibujar la linea.
-     * No posiciona la linea. 
+     * No posiciona la linea; o sea, no hace nada el metodo.
      *
      * @param x La coordenada x de la linea
      * @param y La coordenada y de la linea
