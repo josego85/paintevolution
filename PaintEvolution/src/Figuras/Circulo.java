@@ -15,7 +15,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- * Decalaracion de la clase Circulo que extiende de la clase abstracta Figura.
+ * Clase Circulo que extiende de la clase abstracta Figura y se pueden manipular
+ * objetos circulo.
  * @since 1.6
  */
 public class Circulo extends FiguraConRelleno{
