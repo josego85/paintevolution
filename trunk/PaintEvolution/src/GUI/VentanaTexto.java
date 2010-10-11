@@ -1,9 +1,3 @@
-/*
- * VentanaTexto.java
- *
- * Created on 05/09/2010, 09:51:37 PM
- */
-
 package GUI;
 
 import Auxiliar.Constantes;
@@ -15,18 +9,51 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 
 /**
+ *@(#)VentanaTexto.java
  *
- * @author gaby
+ * @author fires
+ * @version 1.00
+ * @since 1.6
+ */
+/**
+ * Clase VentanaTexto donde se crean objetos Texto.
+ * @since 1.6
  */
 public class VentanaTexto extends javax.swing.JDialog {
-     // Obtenemos la referencia al entorno de ventanas
+    ////////////////////////////////////////////////////////////////////////////
+    // Variables de clase
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     *  Obtenemos la referencia al entorno de ventanas
+     * @since 1.6
+     */
     private GraphicsEnvironment gEnv;
 
-    // Variables
+    /**
+     * Objeto Texto
+     * @since 1.6
+     */
     private Texto texto;
+
+    /**
+     * Si se va a dibujar el Texto o no
+     * @since 1.6
+     */
     private boolean dibujaTexto;
+
+    /**
+     * Una ventana que contiene una paleta de colores
+     * @since 1.6
+     */
     private VentanaColor ventanaColor;
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Construye una Ventana de Texto.
+     * @since 1.6
+     */
     /** Creates new form VentanaTexto */
     public VentanaTexto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -245,24 +272,54 @@ public class VentanaTexto extends javax.swing.JDialog {
         ventanaColor.setTitle("Color del texto");
     }//GEN-LAST:event_jButtonColorActionPerformed
 
-    // Metodos get y set
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Setters y Getters
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Devuelve el texto introducido en la Ventana Texto.
+     *
+     * @return El texto introducido en la Ventana Texto
+     * @since 1.6
+     */
     public Texto getTexto() {
         return texto;
     }
 
+    /**
+     * Establece el texto introducido en la Ventana Texto.
+     *
+     * @param texto El texto introducido en la Ventana Texto
+     * @since 1.6
+     */
     public void setTexto(Texto texto) {
         this.texto = texto;
     }
 
+    /**
+     * Retorna si se puede o no dibujar el texto.
+     *
+     * @return Si se puede o no dibujar el texto
+     * @since 1.6
+     */
     public boolean isDibujaTexto() {
         return dibujaTexto;
     }
 
+    /**
+     * Establece true si se puede dibujar el texto; en caso contario, false.
+     *
+     * @param dibujaTexto True si se puede dibujar el texto; en caso contario, false
+     * @since 1.6
+     */
     public void setDibujaTexto(boolean dibujaTexto) {
         this.dibujaTexto = dibujaTexto;
     }
 
-    // Metodo que muestra la ventana Color
+    /**
+     * Muestra la ventana Color.
+     * @since 1.6
+     */
     public void mostrarVentanaColor() {
         if (ventanaColor == null) {
             ventanaColor = new VentanaColor(null, rootPaneCheckingEnabled);
@@ -271,7 +328,14 @@ public class VentanaTexto extends javax.swing.JDialog {
         ventanaColor.setVisible(true);
     }
 
-    // Metodo que retorna la fuente dependiendo de lo selecciono en el combobox
+    /**
+     * Retorna la fuente dependiendo de lo que se selecciono en el combobox, dependiendo
+     * las opciones establecidas.
+     *
+     * @param indice El numero de opciones para elegir
+     * @return La fuente dependiendo de lo que se selecciono en el combobox
+     * @since 1.6
+     */
     public String seleccionarTipoFuente(int indice){
         String tipoFuente = "Dialog";       // como valor predeterminado
 
@@ -295,17 +359,19 @@ public class VentanaTexto extends javax.swing.JDialog {
         return tipoFuente;
     }
 
-
-
-
-    /**
-    * @param args the command line arguments
+   /**
+    * Donde se ejecuta el programa.
+    *
+    * @param args La linea de argumentos del comando
+    * @since 1.6
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 VentanaTexto dialog = new VentanaTexto(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
