@@ -1,23 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * VentanaAyuda.java
- *
- * Created on 18/03/2010, 11:05:13 AM
- */
-
 package GUI;
 
 /**
+ *@(#)VentanaColor.java
+ * Creado 18/03/2010, 11:05:13 AM
  *
  * @author fires
+ * @version 1.00
+ * @since 1.6
+ */
+/**
+ * Clase VentanaAyuda donde se despliega la ayuda del programa.
+ * @since 1.6
  */
 public class VentanaAyuda extends javax.swing.JDialog {
-
-    /** Creates new form VentanaAyuda */
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Construye una Ventana de Ayuda.
+     * @since 1.6
+     */
     public VentanaAyuda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -49,8 +51,11 @@ public class VentanaAyuda extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-    * @param args the command line arguments
+   /**
+    * Donde se ejecuta el programa.
+    *
+    * @param args La linea de argumentos del comando
+    * @since 1.6
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
