@@ -24,7 +24,7 @@ public class VentanaTexto extends javax.swing.JDialog {
     // Variables de clase
     ////////////////////////////////////////////////////////////////////////////
     /**
-     *  Obtenemos la referencia al entorno de ventanas
+     * Obtenemos la referencia al entorno de ventanas
      * @since 1.6
      */
     private GraphicsEnvironment gEnv;
