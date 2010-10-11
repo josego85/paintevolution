@@ -114,7 +114,7 @@ public class Linea extends Figura{
     // Metodos varios
     ////////////////////////////////////////////////////////////////////////////
     /**
-     * Dibuja el circulo.
+     * Dibuja la linea.
      * @param g El objeto Graphics
      * @since 1.6
      */
