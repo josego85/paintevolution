@@ -12,7 +12,7 @@ import java.awt.geom.Point2D;
  * @since 1.6
  */
 /**
- * Decalaracion de la clase abstracta Figura.
+ * Clase abstracta Figura.
  * @since 1.6
  */
 public abstract class Figura {
