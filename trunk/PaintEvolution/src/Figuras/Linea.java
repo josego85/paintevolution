@@ -143,6 +143,7 @@ public class Linea extends Figura{
      * @return True si esta dentro.
      * @since 1.6
      */
+    @Override
     public boolean estaDentro(int x, int y) {
         return false; 
     }
