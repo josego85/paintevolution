@@ -92,9 +92,9 @@ public class Texto {
     }
 
     /**
-     * Construye un Texto.
-     * Se coloca la posicion inicial x es igual a 0.
-     * Se coloca la posicion inicial y es igual a 0.
+     * Construye un Texto.<p>
+     * Se coloca la posicion inicial x es igual a 0.<p>
+     * Se coloca la posicion inicial y es igual a 0.<p>
      * 
      * @param contenidoTexto El contenido 
      * @param tipo El tipo
