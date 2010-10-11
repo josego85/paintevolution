@@ -92,9 +92,9 @@ public class Texto {
     }
 
     /**
-     * Construye un Texto.<p>
-     * Se coloca la posicion inicial x es igual a 0.<p>
-     * Se coloca la posicion inicial y es igual a 0.<p>
+     * Construye un Texto.<br>
+     * Se coloca la posicion inicial x es igual a 0.<br>
+     * Se coloca la posicion inicial y es igual a 0.<br>
      * 
      * @param contenidoTexto El contenido 
      * @param tipo El tipo
@@ -141,7 +141,7 @@ public class Texto {
     /**
      * Devuelve el estilo del texto.
      *
-     * @return El estilo delo texto.
+     * @return El estilo delo texto
      * @since 1.6
      */
     public int getEstilo() {
@@ -161,7 +161,7 @@ public class Texto {
     /**
      * Devuelve el tamanhio del texto.
      *
-     * @return El tamanhio del texto.
+     * @return El tamanhio del texto
      * @since 1.6
      */
     public int getTamanio() {
@@ -181,7 +181,7 @@ public class Texto {
     /**
      * Devuelve el tipo del texto.
      *
-     * @return El tipo de texto.
+     * @return El tipo de texto
      * @since 1.6
      */
     public String getTipo() {
@@ -191,7 +191,7 @@ public class Texto {
     /**
      * Establece el tipo de texto.
      *
-     * @param tipo El tipo de texto.
+     * @param tipo El tipo de texto
      * @since 1.6
      */
     public void setTipo(String tipo) {
@@ -221,7 +221,7 @@ public class Texto {
     /**
      * Devuelve la posicion inicial de y.
      *
-     * @return la posicion inicial de y.
+     * @return la posicion inicial de y
      * @since 1.6
      */
     public int getPosicionInicialY() {
@@ -241,7 +241,7 @@ public class Texto {
     /**
      * Devuelve el color del texto.
      *
-     * @return El color del texto.
+     * @return El color del texto
      * @since 1.6
      */
     public Color getColor() {
