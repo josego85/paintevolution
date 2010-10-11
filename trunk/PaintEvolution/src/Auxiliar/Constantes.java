@@ -120,6 +120,7 @@ public class Constantes {
     ////////////////////////////////////////////////////////////////////////////
     /**
      * Incremento de la cantidad de espacio para el titulo.
+     * @since 1.6
      */
     public static final String INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO = "     ";
 }
