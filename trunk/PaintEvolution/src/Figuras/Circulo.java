@@ -15,48 +15,90 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- *
- * Decalaracion de la clase Circulo que extiende de Figura
+ * Decalaracion de la clase Circulo que extiende de la clase abstracta Figura.
+ * @since 1.6
  */
 public class Circulo extends FiguraConRelleno{
+    ////////////////////////////////////////////////////////////////////////////
     // Variables de clase
-    private double radio;      // el radio del circulo
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * El radio del circulo.
+     * @since 1.6
+     */
+    private double radio;      
 
-    // Constructor
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Construye un circulo.
+     *
+     * @param punto Las coordenadas de inicio (x, y) del circulo
+     * @param radio El radio del circulo
+     * @param colorBorde El color del borde
+     * @param colorRelleno El color del relleno
+     * @param tamanhio El tamañio del borde
+     * @since 1.6
+     */
     public Circulo(Point2D punto, double radio, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(punto, colorBorde, colorRelleno, tamanhio);
         setRadio(radio);
     }
 
-    // Constructor
+    /**
+     * Construye un circulo.
+     * 
+     * @param x La coordenada x del circulo
+     * @param y La coordenada y del circulo
+     * @param radio El radio del circulo
+     * @param colorBorde El color del borde
+     * @param colorRelleno El color del relleno
+     * @param tamanhio El tamañio del borde
+     * @since 1.6
+     */
     public Circulo(int x, int y, double radio, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(x, y, colorBorde, colorRelleno, tamanhio);
         setRadio(radio);
     }
 
-    // Setters y getters
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Setters y Getters
+    ////////////////////////////////////////////////////////////////////////////
      /**
-     * Devuelve el radio del circulo
+     * Devuelve el radio del circulo.
      *
-     * @return radio el radio del circulo
+     * @return El radio del circulo
+     * @since 1.6
      */
     public double getRadio() {
         return radio;
     }
 
     /**
-     * Establece el radio del circulo
+     * Establece el radio del circulo.
      *
-     * @param radio el radio del circulo
+     * @param radio El radio del circulo
+     * @since 1.6
      */
     public void setRadio(double radio) {
         this.radio = radio;
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
-    // Sobre escribe el metodo dibujar
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Dibuja el circulo.
+     * @param g El objeto Graphics
+     * @since 1.6
+     */
+    @Override
     public void dibujar(Graphics g){
         // Objetos
         Graphics2D g2;
@@ -78,24 +120,26 @@ public class Circulo extends FiguraConRelleno{
         g2.draw(e2);
     }
 
+
     /**
      * @(#)Circulo.java
      * @author Chuidiang
      * @co-author Modyfy fires
-     * sitio: http://www.chuidiang.com/
-     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Sitio: http://www.chuidiang.com/
+     * Licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
      * Mi licencia (fires): BSD
      * Fecha: 21/07/2010 05:16
     */
     /**
-     * Devuelve true si el punto está contenido dentro del circulo,
-     * false en caso contrario
+     * Debe devolver true si <b>x</b> e <b>y</b> están dentro del circulo; false, en caso contrario.
      *
-     * @param x x del punto a ver si esta dentro.
-     * @param y y del punto a ver si esta dentro.
+     * @param x La coordenada x del circulo
+     * @param y La coordenada y del circulo
      *
-     * @return true si esta dentro.
+     * @return True si esta dentro.
+     * @since 1.6
      */
+    @Override
     public boolean estaDentro(int x, int y){
         if(Math.sqrt(((getInicio().getX() - x) * (getInicio().getX() - x)) +
                 ((getInicio().getY() - y) * (getInicio().getY() - y))) < getRadio()){
@@ -104,21 +148,24 @@ public class Circulo extends FiguraConRelleno{
         return false;
     }
 
+
     /**
      * @(#)Circulo.java
      * @author Chuidiang
      * @co-author Modyfy fires
-     * sitio: http://www.chuidiang.com/
-     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Sitio: http://www.chuidiang.com/
+     * Licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
      * Mi licencia (fires): BSD
      * Fecha: 21/07/2010 05:16
     */
     /**
-     * Fija el centro del circulo
+     * Establece la posición en la que se debe dibujar el circulo.
      *
-     * @param x nueva x del centro.
-     * @param y nueva y del centro.
+     * @param x La coordenada x del circulo
+     * @param y La coordenada y del circulo
+     * @since 1.6
      */
+    @Override
     public void setPosicion(int x, int y){
         setInicio(x, y);
     }
