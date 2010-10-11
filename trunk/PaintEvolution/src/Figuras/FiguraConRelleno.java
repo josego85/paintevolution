@@ -71,13 +71,14 @@ public abstract class FiguraConRelleno extends Figura{
     }
 
 
-     ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
     // Setters y Getters
     ////////////////////////////////////////////////////////////////////////////
     /**
      * Devuelve el color del relleno.
      *
      * @return colorRelleno El color del relleno
+     * @since 1.6
      */
     public Color getColorRelleno() {
         return colorRelleno;
@@ -87,6 +88,7 @@ public abstract class FiguraConRelleno extends Figura{
      * Establece el color del relleno.
      *
      * @param colorRelleno El color del relleno
+     * @since 1.6
      */
     public void setColorRelleno(Color colorRelleno) {
         this.colorRelleno = colorRelleno;
