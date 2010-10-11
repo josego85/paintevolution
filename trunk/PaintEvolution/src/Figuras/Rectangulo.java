@@ -3,6 +3,7 @@
  *
  * @author fires.
  * @version 1.00 2010/5/23
+ * @since 1.6
  */
 package Figuras;
 
@@ -15,15 +16,41 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- *
- * Decalaracion de la clase Rectangulo que extiende de FiguraConRelleno
+ * Clase Rectangulo que extiende de la clase abstracta FiguraConRelleno y se pueden 
+ * manipular objetos rectangulo.
+ * @since 1.6
  */
 public class Rectangulo extends FiguraConRelleno{
+    ////////////////////////////////////////////////////////////////////////////
     // Variables de clase
-    private int ancho;          // ancho del rectangulo
-    private int alto;           // alto del rectangulo
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Ancho del rectangulo
+     * @since 1.6
+     */
+    private int ancho;
 
-    // Constructor
+    /**
+     * Alto del rectangulo
+     * @since 1.6
+     */
+    private int alto;           
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Construye un rectangulo.
+     *
+     * @param punto La coordenada inicial (x, y)
+     * @param ancho El ancho
+     * @param alto El alto
+     * @param colorBorde El color del borde
+     * @param colorRelleno El color del relleno
+     * @param tamanhio El tamañio del borde
+     * @since 1.6
+     */
     public Rectangulo(Point2D punto, int ancho, int alto, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(punto, colorBorde, colorRelleno, tamanhio);
@@ -31,7 +58,18 @@ public class Rectangulo extends FiguraConRelleno{
         setAlto(alto);
     }
 
-    // Constructor
+    /**
+     * Construye un rectangulo.
+     *
+     * @param x La coordenada x
+     * @param y La coordenada y
+     * @param ancho El ancho
+     * @param alto El alto
+     * @param colorBorde El color del borde
+     * @param colorRelleno El color del relleno
+     * @param tamanhio El tamañio del borde
+     * @since 1.6
+     */
     public Rectangulo(int x, int y, int ancho, int alto, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(x, y, colorBorde, colorRelleno, tamanhio);
@@ -39,45 +77,60 @@ public class Rectangulo extends FiguraConRelleno{
         setAlto(alto);
     }
 
-    // Setters y getters
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Setters y Getters
+    ////////////////////////////////////////////////////////////////////////////
     /**
-     * Devuelve el alto del rectangulo
+     * Devuelve el alto del rectangulo.
      *
-     * @return alto el alto del rectangulo
+     * @return alto El alto del rectangulo
+     * @since 1.6
      */
     public int getAlto() {
         return alto;
     }
 
     /**
-     * Establece el alto del rectangulo
+     * Establece el alto del rectangulo.
      *
-     * @param alto el alto del rectangulo
+     * @param alto El alto del rectangulo
+     * @since 1.6
      */
     public void setAlto(int alto) {
         this.alto = alto;
     }
 
      /**
-     * Devuelve el ancho del rectangulo
+     * Devuelve el ancho del rectangulo.
      *
-     * @return alto el ancho del rectangulo
+     * @return alto El ancho del rectangulo
+     * @since 1.6
      */
     public int getAncho() {
         return ancho;
     }
 
     /**
-     * Establece el ancho del rectangulo
+     * Establece el ancho del rectangulo.
      *
-     * @param alto el ancho del rectangulo
+     * @param ancho El ancho del rectangulo
+     * @since 1.6
      */
     public void setAncho(int ancho) {
         this.ancho = ancho;
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
-    // Sobre escribe el metodo dibujar
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Dibuja el rectangulo.
+     * @param g El objeto Graphics
+     * @since 1.6
+     */
+    @Override
     public void dibujar(Graphics g){
         // Objetos
         Graphics2D g2;
@@ -103,19 +156,22 @@ public class Rectangulo extends FiguraConRelleno{
      * @(#)Rectangulo.java
      * @author Chuidiang
      * @co-author Modyfy fires
-     * sitio: http://www.chuidiang.com/
-     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Sitio: http://www.chuidiang.com/
+     * Licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
      * Mi licencia (fires): BSD
      * Fecha: 21/07/2010 04:52
     */
     /**
-     * Devuelve true si x, y esta dentro del rectangulo, false en caso contrario
+     * Debe devolver true si <b>x</b> e <b>y</b> están dentro del rectangulo;
+     * false, en caso contrario.
      *
-     * @param x del punto que se quiere saber si esta dentro del rectangulo
-     * @param y del punto que se quiere saber si esta dentro del rectangulo
+     * @param x La coordenada x del rectangulo
+     * @param y La coordenada y del rectangulo
      *
-     * @return true si x,y esta dentro del rectangulo
+     * @return True si esta dentro.
+     * @since 1.6
      */
+    @Override
     public boolean estaDentro(int x, int y){
         if((x > getInicio().getX()) && (x < (getInicio().getX() + getAncho())) &&
                 (y > getInicio().getY()) && (y < (getInicio().getY() + getAlto()))){
@@ -128,17 +184,19 @@ public class Rectangulo extends FiguraConRelleno{
      * @(#)Rectangulo.java
      * @author Chuidiang
      * @co-author Modyfy fires
-     * sitio: http://www.chuidiang.com/
-     * licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
+     * Sitio: http://www.chuidiang.com/
+     * Licencia original de Chuidiang: Esta obra está bajo una licencia de Creative Commons.
      * Mi licencia (fires): BSD
      * Fecha: 21/07/2010 04:52
     */
     /**
-     * Fija la esquina superior izquierda del rectangulo
+     * Establece la posición en la que se debe dibujar el rectangulo.
      *
-     * @param x
-     * @param y
+     * @param x La coordenada x del rectangulo
+     * @param y La coordenada y del rectangulo
+     * @since 1.6
      */
+    @Override
     public void setPosicion(int x, int y){
         setInicio(x, y);
     }
