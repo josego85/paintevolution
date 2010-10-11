@@ -20,6 +20,7 @@ public class FiltroArchivo extends FileFilter {
     ////////////////////////////////////////////////////////////////////////////
     /**
      * Constructor por defecto y vacio.
+     * @since 1.6
      */
     public FiltroArchivo(){
     }
