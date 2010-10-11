@@ -9,50 +9,96 @@ import java.awt.geom.Point2D;
  *
  * @author fires.
  * @version 1.00 2010/8/22
+ * @since 1.6
  */
 /**
- *
- * Decalaracion de la clase abstracta Figura
+ * Decalaracion de la clase abstracta Figura.
  */
 public abstract class Figura {
+    ////////////////////////////////////////////////////////////////////////////
     // Variables de clase
-    private Point2D inicio;             // Inicio de las coordenadas del Punto(x,y) de la figura
-    private Color colorBorde;           // Color del borde de la figura
-    private int tamanhio;               // Tamanhio de la figura
-
-    // Constructor Predeterminado
-    public Figura(){
-        setInicio(new Point2D.Double(0, 0));    // Punto (0, 0)
-        setColorBorde(Color.BLACK);             // ColorBorde negro
-        setTamanhio(1);                         // Tamanhio 1
-    }
-
-    public Figura(Point2D punto, Color colorBorde, int tamanhio){
-        setInicio(punto);               // Punto
-        setColorBorde(colorBorde);      // ColorBorde
-        setTamanhio(tamanhio);          // Tamanhio
-    }
-
-    public Figura(int x, int y, Color colorBorde, int tamanhio){
-        setInicio(new Point2D.Double(x, y));        // Punto
-        setColorBorde(colorBorde);                  // ColorBorde
-        setTamanhio(tamanhio);                      // Tamanhio
-    }
-
-    // Setters y Getters
+    ////////////////////////////////////////////////////////////////////////////
     /**
-     * Devuelve el color del borde
+     * Inicio de las coordenadas del Punto (x, y) de la figura.
+     * @since 1.6
+     */
+    private Point2D inicio;
+
+    /**
+     * Color del borde de la figura
+     * @since 1.6
+     */
+    private Color colorBorde;
+
+    /*
+     * Tamanhio de la figura
+     * @since 1.6
+     */
+    private int tamanhio;               
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Es una clase abstracta y no se puede instanciar.<br>
+     * Sus coordenadas de inicio son (0, 0).<br>
+     * Su color de borde predeterminado es negro.<br>
+     * Su tamanhio predeterminado es 1.<br>
+     * @since 1.6
+     */
+    public Figura(){
+        setInicio(new Point2D.Double(0, 0));    
+        setColorBorde(Color.BLACK);             
+        setTamanhio(1);                         
+    }
+
+    /**
+     * Es una clase abstracta y no se puede instanciar.
      *
-     * @return colorBorde el color del borde
+     * @param punto El punto inicial (x, y) de la figura<br>
+     * @param colorBorde El color del borde<br>
+     * @param tamanhio El tamanhio del borde<br>
+     * @since 1.6
+     */
+    public Figura(Point2D punto, Color colorBorde, int tamanhio){
+        setInicio(punto);               
+        setColorBorde(colorBorde);      
+        setTamanhio(tamanhio);          
+    }
+
+    /**
+     * Es una clase abstracta y no se puede instanciar.
+     *
+     * @param x La coordenada x de la figura<br>
+     * @param y La coordenada y de la figura<br>
+     * @param colorBorde El color del borde<br>
+     * @param tamanhio El tamanhio del borde<br>
+     * @since 1.6
+     */
+    public Figura(int x, int y, Color colorBorde, int tamanhio){
+        setInicio(new Point2D.Double(x, y));        
+        setColorBorde(colorBorde);                  
+        setTamanhio(tamanhio);                     
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Setters y Getters
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Devuelve el color del borde.
+     *
+     * @return El color del borde
+     * @since 1.6
      */
     public Color getColorBorde() {
         return colorBorde;
     }
 
     /**
-     * Establece el color del borde
+     * Establece el color del borde.
      *
-     * @param colorBorde el color del borde
+     * @param colorBorde El color del borde
+     * @since 1.6
      */
     public void setColorBorde(Color colorBorde) {
         this.colorBorde = colorBorde;
@@ -60,27 +106,31 @@ public abstract class Figura {
 
 
     /**
-     * Devuelve la coordenada inicial de Point 2D(x, y)
+     * Devuelve la coordenada inicial (x, y).
      *
-     * @return la coordenada inicial de Point 2D(x, y)
+     * @return La coordenada inicial de Point 2D (x, y)
+     * @since 1.6
      */
     public Point2D getInicio() {
         return inicio;
     }
 
     /**
-     * Establece la coordenada inicial de Point 2D(x, y))
+     * Establece la coordenada inicial (x, y)).
      *
-     * @param la coordenada inicial de Point 2D(x, y)
+     * @param inicio La coordenada inicial de Point 2D (x, y)
+     * @since 1.6
      */
     public void setInicio(Point2D inicio) {
         this.inicio = inicio;
     }
 
      /**
-     * Establece la coordenada inicial de Point 2D(x, y))
+     * Establece la coordenada inicial (x, y)).
      *
-     * @param x y
+     * @param x La coordenada x de la figura
+     * @param y La coordenada y de la figura
+     * @since 1.6
      */
     public void setInicio(int x, int y) {
         Point2D inicioCoordenada = new Point2D.Double(x, y);
@@ -88,26 +138,35 @@ public abstract class Figura {
     }
 
     /**
-     * Devuelve el tamanhio de la figura
+     * Devuelve el tamanhio de la figura.
      *
-     * @return tamanhio el tamanhio de la figura
+     * @return El tamanhio de la figura
+     * @since 1.6
      */
     public int getTamanhio() {
         return tamanhio;
     }
 
     /**
-     * Establece el tamanhio de la figura
+     * Establece el tamanhio de la figura.
      *
-     * @param tamanhio el tamanhio de la figura
+     * @param tamanhio El tamanhio de la figura
+     * @since 1.6
      */
     public void setTamanhio(int tamanhio) {
         this.tamanhio = tamanhio;
     }
 
+    ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
-    // Dibuja dependiendo de la figura
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Dibuja la figura.
+     * @param g El objeto Graphics
+     * @since 1.6
+     */
     public void dibujar(Graphics g){}
+
 
      /**
      * @(#)InterfaceFigura.java
@@ -119,14 +178,16 @@ public abstract class Figura {
      * Fecha: 22/07/2010 03:38
     */
     /**
-     * Debe devolver true si x,y está dentro de la figura, false en caso contrario
+     * Debe devolver true si <b>x</b> e <b>y</b> están dentro de la figura; false, en caso contrario.
      *
-     * @param x
-     * @param y
+     * @param x La coordenada x de la figura
+     * @param y La coordenada y de la figura
      *
-     * @return true si x,y está dentro de la figura
+     * @return True si x e y están dentro de la figura.
+     * @since 1.6
      */
     public abstract boolean estaDentro(int x, int y);
+
 
      /**
      * @(#)InterfaceFigura.java
@@ -138,10 +199,11 @@ public abstract class Figura {
      * Fecha: 22/07/2010 03:44
     */
     /**
-     * Fija la posición en la que se debe dibujar la figura
+     * Establece la posición en la que se debe dibujar la figura.
      *
-     * @param x
-     * @param y
+     * @param x La coordenada x de la figura
+     * @param y La coordenada y de la figura
+     * @since 1.6
      */
     public abstract void setPosicion(int x, int y);
 }
