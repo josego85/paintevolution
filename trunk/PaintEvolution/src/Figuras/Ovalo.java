@@ -16,25 +16,56 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- *
- * Declaracion de la clase Ovalo que extiende de Rectangulo
+ * Clase Ovalo que extiende de la clase Rectangulo y se pueden manipular
+ * objetos ovalo.
+ * @since 1.6
  */
 public class Ovalo extends Rectangulo{
-
-    // Constructor
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Construye un ovalo.
+     *
+     * @param punto La coordenada inicial (x, y)
+     * @param ancho El ancho
+     * @param alto El alto
+     * @param colorBorde El color del borde
+     * @param colorRelleno El color del relleno
+     * @param tamanhio El tamañio del borde
+     * @since 1.6
+     */
     public Ovalo(Point2D punto, int ancho, int alto, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(punto, ancho, alto, colorBorde, colorRelleno, tamanhio);
     }
 
-    // Constructor
+    /**
+     * Construye un ovalo.
+     *
+     * @param x La coordenada x
+     * @param y La coordenada y
+     * @param ancho El ancho
+     * @param alto El alto
+     * @param colorBorde El color del borde
+     * @param colorRelleno El color del relleno
+     * @param tamanhio El tamañio del borde
+     * @since 1.6
+     */
     public Ovalo(int x, int y, int ancho, int alto, Color colorBorde, Color colorRelleno,
             int tamanhio){
         super(x, y, ancho, alto, colorBorde, colorRelleno, tamanhio);
     }
 
+    
+     ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
-    // Sobre escribe el metodo dibujar
+    ////////////////////////////////////////////////////////////////////////////
+     /**
+     * Dibuja el ovalo.
+     * @param g El objeto Graphics
+     * @since 1.6
+     */
     @Override
     public void dibujar(Graphics g){
         // Objetos
