@@ -115,6 +115,7 @@ public class VentanaColor extends javax.swing.JDialog {
      * Devuelve el color del Texto.
      *
      * @return El color del Texto
+     * @since 1.6
      */
     public Color getColorTexto() {
         return colorTexto;
@@ -123,7 +124,8 @@ public class VentanaColor extends javax.swing.JDialog {
     /**
      * Establece el color del Texto.
      *
-     * @param colorTexto El color del Texto.
+     * @param colorTexto El color del Texto
+     * @since 1.6
      */
     public void setColorTexto(Color colorTexto) {
         this.colorTexto = colorTexto;
@@ -133,6 +135,7 @@ public class VentanaColor extends javax.swing.JDialog {
      * Devuelve el color chooser.
      *
      * @return El color chooser
+     * @since 1.6
      */
     public JColorChooser getJColorChooserColores(){
         return jColorChooserColores;
