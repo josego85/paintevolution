@@ -1,23 +1,38 @@
-/*
- * VentanaColor.java
- *
- * Created on 06/09/2010, 03:36:37 AM
- */
-
 package GUI;
 
 import java.awt.Color;
 import javax.swing.JColorChooser;
 
 /**
+ *@(#)VentanaColor.java
+ * Creado 06/09/2010, 03:36:37 AM
  *
- * @author gaby
+ * @author fires
+ * @version 1.00
+ * @since 1.6
+ */
+/**
+ * Clase VentanaColor donde se crean objetos Color.
+ * @since 1.6
  */
 public class VentanaColor extends javax.swing.JDialog {
-
+    ////////////////////////////////////////////////////////////////////////////
+    // Variables de clase
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Color del Texto
+     * @since 1.6
+     */
     private Color colorTexto;
 
-    /** Creates new form VentanaColor */
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Construye una Ventana de Color.
+     * @since 1.6
+     */
     public VentanaColor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -93,27 +108,50 @@ public class VentanaColor extends javax.swing.JDialog {
         setVisible(false);
 }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    public JColorChooser getJColorChooserColores(){
-        return jColorChooserColores;
-    }
-
+    ////////////////////////////////////////////////////////////////////////////
+    // Metodos varios
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Devuelve el color del Texto.
+     *
+     * @return El color del Texto
+     */
     public Color getColorTexto() {
         return colorTexto;
     }
 
+    /**
+     * Establece el color del Texto.
+     *
+     * @param colorTexto El color del Texto.
+     */
     public void setColorTexto(Color colorTexto) {
         this.colorTexto = colorTexto;
     }
 
-
     /**
-    * @param args the command line arguments
+     * Devuelve el color chooser.
+     *
+     * @return El color chooser
+     */
+    public JColorChooser getJColorChooserColores(){
+        return jColorChooserColores;
+    }
+
+
+   /**
+    * Donde se ejecuta el programa.
+    *
+    * @param args La linea de argumentos del comando
+    * @since 1.6
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 VentanaColor dialog = new VentanaColor(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
