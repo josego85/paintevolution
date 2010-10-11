@@ -15,6 +15,19 @@ import javax.swing.filechooser.FileFilter;
  * @since 1.6
  */
 public class FiltroArchivo extends FileFilter {
+     ////////////////////////////////////////////////////////////////////////////
+    // Constructor
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Constructor por defecto y vacio.
+     */
+    public FiltroArchivo(){
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Metodos varios
+    ////////////////////////////////////////////////////////////////////////////
     /**
      * Para saber si el archivo de entrada tiene un formato png.
      * 
@@ -22,6 +35,7 @@ public class FiltroArchivo extends FileFilter {
      * @return True si la extension final es png
      * @since 1.6
      */
+    @Override
     public boolean accept(File archivo) {
         if (archivo.isDirectory()) {
             return true;
@@ -47,6 +61,7 @@ public class FiltroArchivo extends FileFilter {
      * @return Devuelve *.png
      * @since 1.6
      */
+    @Override
     public String getDescription() {
         return "*.png";
     }
