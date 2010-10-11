@@ -365,7 +365,7 @@ public class VentanaTexto extends javax.swing.JDialog {
     }
 
    /**
-    * Donde se ejecuta el programa.
+    * Donde se ejecuta la Ventana Texto.
     *
     * @param args La linea de argumentos del comando
     * @since 1.6
