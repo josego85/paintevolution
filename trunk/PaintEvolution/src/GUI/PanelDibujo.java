@@ -1,14 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * PanelDibujo.java
- *
- * Created on 23/07/2010, 12:22:44 AM
- */
-
 package GUI;
 
 import Auxiliar.Constantes;
@@ -52,70 +41,197 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
+ *@(#)PanelDibujo.java
+ * Creado 23/07/2010, 12:22:44 AM
  *
  * @author fires
+ * @version 1.00
+ * @since 1.6
+ */
+/**
+ * Clase PanelDibujo donde se dibujan todos los objetos Figura y Texto del programa.
+ * @since 1.6
  */
 public class PanelDibujo extends javax.swing.JPanel implements Serializable, Printable{
-    // Constantes
+    ////////////////////////////////////////////////////////////////////////////
+    // Variables de clase
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Constantes:
+     * - Circulo: 1
+     * - Rectandulo: 2
+     * - Ovalo: 3
+     * - Rectangulo con curvas redondeadas: 4
+     * - Pincel: 5
+     * - Linea: 6
+     * - Lapiz: 7
+     * - Texto: 8
+     * - Borrador: 9
+     * - Arrastrar: 10
+     * - Nulo: 0
+     * @since 1.6
+     */
     private final static int CIRCULO = 1, RECTANGULO = 2, OVALO = 3,
             RECTANGULO_CON_CURVAS_REDONDAS = 4, PINCEL = 5, LINEA = 6, LAPIZ = 7,
             TEXTO = 8, BORRADOR = 9, ARRASTRAR = 10, NULO = 0;
-    
+
+    /**
+     * Las coordenadas de inicio y fin de "x".
+     * @since 1.6
+     */
     private int coordenadasInicioX, coordenadasFinX;
+
+    /**
+     * Las coordenadas de inicio y fin de "y".
+     * @since 1.6
+     */
     private int coordenadasInicioY, coordenadasFinY;
+
+    /**
+     * Para saber que objeto o texto se va a dibujar.
+     * @since 1.6
+     */
     private int modoDibujar;
+
+    /**
+     * Guarda las coordenadas iniciales y finales de "x" e "y" que usan el
+     * lapiz y pincel.
+     * @since 1.6
+     */
     private int lineaX1, lineaX2, lineaY1, lineaY2;
+
+    /**
+     * El color del fondo de la pantalla de dibujo.
+     * @since 1.6
+     */
     private Color colorFondoPantallaDibujo;
+
+    /**
+     * El color del borde.
+     * @since 1.6
+     */
     private Color colorBorde;
+
+    /**
+     * El color de relleno.
+     * @since 1.6
+     */
     private Color colorRelleno;
+
+    /**
+     * El tamanhio del borde.
+     * @since 1.6
+     */
     private float tamanioBorde;
+
+    /**
+     * El nombre del archivo que se usa para guardar la imagen.
+     * @since 1.6
+     */
     private File nombreArchivo;
+
+    /**
+     * La longitud del tamanhio del borrador.
+     * @since 1.6
+     */
     private int longitudBorrador;
-    private VentanaTexto ventanaTexto;                      // Ventana Texto
+
+    /**
+     * La ventana Texto.
+     * * @since 1.6
+     */
+    private VentanaTexto ventanaTexto;                      
+
+    /**
+     * True es para habilitar si se va a dibujar texto.
+     * @since 1.6
+     */
     private boolean habilitarDibujarTexto;
+
+    /**
+     * Donde se manipula el objeto texto con sus atributos.
+     * @since 1.6
+     */
     private Texto texto;
 
+    /**
+     * Para saber si las Figuras van a contener color de relleno o no.
+     * Valor predeterminado es false.
+     * @since 1.6
+     */
     private boolean conRelleno = false;
 
-    // La imagen que se mostrará
+
+    /**
+     * La imagen que se mostrará.
+     * @since 1.6
+     */
     private BufferedImage imagen;
 
-    // Escala por defecto de la imagen
+    /**
+     * Escala por defecto de la imagen.
+     * Su valor prederminado es 1.0.
+     * @since 1.6
+     */
     private double escala = 1.0;
 
+    /**
+     * El cursor actual que se esta usando.
+     * @since 1.6
+     */
     private Cursor cursorActual;
     
     /**
      * Lista de figuras a dibujar.
+     * @since 1.6
      */
     private LinkedList<Figura> listaFiguras = new LinkedList<Figura>();
 
     /**
-     * Lista de figuras a dibujar.
+     * Lista de Texto a dibujar.
+     * @since 1.6
      */
     private LinkedList<Texto> listaTexto = new LinkedList<Texto>();
 
     /**
-     * Si actualmente se está arrastrando o no el rectángulo.
+     * Si actualmente se está arrastrando o no una Figura.
+     * Valor predeterminado a null.
+     * @since 1.6
      */
     private Figura figuraArrastrandose = null;
 
      /**
-     * x en la que estaba anteriormente el ratón.
-     */
+      * La coordenada x en la que estaba anteriormente el ratón.
+      * @since 1.6
+      */
     private int xAnteriorRaton;
 
     /**
-     * y en la que estaba anteriormente el ratón
+     * La coordenada y en la que estaba anteriormente el ratón.
+     * @since 1.6
      */
     private int yAnteriorRaton;
 
+    /**
+     * Dos pilas para hacer y deshacer las opciones de dibujo.
+     * @since 1.6
+     */
     private Stack desHacerPila, reHacerPila;
 
-    // La ubicacion donde se colocará la imagen, si es null, se colocará en el centro
+    /**
+     * La ubicacion donde se colocará la imagen, si es null, se colocará en el centro.
+     * * @since 1.6
+     */
     private Point2D ubicacionDeImagen;
 
-    /** Creates new form PanelDibujo */
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Construye un Panel Dibujo.
+     * @since 1.6
+     */
     public PanelDibujo() {
         initComponents();
         modoDibujar = 0;
@@ -139,6 +255,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
+     * @since 1.6
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -282,6 +399,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
          * rectángulo y se llama al método repaint() para que se pinte.
          *
          * @param e Evento del ratón
+         * @since 1.6
         */
         if(modoDibujar == ARRASTRAR){
             // Si comienza el arrastre
@@ -315,6 +433,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * El ratón se mueve sin arrastrar. Se marca fin de arrastre.
      *
      * @param e MouseEvent
+     * @since 1.6
      */
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
         figuraArrastrandose = null;
@@ -344,85 +463,166 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         repaint();
     }//GEN-LAST:event_formMouseClicked
 
+
     ////////////////////////////////////////////////////////////////////////////
     // Metodos SETTERS y GETTERS
     ////////////////////////////////////////////////////////////////////////////
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve la coordenada final de x.
+     *
+     * @return La coordenada final de x
+     * @since 1.6
+     */
     public int getCoordenadasFinX() {
         return coordenadasFinX;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece la coordenada final de x.
+     *
+     * @param coordenadasFinX La coordenada final de x
+     * @since 1.6
+     */
     public void setCoordenadasFinX(int coordenadasFinX) {
         this.coordenadasFinX = coordenadasFinX;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve la coordenada final de y.
+     *
+     * @return La coordenada final de y
+     * @since 1.6
+     */
     public int getCoordenadasFinY() {
         return coordenadasFinY;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece la coordenada final de y.
+     *
+     * @param coordenadasFinY La coordenada final de y
+     * @since 1.6
+     */
     public void setCoordenadasFinY(int coordenadasFinY) {
         this.coordenadasFinY = coordenadasFinY;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve la coordenada inicial de x.
+     *
+     * @return La coordenada inicial de x
+     * @since 1.6
+     */
     public int getCoordenadasInicioX() {
         return coordenadasInicioX;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece la coordenada inicial de x.
+     *
+     * @param coordenadasInicioX La coordenada inicial de x
+     * @since 1.6
+     */
     public void setCoordenadasInicioX(int coordenadasInicioX) {
         this.coordenadasInicioX = coordenadasInicioX;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve la coordenada inicial de y.
+     *
+     * @returnla La coordenada inicial de y
+     * @since 1.6
+     */
     public int getCoordenadasInicioY() {
         return coordenadasInicioY;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece la coordenada inicial de y.
+     *
+     * @param coordenadasInicioY La coordenada inicial de y
+     * @since 1.6
+     */
     public void setCoordenadasInicioY(int coordenadasInicioY) {
         this.coordenadasInicioY = coordenadasInicioY;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el color del borde.
+     *
+     * @return El color del borde
+     * @since 1.6
+     */
     public Color getColorBorde() {
         return colorBorde;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece el color del borde.
+     *
+     * @param colorBorde El color del borde
+     * @since 1.6
+     */
     public void setColorBorde(Color colorBorde) {
         this.colorBorde = colorBorde;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el color del fondo de pantalla del dibujo.
+     *
+     * @return El color del fondo de pantalla del dibujo
+     * @since 1.6
+     */
     public Color getColorFondoPantallaDibujo() {
         return colorFondoPantallaDibujo;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece el color del fondo de pantalla del dibujo.
+     *
+     * @param colorFondoPantallaDibujo El color del fondo de pantalla del dibujo
+     * @since 1.6
+     */
     public void setColorFondoPantallaDibujo(Color colorFondoPantallaDibujo) {
         this.colorFondoPantallaDibujo = colorFondoPantallaDibujo;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el color de relleno.
+     *
+     * @return El color de relleno
+     * @since 1.6
+     */
     public Color getColorRelleno() {
         return colorRelleno;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece el color de relleno.
+     *
+     * @param colorRelleno El color de relleno
+     * @since 1.6
+     */
     public void setColorRelleno(Color colorRelleno) {
         this.colorRelleno = colorRelleno;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el tamanhio del borde.
+     *
+     * @return El tamanhio del borde
+     * @since 1.6
+     */
     public float getTamanioBorde() {
         return tamanioBorde;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece el tamanhio del borde.
+     *
+     * @param tamanioBorde El tamanhio del borde
+     * @since 1.6
+     */
     public void setTamanioBorde(float tamanioBorde) {
         if(tamanioBorde >= Constantes.MINIMO_GROSOR_BORDE
                 &&  tamanioBorde <= Constantes.MAXIMO_GROSOR_BORDE){
@@ -430,14 +630,22 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Retorna la escala actual de la imagen
+    /**
+     * Devuelve la escala actual de la imagen.
+     *
+     * @return La escala actual de la imagen
+     * @since 1.6
+     */
     public double getEscala(){
         return escala;
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Asigna la escala actual de la imagen
+    /**
+     * Establece la escala actual de la imagen.
+     *
+     * @param escala La escala actual de la imagen
+     * @since 1.6
+     */
     public void setEscala(double escala){
         if(imagen != null){
             double anteriorEscala = this.escala;
@@ -448,193 +656,362 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el cursor actual.
+     *
+     * @return El cursor actual
+     * @since 1.6
+     */
     public Cursor getCursorActual() {
         return cursorActual;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece el cursor actual.
+     *
+     * @param cursorActual El cursor actual
+     * @since 1.6
+     */
     public void setCursorActual(Cursor cursorActual) {
         this.cursorActual = cursorActual;
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Retorna la ubicacion actual de la imagen dentro del panel
+    /**
+     * Devuelve la ubicacion actual de la imagen dentro del panel.
+     *
+     * @return La ubicacion actual de la imagen dentro del panel
+     * @since 1.6
+     */
     public Point2D getUbicacionDeImagen(){
         return ubicacionDeImagen;
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Asigna la ubicacion de la imagen dentro del panel
+    /**
+     * Establece la ubicacion de la imagen dentro del panel.
+     *
+     * @param imageLocation La ubicacion actual de la imagen dentro del panel
+     * @since 1.6
+     */
     public void setUbicacionDeImagen(Point2D imageLocation){
         this.ubicacionDeImagen = imageLocation;
         repaint();              // Vuelve a dibujar la imagen en la ubicacion especificada
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve la coordenada inicial de x para el lapiz y pincel.
+     *
+     * @return La coordenada inicial de x para el lapiz y pincel
+     * @since 1.6
+     */
     public int getLineaX1() {
         return lineaX1;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece la coordenada inicial de x para el lapiz y pincel.
+     *
+     * @param lineaX1 La coordenada inicial de x para el lapiz y pincel
+     * @since 1.6
+     */
     public void setLineaX1(int lineaX1) {
         this.lineaX1 = lineaX1;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve la coordenada final de x para el lapiz y pincel.
+     *
+     * @return La coordenada final de x para el lapiz y pincel
+     * @since 1.6
+     */
     public int getLineaX2() {
         return lineaX2;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece la coordenada final de x para el lapiz y pincel.
+     *
+     * @param lineaX2 La coordenada final de x para el lapiz y pincel
+     * @since 1.6
+     */
     public void setLineaX2(int lineaX2) {
         this.lineaX2 = lineaX2;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve la coordenada inicial de y para el lapiz y pincel.
+     *
+     * @return La coordenada inicial de y para el lapiz y pincel
+     * @since 1.6
+     */
     public int getLineaY1() {
         return lineaY1;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece la coordenada inicial de y para el lapiz y pincel.
+     *
+     * @param lineaY1 La coordenada inicial de y para el lapiz y pincel
+     * @since 1.6
+     */
     public void setLineaY1(int lineaY1) {
         this.lineaY1 = lineaY1;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve la coordenada final de y para el lapiz y pincel.
+     *
+     * @return La coordenada final de y para el lapiz y pincel
+     * @since 1.6
+     */
     public int getLineaY2() {
         return lineaY2;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece la coordenada final de y para el lapiz y pincel.
+     *
+     * @param lineaY2 La coordenada final de y para el lapiz y pincel
+     * @since 1.6
+     */
     public void setLineaY2(int lineaY2) {
         this.lineaY2 = lineaY2;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve true si tiene relleno.
+     *
+     * @return True si tiene relleno
+     * @since 1.6
+     */
     public boolean isConRelleno() {
         return conRelleno;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece true si tiene relleno, false sin relleno.
+     *
+     * @param conRelleno True si tiene relleno, false sin relleno
+     * @since 1.6
+     */
     public void setConRelleno(boolean conRelleno) {
         this.conRelleno = conRelleno;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero del modo a dibujar.
+     *
+     * @return El numero del modo a dibujar
+     * @since 1.6
+     */
     public int getModoDibujar() {
         return modoDibujar;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece el numero del modo a dibujar.
+     *
+     * @param modoDibujar El numero del modo a dibujar
+     * @since 1.6
+     */
     public void setModoDibujar(int modoDibujar) {
         this.modoDibujar = modoDibujar;
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Retorna la imagen actual
+    /**
+     * Devuelve la imagen actual.
+     *
+     * @return La imagen actual
+     * @since 1.6
+     */
     public BufferedImage getImagen(){
         return imagen;
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Establece la imagen actual
+    /**
+     * Establece la imagen actual.
+     *
+     * @param imagen La imagen actual
+     * @since 1.6
+     */
     public void setImagen(Image imagen){
-        Image old = this.getImagen();                   // Imagen anterior
+        Image old = this.getImagen();                           // Imagen anterior
         this.imagen = (BufferedImage) imagen;                   // Imagen actual
         setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
-        //redimensionar();                                        // Se escala la imagen para que quepe en el panel
+        //redimensionar();                                      // Se escala la imagen para que quepe en el panel
         repaint();                                              // Se dibuja la nueva imagen
-        firePropertyChange("imagenActual", old, this.imagen);    // Se dispara un evento de cambio de propiedad
+        firePropertyChange("imagenActual", old, this.imagen);   // Se dispara un evento de cambio de propiedad
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Asigna la imagen actual mediante un archivo
+    /**
+     * Asigna la imagen actual mediante un archivo.
+     *
+     * @param file El archivo de entrada para guardar la imagen.
+     * @throws IOException Error del archivo de entrada para guardar la imagen.
+     * @since 1.6
+     */
     public void setImagen(File file) throws IOException{
         setImagen(ImageIO.read(file));
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante ARRASTRAR.
+     *
+     * @return El numero de la constante ARRASTRAR
+     * @since 1.6
+     */
     public static int getARRASTRAR() {
         return ARRASTRAR;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante CIRCULO.
+     *
+     * @return El numero de la constante CIRCULO
+     * @since 1.6
+     */
     public static int getCIRCULO() {
         return CIRCULO;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante LAPIZ.
+     *
+     * @return El numero de la constante LAPIZ
+     * @since 1.6
+     */
     public static int getLAPIZ() {
         return LAPIZ;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante LINEA.
+     *
+     * @return El numero de la constante LINEA
+     * @since 1.6
+     */
     public static int getLINEA() {
         return LINEA;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante OVALO.
+     *
+     * @return El numero de la constante OVALO
+     * @since 1.6
+     */
     public static int getOVALO() {
         return OVALO;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante PINCEL.
+     *
+     * @return El numero de la constante PINCEL
+     * @since 1.6
+     */
     public static int getPINCEL() {
         return PINCEL;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante RECTANGULO.
+     *
+     * @return El numero de la constante RECTANGULO
+     * @since 1.6
+     */
     public static int getRECTANGULO() {
         return RECTANGULO;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante RECTANGULO CON CURVAS REDONDAS.
+     *
+     * @return El numero de la constante RECTANGULO CON CURVAS REDONDAS
+     * @since 1.6
+     */
     public static int getRECTANGULO_CON_CURVAS_REDONDAS() {
         return RECTANGULO_CON_CURVAS_REDONDAS;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante TEXTO.
+     *
+     * @return El numero de la constante TEXTO
+     * @since 1.6
+     */
     public static int getTEXTO() {
         return TEXTO;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la constante BORRADOR.
+     *
+     * @return El numero de la constante BORRADOR
+     * @since 1.6
+     */
     public static int getBORRADOR() {
         return BORRADOR;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve el numero de la longitud del borrador.
+     *
+     * @return El numero de la longitud del borrador
+     * @since 1.6
+     */
     public int getLongitudBorrador() {
         return longitudBorrador;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece el numero de la longitud del borrador.
+     *
+     * @param longitudBorrador El numero de la longitud del borrador
+     * @since 1.6
+     */
     public void setLongitudBorrador(int longitudBorrador) {
         this.longitudBorrador = longitudBorrador;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve para saber si se puede dibujar (true) o no (false) un texto.
+     *
+     * @return True cuando se puede dibujar un texto; caso contrario, false
+     * @since 1.6
+     */
     public boolean isHabilitarDibujarTexto() {
         return habilitarDibujarTexto;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece en true para poder dibujar texto; false para no dibujar texto.
+     *
+     * @param habilitarDibujarTexto En true para poder dibujar texto; false para no dibujar texto
+     * @since 1.6
+     */
     public void setHabilitarDibujarTexto(boolean habilitarDibujarTexto) {
         this.habilitarDibujarTexto = habilitarDibujarTexto;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Establece el nombre del archivo.
+     *
+     * @param nombreArchivo El nombre del archivo
+     * @since 1.6
+     */
     public void setNombreArchivo(File nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
     }
 
 
+    ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
+    ////////////////////////////////////////////////////////////////////////////
     /**
-     * Añada una figura a la lista de figuras a dibujar
+     * Añada una figura a la lista de figuras a dibujar.
      *
      * @param figura Una nueva figura a dibujar
+     * @since 1.6
      */
     public void agregarFigura(Figura figura){
         listaFiguras.add(figura);
@@ -643,16 +1020,18 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /**
      * Quita la figura en la lista de figuras a dibujar.
      *
-     * @param figura figura a quitar de la lista.
+     * @param figura La figura a quitar de la lista
+     * @since 1.6
      */
     public void eliminarFigura(Figura figura){
         listaFiguras.remove(figura);
     }
 
     /**
-     * Añada un objeto Texto a la lista de texto a dibujar
+     * Añada un objeto Texto a la lista de texto a dibujar.
      *
      * @param texto Una nuevo objeto Texto a dibujar
+     * @since 1.6
      */
     public void agregarTexto(Texto texto){
         listaTexto.add(texto);
@@ -661,7 +1040,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /**
      * Quita el texto en la lista de textos a dibujar.
      *
-     * @param texto texto a quitar de la lista.
+     * @param texto Un texto a quitar de la lista
+     * @since 1.6
      */
     public void eliminarTexto(Texto texto){
         listaTexto.remove(texto);
@@ -673,7 +1053,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      *
      * @param e El evento de ratón
      *
-     * @return true si el ratón está dentro del rectángulo
+     * @return True si el ratón está dentro del rectángulo
+     * @since 1.6
      */
     private Figura dameFigura(MouseEvent e){
         for (Figura figura : listaFiguras){
@@ -684,9 +1065,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         return null;
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Redimensiona la imagen para que quepe dentro del panel, si la imagen es mas pequeña
-    // que el panel, la deja en su escala por defecto
+    /**
+     * Redimensiona la imagen para que quepe dentro del panel, si la imagen es mas pequeña
+     * que el panel, la deja en su escala por defecto.
+     * @since 1.6
+     */
     public void redimensionar(){
         if(imagen.getHeight(this) > tamañoVisor().getHeight()){
             double visor = tamañoVisor().getHeight();
@@ -698,8 +1081,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Retorna el tamaño del visor de imagenes
+    /**
+     * Devuelve el tamaño del visor de imagenes.
+     *
+     * @return El tamaño del visor de imagenes
+     * @since 1.6
+     */
     private Dimension tamañoVisor(){
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         int largo = d.width - 10;
@@ -709,9 +1096,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /**
-     * Dibuja
+     * Dibuja todos los componentes en la pantalla.
      *
-     * @param g Graphics con el que dibujar.
+     * @param g Graphics con el que dibujar
+     * @since 1.6
      */
     @Override
     public void paint(Graphics g){
@@ -870,7 +1258,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Deshace una opcion que se realizo al dibujar en la mesa de trabajo.
+     *
+     * @since 1.6
+     */
     public void deshacer(){
         if(desHacerPila.isEmpty()){
             JOptionPane.showMessageDialog(null, "Ya no se puede deshacer",
@@ -883,7 +1275,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         repaint();
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Rehace una opcion que se realizo al dibujar en la mesa de trabajo.
+     *
+     * @since 1.6
+     */
     public void rehacer(){
         if(reHacerPila.isEmpty()){
             JOptionPane.showMessageDialog(null,"No hay algo que rehacer",
@@ -895,8 +1291,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         repaint();
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Metodo que borra todos los elementos de la pantalla
+    /**
+     * Metodo que borra todos los elementos de la pantalla.
+     * @since 1.6
+     */
     public void borrarTodo(){
         listaFiguras.clear();
         listaTexto.clear();
@@ -907,7 +1305,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         repaint();
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Devuelve true si se pudo guardar la imagen; false, en caso contrario.
+     *
+     * @return True si se pudo guardar la imagen; false, en caso contrario.
+     * @since 1.6
+     */
     public boolean guardarImagen(){
         if(nombreArchivo == null){
             JFileChooser fileChooser = new JFileChooser();
@@ -953,7 +1356,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         return true;
     }
 
-    /*----------------------------------------------------------------------------*/
+    /**
+     * Abre la imagen con formato png.
+     *
+     * @since 1.6
+     */
     public void abrirImagen(){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -988,8 +1395,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         repaint();
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Metodo que crea la imagen
+    /**
+     * Metodo que crea la imagen.
+     * @since 1.6
+     */
     public void crearImagen() {
         // Objetos
         imagen = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -1004,36 +1413,57 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         //setImagen(imagen);
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Metodo para acerca la Imagen Actual
+    /**
+     * Metodo para acerca la imagen actual.
+     * @since 1.6
+     */
     public void acercar(){
         setEscala(getEscala() * 1.09);
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Metodo para alejar la Imagen Actual
+    /**
+     * Metodo para alejar la imagen actual.
+     * @since 1.6
+     */
     public void alejar(){
         setEscala(getEscala() * 0.9174311926605505);
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Dibuja todas las figuras de la lista
+    /**
+     * Dibuja todas las figuras de la lista.
+     *
+     * @param g Dibuja todas las figuras de la lista
+     * @since 1.6
+     */
     public void dibujarFiguras(Graphics g){
         for (Figura figura : listaFiguras){
             figura.dibujar(g);
         }
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Dibuja todos los objetos texto de la lista
+    /**
+     * Dibuja todos los objetos texto de la lista.
+     *
+     * @param g Dibuja todos los objetos texto de la lista
+     * @since 1.6
+     */
     public void dibujarTexto(Graphics g){
         for (Texto texto : listaTexto){
                 texto.dibujar(g);
         }
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Este es el metodo que se encarga de la impresion
+    /**
+     * Este es el metodo que se encarga de la impresion.
+     * FALTA COMENTAR MEJOR
+     *
+     * @param g
+     * @param pageFormat
+     * @param pageIndex
+     * @return
+     * @throws PrinterException
+     * @since 1.6
+     */
     @Override
     public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
         if( pageIndex >= 1 ) {
@@ -1045,8 +1475,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         return( Printable.PAGE_EXISTS );
     }
 
-    /*----------------------------------------------------------------------------*/
-    // Metodo que muestra la ventana Texto
+    /**
+     * Metodo que muestra la ventana Texto.
+     * @since 1.6
+     */
     public void mostrarVentanaTexto() {
         if (ventanaTexto == null) {
             ventanaTexto = new VentanaTexto(null, true);
@@ -1054,8 +1486,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
         ventanaTexto.setVisible(true);
     }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
