@@ -1,14 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * GUI_Principal.java
- *
- * Created on 22/07/2010, 10:14:37 PM
- */
-
 package GUI;
 
 import Auxiliar.Constantes;
@@ -27,59 +16,135 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
+ *@(#)GUI_Principal.java
+ * Creado 22/07/2010, 10:14:37 PM
  *
  * @author fires
+ * @version 1.00
+ * @since 1.6
+ */
+/**
+ * Clase GUI_Principal se ejecuta el programa y donde aparecen todos los objetos
+ * Menus, mesa de trabajo, botones, barra de herramientas, etc.
+ * @since 1.6
  */
 public class GUI_Principal extends javax.swing.JFrame {
-    // Obtenemos la referencia al entorno de ventanas
+    ////////////////////////////////////////////////////////////////////////////
+    // Variables de clase
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Obtenemos la referencia al entorno de ventanas.
+     * @since 1.6
+     */
     private GraphicsEnvironment gEnv;
-    
-    // Obtenemos el dispositivo gráfico 
-    private GraphicsDevice  gd;
 
-    // Mesa de Dibujo donde se dibujan todos los objetos que crea el usuario
+    /**
+     * Obtenemos el dispositivo gráfico.
+     * @since 1.6
+     */
+    private GraphicsDevice gd;
+
+
+    /**
+     * Mesa de Dibujo donde se dibujan todos los objetos que crea el usuario.
+     * @since 1.6
+     */
     private PanelDibujo mesaDeDibujo;
-
-    // Ventana Ayuda
+   
+    /**
+     * Ventana Ayuda.
+     *
+     * @since 1.6
+     */
     private JDialog ventanaAyuda;
 
-    boolean colorBordeObjetos = false;
-    boolean colorDeFondoPantalla = false;
-    boolean colorRelleno = false;
-    boolean archivoGuardadoUltimaVersion = false;
-    boolean modificarImagenSinGuardar = false;
+    /**
+     * El color del borde de los objetos.
+     *
+     * @since 1.6
+     */
+    boolean colorBordeObjetos ;
 
-    // Cursor Predeterminado
+    /**
+     * El color de fondo de la pantalla.
+     *
+     * @since 1.6
+     */
+    boolean colorDeFondoPantalla;
+
+    /**
+     * El color de relleno.
+     *
+     * @since 1.6
+     */
+    boolean colorRelleno;
+
+    /**
+     * Valor boleano para saber si es la ultima version del archivo generado.
+     *
+     * @since 1.6
+     */
+    boolean archivoGuardadoUltimaVersion;
+
+    /**
+     * valor boleano para saber si la imagen sin guardar se ha modificado.
+     *
+     * @since 1.6
+     */
+    boolean modificarImagenSinGuardar;
+
+
+    /**
+     * Cursor predeterminado.
+     * @since 1.6
+     */
     private Cursor cursorPredeterminado;
 
-    // Cursor Actual
+    /**
+     * Cursor actual.
+     * @since 1.6
+     */
     private Cursor cursorActual;
 
-    Toolkit toolKit;
+    /**
+     * FALTA COMENTAR
+     *
+     * @since 1.6
+     */
+    private Toolkit toolKit;
 
     /**
-     *  Imagen para el cursor
+     * Imagen para el cursor pencil.
+     * @since 1.6
      */
-     Image pencilImg;
+     private Image pencilImg;
 
     /**
-     *  Imagen para el cursor
+     * Imagen para el cursor eraser.
+     * @since 1.6
      */
-     Image eraserImg;
+     private Image eraserImg;
 
-     /**
-     *  Imagen para el cursor
+    /**
+     * Imagen para el cursor brush.
+     * @since 1.6
      */
-     Image brushImg;
+     private Image brushImg;
 
      /*
-      * El icono de la aplicacion
-      *
+      * El icono de la aplicacion.
+      * @since 1.6
       */
-     Image iconoAplicacion;
+     private Image iconoAplicacion;
 
 
-    /** Creates new form GUI_Principal */
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructores
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Construye la GUI Principal.
+     * @since 1.6
+     */
     public GUI_Principal() {
         // Se elije el tema por defecto de la aplicación
         try {
@@ -87,6 +152,12 @@ public class GUI_Principal extends javax.swing.JFrame {
         } catch (Exception e){
             e.printStackTrace();
         }
+        modificarImagenSinGuardar = false;
+        colorBordeObjetos = false;
+        colorDeFondoPantalla = false;
+        colorRelleno = false;
+        archivoGuardadoUltimaVersion = false;
+
         gEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
         // Obtenemos el dispositivo gráfico primario (por defecto)
@@ -1050,28 +1121,49 @@ public class GUI_Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBoxActivarRellenoActionPerformed
 
+    
+    ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
-    // Comprobar si tiene soporte a pantalla completa
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Comprobar si tiene soporte a pantalla completa. True si lo tiene; caso
+     * contrario, false.
+     *
+     * @return Comprobar si tiene soporte a pantalla completa. True si lo tiene; caso
+     * contrario, false.
+     * @since 1.6
+     */
     public boolean soportaPantallaCompleta(){
         return gd.isFullScreenSupported();
     }
 
-    // Activamos el modo a pantalla completa
+    /**
+     * Activamos el modo a pantalla completa.
+     * @since 1.6
+     */
     public void activarPantallaCompleta(){
         gd.setFullScreenWindow(this);
         jButtonPantallaCompleta.setVisible(false);
         jButtonDesactivarPantallaCompleta.setVisible(true);
     }
 
-
-    // desactivamos el modo a pantalla completa
+    /**
+     * Desactivamos el modo a pantalla completa.
+     * @since 1.6
+     */
     public void desactivarPantallaCompleta(){
        gd.setFullScreenWindow(null);
        jButtonPantallaCompleta.setVisible(true);
        jButtonDesactivarPantallaCompleta.setVisible(false);
     }
 
-    public void llamarObjetosDiferentes(ActionEvent event){
+    /**
+     * Metodo privado que llama a los diferentes objetos para asignarle opciones diferentes
+     *
+     * @param event El evento degenerado de un objeto.
+     * @since 1.6
+     */
+    private void llamarObjetosDiferentes(ActionEvent event){
         if(event.getSource() == jToggleButtonLinea){
             mesaDeDibujo.setModoDibujar(PanelDibujo.getLINEA());
             jLabelHerramientaSeleccionadaObjeto.setText("Linea");
@@ -1120,7 +1212,18 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     }
 
-    public void operacionNuevo(){
+    /**
+     * Metodo privado cuando se presiona la opcion Nuevo.
+     * Se pone null el nombre del archivo.
+     * Se borra todos objetos sean figura o texto en la mesa de trabajo.
+     * Se selecciona el objeto prederterminado del programa.
+     * Se cambian los siguientes colores a su valor por defecto:
+     *  - Color fondo de pantalla: blanco
+     *  - Color borde: negro
+     *  - Color relleno: blanco
+     * @since 1.6
+     */
+    private void operacionNuevo(){
         mesaDeDibujo.setNombreArchivo(null);
         mesaDeDibujo.borrarTodo();
         seleccionarObjetoPredeterminado();
@@ -1131,7 +1234,10 @@ public class GUI_Principal extends javax.swing.JFrame {
 	mesaDeDibujo.repaint();
     }
 
-    // Metodo que muestra la ventana Ayuda
+    /**
+     * Metodo que muestra la ventana Ayuda.
+     * @since 1.6
+     */
     public void mostrarVentanaAyuda() {
         if (ventanaAyuda == null) {
             ventanaAyuda = new VentanaAyuda(this, rootPaneCheckingEnabled);
@@ -1140,7 +1246,10 @@ public class GUI_Principal extends javax.swing.JFrame {
         ventanaAyuda.setVisible(rootPaneCheckingEnabled);
     }
 
-    // Metodo que muestra la ventana Impresora
+    /**
+     * Metodo que muestra la ventana Impresora.
+     * @since 1.6
+     */
     public void mostrarVentanaImpresora() {
         PrinterJob printJob = PrinterJob.getPrinterJob();
         printJob.setPrintable((Printable) mesaDeDibujo);
@@ -1155,17 +1264,22 @@ public class GUI_Principal extends javax.swing.JFrame {
             catch( Exception e ) {
                 e.printStackTrace();
             }
-        }    
+        }
     }
 
-    // Metodo que retorna:
-    //   - true en caso que se pueda arrastrar los objetos
-    //   - false en caso que no se pueda arrastrar los objetos
-    // Solo se arrastran los objetos siguientes:
-    //   - Rectangulo
-    //   - Ovalo
-    //   - Circulo
-    //   - RectanguloConCurvasRedondas
+    /**
+     * Metodo que retorna:
+     *  - true en caso que se pueda arrastrar los objetos
+     *  - false en caso que no se pueda arrastrar los objetos
+     * Solo se arrastran los objetos siguientes:
+     *  - Rectangulo
+     *  - Ovalo
+     *  - Circulo
+     *  - RectanguloConCurvasRedondas
+     *
+     * @return True si se puede arrastrar el objeto; caso contrario, false
+     * @since 1.6
+     */
     public boolean esObjetoArrastrable(){
          if(jToggleButtonRectangulo.isSelected() || jToggleButtonOvalo.isSelected()
                 || jToggleButtonCirculo.isSelected()
@@ -1176,14 +1290,20 @@ public class GUI_Principal extends javax.swing.JFrame {
        return false;
     }
 
-    // Metodo que retorna:
-    //   - true en caso que se pueda rellenar los objetos
-    //   - false en caso que no se pueda rellenar los objetos
-    // Solo se rellenan los objetos siguientes:
-    //   - Rectangulo
-    //   - Ovalo
-    //   - Circulo
-    //   - RectanguloConCurvasRedondas
+
+    /**
+     * Metodo que retorna:
+     *  - true en caso que se pueda rellenar los objetos
+     *  - false en caso que no se pueda rellenar los objetos
+     * Solo se rellenan los objetos siguientes:
+     *  - Rectangulo
+     *  - Ovalo
+     *  - Circulo
+     *  - RectanguloConCurvasRedondas
+     *
+     * @return True si se puede rellenar el objeto; caso contrario, false
+     * @since 1.6
+     */
     public boolean esObjetoRellenable(){
         if(jToggleButtonRectangulo.isSelected() || jToggleButtonOvalo.isSelected()
                 || jToggleButtonCirculo.isSelected()
@@ -1194,14 +1314,20 @@ public class GUI_Principal extends javax.swing.JFrame {
        return false;
     }
 
-    // Metodo que retorna:
-    //   - true en caso que se tenga tamanhio en el borde de los objetos
-    //   - false en caso que no se tenga tamanhio en el borde de los objetos
-    // Solo tienen tamanhio en el borde los objetos siguientes:
-    //   - Rectangulo
-    //   - Ovalo
-    //   - Circulo
-    //   - RectanguloConCurvasRedondas
+
+    /**
+     * Metodo que retorna:
+     *  - true en caso que se tenga tamanhio en el borde de los objetos
+     *  - false en caso que no se tenga tamanhio en el borde de los objetos
+     * Solo tienen tamanhio en el borde los objetos siguientes:
+     *  - Rectangulo
+     *  - Ovalo
+     *  - Circulo
+     *  - RectanguloConCurvasRedondas
+     *
+     * @return True si se tiene tamanhio en el borde el objeto; caso contrario, false
+     * @since 1.6
+     */
     public boolean tieneTamanhioBordeObjeto(){
         if(jToggleButtonRectangulo.isSelected() || jToggleButtonOvalo.isSelected()
                 || jToggleButtonCirculo.isSelected()
@@ -1214,13 +1340,21 @@ public class GUI_Principal extends javax.swing.JFrame {
        return false;
     }
 
+    /**
+     * Activar el relleno de las figuras.
+     * @since 1.6
+     */
     public void activarRellenoDeFiguras(){
         if(colorRelleno){
             mesaDeDibujo.setConRelleno(true);
         }
     }
 
-    public void activarPropiedadesObjetos(){
+    /**
+     * Activar las propiedades de los objetos.
+     * @since 1.6
+     */
+    private void activarPropiedadesObjetos(){
         jToggleButtonArrastrarObjetos.setVisible(esObjetoArrastrable());
         jButtonColorRelleno.setVisible(esObjetoRellenable());
         jCheckBoxActivarRelleno.setVisible(esObjetoRellenable());
@@ -1228,7 +1362,11 @@ public class GUI_Principal extends javax.swing.JFrame {
         jComboBoxGrosorBorde.setVisible(tieneTamanhioBordeObjeto());
     }
 
-    public void seleccionarObjetoPredeterminado(){
+    /**
+     * Se selecciona el obejto predeterminado que contiene propiedades estandares
+     * @since 1.6
+     */
+    private void seleccionarObjetoPredeterminado(){
         // Icono del lapiz
         Cursor pencilCursor = toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = pencilCursor;
@@ -1239,10 +1377,22 @@ public class GUI_Principal extends javax.swing.JFrame {
         jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
     }
 
+    /**
+     * FALTA COMENTAR
+     *
+     * @return
+     * @since 1.6
+     */
     public boolean archivoGuardadoUltimaVersion(){
         return archivoGuardadoUltimaVersion;
     }
 
+    /**
+     * FALTA COMENTAR
+     *
+     * @return
+     * @since 1.6
+     */
     public boolean modificarImagenSinGuardar(){
         if(modificarImagenSinGuardar){
             return false;
@@ -1251,7 +1401,12 @@ public class GUI_Principal extends javax.swing.JFrame {
         }
     }
 
-    public void acercarImagen(){
+    /**
+     *
+     *
+     * @since 1.6
+     */
+    private void acercarImagen(){
         if(archivoGuardadoUltimaVersion()) {
             mesaDeDibujo.acercar();
         }else{
@@ -1263,7 +1418,12 @@ public class GUI_Principal extends javax.swing.JFrame {
         }
     }
 
-    public void alejarImagen(){
+    /**
+     *
+     *
+     * @since 1.6
+     */
+    private void alejarImagen(){
         if(archivoGuardadoUltimaVersion()) {
             mesaDeDibujo.alejar();
         }else{
@@ -1277,7 +1437,10 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     
     /**
-    * @param args the command line arguments
+    * Donde se ejecuta la Ventana Color.
+    *
+    * @param args La linea de argumentos del comando
+    * @since 1.6
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
