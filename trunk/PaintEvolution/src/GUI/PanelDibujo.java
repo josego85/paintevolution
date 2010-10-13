@@ -530,7 +530,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     /**
      * Devuelve la coordenada inicial de y.
      *
-     * @returnla La coordenada inicial de y
+     * @return La coordenada inicial de y
      * @since 1.6
      */
     public int getCoordenadasInicioY() {
