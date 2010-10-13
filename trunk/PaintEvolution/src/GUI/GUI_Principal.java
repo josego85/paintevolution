@@ -1275,7 +1275,7 @@ public class GUI_Principal extends javax.swing.JFrame {
      *  - Rectangulo
      *  - Ovalo
      *  - Circulo
-     *  - RectanguloConCurvasRedondas
+     *  - Rectangulo con curvas redondas
      *
      * @return True si se puede arrastrar el objeto; caso contrario, false
      * @since 1.6
@@ -1299,7 +1299,7 @@ public class GUI_Principal extends javax.swing.JFrame {
      *  - Rectangulo
      *  - Ovalo
      *  - Circulo
-     *  - RectanguloConCurvasRedondas
+     *  - Rectangulo con curvas redondas
      *
      * @return True si se puede rellenar el objeto; caso contrario, false
      * @since 1.6
@@ -1323,7 +1323,7 @@ public class GUI_Principal extends javax.swing.JFrame {
      *  - Rectangulo
      *  - Ovalo
      *  - Circulo
-     *  - RectanguloConCurvasRedondas
+     *  - Rectangulo con curvas redondas
      *
      * @return True si se tiene tamanhio en el borde el objeto; caso contrario, false
      * @since 1.6
