@@ -564,7 +564,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         buttonGroupObjetos.add(jToggleButtonBorrador);
         jToggleButtonBorrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/eraser_16_16.gif"))); // NOI18N
         jToggleButtonBorrador.setToolTipText("Borrador");
-        jToggleButtonBorrador.setEnabled(false);
         jToggleButtonBorrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButtonBorradorActionPerformed(evt);
