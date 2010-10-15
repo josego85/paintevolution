@@ -654,7 +654,6 @@
                       <Image iconType="3" name="/imagenes/iconos/BarraHerramientas/eraser_16_16.gif"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Borrador"/>
-                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonBorradorActionPerformed"/>
