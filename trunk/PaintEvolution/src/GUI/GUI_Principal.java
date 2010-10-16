@@ -149,8 +149,9 @@ public class GUI_Principal extends javax.swing.JFrame {
         // Se elije el tema por defecto de la aplicación
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch(Exception e){
+            // Look and Feel predeterminado de Java
+            UIManager.getCrossPlatformLookAndFeelClassName();
         }
         modificarImagenSinGuardar = false;
         colorBordeObjetos = false;
