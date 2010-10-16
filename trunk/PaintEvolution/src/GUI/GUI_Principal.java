@@ -648,6 +648,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jToggleButtonArrastrarObjetos);
 
+        buttonGroupObjetos.add(jToggleInfoBorrado);
         jToggleInfoBorrado.setText("Info Borrado");
         jToggleInfoBorrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
