@@ -248,6 +248,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jLabelTamanioGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
         jToggleButtonArrastrarObjetos = new javax.swing.JToggleButton();
+        jToggleInfoBorrado = new javax.swing.JToggleButton();
         jPanelInformacionExtra = new javax.swing.JPanel();
         jLabelCoordenadasPuntero = new javax.swing.JLabel();
         jLabelHerramientaSeleccionada = new javax.swing.JLabel();
@@ -645,6 +646,14 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jToggleButtonArrastrarObjetos);
+
+        jToggleInfoBorrado.setText("Info Borrado");
+        jToggleInfoBorrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleInfoBorradoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleInfoBorrado);
 
         jToolBarBarraDeHerramientas.add(jPanel1);
 
@@ -1096,7 +1105,8 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     private void jToggleButtonBorradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonBorradorActionPerformed
         // Icono del borrador
-        Cursor borradorCursor = toolKit.createCustomCursor(eraserImg, new Point(10,24),"Eraser Cursor");
+        Cursor borradorCursor = toolKit.createCustomCursor(eraserImg,
+                new Point(10,24),"Eraser Cursor");
         cursorActual = borradorCursor;
         mesaDeDibujo.setCursorActual(cursorActual);
         llamarObjetosDiferentes(evt);
@@ -1119,6 +1129,16 @@ public class GUI_Principal extends javax.swing.JFrame {
             mesaDeDibujo.setColorRelleno(null);
         }
     }//GEN-LAST:event_jCheckBoxActivarRellenoActionPerformed
+
+    private void jToggleInfoBorradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleInfoBorradoActionPerformed
+        String codigoHTML = "<html><body><p>Sólo se pueden eliminar indicialmente" +
+                "haciendo click sobre los objetos:<br><t>- Rectángulo<br><t>- " +
+                "Óvalo<br><t>- Círculo<br><t>- Rectángulo con curvas redondas"
+                + "</body></html>";
+        JOptionPane.showMessageDialog(this, codigoHTML,
+                "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_jToggleInfoBorradoActionPerformed
 
     
     ////////////////////////////////////////////////////////////////////////////
@@ -1312,7 +1332,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         }
        return false;
     }
-
 
     /**
      * Metodo que retorna:
@@ -1512,6 +1531,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonRectangulo;
     private javax.swing.JToggleButton jToggleButtonRectanguloConCurvasRedondas;
     private javax.swing.JToggleButton jToggleButtonTexto;
+    private javax.swing.JToggleButton jToggleInfoBorrado;
     private javax.swing.JToolBar jToolBarBarraDeHerramientas;
     // End of variables declaration//GEN-END:variables
 
