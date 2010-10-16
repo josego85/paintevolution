@@ -1303,8 +1303,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     public boolean esObjetoArrastrable(){
          if(jToggleButtonRectangulo.isSelected() || jToggleButtonOvalo.isSelected()
                 || jToggleButtonCirculo.isSelected()
-                || jToggleButtonRectanguloConCurvasRedondas.isSelected()
-                || jCheckBoxActivarRelleno.isSelected()){
+                || jToggleButtonRectanguloConCurvasRedondas.isSelected()){
             return true;
         }
        return false;
@@ -1327,8 +1326,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     public boolean esObjetoRellenable(){
         if(jToggleButtonRectangulo.isSelected() || jToggleButtonOvalo.isSelected()
                 || jToggleButtonCirculo.isSelected()
-                || jToggleButtonRectanguloConCurvasRedondas.isSelected()
-                || jCheckBoxActivarRelleno.isSelected()){
+                || jToggleButtonRectanguloConCurvasRedondas.isSelected()){
             return true;
         }
        return false;
@@ -1351,7 +1349,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         if(jToggleButtonRectangulo.isSelected() || jToggleButtonOvalo.isSelected()
                 || jToggleButtonCirculo.isSelected()
                 || jToggleButtonRectanguloConCurvasRedondas.isSelected()
-                || jCheckBoxActivarRelleno.isSelected()
                 || jToggleButtonPincel.isSelected()
                 || jToggleButtonLinea.isSelected()){
             return true;
