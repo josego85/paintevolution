@@ -195,10 +195,15 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /**
      * Si actualmente se está arrastrando o no una Figura.
-     * Valor predeterminado a null.
      * @since 1.6
      */
-    private Figura figuraArrastrandose = null;
+    private Figura figuraArrastrandose;
+
+    /**
+     * Indica para borrar un objeto Individual.
+     * @since 1.6
+     */
+    private Figura eliminarObjetoIndivial;
 
      /**
       * La coordenada x en la que estaba anteriormente el ratón.
@@ -242,6 +247,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         nombreArchivo = null;
         ventanaTexto = null;
         texto = null;
+        figuraArrastrandose = null;
+        eliminarObjetoIndivial = null;
         desHacerPila = new Stack();
 	reHacerPila = new Stack();
         colorFondoPantallaDibujo    = Color.WHITE;          // De color blanco
@@ -311,13 +318,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        if(modoDibujar == LINEA){
+        if(modoDibujar == getLINEA()){
             Linea linea = new Linea(getCoordenadasInicioX(), getCoordenadasInicioY(),
                     getCoordenadasFinX(), getCoordenadasFinY(), getColorBorde(), 
                     (int)getTamanioBorde());    
             agregarFigura(linea);
             desHacerPila.push(linea);
-        }else if (modoDibujar == CIRCULO){
+        }else if (modoDibujar == getCIRCULO()){
             double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
                         Math.pow(getCoordenadasFinY() - getCoordenadasInicioY(),2));
             Circulo circulo =  new Circulo(getCoordenadasInicioX(), 
@@ -325,7 +332,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getColorRelleno(), (int)getTamanioBorde());
             agregarFigura(circulo);
             desHacerPila.push(circulo);
-        }else if(modoDibujar == RECTANGULO){
+        }else if(modoDibujar == getRECTANGULO()){
             Rectangulo rectangulo = new Rectangulo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
@@ -333,7 +340,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
             agregarFigura(rectangulo);
             desHacerPila.push(rectangulo);
-        }else if(modoDibujar == OVALO){
+        }else if(modoDibujar == getOVALO()){
             Ovalo ovalo = new Ovalo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                         Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
                         Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
@@ -341,7 +348,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
             agregarFigura(ovalo);
             desHacerPila.push(ovalo);
-        }else if(modoDibujar == RECTANGULO_CON_CURVAS_REDONDAS){
+        }else if(modoDibujar == getRECTANGULO_CON_CURVAS_REDONDAS()){
             RectanguloConCurvasRedondas rectanguloConCurvasRedondas = new RectanguloConCurvasRedondas(
                     Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
                     Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
@@ -350,13 +357,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getColorBorde(), getColorRelleno(), (int)getTamanioBorde());
             agregarFigura(rectanguloConCurvasRedondas);
             desHacerPila.push(rectanguloConCurvasRedondas);
-        }else if(modoDibujar == BORRADOR){
-            Rectangulo borrador = new Rectangulo(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
-                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
-                        getLongitudBorrador() * 2, getLongitudBorrador() * 2,
-                        Color.WHITE, Color.WHITE, 1);
-            agregarFigura(borrador);
-            //desHacerPila.push(borrador);
         }
         //crearImagen();
         GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
@@ -367,7 +367,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         setCoordenadasFinX(evt.getX());
         setCoordenadasFinY(evt.getY());
         
-         if (modoDibujar == LAPIZ) {
+         if (modoDibujar == getLAPIZ()) {
             setLineaX1(getLineaX2());
             setLineaY1(getLineaY2());
             setLineaX2(getCoordenadasFinX());
@@ -378,7 +378,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     getLineaY2(), getColorBorde(), (int)getTamanioBorde());
             agregarFigura(linea);
             desHacerPila.push(linea);
-        }else if (modoDibujar == PINCEL) {
+        }else if (modoDibujar == getPINCEL()) {
             setLineaX1(getLineaX2());
             setLineaY1(getLineaY2());
             setLineaX2(getCoordenadasFinX());
@@ -401,7 +401,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
          * @param e Evento del ratón
          * @since 1.6
         */
-        if(modoDibujar == ARRASTRAR){
+        if(modoDibujar == getARRASTRAR()){
             // Si comienza el arrastre
             if (figuraArrastrandose == null){
                 // Se guardan las posiciones del ratón
@@ -459,6 +459,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             }else{
                 setHabilitarDibujarTexto(false);
             }
+        }
+        if(modoDibujar == getBORRADOR()){
+            // Se busca si existe el objeto seleccionado
+            eliminarObjetoIndivial = dameFigura(evt);
+            eliminarFigura(eliminarObjetoIndivial);
         }
         repaint();
     }//GEN-LAST:event_formMouseClicked
@@ -1049,7 +1054,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
     /**
      * Para ver si el ratón está dentro del rectángulo.
-     * Si está dentro, puede comenzar el arrastre.
+     * Se utiliza para poder comenzar un arrastre o eliminar un objeto individual
      *
      * @param e El evento de ratón
      *
@@ -1108,7 +1113,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Graphics2D g2 = (Graphics2D)g;
         //setBackground(getColorFondoPantallaDibujo());
 
-        if (getImagen() != null && (modoDibujar != ARRASTRAR)){
+        if (getImagen() != null && (modoDibujar != getARRASTRAR())){
             Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
             if (getUbicacionDeImagen() != null){
                 center = getUbicacionDeImagen();
@@ -1127,8 +1132,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         this.setBackground(getColorFondoPantallaDibujo());
         g.setColor(getColorBorde());      
 
-        if(modoDibujar != ARRASTRAR){
-            if (modoDibujar == LINEA) {
+        if(modoDibujar != getARRASTRAR()){
+            if (modoDibujar == getLINEA()) {
                 Line2D line2D = new Line2D.Float(getCoordenadasInicioX(),
                     getCoordenadasInicioY(), getCoordenadasFinX(), getCoordenadasFinY());
                 g2 = (Graphics2D)g;
@@ -1138,7 +1143,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 g2.draw(line2D);
             }
 
-            if (modoDibujar == OVALO){
+            if (modoDibujar == getOVALO()){
                 if(conRelleno){
                     g.setColor(getColorRelleno());
                     g.fillOval(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -1160,7 +1165,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 g2.draw(e2);
             }
 
-            if (modoDibujar == CIRCULO){
+            if (modoDibujar == getCIRCULO()){
                 double radio = Math.sqrt(Math.pow(getCoordenadasFinX() - getCoordenadasInicioX(),2) +
                         Math.pow(getCoordenadasFinY() - getCoordenadasInicioY(),2));
                 if(conRelleno){
@@ -1180,7 +1185,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 g2.draw(e2);
             }
 
-            if (modoDibujar == RECTANGULO_CON_CURVAS_REDONDAS){
+            if (modoDibujar == getRECTANGULO_CON_CURVAS_REDONDAS()){
                 if(conRelleno){
                     g.setColor(getColorRelleno());
                     g.fillRoundRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -1202,7 +1207,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             }
 
 
-            if (modoDibujar == RECTANGULO){
+            if (modoDibujar == getRECTANGULO()){
                 if(conRelleno){
                     g.setColor(getColorRelleno());
                     g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
@@ -1223,26 +1228,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 g2.draw(r2);
             }
 
-            if (modoDibujar == BORRADOR){
-                if(conRelleno){
-                    g.fillRect(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
-                            Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
-                            Math.abs(getCoordenadasInicioX() - getCoordenadasFinX()),
-                            Math.abs(getCoordenadasInicioY() - getCoordenadasFinY()));
-                }
-                Rectangle2D borrador;
-                Stroke bordeFigura;
-                borrador = new Rectangle2D.Float(Math.min(getCoordenadasInicioX(), getCoordenadasFinX()),
-                        Math.min(getCoordenadasInicioY(), getCoordenadasFinY()),
-                        getLongitudBorrador() * 2, getLongitudBorrador() * 2);
-                g2 = (Graphics2D)g;
-                bordeFigura = new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-                g2.setColor(Color.WHITE);
-                g2.setStroke(bordeFigura);
-                g2.draw(borrador);
-            }
-
-            if (modoDibujar == TEXTO && isHabilitarDibujarTexto()
+            if (modoDibujar == getTEXTO() && isHabilitarDibujarTexto()
                     && ventanaTexto.isDibujaTexto()){
                 texto.setPosicionInicialX(coordenadasInicioX);
                 texto.setPosicionInicialY(coordenadasInicioY);
@@ -1290,7 +1276,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
         repaint();
     }
-
+   
     /**
      * Metodo que borra todos los elementos de la pantalla.
      * @since 1.6
