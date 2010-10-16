@@ -761,6 +761,9 @@
                 </Component>
                 <Component class="javax.swing.JToggleButton" name="jToggleInfoBorrado">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroupObjetos"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Info Borrado"/>
                   </Properties>
                   <Events>
