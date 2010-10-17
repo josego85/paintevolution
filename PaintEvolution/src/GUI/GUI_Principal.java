@@ -1133,8 +1133,8 @@ public class GUI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBoxActivarRellenoActionPerformed
 
     private void jToggleInfoBorradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleInfoBorradoActionPerformed
-        String codigoHTML = "<html><body><p>Sólo se pueden eliminar indicialmente" +
-                "haciendo click sobre los objetos:<br><t>- Rectángulo<br><t>- " +
+        String codigoHTML = "<html><body><p>Sólo se pueden eliminar individualmente" +
+                " haciendo click sobre los objetos:<br><t>- Rectángulo<br><t>- " +
                 "Óvalo<br><t>- Círculo<br><t>- Rectángulo con curvas redondas"
                 + "</body></html>";
         JOptionPane.showMessageDialog(this, codigoHTML,
