@@ -1029,7 +1029,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /**
-     * Establece para saber si se ha guardado la ultima version de la imagen(true),
+     * Establece en True para guardar la ultima version de la imagen;
      * caso contrario, en false.
      *
      * @param archivoGuardadoUltimaVersion En true saber si se ha guardado la ultima version de la imagen(true), caso contrario, en false.
@@ -1038,7 +1038,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void setArchivoGuardadoUltimaVersion(boolean archivoGuardadoUltimaVersion) {
         this.archivoGuardadoUltimaVersion = archivoGuardadoUltimaVersion;
     }
-
+    
     
     ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
@@ -1280,13 +1280,14 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void deshacer(){
+        modoDibujar = 0;
         if(desHacerPila.isEmpty()){
             JOptionPane.showMessageDialog(null, "Ya no se puede deshacer",
                     Constantes.TITULO_PROGRAMA,
                     JOptionPane.INFORMATION_MESSAGE);
         }else{
             Figura objeto = (Figura) desHacerPila.pop();
-            eliminarFigura(objeto);
+            eliminarFigura(objeto);    
         }
         repaint();
     }
