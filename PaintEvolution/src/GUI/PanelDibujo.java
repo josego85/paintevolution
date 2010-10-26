@@ -464,6 +464,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             if(ventanaTexto.isDibujaTexto()){
                 texto = ventanaTexto.getTexto();
                 setHabilitarDibujarTexto(true);
+                desHacerPila.push(texto);
                 agregarTexto(texto);
             }else{
                 setHabilitarDibujarTexto(false);
@@ -1255,8 +1256,14 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     Constantes.TITULO_PROGRAMA,
                     JOptionPane.INFORMATION_MESSAGE);
         }else{
-            Figura objeto = (Figura) desHacerPila.pop();
-            eliminarFigura(objeto);    
+            // Compara si el ultimo elemento de la Pila es de tipo Figura
+            if(desHacerPila.lastElement() instanceof Figura){
+                Figura objeto = (Figura) desHacerPila.pop();
+                eliminarFigura(objeto);
+            }else{
+                Texto objeto = (Texto) desHacerPila.pop();
+                eliminarTexto(objeto);
+            }
         }
         repaint();
     }
