@@ -3,6 +3,7 @@ package GUI;
 import Auxiliar.Constantes;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
@@ -11,7 +12,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.print.Printable;
 import java.awt.print.PrinterJob;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -56,7 +56,7 @@ public class GUI_Principal extends javax.swing.JFrame {
      *
      * @since 1.6
      */
-    private JDialog ventanaAyuda;
+    private VentanaAyuda ventanaAyuda;
 
     /**
      * El color del borde de los objetos.
@@ -1260,11 +1260,20 @@ public class GUI_Principal extends javax.swing.JFrame {
      * @since 1.6
      */
     public void mostrarVentanaAyuda() {
-        if (ventanaAyuda == null) {
-            ventanaAyuda = new VentanaAyuda(this, rootPaneCheckingEnabled);
-            ventanaAyuda.setLocationRelativeTo(this);
-        }
-        ventanaAyuda.setVisible(rootPaneCheckingEnabled);
+        this.setLocationRelativeTo(null);
+        ventanaAyuda = new VentanaAyuda(this, rootPaneCheckingEnabled);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width - w)/2;
+        int y = (dim.height - h)/2;
+        ventanaAyuda.setSize(dim);
+       // ventanaAyuda.setLocation(x, y);
+       // ventanaAyuda.mostrarAyuda();
+       // ventanaAyuda.setVisible(true);
+        //ventanaAyuda.setLocationRelativeTo(this);
+        ventanaAyuda.setLocationRelativeTo(this);
+	ventanaAyuda.mostrarAyuda();
     }
 
     /**
