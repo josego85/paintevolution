@@ -200,7 +200,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setCursorActual(cursorActual);
         mesaDeDibujo.setModoDibujar(PanelDibujo.getLAPIZ());       // Lapiz como objeto predeterminado
         activarPropiedadesObjetos();
-        jButtonRehacer.setVisible(false);   // por ahora ocultar
         //pack();
     }
 
@@ -224,7 +223,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonGuardar = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
         jButtonDeshacer = new javax.swing.JButton();
-        jButtonRehacer = new javax.swing.JButton();
         jButtonZoomIn = new javax.swing.JButton();
         jButtonZoomOut = new javax.swing.JButton();
         jButtonPantallaCompleta = new javax.swing.JButton();
@@ -268,7 +266,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         jMenuItemSalir = new javax.swing.JMenuItem();
         jMenuEditar = new javax.swing.JMenu();
         jMenuItemDeshacer = new javax.swing.JMenuItem();
-        jMenuItemRehacer = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItemZoomIn = new javax.swing.JMenuItem();
         jMenuItemZoomOut = new javax.swing.JMenuItem();
@@ -388,19 +385,6 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanelBarraAccesoDirecto.add(jButtonDeshacer);
-
-        jButtonRehacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/reHacer_32px.png"))); // NOI18N
-        jButtonRehacer.setText("Rehacer");
-        jButtonRehacer.setToolTipText("Rehacer");
-        jButtonRehacer.setEnabled(false);
-        jButtonRehacer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonRehacer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonRehacer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRehacerActionPerformed(evt);
-            }
-        });
-        jPanelBarraAccesoDirecto.add(jButtonRehacer);
 
         jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"))); // NOI18N
         jButtonZoomIn.setText("Zoom In");
@@ -768,17 +752,6 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jMenuEditar.add(jMenuItemDeshacer);
-
-        jMenuItemRehacer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemRehacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/reHacer_16px.png"))); // NOI18N
-        jMenuItemRehacer.setText("Rehacer");
-        jMenuItemRehacer.setToolTipText("Rehacer");
-        jMenuItemRehacer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemRehacerActionPerformed(evt);
-            }
-        });
-        jMenuEditar.add(jMenuItemRehacer);
         jMenuEditar.add(jSeparator4);
 
         jMenuItemZoomIn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
@@ -898,10 +871,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         llamarObjetosDiferentes(evt);
     }//GEN-LAST:event_jButtonDeshacerActionPerformed
 
-    private void jButtonRehacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRehacerActionPerformed
-        llamarObjetosDiferentes(evt);
-    }//GEN-LAST:event_jButtonRehacerActionPerformed
-
     private void jButtonBorraTodoLosObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorraTodoLosObjetosActionPerformed
         mesaDeDibujo.borrarTodo();
         seleccionarObjetoPredeterminado();
@@ -1006,10 +975,6 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jMenuItemDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDeshacerActionPerformed
         llamarObjetosDiferentes(evt);
     }//GEN-LAST:event_jMenuItemDeshacerActionPerformed
-
-    private void jMenuItemRehacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRehacerActionPerformed
-        llamarObjetosDiferentes(evt);
-    }//GEN-LAST:event_jMenuItemRehacerActionPerformed
 
     private void jComboBoxGrosorBordeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxGrosorBordeActionPerformed
         mesaDeDibujo.setTamanioBorde(jComboBoxGrosorBorde.getSelectedIndex());
@@ -1215,9 +1180,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         }
         if(event.getSource() == jButtonDeshacer || event.getSource() == jMenuItemDeshacer){
             mesaDeDibujo.deshacer();
-        }
-        if(event.getSource() == jButtonRehacer || event.getSource() == jMenuItemRehacer){
-            mesaDeDibujo.rehacer();
         }
         if(event.getSource() == jButtonBorraTodoLosObjetos){
             mesaDeDibujo.borrarTodo();
@@ -1433,7 +1395,7 @@ public class GUI_Principal extends javax.swing.JFrame {
      * @since 1.6
      */
     private void acercarImagen(){
-        if(archivoGuardadoUltimaVersion()) {
+        if(archivoGuardadoUltimaVersion() && mesaDeDibujo.isArchivoGuardadoUltimaVersion()) {
             mesaDeDibujo.acercar();
         }else{
             String mensaje = "Primero guarde la imagen para luego usar el Zoom In";
@@ -1450,7 +1412,7 @@ public class GUI_Principal extends javax.swing.JFrame {
      * @since 1.6
      */
     private void alejarImagen(){
-        if(archivoGuardadoUltimaVersion()) {
+        if(archivoGuardadoUltimaVersion() && mesaDeDibujo.isArchivoGuardadoUltimaVersion()) {
             mesaDeDibujo.alejar();
         }else{
             String mensaje = "Primero guarde la imagen para luego usar el Zoom Out";
@@ -1492,7 +1454,6 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonPantallaCompleta;
-    private javax.swing.JButton jButtonRehacer;
     private javax.swing.JButton jButtonZoomIn;
     private javax.swing.JButton jButtonZoomOut;
     private javax.swing.JCheckBox jCheckBoxActivarRelleno;
@@ -1516,7 +1477,6 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemImprimir;
     private javax.swing.JMenuItem jMenuItemIndice;
     private javax.swing.JMenuItem jMenuItemNuevo;
-    private javax.swing.JMenuItem jMenuItemRehacer;
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenuItem jMenuItemZoomIn;
     private javax.swing.JMenuItem jMenuItemZoomOut;
