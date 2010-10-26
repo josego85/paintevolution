@@ -851,7 +851,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Image old = this.getImagen();                           // Imagen anterior
         this.imagen = (BufferedImage) imagen;                   // Imagen actual
         setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
-        //redimensionar();                                      // Se escala la imagen para que quepe en el panel
         repaint();                                              // Se dibuja la nueva imagen
         firePropertyChange("imagenActual", old, this.imagen);   // Se dispara un evento de cambio de propiedad
     }
@@ -1099,36 +1098,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             }
         }
         return null;
-    }
-
-    /**
-     * Redimensiona la imagen para que quepe dentro del panel, si la imagen es mas pequeña
-     * que el panel, la deja en su escala por defecto.
-     * @since 1.6
-     */
-    public void redimensionar(){
-        if(imagen.getHeight(this) > tamañoVisor().getHeight()){
-            double visor = tamañoVisor().getHeight();
-            double imagenAuxiliar = this.imagen.getHeight(this);
-            double escalaAuxiliar = visor/imagenAuxiliar;// calculo de escala
-            setEscala(escalaAuxiliar);
-        }else{
-            setEscala(1.0);
-        }
-    }
-
-    /**
-     * Devuelve el tamaño del visor de imagenes.
-     *
-     * @return El tamaño del visor de imagenes
-     * @since 1.6
-     */
-    private Dimension tamañoVisor(){
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        int largo = d.width - 10;
-        int ancho = d.height - 188;
-        d.setSize(largo, ancho);
-        return d;
     }
 
     /**
