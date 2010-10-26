@@ -1,5 +1,8 @@
 package GUI;
 
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *@(#)VentanaColor.java
  * Creado 18/03/2010, 11:05:13 AM
@@ -23,6 +26,8 @@ public class VentanaAyuda extends javax.swing.JDialog {
     public VentanaAyuda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
+       // mostrarAyuda();
     }
 
     /** This method is called from within the constructor to
@@ -51,6 +56,21 @@ public class VentanaAyuda extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Donde despliega la ayuda del programa.
+     *
+     * @since 1.6
+     */
+    public void mostrarAyuda(){
+        try {
+            String path = new String("Ayuda.chm");
+            Process pro = Runtime.getRuntime().exec( "hh.exe " + path); // para windows 7
+        }catch (IOException ex){
+            JOptionPane.showMessageDialog(null, "No se puede Mostrar la Ayuda",
+                "Error!", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
    /**
     * Donde se ejecuta la Ventana Ayuda.
     *
