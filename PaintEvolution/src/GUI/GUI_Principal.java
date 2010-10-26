@@ -1351,10 +1351,11 @@ public class GUI_Principal extends javax.swing.JFrame {
     }
 
     /**
-     * Se selecciona el obejto predeterminado que contiene propiedades estandares
+     * Se selecciona el objeto predeterminado que contiene propiedades estandares.
+     * En este caso es el lapiz
      * @since 1.6
      */
-    private void seleccionarObjetoPredeterminado(){
+    public void seleccionarObjetoPredeterminado(){
         // Icono del lapiz
         Cursor pencilCursor = toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = pencilCursor;
