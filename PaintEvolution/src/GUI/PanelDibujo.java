@@ -499,7 +499,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void setCoordenadasFinX(int coordenadasFinX) {
-        this.coordenadasFinX = coordenadasFinX;
+        if(coordenadasFinX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
+                && coordenadasFinX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
+           this.coordenadasFinX = coordenadasFinX;
+        }
     }
 
     /**
@@ -519,7 +522,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void setCoordenadasFinY(int coordenadasFinY) {
-        this.coordenadasFinY = coordenadasFinY;
+        if(coordenadasFinY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
+                && coordenadasFinY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
+            this.coordenadasFinY = coordenadasFinY;
+        }
     }
 
     /**
@@ -539,7 +545,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void setCoordenadasInicioX(int coordenadasInicioX) {
-        this.coordenadasInicioX = coordenadasInicioX;
+        if(coordenadasInicioX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
+                && coordenadasInicioX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
+            this.coordenadasInicioX = coordenadasInicioX;
+        }
     }
 
     /**
@@ -559,7 +568,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void setCoordenadasInicioY(int coordenadasInicioY) {
-        this.coordenadasInicioY = coordenadasInicioY;
+        if(coordenadasInicioY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
+                && coordenadasInicioY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
+            this.coordenadasInicioY = coordenadasInicioY;
+        }
     }
 
     /**
@@ -852,6 +864,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Image old = this.getImagen();                           // Imagen anterior
         this.imagen = (BufferedImage) imagen;                   // Imagen actual
         setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
+        redimensionar();                                        // Se escala la imagen para que quepe en el panel
         repaint();                                              // Se dibuja la nueva imagen
         firePropertyChange("imagenActual", old, this.imagen);   // Se dispara un evento de cambio de propiedad
     }
@@ -1102,11 +1115,42 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /**
+     * Redimensiona la imagen para que quepe dentro del panel, si la imagen es mas pequeña
+     * que el panel, la deja en su escala por defecto.
+     * @since 1.6
+     */
+    public void redimensionar(){
+        if(imagen.getHeight(this) > tamañoVisor().getHeight()){
+            double visor = tamañoVisor().getHeight();
+            double imagenAuxiliar = this.imagen.getHeight(this);
+            double escalaAuxiliar = visor/imagenAuxiliar;// calculo de escala
+            setEscala(escalaAuxiliar);
+        }else{
+            setEscala(1.0);
+        }
+    }
+
+    /**
+     * Devuelve el tamaño del visor de imagenes.
+     *
+     * @return El tamaño del visor de imagenes
+     * @since 1.6
+     */
+    private Dimension tamañoVisor(){
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        int largo = d.width - 10;
+        int ancho = d.height - 188;
+        d.setSize(largo, ancho);
+        return d;
+    }
+
+    /**
      * Dibuja todos los componentes en la pantalla.
      *
      * @param g Graphics con el que dibujar
      * @since 1.6
      */
+
     @Override
     public void paint(Graphics g){
         super.paintComponent(g);
