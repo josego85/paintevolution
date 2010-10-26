@@ -229,6 +229,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     private Point2D ubicacionDeImagen;
 
+    /**
+     * Valor boleano para saber si es la ultima version del archivo generado.
+     *
+     * @since 1.6
+     */
+    boolean archivoGuardadoUltimaVersion;
+
 
     ////////////////////////////////////////////////////////////////////////////
     // Constructores
@@ -243,6 +250,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         tamanioBorde = 1.0f;
         longitudBorrador = 5;
         habilitarDibujarTexto = false;
+        archivoGuardadoUltimaVersion = false;
         ubicacionDeImagen = null;
         nombreArchivo = null;
         ventanaTexto = null;
@@ -364,6 +372,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }//GEN-LAST:event_formMouseReleased
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        archivoGuardadoUltimaVersion = false;
         setCoordenadasFinX(evt.getX());
         setCoordenadasFinY(evt.getY());
         
@@ -1008,7 +1017,29 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         this.nombreArchivo = nombreArchivo;
     }
 
+    /**
+     * Devuelve para saber si se ha guardado la ultima version de la imagen(true),
+     * caso contrario, en false.
+     *
+     * @return True cuando se ha guardado la última versión de la imagen; caso contrario, false
+     * @since 1.6
+     */
+    public boolean isArchivoGuardadoUltimaVersion() {
+        return archivoGuardadoUltimaVersion;
+    }
 
+    /**
+     * Establece para saber si se ha guardado la ultima version de la imagen(true),
+     * caso contrario, en false.
+     *
+     * @param archivoGuardadoUltimaVersion En true saber si se ha guardado la ultima version de la imagen(true), caso contrario, en false.
+     * @since 1.6
+     */
+    public void setArchivoGuardadoUltimaVersion(boolean archivoGuardadoUltimaVersion) {
+        this.archivoGuardadoUltimaVersion = archivoGuardadoUltimaVersion;
+    }
+
+    
     ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
     ////////////////////////////////////////////////////////////////////////////
@@ -1123,8 +1154,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             double height = imagen.getHeight() * getEscala();
             loc.setLocation(center.getX() - width / 2, center.getY() - height / 2);
             setColorFondoPantallaDibujo(getColorFondoPantallaDibujo());
-            //g.drawImage(getImagen(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null);
-            g.drawImage(getImagen(), 0, 0,(int) width, (int) height, null);
+            g.drawImage(getImagen(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null); // centra la imagen
         }
 
         dibujarFiguras(g);
@@ -1260,22 +1290,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
         repaint();
     }
-
-    /**
-     * Rehace una opcion que se realizo al dibujar en la mesa de trabajo.
-     *
-     * @since 1.6
-     */
-    public void rehacer(){
-        if(reHacerPila.isEmpty()){
-            JOptionPane.showMessageDialog(null,"No hay algo que rehacer",
-                    Constantes.TITULO_PROGRAMA,
-                    JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            //desHacerPila.push();
-        }
-        repaint();
-    }
    
     /**
      * Metodo que borra todos los elementos de la pantalla.
@@ -1338,6 +1352,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
+        // vaciar las dos listas
+        listaFiguras.clear();
+        listaTexto.clear();
+        archivoGuardadoUltimaVersion = true;
 	repaint();
         return true;
     }
@@ -1396,7 +1415,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         dibujarTexto(g2);
         g2.dispose();
 
-        //setImagen(imagen);
+        setImagen(imagen);
     }
 
     /**
