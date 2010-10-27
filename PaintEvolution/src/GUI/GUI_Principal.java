@@ -1194,7 +1194,6 @@ public class GUI_Principal extends javax.swing.JFrame {
             mesaDeDibujo.setModoDibujar(PanelDibujo.getTEXTO());
             jLabelHerramientaSeleccionadaObjeto.setText("Texto");
         }
-
     }
 
     /**
