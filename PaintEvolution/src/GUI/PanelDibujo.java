@@ -193,6 +193,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     private LinkedList<Texto> listaTexto = new LinkedList<Texto>();
 
+     /**
+     * Lista de Imagenes.
+     * @since 1.6
+     */
+    private LinkedList<BufferedImage> listaImagenes = new LinkedList<BufferedImage>();
+
     /**
      * Si actualmente se está arrastrando o no una Figura.
      * @since 1.6
@@ -864,7 +870,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Image old = this.getImagen();                           // Imagen anterior
         this.imagen = (BufferedImage) imagen;                   // Imagen actual
         setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
-        redimensionar();                                        // Se escala la imagen para que quepe en el panel
+        //redimensionar();                                        // Se escala la imagen para que quepe en el panel
         repaint();                                              // Se dibuja la nueva imagen
         firePropertyChange("imagenActual", old, this.imagen);   // Se dispara un evento de cambio de propiedad
     }
@@ -1158,7 +1164,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Graphics2D g2 = (Graphics2D)g;
         //setBackground(getColorFondoPantallaDibujo());
 
-        if (getImagen() != null && (modoDibujar != getARRASTRAR())){
+        // if (getImagen() != null && (modoDibujar != getARRASTRAR())){
+        if (getImagen() != null){
             Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
             if (getUbicacionDeImagen() != null){
                 center = getUbicacionDeImagen();
@@ -1173,6 +1180,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
         dibujarFiguras(g);
         dibujarTexto(g);
+  //      dibujarImagen(g);
         this.setBackground(getColorFondoPantallaDibujo());
         g.setColor(getColorBorde());      
 
@@ -1352,6 +1360,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             }
 	}
 	crearImagen();
+        listaImagenes.add(imagen);
         try{
             JOptionPane.showMessageDialog(null, "Archivo Guardado",
                     "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
@@ -1377,7 +1386,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         // vaciar las dos listas
         listaFiguras.clear();
         listaTexto.clear();
+
         archivoGuardadoUltimaVersion = true;
+        
+        //setEscala(1.0);
 	repaint();
         return true;
     }
@@ -1418,6 +1430,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }else{
             nombreArchivo = null;
 	}
+        archivoGuardadoUltimaVersion = true;
         repaint();
     }
 
@@ -1476,6 +1489,25 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     public void dibujarTexto(Graphics g){
         for (Texto texto : listaTexto){
                 texto.dibujar(g);
+        }
+    }
+
+
+     /**
+     * Dibuja todos las imagenes de la lista.
+     *
+     * @param g Dibuja todos los imagenes de la lista
+     * @since 1.6
+     */
+    public void dibujarImagen(Graphics g){
+        for (BufferedImage imagenAlmacenada : listaImagenes){
+            Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
+            Point2D loc = new Point2D.Double();
+            double width = imagenAlmacenada.getWidth() * getEscala();
+            double height = imagenAlmacenada.getHeight() * getEscala();
+            loc.setLocation(center.getX() - width / 2, center.getY() - height / 2);
+            setColorFondoPantallaDibujo(getColorFondoPantallaDibujo());
+            g.drawImage(imagenAlmacenada, (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null); // centra la imagen
         }
     }
 

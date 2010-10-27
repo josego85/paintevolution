@@ -982,12 +982,14 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     private void jButtonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirActionPerformed
         mesaDeDibujo.abrirImagen();
+        archivoGuardadoUltimaVersion = true;
         seleccionarObjetoPredeterminado();
         activarPropiedadesObjetos();
     }//GEN-LAST:event_jButtonAbrirActionPerformed
 
     private void jMenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAbrirActionPerformed
         mesaDeDibujo.abrirImagen();
+        archivoGuardadoUltimaVersion = true;
         seleccionarObjetoPredeterminado();
         activarPropiedadesObjetos();
     }//GEN-LAST:event_jMenuItemAbrirActionPerformed
