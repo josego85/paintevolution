@@ -227,7 +227,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * Dos pilas para hacer y deshacer las opciones de dibujo.
      * @since 1.6
      */
-    private Stack desHacerPila, reHacerPila;
+    private Stack desHacerPila;
 
     /**
      * La ubicacion donde se colocará la imagen, si es null, se colocará en el centro.
@@ -242,7 +242,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     boolean archivoGuardadoUltimaVersion;
 
-
+    
     ////////////////////////////////////////////////////////////////////////////
     // Constructores
     ////////////////////////////////////////////////////////////////////////////
@@ -264,7 +264,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         figuraArrastrandose = null;
         eliminarObjetoIndivial = null;
         desHacerPila = new Stack();
-	reHacerPila = new Stack();
         colorFondoPantallaDibujo    = Color.WHITE;          // De color blanco
         colorBorde                  = Color.BLACK;          // De color negro
         colorRelleno                = null;                 // Sin relleno
@@ -1178,9 +1177,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g.drawImage(getImagen(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null); // centra la imagen
         }
 
+        dibujarImagen(g);
         dibujarFiguras(g);
         dibujarTexto(g);
-  //      dibujarImagen(g);
+  
         this.setBackground(getColorFondoPantallaDibujo());
         g.setColor(getColorBorde());      
 
@@ -1328,7 +1328,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         listaFiguras.clear();
         listaTexto.clear();
         desHacerPila.clear();
-        reHacerPila.clear();
         imagen = null;
         setModoDibujar(0);
         repaint();
@@ -1388,6 +1387,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         listaTexto.clear();
 
         archivoGuardadoUltimaVersion = true;
+        setModoDibujar(NULO);
         
         //setEscala(1.0);
 	repaint();
@@ -1499,7 +1499,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @param g Dibuja todos los imagenes de la lista
      * @since 1.6
      */
-    public void dibujarImagen(Graphics g){
+    public void dibujarImagen(Graphics g){        
         for (BufferedImage imagenAlmacenada : listaImagenes){
             Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
             Point2D loc = new Point2D.Double();
