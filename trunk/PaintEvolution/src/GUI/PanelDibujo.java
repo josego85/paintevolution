@@ -252,8 +252,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     public PanelDibujo() {
         initComponents();
-        modoDibujar = 0;
-        tamanioBorde = 1.0f;
+        setModoDibujar(NULO);
+        setTamanioBorde(1.0f);
         longitudBorrador = 5;
         habilitarDibujarTexto = false;
         archivoGuardadoUltimaVersion = false;
