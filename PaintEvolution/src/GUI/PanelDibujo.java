@@ -1515,11 +1515,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * Este es el metodo que se encarga de la impresion.
      * FALTA COMENTAR MEJOR
      *
-     * @param g
-     * @param pageFormat
-     * @param pageIndex
-     * @return
-     * @throws PrinterException
+     * @param g El contexto en el que se dibuja la página
+     * @param pageFormat El tamaño y la orientación de la página
+     * @param pageIndex El indice de la pagina
+     * 
+     * @return Si la página se representa con éxito PAGE_EXISTS o si pageIndex se
+     *         especifica una página que no existe NO_SUCH_PAGE.
+     * @throws PrinterException Se lanza cuando termina la impresion
      * @since 1.6
      */
     @Override
