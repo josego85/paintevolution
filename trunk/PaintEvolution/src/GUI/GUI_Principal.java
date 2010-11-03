@@ -1368,9 +1368,10 @@ public class GUI_Principal extends javax.swing.JFrame {
     }
 
     /**
-     * FALTA COMENTAR
+     * Sirve para determinar si la ultima version de la imagen creada fue guardada.
+     * Devuelve true si se guardo; caso contrario en false.
      *
-     * @return
+     * @return True si se guardo la ultima version de la imagen; caso contrario en false.
      * @since 1.6
      */
     public boolean archivoGuardadoUltimaVersion(){
@@ -1378,9 +1379,10 @@ public class GUI_Principal extends javax.swing.JFrame {
     }
 
     /**
-     * FALTA COMENTAR
+     * Sirve para determinar si modifico la imagen sin guardar.
+     * Devuelve true si se modifico; caso contrario en false.
      *
-     * @return
+     * @return True si se modifico la imagen sin guardar; caso contrario en false
      * @since 1.6
      */
     public boolean modificarImagenSinGuardar(){
@@ -1392,7 +1394,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     }
 
     /**
-     *
+     * Se acerca la imagen. Zoom In.
      *
      * @since 1.6
      */
@@ -1409,7 +1411,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     }
 
     /**
-     *
+     * Se aleja la imagen. Zoom Out.
      *
      * @since 1.6
      */
