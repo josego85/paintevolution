@@ -1330,14 +1330,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             }
             crearImagen();    
 	}
-	actualizarImagen();
-        setImagen(imagen);
-
         try{
             JOptionPane.showMessageDialog(null, "Archivo Guardado",
                     "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
                     + Constantes.TITULO_PROGRAMA,
                     JOptionPane.INFORMATION_MESSAGE);
+            actualizarImagen();
+            setImagen(imagen);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -1355,9 +1354,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             System.out.println(e.getMessage());
         }
 
-        // vaciar las dos listas
+        // vaciar las dos listas y el deshacer
         listaFiguras.clear();
         listaTexto.clear();
+        desHacerPila.clear();
 
         archivoGuardadoUltimaVersion = true;
         setModoDibujar(NULO);
