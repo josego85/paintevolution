@@ -232,6 +232,7 @@ public class VentanaTexto extends javax.swing.JDialog {
 }//GEN-LAST:event_jComboBoxTipoFuentesActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
+        jTextFieldTexto.requestFocus();
         if(!jTextFieldTexto.getText().equals("")){
             int numeroEntero = Integer.parseInt(jSpinnerTamañoTexto.getValue().toString());
             Color colorTexto;
@@ -251,6 +252,7 @@ public class VentanaTexto extends javax.swing.JDialog {
             jTextFieldTexto.requestFocus();
             setDibujaTexto(false);
         }
+        jTextFieldTexto.setText("");
         repaint();
 }//GEN-LAST:event_jButtonAceptarActionPerformed
 
