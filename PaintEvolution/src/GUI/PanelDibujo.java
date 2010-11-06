@@ -28,6 +28,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -887,6 +888,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     public void setImagen(File file) throws IOException{
         setImagen(ImageIO.read(file));
+        repaint();                                              // Se dibuja la nueva imagen
     }
 
     /**
@@ -1328,15 +1330,18 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         Constantes.TITULO_PROGRAMA, JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-            crearImagen();    
+            crearImagen();
 	}
+        actualizarImagen();
+        setImagen(imagen);
+        
         try{
             JOptionPane.showMessageDialog(null, "Archivo Guardado",
                     "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
                     + Constantes.TITULO_PROGRAMA,
                     JOptionPane.INFORMATION_MESSAGE);
-            actualizarImagen();
-            setImagen(imagen);
+            
+            
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -1472,13 +1477,15 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void actualizarImagen(){
-            Graphics g = imagen.getGraphics();
-            Graphics2D g2 = (Graphics2D)g;
-            g2.setColor(getColorFondoPantallaDibujo());
-            dibujarFiguras(g2);
-            dibujarTexto(g2);
-            g2.drawImage(imagen, 0, 0, this);
-            g2.dispose();
+        Graphics g = imagen.getGraphics();
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setColor(getColorFondoPantallaDibujo());
+        dibujarFiguras(g2);
+        dibujarTexto(g2);
+        g2.drawImage(imagen, 0, 0, this);
+        setImagen(imagen);
+        imagenAnterior = imagen;
+        g2.dispose();
     }
 
     /**
