@@ -1468,7 +1468,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
 
     /**
-     * Actualiza la imagen anterior con la imagen nueva
+     * Actualiza la imagen anterior con la imagen nueva.
      *
      * @since 1.6
      */
