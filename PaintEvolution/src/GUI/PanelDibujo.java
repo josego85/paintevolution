@@ -1138,7 +1138,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Graphics2D g2 = (Graphics2D)g;
         setBackground(getColorFondoPantallaDibujo());
 
-        // if (getImagen() != null && (modoDibujar != getARRASTRAR())){
         if (getImagen() != null){
             Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
             if (getUbicacionDeImagen() != null){
@@ -1332,6 +1331,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                 return false;
             }
             crearImagen();
+            //primerGrabado = true;
 	}
 	actualizarImagen();
 
@@ -1424,6 +1424,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         dibujarTexto(g2);
         g2.dispose();
         imagenAnterior = imagen;
+        setImagen(imagen);
     }
 
     /**
@@ -1480,8 +1481,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             dibujarFiguras(g2);
             dibujarTexto(g2);
             g2.drawImage(imagenAnterior, 0, 0, this);
-            g2.drawImage(imagen, 0, 0, this);
             g2.dispose();
+            setImagen(imagen);
         }
     }
 
