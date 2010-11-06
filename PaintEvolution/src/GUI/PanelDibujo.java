@@ -873,7 +873,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void setImagen(Image imagen){
-        Image old = this.getImagen();                           // Imagen anterior
         this.imagen = (BufferedImage) imagen;                   // Imagen actual
         setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
         repaint();                                              // Se dibuja la nueva imagen
@@ -1150,7 +1149,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             setColorFondoPantallaDibujo(getColorFondoPantallaDibujo());
             g.drawImage(getImagen(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null); // centra la imagen
         }
-
         dibujarFiguras(g);
         dibujarTexto(g);
   
@@ -1330,10 +1328,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         Constantes.TITULO_PROGRAMA, JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-            crearImagen();
-            //primerGrabado = true;
+            crearImagen();    
 	}
 	actualizarImagen();
+        setImagen(imagen);
 
         try{
             JOptionPane.showMessageDialog(null, "Archivo Guardado",
@@ -1421,7 +1419,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         g2.setColor(getColorFondoPantallaDibujo());
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
         dibujarFiguras(g2);
-        dibujarTexto(g2);
+        dibujarTexto(g2);     
         g2.dispose();
         imagenAnterior = imagen;
         setImagen(imagen);
@@ -1474,16 +1472,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void actualizarImagen(){
-        if(true){
             Graphics g = imagen.getGraphics();
             Graphics2D g2 = (Graphics2D)g;
             g2.setColor(getColorFondoPantallaDibujo());
             dibujarFiguras(g2);
             dibujarTexto(g2);
-            g2.drawImage(imagenAnterior, 0, 0, this);
+            g2.drawImage(imagen, 0, 0, this);
             g2.dispose();
-            setImagen(imagen);
-        }
     }
 
     /**
