@@ -163,10 +163,22 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
 
     /**
-     * La imagen que se mostrará.
+     * La imagen actual que se mostrará.
      * @since 1.6
      */
     private BufferedImage imagen;
+
+    /**
+     * La imagen anterior que se mostrará.
+     * @since 1.6
+     */
+    private BufferedImage imagenAnterior;
+
+    /**
+     * Para saber si fue el primer grabado.
+     * @since 1.6
+     */
+    private boolean primerGrabado;
 
     /**
      * Escala por defecto de la imagen.
@@ -192,12 +204,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     private LinkedList<Texto> listaTexto = new LinkedList<Texto>();
-
-     /**
-     * Lista de Imagenes.
-     * @since 1.6
-     */
-    private LinkedList<BufferedImage> listaImagenes = new LinkedList<BufferedImage>();
 
     /**
      * Si actualmente se está arrastrando o no una Figura.
@@ -257,6 +263,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         longitudBorrador = 5;
         habilitarDibujarTexto = false;
         archivoGuardadoUltimaVersion = false;
+        primerGrabado = false;
         ubicacionDeImagen = null;
         nombreArchivo = null;
         ventanaTexto = null;
@@ -869,9 +876,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Image old = this.getImagen();                           // Imagen anterior
         this.imagen = (BufferedImage) imagen;                   // Imagen actual
         setUbicacionDeImagen(null);                             // Se centra la imagen en el medio del panel
-        //redimensionar();                                        // Se escala la imagen para que quepe en el panel
         repaint();                                              // Se dibuja la nueva imagen
-        firePropertyChange("imagenActual", old, this.imagen);   // Se dispara un evento de cambio de propiedad
     }
 
     /**
@@ -1120,36 +1125,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /**
-     * Redimensiona la imagen para que quepe dentro del panel, si la imagen es mas pequeña
-     * que el panel, la deja en su escala por defecto.
-     * @since 1.6
-     */
-    public void redimensionar(){
-        if(imagen.getHeight(this) > tamañoVisor().getHeight()){
-            double visor = tamañoVisor().getHeight();
-            double imagenAuxiliar = this.imagen.getHeight(this);
-            double escalaAuxiliar = visor/imagenAuxiliar;// calculo de escala
-            setEscala(escalaAuxiliar);
-        }else{
-            setEscala(1.0);
-        }
-    }
-
-    /**
-     * Devuelve el tamaño del visor de imagenes.
-     *
-     * @return El tamaño del visor de imagenes
-     * @since 1.6
-     */
-    private Dimension tamañoVisor(){
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        int largo = d.width - 10;
-        int ancho = d.height - 188;
-        d.setSize(largo, ancho);
-        return d;
-    }
-
-    /**
      * Dibuja todos los componentes en la pantalla.
      *
      * @param g Graphics con el que dibujar
@@ -1161,7 +1136,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
-        //setBackground(getColorFondoPantallaDibujo());
+        setBackground(getColorFondoPantallaDibujo());
 
         // if (getImagen() != null && (modoDibujar != getARRASTRAR())){
         if (getImagen() != null){
@@ -1177,7 +1152,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             g.drawImage(getImagen(), (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null); // centra la imagen
         }
 
-        dibujarImagen(g);
         dibujarFiguras(g);
         dibujarTexto(g);
   
@@ -1357,9 +1331,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         Constantes.TITULO_PROGRAMA, JOptionPane.ERROR_MESSAGE);
                 return false;
             }
+            crearImagen();
 	}
-	crearImagen();
-        listaImagenes.add(imagen);
+	actualizarImagen();
+
         try{
             JOptionPane.showMessageDialog(null, "Archivo Guardado",
                     "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
@@ -1448,8 +1423,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         dibujarFiguras(g2);
         dibujarTexto(g2);
         g2.dispose();
-
-        setImagen(imagen);
+        imagenAnterior = imagen;
     }
 
     /**
@@ -1493,27 +1467,26 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
 
-     /**
-     * Dibuja todos las imagenes de la lista.
+    /**
+     * Actualiza la imagen anterior con la imagen nueva
      *
-     * @param g Dibuja todos los imagenes de la lista
      * @since 1.6
      */
-    public void dibujarImagen(Graphics g){        
-        for (BufferedImage imagenAlmacenada : listaImagenes){
-            Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
-            Point2D loc = new Point2D.Double();
-            double width = imagenAlmacenada.getWidth() * getEscala();
-            double height = imagenAlmacenada.getHeight() * getEscala();
-            loc.setLocation(center.getX() - width / 2, center.getY() - height / 2);
-            setColorFondoPantallaDibujo(getColorFondoPantallaDibujo());
-            g.drawImage(imagenAlmacenada, (int) loc.getX(), (int) loc.getY(),(int) width, (int) height, null); // centra la imagen
+    public void actualizarImagen(){
+        if(true){
+            Graphics g = imagen.getGraphics();
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setColor(getColorFondoPantallaDibujo());
+            dibujarFiguras(g2);
+            dibujarTexto(g2);
+            g2.drawImage(imagenAnterior, 0, 0, this);
+            g2.drawImage(imagen, 0, 0, this);
+            g2.dispose();
         }
     }
 
     /**
      * Este es el metodo que se encarga de la impresion.
-     * FALTA COMENTAR MEJOR
      *
      * @param g El contexto en el que se dibuja la página
      * @param pageFormat El tamaño y la orientación de la página

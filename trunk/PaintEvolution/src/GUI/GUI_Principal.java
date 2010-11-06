@@ -457,7 +457,6 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         buttonGroupObjetos.add(jToggleButtonLapiz);
         jToggleButtonLapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/pencil.png"))); // NOI18N
-        jToggleButtonLapiz.setSelected(true);
         jToggleButtonLapiz.setToolTipText("Lapiz");
         jToggleButtonLapiz.setFocusable(false);
         jToggleButtonLapiz.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
