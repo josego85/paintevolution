@@ -1462,9 +1462,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             Graphics2D g2 = (Graphics2D)g;
             //g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2.setColor(getColorFondoPantallaDibujo());
+            g2.drawImage(getImagen(), 0, 0, null);
             dibujarFiguras(g2);
             dibujarTexto(g2);
-            g2.drawImage(getImagen(), 0, 0, null);
             setImagen(getImagen());
             g2.dispose();
         }
