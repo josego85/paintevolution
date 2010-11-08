@@ -16,7 +16,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
@@ -160,18 +159,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     private boolean conRelleno = false;
 
-
     /**
      * La imagen actual que se mostrará.
      * @since 1.6
      */
     private BufferedImage imagen;
-
-    /**
-     * La imagen nueva que se mostrará.
-     * @since 1.6
-     */
-    private BufferedImage imagenNueva;
 
     /**
      * Escala por defecto de la imagen.
