@@ -1312,7 +1312,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                         Constantes.TITULO_PROGRAMA, JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-            crearImagen();
+            if(getImagen() == null){
+                crearImagen();
+            }
 	}
         actualizarImagen();
         
@@ -1332,6 +1334,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                  file = new File(nombreArchivo.toString());
             }else{
                  file = new File(nombreArchivo.toString() + ".png");
+            }
+          if(imagen == null){
+                crearImagen();
             }
             ImageIO.write(getImagen(), "png", file);
         }catch (IOException e) {
@@ -1396,17 +1401,15 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void crearImagen() {
-        if(getImagen() == null){
-            imagen = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2 = imagen.createGraphics();
-            g2.setColor(getColorFondoPantallaDibujo());
-            g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-            dibujarFiguras(g2);
-            dibujarTexto(g2);
-            setImagen(imagen);
-            g2.dispose();
-            setImagen(imagen);
-        }
+        imagen = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = imagen.createGraphics();
+        g2.setColor(getColorFondoPantallaDibujo());
+        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+        dibujarFiguras(g2);
+        dibujarTexto(g2);
+        setImagen(imagen);
+        g2.dispose();
+        setImagen(imagen);
     }
 
     /**
