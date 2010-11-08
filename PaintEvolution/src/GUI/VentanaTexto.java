@@ -270,8 +270,7 @@ public class VentanaTexto extends javax.swing.JDialog {
         // Centrar el ventana Color
         ventanaColor.setLocationRelativeTo(this);
 
-        texto.setColor(ventanaColor.getJColorChooserColores().getColor());
-        ventanaColor.setTitle("Color del texto");
+        
     }//GEN-LAST:event_jButtonColorActionPerformed
 
 
@@ -331,6 +330,7 @@ public class VentanaTexto extends javax.swing.JDialog {
             ventanaColor = new VentanaColor(null, rootPaneCheckingEnabled);
             ventanaColor.setLocationRelativeTo(this);
         }
+        ventanaColor.setTitle("Color del texto");
         ventanaColor.setVisible(true);
     }
 
