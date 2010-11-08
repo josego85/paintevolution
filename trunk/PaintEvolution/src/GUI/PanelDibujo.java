@@ -12,13 +12,12 @@ import Figuras.RectanguloConCurvasRedondas;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
@@ -28,7 +27,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -170,16 +168,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     private BufferedImage imagen;
 
     /**
-     * La imagen anterior que se mostrará.
+     * La imagen nueva que se mostrará.
      * @since 1.6
      */
-    private BufferedImage imagenAnterior;
-
-    /**
-     * Para saber si fue el primer grabado.
-     * @since 1.6
-     */
-    private boolean primerGrabado;
+    private BufferedImage imagenNueva;
 
     /**
      * Escala por defecto de la imagen.
@@ -264,7 +256,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         longitudBorrador = 5;
         habilitarDibujarTexto = false;
         archivoGuardadoUltimaVersion = false;
-        primerGrabado = false;
         ubicacionDeImagen = null;
         nombreArchivo = null;
         ventanaTexto = null;
@@ -274,7 +265,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         desHacerPila = new Stack();
         colorFondoPantallaDibujo    = Color.WHITE;          // De color blanco
         colorBorde                  = Color.BLACK;          // De color negro
-        colorRelleno                = null;                 // Sin relleno
+        colorRelleno                = null;                 // Sin relleno    
         setBackground(getColorFondoPantallaDibujo());
         //repaint();
     }
@@ -1333,15 +1324,20 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             crearImagen();
 	}
         actualizarImagen();
-        setImagen(imagen);
         
+        if(archivoGuardadoUltimaVersion){
+                JOptionPane.showMessageDialog(null, "No dibujo nada en la Mesa de Trabajo",
+                    "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
+                    + Constantes.TITULO_PROGRAMA,
+                    JOptionPane.ERROR_MESSAGE);
+                return false;
+        }
+
         try{
             JOptionPane.showMessageDialog(null, "Archivo Guardado",
                     "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
                     + Constantes.TITULO_PROGRAMA,
-                    JOptionPane.INFORMATION_MESSAGE);
-            
-            
+                    JOptionPane.INFORMATION_MESSAGE);   
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -1354,7 +1350,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             }else{
                  file = new File(nombreArchivo.toString() + ".png");
             }
-            ImageIO.write(imagen, "png", file);
+            ImageIO.write(getImagen(), "png", file);
         }catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -1417,21 +1413,21 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void crearImagen() {
-        // Objetos
-        imagen = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-
-        Graphics2D g2 = imagen.createGraphics();
-        g2.setColor(getColorFondoPantallaDibujo());
-        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-        dibujarFiguras(g2);
-        dibujarTexto(g2);     
-        g2.dispose();
-        imagenAnterior = imagen;
-        setImagen(imagen);
+        if(getImagen() == null){
+            imagen = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2 = imagen.createGraphics();
+            g2.setColor(getColorFondoPantallaDibujo());
+            g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+            dibujarFiguras(g2);
+            dibujarTexto(g2);
+            setImagen(imagen);
+            g2.dispose();
+            setImagen(imagen);
+        }
     }
 
     /**
-     * Metodo para acerca la imagen actual.
+     * Metodo para acercar la imagen actual.
      * @since 1.6
      */
     public void acercar(){
@@ -1472,20 +1468,22 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 
 
     /**
-     * Actualiza la imagen anterior con la imagen nueva.
+     * Actualiza la imagen actual con la imagen nueva.
      *
      * @since 1.6
      */
     public void actualizarImagen(){
-        Graphics g = imagen.getGraphics();
-        Graphics2D g2 = (Graphics2D)g;
-        g2.setColor(getColorFondoPantallaDibujo());
-        dibujarFiguras(g2);
-        dibujarTexto(g2);
-        g2.drawImage(imagen, 0, 0, this);
-        setImagen(imagen);
-        imagenAnterior = imagen;
-        g2.dispose();
+        if(getImagen() != null){
+            Graphics g = getImagen().getGraphics();
+            Graphics2D g2 = (Graphics2D)g;
+            //g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2.setColor(getColorFondoPantallaDibujo());
+            dibujarFiguras(g2);
+            dibujarTexto(g2);
+            g2.drawImage(getImagen(), 0, 0, null);
+            setImagen(getImagen());
+            g2.dispose();
+        }
     }
 
     /**
