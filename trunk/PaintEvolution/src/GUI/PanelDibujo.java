@@ -362,7 +362,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             agregarFigura(rectanguloConCurvasRedondas);
             desHacerPila.push(rectanguloConCurvasRedondas);
         }
-        //crearImagen();
         GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
         //repaint();
     }//GEN-LAST:event_formMouseReleased
