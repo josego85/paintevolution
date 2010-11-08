@@ -1317,14 +1317,6 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
 	}
         actualizarImagen();
         
-        if(archivoGuardadoUltimaVersion){
-                JOptionPane.showMessageDialog(null, "No dibujo nada en la Mesa de Trabajo",
-                    "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
-                    + Constantes.TITULO_PROGRAMA,
-                    JOptionPane.ERROR_MESSAGE);
-                return false;
-        }
-
         try{
             JOptionPane.showMessageDialog(null, "Archivo Guardado",
                     "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
