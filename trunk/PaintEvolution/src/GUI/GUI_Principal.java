@@ -1214,6 +1214,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 	mesaDeDibujo.setColorFondoPantallaDibujo(Color.WHITE);
 	mesaDeDibujo.setColorBorde(Color.BLACK);
         mesaDeDibujo.setColorRelleno(Color.WHITE);
+        jCheckBoxActivarRelleno.setSelected(false);
 	mesaDeDibujo.repaint();
     }
 
