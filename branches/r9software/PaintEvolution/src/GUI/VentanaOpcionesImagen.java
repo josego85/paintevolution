@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,8 +48,9 @@ public class VentanaOpcionesImagen extends javax.swing.JDialog {
         jButtonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        jLabel1.setText("Opciones de imagen:");
+        jLabel1.setText("Opciones de imagen");
 
         jRadioButtonImagenEstatica.setText("Imagen estática");
         jRadioButtonImagenEstatica.addActionListener(new java.awt.event.ActionListener() {
@@ -82,19 +85,20 @@ public class VentanaOpcionesImagen extends javax.swing.JDialog {
         jPanelOpcionesImagenLayout.setHorizontalGroup(
             jPanelOpcionesImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOpcionesImagenLayout.createSequentialGroup()
-                .addGroup(jPanelOpcionesImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(93, 93, 93)
+                .addGroup(jPanelOpcionesImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButtonImagenEstatica)
                     .addGroup(jPanelOpcionesImagenLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanelOpcionesImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButtonImagenDinamica)
-                            .addComponent(jRadioButtonImagenEstatica)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanelOpcionesImagenLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(8, 8, 8)
                         .addComponent(jButtonGenerarImagen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar)))
-                .addContainerGap(192, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonCancelar))
+                    .addComponent(jRadioButtonImagenDinamica))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOpcionesImagenLayout.createSequentialGroup()
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(111, 111, 111))
         );
         jPanelOpcionesImagenLayout.setVerticalGroup(
             jPanelOpcionesImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,23 +109,15 @@ public class VentanaOpcionesImagen extends javax.swing.JDialog {
                 .addComponent(jRadioButtonImagenEstatica)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButtonImagenDinamica)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelOpcionesImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonGenerarImagen)
                     .addComponent(jButtonCancelar))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelOpcionesImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelOpcionesImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanelOpcionesImagen);
+        jPanelOpcionesImagen.setBounds(0, 0, 400, 300);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -146,7 +142,10 @@ public class VentanaOpcionesImagen extends javax.swing.JDialog {
         if(!jRadioButtonImagenEstatica.isSelected() && !jRadioButtonImagenDinamica.isSelected()){
             mensaje = "Debe seleccionar una opción!!!";
             JOptionPane.showMessageDialog(null, mensaje, "Error!", JOptionPane.WARNING_MESSAGE);
-        }else{
+        }else if(jRadioButtonImagenEstatica.isSelected()){
+             mensaje = "Imagen Estatica!!!";
+            JOptionPane.showMessageDialog(null, mensaje, "Error!", JOptionPane.WARNING_MESSAGE);
+        }else if(jRadioButtonImagenDinamica.isSelected()){
              ventanaLoginBaseDatos = new VentanaLoginBaseDatos(new javax.swing.JFrame(), rootPaneCheckingEnabled);
              ventanaLoginBaseDatos.setLocationRelativeTo(this);
 	     ventanaLoginBaseDatos.mostraLoginBaseDatos();
@@ -173,6 +172,15 @@ public class VentanaOpcionesImagen extends javax.swing.JDialog {
          */
         buttonGroupOpcionesImagen.add(jRadioButtonImagenEstatica);
         buttonGroupOpcionesImagen.add(jRadioButtonImagenDinamica);
+        
+        // Colocamos el nuevo tipo de layout que queremos que tenga nuestro JDialog.
+        this.setLayout(new FlowLayout());
+        
+        // Agregamos el jPanelOpcionesImagen con un layout al centro.
+        this.add(jPanelOpcionesImagen, BorderLayout.CENTER);
+        
+        // Hacemos que el JDialog tenga el tamaño de todos sus elementos.
+        this.pack();
     }
     
     /**
