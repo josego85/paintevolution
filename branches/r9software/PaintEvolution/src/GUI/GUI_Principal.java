@@ -177,8 +177,18 @@ public class GUI_Principal extends javax.swing.JFrame {
         // Cambiar el titulo de la aplicacion
         setTitle(Constantes.TITULO_PROGRAMA);
 
-        // Maximiza la aplicacion
-        setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
+        // Maximiza la aplicacion.
+        //setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
+
+        // Deshabilitar la opcion de Maximizar ventana.
+        setResizable(false);
+        
+        /*
+         * Para que el canvas contenga 800 de ancho se tiene que poner la ventana
+         * GUI_Principal a 1077 de ancho. Para que el canvas contenga 400 de alt 
+         * se tiene que poner la ventana GUI_Principal a 537 de ancho. 
+         */
+        setSize(1077, 537);
         
         // Crea el objeto de Mesa de Dibujo
         mesaDeDibujo = new PanelDibujo();
