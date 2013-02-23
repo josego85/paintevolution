@@ -181,14 +181,14 @@ public class GUI_Principal extends javax.swing.JFrame {
         //setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
 
         // Deshabilitar la opcion de Maximizar ventana.
-        //setResizable(false);
+        setResizable(false);
         
         /*
-         * Para que el canvas contenga 400 de ancho se tiene que poner la ventana
-         * GUI_Principal a 537 de ancho. Para que el canvas contenga 800 de alt 
-         * se tiene que poner la ventana GUI_Principal a 1077 de ancho. 
+         * Para que el canvas contenga 700 de ancho se tiene que poner la ventana
+         * GUI_Principal a 977 de ancho. Para que el canvas contenga 350 de alto 
+         * se tiene que poner la ventana GUI_Principal a 487 de alto. 
          */
-        setSize(537, 1077);
+        setSize(977, 487);
         
         // Crea el objeto de Mesa de Dibujo
         mesaDeDibujo = new PanelDibujo();
