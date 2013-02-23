@@ -136,6 +136,11 @@ public class GUI_Principal extends javax.swing.JFrame {
       * @since 1.6
       */
      private Image iconoAplicacion;
+     
+     /*
+      * Ventana Opciones Imagen.
+      */
+     private VentanaOpcionesImagen ventanaOpcionesImagen;
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -227,6 +232,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomOut = new javax.swing.JButton();
         jButtonPantallaCompleta = new javax.swing.JButton();
         jButtonDesactivarPantallaCompleta = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanelBarraDeHerramientas = new javax.swing.JPanel();
         jToolBarBarraDeHerramientas = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
@@ -433,6 +439,14 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanelBarraAccesoDirecto.add(jButtonDesactivarPantallaCompleta);
+
+        jButton1.setText("Opciones Imagen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanelBarraAccesoDirecto.add(jButton1);
 
         getContentPane().add(jPanelBarraAccesoDirecto, java.awt.BorderLayout.NORTH);
 
@@ -1108,6 +1122,10 @@ public class GUI_Principal extends javax.swing.JFrame {
                 Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_jToggleInfoBorradoActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        mostrarVentanaOpcionesImagen();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
@@ -1237,6 +1255,17 @@ public class GUI_Principal extends javax.swing.JFrame {
         //ventanaAyuda.setLocationRelativeTo(this);
         ventanaAyuda.setLocationRelativeTo(this);
 	ventanaAyuda.mostrarAyuda();
+    }
+    
+    /**
+     * Metodo que muestra la ventana opciones imagen.
+     * @since 1.6
+     */
+    public void mostrarVentanaOpcionesImagen() {
+        this.setLocationRelativeTo(null);
+        ventanaOpcionesImagen = new VentanaOpcionesImagen(this, rootPaneCheckingEnabled);
+        ventanaOpcionesImagen.setLocationRelativeTo(this);
+	ventanaOpcionesImagen.mostrarOpcionesImagen();
     }
 
     /**
@@ -1445,6 +1474,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupObjetos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAbrir;
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonBorraTodoLosObjetos;
