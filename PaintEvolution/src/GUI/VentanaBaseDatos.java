@@ -17,26 +17,64 @@ import util.ConexionMysql;
  * @author Rodo
  */
 public class VentanaBaseDatos extends javax.swing.JFrame {
-    private ConexionMysql conexionLocal=null;
-    private String BD;
+    // Variables de clase.
+    private ConexionMysql conexionLocal;
+    private String baseDatos;
     private JCheckBox[] jCheckBoxVariables;
     private String[] nombreVariables;
 
     /**
-     * Creates new form VentanaBaseDatos
+     * 
+     * @param conexion 
      */
     public VentanaBaseDatos(ConexionMysql conexion) {
         initComponents();
-        conexionLocal=conexion;
-        BD=conexionLocal.getBaseDatos();
-        if(BD.equals("")) {
-            cargarBasesDatos();
+       
+        /* 
+         * Se guarda la conexion en una variable de clase, para luego usar
+         * en toda la aplicacion.
+         */
+        conexionLocal = conexion;
+        
+        try{
+            // Abrimos la conexion a la base de datos.
+            conexionLocal.abrirConexion();
+            
+            // Recuperamos el nombre de la base de datos.
+            baseDatos = conexionLocal.getBaseDatos();
+        
+            if(baseDatos.equals("")) {
+                /*
+                 * Si la base de datos no tiene nombre,
+                 * entonces se cargan todas las base de datos del
+                 * servidor mysql local.
+                 */ 
+                cargarBasesDatos();
+            }else{
+                // Se agrega en el combobox el nombre de la base de datos.
+                jComboBoxBD.addItem(baseDatos);
+                
+                // Se cargan las tablas de un combobox.
+                cargarTablas(baseDatos);
+            }
+        }catch(Exception e){
+        }finally{
+            if(conexionLocal != null){
+                try{
+                    // Se cierra la base de datos.
+                    conexionLocal.terminarConexion();
+                    
+                    System.out.println("Se cerro la conexion a la base de datos local!!!");
+                }catch(SQLException ex){   
+                     Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-        else{
-            jComboBoxBD.addItem(BD);
-            cargarTablas(BD);
-        }
-      }
+    }
+    
+    /**
+     * 
+     */
     public VentanaBaseDatos() {
         initComponents();
         
@@ -173,10 +211,8 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
 
     private void jComboBoxBDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxBDItemStateChanged
         // TODO add your handling code here:
-        BD=jComboBoxBD.getSelectedItem().toString();
+        baseDatos = jComboBoxBD.getSelectedItem().toString();
         cargarTablas(jComboBoxBD.getSelectedItem().toString());
-        
-        
     }//GEN-LAST:event_jComboBoxBDItemStateChanged
 
     private void jComboBoxTablasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTablasItemStateChanged
@@ -188,10 +224,10 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         nombreVariables= new String[jCheckBoxVariables.length];
-        for(int x=0;x<jCheckBoxVariables.length;x++)
-        {    
-            if(jCheckBoxVariables[x].isSelected()) {
-                nombreVariables[x]=jCheckBoxVariables[x].getText();
+      
+        for(int x = 0; x < jCheckBoxVariables.length;x++){    
+            if(jCheckBoxVariables[x].isSelected()){
+                nombreVariables[x] = jCheckBoxVariables[x].getText();
                 System.out.println(nombreVariables[x]);
             }
         }
@@ -240,51 +276,93 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTablas;
     private javax.swing.JPanel jPanelVariables;
     // End of variables declaration//GEN-END:variables
-    //carga los elementos de la BaseDatos
+    
+   /**
+    * Carga las baseDatos en un combobox de un servidor mysql.
+    */
     private void cargarBasesDatos(){
-        try {
+        // Objetos.
+        ResultSet ejecutarQueryBases =  null;
+        
+        try{ 
+            ArrayList bases = new ArrayList();
+            ejecutarQueryBases = conexionLocal.ejecutarQuery("Show Databases");
             
-            ArrayList bases= new ArrayList();
-            ResultSet ejecutarQueryBases = conexionLocal.ejecutarQuery("Show Databases");
             while(ejecutarQueryBases.next()){
                 bases.add(ejecutarQueryBases.getString(1));
                 System.out.println(ejecutarQueryBases.getString(1));
-            
             }
-            for(int x=0;x<bases.size();x++) {
+            for(int x = 0; x < bases.size(); x++) {
                 jComboBoxBD.addItem(bases.get(x).toString());
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(SQLException ex){
+             Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(ejecutarQueryBases != null){
+                try{
+                    // Se cierra el ResultSet (ejecutarQueryBases).
+                    ejecutarQueryBases.close();
+                    
+                    System.out.println("Se cierra el ResultSet de la base de datos!!!");
+                }catch(SQLException ex){ 
+                     Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+                }catch(Exception ex){  
+                     Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-       
     }
 
+    /**
+     * Carga las tablas en un combobox de la BaseDatos.
+     * @param BD 
+     */
     private void cargarTablas(String BD) {
+        // Objetos.
+        ResultSet ejecutarQueryTablas = null;
+        
         try {
             jComboBoxTablas.removeAllItems();
-            ArrayList tablas= new ArrayList();
-            ResultSet ejecutarQueryTablas = conexionLocal.ejecutarQuery("show tables in "+BD);
+            ArrayList tablas = new ArrayList();
+            ejecutarQueryTablas = conexionLocal.ejecutarQuery("show tables in "+BD);
+            
             while(ejecutarQueryTablas.next()){
                 tablas.add(ejecutarQueryTablas.getString(1));
                 System.out.println(ejecutarQueryTablas.getString(1));
             }
-            for(int x=0;x<tablas.size();x++) {
+            for(int x = 0; x < tablas.size(); x++) {
                 jComboBoxTablas.addItem(tablas.get(x).toString());
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(SQLException ex) {
+             Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(ejecutarQueryTablas != null){
+                try{
+                    // Se cierra el ResultSet (ejecutarQueryTablas).
+                    ejecutarQueryTablas.close();
+                    
+                    System.out.println("Se cierra el ResultSet de las tablas!!!");
+                }catch(SQLException ex){ 
+                     Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+                }catch(Exception ex){  
+                     Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
     private void cargarVariablesTabla(String tabla) {
+        // Objetos.
+        ResultSet useBase = null;
+        ResultSet ejecutarQueryTablas = null;
+        
         try {
             jPanelVariables.removeAll();
             ArrayList variables= new ArrayList();
             ArrayList tipoDato= new ArrayList();
-            ResultSet useBase = conexionLocal.ejecutarQuery("use "+BD);
-            ResultSet ejecutarQueryTablas = conexionLocal.ejecutarQuery("DESCRIBE "+tabla);
+            useBase = conexionLocal.ejecutarQuery("use " + baseDatos);
+            ejecutarQueryTablas = conexionLocal.ejecutarQuery("DESCRIBE " + tabla);
+            
             while(ejecutarQueryTablas.next()){
                 variables.add(ejecutarQueryTablas.getString(1));
                 tipoDato.add(ejecutarQueryTablas.getString(2));
@@ -292,15 +370,29 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
             }
             jCheckBoxVariables= new JCheckBox[variables.size()];
             
-            for(int x=0;x<variables.size();x++) {
-              jCheckBoxVariables[x]=new JCheckBox(variables.get(x).toString());
-              jCheckBoxVariables[x].setBounds(0, 35*(x+1),100,25);
+            for(int x = 0; x < variables.size(); x++) {
+              jCheckBoxVariables[x] = new JCheckBox(variables.get(x).toString());
+              jCheckBoxVariables[x].setBounds(0, 35*(x+1), 100, 25);
               jPanelVariables.add(jCheckBoxVariables[x]);
               jPanelVariables.repaint();
               jButton1.setEnabled(true);
            }
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(SQLException ex) {
+             Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(ejecutarQueryTablas != null){
+                try{
+                    // Se cierra el ResultSet (ejecutarQueryTablas).
+                    ejecutarQueryTablas.close();
+                    
+                    System.out.println("Se cierra el ResultSet de las tablas!!!");
+                }catch(SQLException ex){ 
+                     Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+                }catch(Exception ex){  
+                     Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
+        
     }
 }
