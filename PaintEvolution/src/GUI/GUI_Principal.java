@@ -242,7 +242,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonZoomOut = new javax.swing.JButton();
         jButtonPantallaCompleta = new javax.swing.JButton();
         jButtonDesactivarPantallaCompleta = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonOpcionesImagen = new javax.swing.JButton();
         jPanelBarraDeHerramientas = new javax.swing.JPanel();
         jToolBarBarraDeHerramientas = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
@@ -452,13 +452,17 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonDesactivarPantallaCompleta);
 
-        jButton1.setText("Opciones Imagen");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOpcionesImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/opcionesImagen_32px.png"))); // NOI18N
+        jButtonOpcionesImagen.setText("Opciones Imagen");
+        jButtonOpcionesImagen.setToolTipText("Opciones Imagen");
+        jButtonOpcionesImagen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonOpcionesImagen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonOpcionesImagen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonOpcionesImagenActionPerformed(evt);
             }
         });
-        jPanelBarraAccesoDirecto.add(jButton1);
+        jPanelBarraAccesoDirecto.add(jButtonOpcionesImagen);
 
         getContentPane().add(jPanelBarraAccesoDirecto, java.awt.BorderLayout.NORTH);
 
@@ -1135,9 +1139,9 @@ public class GUI_Principal extends javax.swing.JFrame {
                 Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_jToggleInfoBorradoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonOpcionesImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpcionesImagenActionPerformed
         mostrarVentanaOpcionesImagen();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonOpcionesImagenActionPerformed
 
     
     ////////////////////////////////////////////////////////////////////////////
@@ -1487,7 +1491,6 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupObjetos;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAbrir;
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonBorraTodoLosObjetos;
@@ -1500,6 +1503,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JButton jButtonOpcionesImagen;
     private javax.swing.JButton jButtonPantallaCompleta;
     private javax.swing.JButton jButtonZoomIn;
     private javax.swing.JButton jButtonZoomOut;
