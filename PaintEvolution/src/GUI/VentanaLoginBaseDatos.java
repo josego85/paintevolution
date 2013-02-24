@@ -6,6 +6,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -175,7 +176,13 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextFieldBaseDatosActionPerformed
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-
+        String user=jFormattedTextFieldUsuarioLogin.getText();
+        String pwd=jPasswordFieldContrasenhiaLogin.getPassword().toString();
+        if(!user.equals("")&&!pwd.equals("")){
+        }
+        else{
+            JOptionPane.showMessageDialog(jButtonLogin,"Por Favor introduzca el usuario y la contraseña ","Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     /**
