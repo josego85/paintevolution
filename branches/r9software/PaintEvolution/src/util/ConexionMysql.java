@@ -4,7 +4,6 @@
  */
 package util;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,32 +15,96 @@ import java.sql.Statement;
  * @author Rodo
  */
 public class ConexionMysql {
-    Connection conexion;
-    Statement s;
-    String Base;
-    private final String User;
-    private final String Pwd;
-    public ConexionMysql(String user,String pwd,String DB) throws SQLException{
-            Base=DB;
-            User=user;
-            Pwd=pwd;
-            conexion= DriverManager.getConnection ("jdbc:mysql://localhost/"+DB,user,pwd);
-            s = conexion.createStatement(); 
-    }
-    public ResultSet ejecutarQuery(String query) throws SQLException{
-        return s.executeQuery(query);
-    }
-    public void terminarConexion() throws SQLException{
-    conexion.close();
-    }
-    public String getBaseDatos(){
-    return Base;
-    }
-    public String getUser(){
-    return User;
-    }
-    public String getPassword(){
-    return Pwd;
+    // Objetos de clase.
+    private Connection conexion;
+    private Statement statement;
+    private String user;
+    private String password;
+    private String baseDatos;
+    
+    /**
+     * Constructor 
+     * @param user
+     * @param pwd
+     * @param DB
+     * @throws SQLException 
+     */
+    public ConexionMysql(String user, String password, String baseDatos) throws SQLException{
+        setBaseDatos(baseDatos);
+        setUser(user);
+        setPassword(password);
+         
     }
     
+    public void abrirConexion()throws SQLException{
+        this.conexion = DriverManager.getConnection ("jdbc:mysql://localhost/" + getBaseDatos(), 
+            getUsuario(), getPassword());
+        this.statement = this.conexion.createStatement();
+    }
+    
+    /**
+     * 
+     * @param query
+     * @return
+     * @throws SQLException 
+     */
+    public ResultSet ejecutarQuery(String query) throws SQLException{
+        return statement.executeQuery(query);
+    }
+    
+    /**
+     * 
+     * @throws SQLException 
+     */
+    public void terminarConexion() throws SQLException{
+        conexion.close();
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getBaseDatos(){
+        return this.baseDatos;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getUsuario(){
+        return this.user;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getPassword(){
+        return this.password;
+    }
+
+    /**
+     * 
+     * @param user 
+     */
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    /**
+     * 
+     * @param password 
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * 
+     * @param baseDatos 
+     */
+    public void setBaseDatos(String baseDatos) {
+        this.baseDatos = baseDatos;
+    }
 }
