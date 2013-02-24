@@ -6,7 +6,11 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import util.ConexionMysql;
 
 /**
  *
@@ -63,6 +67,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(450, 350));
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -100,7 +105,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
         jLabel2.setText("Base de Datos");
 
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel3.setText("Si no conoce el nombre de la Base de Datos deje este campo en blanco");
+        jLabel3.setText("Si no conoce el nombre de la Base de Datos deje este campo en blanco.");
 
         javax.swing.GroupLayout jPanelLoginBaseDatosLayout = new javax.swing.GroupLayout(jPanelLoginBaseDatos);
         jPanelLoginBaseDatos.setLayout(jPanelLoginBaseDatosLayout);
@@ -130,8 +135,8 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
                         .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelLoginBaseDatosLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelLoginBaseDatosLayout.setVerticalGroup(
@@ -151,9 +156,9 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
                 .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldBaseDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLogin)
                     .addComponent(jButtonCancelar))
@@ -178,7 +183,16 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         String user=jFormattedTextFieldUsuarioLogin.getText();
         String pwd=jPasswordFieldContrasenhiaLogin.getPassword().toString();
+        String BD= jTextFieldBaseDatos.getText();
         if(!user.equals("")&&!pwd.equals("")){
+            try {
+                util.ConexionMysql conexion= new ConexionMysql(user, pwd,BD);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                System.out.println(ex.getSQLState());
+                Logger.getLogger(VentanaLoginBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         else{
             JOptionPane.showMessageDialog(jButtonLogin,"Por Favor introduzca el usuario y la contraseña ","Error", JOptionPane.ERROR_MESSAGE);
