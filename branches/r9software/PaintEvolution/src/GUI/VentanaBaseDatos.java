@@ -30,6 +30,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
             CargarBasesDatos();
         }
         else{
+            jComboBoxBD.addItem(BD);
             CargarTablas(BD);
         }
       }
@@ -60,7 +61,11 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(500, 500));
         setResizable(false);
 
-        jComboBoxBD.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bases De Datos" }));
+        jComboBoxBD.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxBDItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBasesDatosLayout = new javax.swing.GroupLayout(jPanelBasesDatos);
         jPanelBasesDatos.setLayout(jPanelBasesDatosLayout);
@@ -74,8 +79,6 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
                 .addComponent(jComboBoxBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        jComboBoxTablas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tablas" }));
 
         javax.swing.GroupLayout jPanelTablasLayout = new javax.swing.GroupLayout(jPanelTablas);
         jPanelTablas.setLayout(jPanelTablasLayout);
@@ -115,7 +118,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
                 .addComponent(jPanelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelVariables, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +128,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
                     .addComponent(jPanelTablas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelBasesDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelVariables, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -139,12 +142,19 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBoxBDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxBDItemStateChanged
+        // TODO add your handling code here:
+        CargarTablas(jComboBoxBD.getSelectedItem().toString());
+        
+        
+    }//GEN-LAST:event_jComboBoxBDItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -199,7 +209,6 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
                 System.out.println(ejecutarQueryBases.getString(1));
             
             }
-            jComboBoxBD.remove(0);
             for(int x=0;x<bases.size();x++) {
                 jComboBoxBD.addItem(bases.get(x).toString());
             }
@@ -212,9 +221,15 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
 
     private void CargarTablas(String BD) {
         try {
-            ResultSet ejecutarQueryTablas = conexionLocal.ejecutarQuery("show tables");
+            jComboBoxTablas.removeAllItems();
+            ArrayList tablas= new ArrayList();
+            ResultSet ejecutarQueryTablas = conexionLocal.ejecutarQuery("show tables in "+BD);
             while(ejecutarQueryTablas.next()){
+                tablas.add(ejecutarQueryTablas.getString(1));
                 System.out.println(ejecutarQueryTablas.getString(1));
+            }
+            for(int x=0;x<tablas.size();x++) {
+                jComboBoxTablas.addItem(tablas.get(x).toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
