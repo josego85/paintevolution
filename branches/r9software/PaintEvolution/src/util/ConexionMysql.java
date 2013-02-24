@@ -18,7 +18,13 @@ import java.sql.Statement;
 public class ConexionMysql {
     Connection conexion;
     Statement s;
+    String Base;
+    private final String User;
+    private final String Pwd;
     public ConexionMysql(String user,String pwd,String DB) throws SQLException{
+            Base=DB;
+            User=user;
+            Pwd=pwd;
             conexion= DriverManager.getConnection ("jdbc:mysql://localhost/"+DB,user,pwd);
             s = conexion.createStatement(); 
     }
@@ -28,6 +34,14 @@ public class ConexionMysql {
     public void terminarConexion() throws SQLException{
     conexion.close();
     }
-    
+    public String getBaseDatos(){
+    return Base;
+    }
+    public String getUser(){
+    return User;
+    }
+    public String getPassword(){
+    return Pwd;
+    }
     
 }
