@@ -83,7 +83,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
 
         jPasswordFieldContrasenhiaLogin.setToolTipText("Introduzca la contraseña de acceso");
 
-        jButtonLogin.setText("Login");
+        jButtonLogin.setText("Conectar");
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoginActionPerformed(evt);
