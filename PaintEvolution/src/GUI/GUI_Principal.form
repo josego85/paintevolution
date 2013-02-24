@@ -470,6 +470,26 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonOpcionesImagenActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="jButtonQR">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="QR"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonRSA">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="RSA"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonPDF">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="PDF"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonCodigoBarras">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="C&#xf3;digo de Barras"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanelBarraDeHerramientas">

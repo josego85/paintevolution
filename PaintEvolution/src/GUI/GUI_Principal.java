@@ -178,7 +178,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         setTitle(Constantes.TITULO_PROGRAMA);
 
         // Maximiza la aplicacion.
-        //setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
+        setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
 
         // Deshabilitar la opcion de Maximizar ventana.
         setResizable(false);
@@ -246,6 +246,10 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonPantallaCompleta = new javax.swing.JButton();
         jButtonDesactivarPantallaCompleta = new javax.swing.JButton();
         jButtonOpcionesImagen = new javax.swing.JButton();
+        jButtonQR = new javax.swing.JButton();
+        jButtonRSA = new javax.swing.JButton();
+        jButtonPDF = new javax.swing.JButton();
+        jButtonCodigoBarras = new javax.swing.JButton();
         jPanelBarraDeHerramientas = new javax.swing.JPanel();
         jToolBarBarraDeHerramientas = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
@@ -466,6 +470,18 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanelBarraAccesoDirecto.add(jButtonOpcionesImagen);
+
+        jButtonQR.setText("QR");
+        jPanelBarraAccesoDirecto.add(jButtonQR);
+
+        jButtonRSA.setText("RSA");
+        jPanelBarraAccesoDirecto.add(jButtonRSA);
+
+        jButtonPDF.setText("PDF");
+        jPanelBarraAccesoDirecto.add(jButtonPDF);
+
+        jButtonCodigoBarras.setText("Código de Barras");
+        jPanelBarraAccesoDirecto.add(jButtonCodigoBarras);
 
         getContentPane().add(jPanelBarraAccesoDirecto, java.awt.BorderLayout.NORTH);
 
@@ -1498,6 +1514,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonBorraTodoLosObjetos;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonCodigoBarras;
     private javax.swing.JButton jButtonColorBordeObjetos;
     private javax.swing.JButton jButtonColorDeFondoPantalla;
     private javax.swing.JButton jButtonColorRelleno;
@@ -1507,7 +1524,10 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonOpcionesImagen;
+    private javax.swing.JButton jButtonPDF;
     private javax.swing.JButton jButtonPantallaCompleta;
+    private javax.swing.JButton jButtonQR;
+    private javax.swing.JButton jButtonRSA;
     private javax.swing.JButton jButtonZoomIn;
     private javax.swing.JButton jButtonZoomOut;
     private javax.swing.JCheckBox jCheckBoxActivarRelleno;
