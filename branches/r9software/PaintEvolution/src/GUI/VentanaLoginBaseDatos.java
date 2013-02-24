@@ -57,17 +57,30 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
         jPasswordFieldContrasenhiaLogin = new javax.swing.JPasswordField();
         jButtonLogin = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jTextFieldBaseDatos = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Conectarse a la base de datos");
 
         jLabelUsuario.setText("Usuario:");
 
         jLabelContrasenhia.setText("Contraseña:");
 
+        jFormattedTextFieldUsuarioLogin.setToolTipText("Introduzca el usuario para la base de datos");
+
+        jPasswordFieldContrasenhiaLogin.setToolTipText("Introduzca la contraseña de acceso");
+
         jButtonLogin.setText("Login");
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoginActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,53 +89,78 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
             }
         });
 
+        jTextFieldBaseDatos.setToolTipText("Introduzca el nombre de la base de datos si lo conoce");
+        jTextFieldBaseDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldBaseDatosActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Base de Datos");
+
+        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel3.setText("Si no conoce el nombre de la Base de Datos deje este campo en blanco");
+
         javax.swing.GroupLayout jPanelLoginBaseDatosLayout = new javax.swing.GroupLayout(jPanelLoginBaseDatos);
         jPanelLoginBaseDatos.setLayout(jPanelLoginBaseDatosLayout);
         jPanelLoginBaseDatosLayout.setHorizontalGroup(
             jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLoginBaseDatosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonLogin)
+                .addGap(41, 41, 41)
+                .addComponent(jButtonCancelar)
+                .addGap(111, 111, 111))
             .addGroup(jPanelLoginBaseDatosLayout.createSequentialGroup()
-                .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(71, 71, 71)
+                .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanelLoginBaseDatosLayout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addGroup(jPanelLoginBaseDatosLayout.createSequentialGroup()
-                                .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelUsuario)
-                                    .addComponent(jLabelContrasenhia))
-                                .addGap(10, 10, 10)
-                                .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPasswordFieldContrasenhiaLogin)
-                                    .addComponent(jFormattedTextFieldUsuarioLogin)))))
-                    .addGroup(jPanelLoginBaseDatosLayout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jButtonLogin)
+                        .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelContrasenhia)
+                            .addComponent(jLabelUsuario)
+                            .addComponent(jLabel2))
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonCancelar)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                        .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFormattedTextFieldUsuarioLogin)
+                            .addComponent(jPasswordFieldContrasenhiaLogin)
+                            .addComponent(jTextFieldBaseDatos)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelLoginBaseDatosLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelLoginBaseDatosLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelLoginBaseDatosLayout.setVerticalGroup(
             jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLoginBaseDatosLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(31, 31, 31)
                 .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelUsuario)
                     .addComponent(jFormattedTextFieldUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelContrasenhia)
                     .addComponent(jPasswordFieldContrasenhiaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldBaseDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLogin)
                     .addComponent(jButtonCancelar))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelLoginBaseDatos);
-        jPanelLoginBaseDatos.setBounds(0, 0, 400, 300);
+        jPanelLoginBaseDatos.setBounds(0, 0, 397, 287);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -131,6 +169,14 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
         // Se cierra la VentanaLoginBaseDatos.
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jTextFieldBaseDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBaseDatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBaseDatosActionPerformed
+
+    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
+
+    }//GEN-LAST:event_jButtonLoginActionPerformed
 
     /**
      * Donde despliega el login de la base de datos.
@@ -187,9 +233,12 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
     private javax.swing.JButton jButtonLogin;
     private javax.swing.JFormattedTextField jFormattedTextFieldUsuarioLogin;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelContrasenhia;
     private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JPanel jPanelLoginBaseDatos;
     private javax.swing.JPasswordField jPasswordFieldContrasenhiaLogin;
+    private javax.swing.JTextField jTextFieldBaseDatos;
     // End of variables declaration//GEN-END:variables
 }
