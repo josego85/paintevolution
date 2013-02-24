@@ -188,7 +188,7 @@ public class GUI_Principal extends javax.swing.JFrame {
          * GUI_Principal a 487 de ancho. Para que el canvas contenga 700 de alto 
          * se tiene que poner la ventana GUI_Principal a 977 de alto. 
          */
-        setSize(487, 977);
+        setSize(977, 487);
         
         // Crea el objeto de Mesa de Dibujo
         mesaDeDibujo = new PanelDibujo();
@@ -291,10 +291,12 @@ public class GUI_Principal extends javax.swing.JFrame {
         jMenuItemAcercaDe = new javax.swing.JMenuItem();
 
         jDialogColor.setTitle("Colores");
-        jDialogColor.setMinimumSize(new java.awt.Dimension(450, 450));
+        jDialogColor.setMinimumSize(new java.awt.Dimension(660, 395));
         jDialogColor.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         jDialogColor.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         jDialogColor.setResizable(false);
+
+        jColorChooserColores.setMinimumSize(new java.awt.Dimension(515, 265));
 
         jButtonAceptar.setText("Aceptar");
         jButtonAceptar.setToolTipText("Aceptar");
@@ -462,6 +464,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         jPanelBarraDeHerramientas.setLayout(new javax.swing.BoxLayout(jPanelBarraDeHerramientas, javax.swing.BoxLayout.PAGE_AXIS));
 
+        jToolBarBarraDeHerramientas.setFloatable(false);
         jToolBarBarraDeHerramientas.setRollover(true);
 
         jPanel1.setLayout(new java.awt.GridLayout(9, 2));
@@ -1175,7 +1178,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     /**
      * Metodo privado que llama a los diferentes objetos para asignarle opciones diferentes
      *
-     * @param event El evento degenerado de un objeto.
+     * @param event El evento generado de un objeto.
      * @since 1.6
      */
     private void llamarObjetosDiferentes(ActionEvent event){
@@ -1396,7 +1399,7 @@ public class GUI_Principal extends javax.swing.JFrame {
      * @since 1.6
      */
     private void seleccionarObjetoPredeterminado(){
-        // Icono del lapiz
+        // Icono del lapiz.
         Cursor pencilCursor = toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
         cursorActual = pencilCursor;
         mesaDeDibujo.setCursorActual(cursorActual);
