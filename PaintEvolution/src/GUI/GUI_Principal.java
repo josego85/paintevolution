@@ -201,7 +201,10 @@ public class GUI_Principal extends javax.swing.JFrame {
         // principal
         getContentPane().add(mesaDeDibujo, java.awt.BorderLayout.CENTER);
 
-        // El boton Desactivar Pantalla Completa tiene que estar oculto
+        // El boton Activar PantallaCompleta la ocultamos.
+        jButtonPantallaCompleta.setVisible(false);
+        
+        // El boton Desactivar Pantalla Completa tiene que estar oculto.
         jButtonDesactivarPantallaCompleta.setVisible(false);
 
         toolKit = Toolkit.getDefaultToolkit();
