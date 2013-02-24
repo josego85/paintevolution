@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import util.ConexionMysql;
 
 /**
@@ -18,6 +19,8 @@ import util.ConexionMysql;
 public class VentanaBaseDatos extends javax.swing.JFrame {
     private ConexionMysql conexionLocal=null;
     private String BD;
+    private JCheckBox[] jCheckBoxVariables;
+    private String[] nombreVariables;
 
     /**
      * Creates new form VentanaBaseDatos
@@ -55,6 +58,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         jPanelTablas = new javax.swing.JPanel();
         jComboBoxTablas = new javax.swing.JComboBox();
         jPanelVariables = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Base de Datos locales");
@@ -79,6 +83,12 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
                 .addComponent(jComboBoxBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        jComboBoxTablas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTablasItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablasLayout = new javax.swing.GroupLayout(jPanelTablas);
         jPanelTablas.setLayout(jPanelTablasLayout);
@@ -131,19 +141,31 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton1.setText("Siguiente");
+        jButton1.setEnabled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(0, 38, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,10 +173,29 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
 
     private void jComboBoxBDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxBDItemStateChanged
         // TODO add your handling code here:
+        BD=jComboBoxBD.getSelectedItem().toString();
         cargarTablas(jComboBoxBD.getSelectedItem().toString());
         
         
     }//GEN-LAST:event_jComboBoxBDItemStateChanged
+
+    private void jComboBoxTablasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTablasItemStateChanged
+        if(jComboBoxTablas.getSelectedItem()!=null) {
+            cargarVariablesTabla(jComboBoxTablas.getSelectedItem().toString());
+        }
+        
+    }//GEN-LAST:event_jComboBoxTablasItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        nombreVariables= new String[jCheckBoxVariables.length];
+        for(int x=0;x<jCheckBoxVariables.length;x++)
+        {    
+            if(jCheckBoxVariables[x].isSelected()) {
+                nombreVariables[x]=jCheckBoxVariables[x].getText();
+                System.out.println(nombreVariables[x]);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,6 +232,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBoxBD;
     private javax.swing.JComboBox jComboBoxTablas;
     private javax.swing.JPanel jPanel1;
@@ -231,6 +273,32 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
             for(int x=0;x<tablas.size();x++) {
                 jComboBoxTablas.addItem(tablas.get(x).toString());
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void cargarVariablesTabla(String tabla) {
+        try {
+            jPanelVariables.removeAll();
+            ArrayList variables= new ArrayList();
+            ArrayList tipoDato= new ArrayList();
+            ResultSet useBase = conexionLocal.ejecutarQuery("use "+BD);
+            ResultSet ejecutarQueryTablas = conexionLocal.ejecutarQuery("DESCRIBE "+tabla);
+            while(ejecutarQueryTablas.next()){
+                variables.add(ejecutarQueryTablas.getString(1));
+                tipoDato.add(ejecutarQueryTablas.getString(2));
+                System.out.println(ejecutarQueryTablas.getString(1)+"------->"+ejecutarQueryTablas.getString(2));
+            }
+            jCheckBoxVariables= new JCheckBox[variables.size()];
+            
+            for(int x=0;x<variables.size();x++) {
+              jCheckBoxVariables[x]=new JCheckBox(variables.get(x).toString());
+              jCheckBoxVariables[x].setBounds(0, 35*(x+1),100,25);
+              jPanelVariables.add(jCheckBoxVariables[x]);
+              jPanelVariables.repaint();
+              jButton1.setEnabled(true);
+           }
         } catch (SQLException ex) {
             Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
