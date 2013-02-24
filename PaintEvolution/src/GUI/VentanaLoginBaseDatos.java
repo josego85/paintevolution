@@ -184,15 +184,20 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
         String pwd=jPasswordFieldContrasenhiaLogin.getText();
         
         String BD= jTextFieldBaseDatos.getText();
+        ConexionMysql conexion = null;
         if(!user.equals("")&&!pwd.equals("")){
             try {
-                util.ConexionMysql conexion= new ConexionMysql(user,pwd,BD);
+                conexion= new ConexionMysql(user,pwd,BD);
                 System.out.println("Conexion Exitosa ");
                 ventanaBaseDatos= new VentanaBaseDatos(conexion);
                 ventanaBaseDatos.setVisible(true);
                 this.dispose();
                 
             } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this,"El servidor local ha dicho: "+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                try {
+                    conexion.terminarConexion();
+                } catch (SQLException ex1) {}
                 System.out.println(ex.getMessage());
                 Logger.getLogger(VentanaLoginBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
             }
