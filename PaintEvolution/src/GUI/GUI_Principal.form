@@ -6,7 +6,7 @@
       <Properties>
         <Property name="title" type="java.lang.String" value="Colores"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[450, 450]"/>
+          <Dimension value="[660, 395]"/>
         </Property>
         <Property name="modalExclusionType" type="java.awt.Dialog$ModalExclusionType" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="APPLICATION_EXCLUDE"/>
@@ -54,6 +54,11 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JColorChooser" name="jColorChooserColores">
+          <Properties>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[515, 265]"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonAceptar">
           <Properties>
@@ -474,6 +479,7 @@
       <SubComponents>
         <Container class="javax.swing.JToolBar" name="jToolBarBarraDeHerramientas">
           <Properties>
+            <Property name="floatable" type="boolean" value="false"/>
             <Property name="rollover" type="boolean" value="true"/>
           </Properties>
 
