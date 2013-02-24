@@ -27,11 +27,11 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         conexionLocal=conexion;
         BD=conexionLocal.getBaseDatos();
         if(BD.equals("")) {
-            CargarBasesDatos();
+            cargarBasesDatos();
         }
         else{
             jComboBoxBD.addItem(BD);
-            CargarTablas(BD);
+            cargarTablas(BD);
         }
       }
     public VentanaBaseDatos() {
@@ -151,7 +151,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
 
     private void jComboBoxBDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxBDItemStateChanged
         // TODO add your handling code here:
-        CargarTablas(jComboBoxBD.getSelectedItem().toString());
+        cargarTablas(jComboBoxBD.getSelectedItem().toString());
         
         
     }//GEN-LAST:event_jComboBoxBDItemStateChanged
@@ -199,7 +199,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelVariables;
     // End of variables declaration//GEN-END:variables
     //carga los elementos de la BaseDatos
-    private void CargarBasesDatos(){
+    private void cargarBasesDatos(){
         try {
             
             ArrayList bases= new ArrayList();
@@ -219,7 +219,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
        
     }
 
-    private void CargarTablas(String BD) {
+    private void cargarTablas(String BD) {
         try {
             jComboBoxTablas.removeAllItems();
             ArrayList tablas= new ArrayList();
