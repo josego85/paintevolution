@@ -25,6 +25,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
     /**
      * Creates new form VentanaLoginBaseDatos
      */
+    VentanaBaseDatos ventanaBaseDatos;
     public VentanaLoginBaseDatos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -67,6 +68,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login a Base de Datos");
         setPreferredSize(new java.awt.Dimension(450, 350));
         getContentPane().setLayout(null);
 
@@ -113,8 +115,8 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
             jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLoginBaseDatosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonLogin)
-                .addGap(41, 41, 41)
+                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonCancelar)
                 .addGap(111, 111, 111))
             .addGroup(jPanelLoginBaseDatosLayout.createSequentialGroup()
@@ -133,11 +135,8 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelLoginBaseDatosLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanelLoginBaseDatosLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
         );
         jPanelLoginBaseDatosLayout.setVerticalGroup(
             jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,14 +181,19 @@ public class VentanaLoginBaseDatos extends javax.swing.JDialog {
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         String user=jFormattedTextFieldUsuarioLogin.getText();
-        String pwd=jPasswordFieldContrasenhiaLogin.getPassword().toString();
+        String pwd=jPasswordFieldContrasenhiaLogin.getText();
+        
         String BD= jTextFieldBaseDatos.getText();
         if(!user.equals("")&&!pwd.equals("")){
             try {
-                util.ConexionMysql conexion= new ConexionMysql(user, pwd,BD);
+                util.ConexionMysql conexion= new ConexionMysql(user,pwd,BD);
+                System.out.println("Conexion Exitosa ");
+                ventanaBaseDatos= new VentanaBaseDatos(conexion);
+                ventanaBaseDatos.setVisible(true);
+                this.dispose();
+                
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
-                System.out.println(ex.getSQLState());
                 Logger.getLogger(VentanaLoginBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
             }
             

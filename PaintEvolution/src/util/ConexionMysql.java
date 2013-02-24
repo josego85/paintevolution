@@ -27,7 +27,9 @@ public class ConexionMysql {
     public ResultSet ejecutarQuery(String query) throws SQLException{
         return s.executeQuery(query);
     }
-    
+    public void terminarConexion() throws SQLException{
+    conexion.close();
+    }
     
     
 }
