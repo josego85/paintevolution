@@ -77,7 +77,6 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
      */
     public VentanaBaseDatos() {
         initComponents();
-        
     }
 
 
@@ -223,7 +222,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxTablasItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        nombreVariables= new String[jCheckBoxVariables.length];
+        nombreVariables = new String[jCheckBoxVariables.length];
       
         for(int x = 0; x < jCheckBoxVariables.length;x++){    
             if(jCheckBoxVariables[x].isSelected()){
@@ -231,6 +230,14 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
                 System.out.println(nombreVariables[x]);
             }
         }
+        
+        // Ir a la ventanaCrearTexto.
+        VentanaCrearTexto ventanaCrearTexto = new VentanaCrearTexto();
+        ventanaCrearTexto.setLocationRelativeTo(this);
+	ventanaCrearTexto.setVisible(true);
+        
+        // Se cierra la VentanaBaseDatos.
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

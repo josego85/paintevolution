@@ -1299,9 +1299,12 @@ public class GUI_Principal extends javax.swing.JFrame {
      */
     public void mostrarVentanaOpcionesImagen() {
         this.setLocationRelativeTo(null);
-        ventanaOpcionesImagen = new VentanaOpcionesImagen(this, rootPaneCheckingEnabled);
+        ventanaOpcionesImagen = new VentanaOpcionesImagen();
         ventanaOpcionesImagen.setLocationRelativeTo(this);
 	ventanaOpcionesImagen.mostrarOpcionesImagen();
+        
+        // Ocultar GUI_Principal.
+        this.setVisible(false);
     }
 
     /**
