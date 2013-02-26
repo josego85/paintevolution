@@ -1299,12 +1299,21 @@ public class GUI_Principal extends javax.swing.JFrame {
      */
     public void mostrarVentanaOpcionesImagen() {
         this.setLocationRelativeTo(null);
-        ventanaOpcionesImagen = new VentanaOpcionesImagen();
+        
+        // Se crea una imagen Temporal de lo ultimo que esta en la mesaDibujo.
+        String rutaImagenTemporal = mesaDeDibujo.crearImagenTemporal();
+
+        ventanaOpcionesImagen = new VentanaOpcionesImagen(rutaImagenTemporal);
         ventanaOpcionesImagen.setLocationRelativeTo(this);
 	ventanaOpcionesImagen.mostrarOpcionesImagen();
         
+        
+        
         // Ocultar GUI_Principal.
-        this.setVisible(false);
+        //this.setVisible(false);
+        
+        // Cerrar GUI_Principal.
+        //this.dispose();
     }
 
     /**

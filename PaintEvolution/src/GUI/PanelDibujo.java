@@ -70,8 +70,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     private final static int CIRCULO = 1, RECTANGULO = 2, OVALO = 3,
-            RECTANGULO_CON_CURVAS_REDONDAS = 4, PINCEL = 5, LINEA = 6, LAPIZ = 7,
-            TEXTO = 8, BORRADOR = 9, ARRASTRAR = 10, NULO = 0;
+        RECTANGULO_CON_CURVAS_REDONDAS = 4, PINCEL = 5, LINEA = 6, LAPIZ = 7,
+        TEXTO = 8, BORRADOR = 9, ARRASTRAR = 10, NULO = 0;
 
     /**
      * Las coordenadas de inicio y fin de "x".
@@ -1320,11 +1320,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         
         try{
             JOptionPane.showMessageDialog(null, "Archivo Guardado",
-                    "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
-                    + Constantes.TITULO_PROGRAMA,
-                    JOptionPane.INFORMATION_MESSAGE);   
+                "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO
+                + Constantes.TITULO_PROGRAMA,
+                JOptionPane.INFORMATION_MESSAGE);   
         }catch(Exception e){
-            System.out.println(e.getMessage());
+             System.out.println(e.getMessage());
         }
 
         try {
@@ -1368,14 +1368,14 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         fileChooser.setFileFilter(new FiltroArchivo());
 
         int result = fileChooser.showOpenDialog(null);
-        if(result == JFileChooser.CANCEL_OPTION)
+        if(result == JFileChooser.CANCEL_OPTION){
             return;
+        }  
 
         nombreArchivo = fileChooser.getSelectedFile();
 
         if(nombreArchivo != null){
             try{
-
                 borrarTodo();
                 BufferedImage image = ImageIO.read(nombreArchivo);
                 imagen = ImageIO.read(nombreArchivo);
@@ -1410,6 +1410,27 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         setImagen(imagen);
         g2.dispose();
         setImagen(imagen);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String crearImagenTemporal(){
+        // Creamos una imagen temporal.
+        File imagenTemporal = null; 
+        
+        try {
+            imagenTemporal = File.createTempFile("ImagenTemporal.png", null);
+            
+            // Se crea la ultima instancia de lo dibujado en el PanelDibujo.
+            crearImagen();
+            
+            ImageIO.write(getImagen(), "png", imagenTemporal);
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return imagenTemporal.getAbsolutePath();
     }
 
     /**

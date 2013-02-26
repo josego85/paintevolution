@@ -22,12 +22,19 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     private String baseDatos;
     private JCheckBox[] jCheckBoxVariables;
     private String[] nombreVariables;
-
+    private static String rutaImagenTemporal;
+    
     /**
      * 
      * @param conexion 
      */
-    public VentanaBaseDatos(ConexionMysql conexion) {
+    public VentanaBaseDatos(ConexionMysql conexion, String rutaImagenTemporal) {
+        /*
+         * Se guarda la ruta de la imagen temporal para luego usar,
+         * al crear un Texto con registros de la base de datos.
+         */
+        this.rutaImagenTemporal = rutaImagenTemporal;
+        
         initComponents();
        
         /* 
@@ -75,7 +82,13 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     /**
      * 
      */
-    public VentanaBaseDatos() {
+    public VentanaBaseDatos(String rutaImagenTemporal) {
+        /*
+         * Se guarda la ruta de la imagen temporal para luego usar,
+         * al crear un Texto con registros de la base de datos.
+         */
+        this.rutaImagenTemporal = rutaImagenTemporal;
+        
         initComponents();
     }
 
@@ -232,7 +245,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         }
         
         // Ir a la ventanaCrearTexto.
-        VentanaCrearTexto ventanaCrearTexto = new VentanaCrearTexto();
+        VentanaCrearTexto ventanaCrearTexto = new VentanaCrearTexto(rutaImagenTemporal);
         ventanaCrearTexto.setLocationRelativeTo(this);
 	ventanaCrearTexto.setVisible(true);
         
@@ -270,7 +283,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaBaseDatos().setVisible(true);
+                new VentanaBaseDatos(rutaImagenTemporal).setVisible(true);
             }
         });
     }
