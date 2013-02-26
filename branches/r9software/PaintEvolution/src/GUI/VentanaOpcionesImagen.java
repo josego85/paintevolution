@@ -19,11 +19,18 @@ import javax.swing.JOptionPane;
 public class VentanaOpcionesImagen extends javax.swing.JFrame {
     // Objetos de clase.
     private VentanaLoginBaseDatos ventanaLoginBaseDatos;
+    private static String rutaImagenTemporal;
     
     /**
      * Creates new form VentanaOpcionesImagen
      */
-    public VentanaOpcionesImagen() {
+    public VentanaOpcionesImagen(String rutaImagenTemporal) {
+        /*
+         * Se guarda la ruta de la imagen temporal para luego usar,
+         * al crear un Texto con registros de la base de datos.
+         */
+        this.rutaImagenTemporal = rutaImagenTemporal;
+        
         initComponents();
         inicializarObjetos();
     }
@@ -138,7 +145,7 @@ public class VentanaOpcionesImagen extends javax.swing.JFrame {
              mensaje = "Imagen Estatica!!!";
             JOptionPane.showMessageDialog(null, mensaje, "Error!", JOptionPane.WARNING_MESSAGE);
         }else if(jRadioButtonImagenDinamica.isSelected()){
-             ventanaLoginBaseDatos = new VentanaLoginBaseDatos();
+             ventanaLoginBaseDatos = new VentanaLoginBaseDatos(rutaImagenTemporal);
              ventanaLoginBaseDatos.setLocationRelativeTo(this);
 	     ventanaLoginBaseDatos.mostraLoginBaseDatos();
              
@@ -215,7 +222,7 @@ public class VentanaOpcionesImagen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaOpcionesImagen().setVisible(true);
+                new VentanaOpcionesImagen(rutaImagenTemporal).setVisible(true);
             }
         });
     }
