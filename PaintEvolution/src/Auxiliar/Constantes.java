@@ -29,7 +29,7 @@ public class Constantes {
      * Tamanhio maximo del largo de la pantalla dibujo.
      * @since 1.6
      */
-    public static final int MAXIMO_LARGO_PANTALLA_DIBUJO = 700;
+    public static final int MAXIMO_LARGO_PANTALLA_DIBUJO = 850;
     /**
      * Tamanhio maximo del largo de la pantalla dibujo.
      * @since 1.6

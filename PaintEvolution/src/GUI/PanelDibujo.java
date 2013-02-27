@@ -259,6 +259,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         colorBorde                  = Color.BLACK;          // De color negro
         colorRelleno                = null;                 // Sin relleno    
         setBackground(getColorFondoPantallaDibujo());
+        
+        // Tamaño del PanelDibujo.
+        setSize(Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO, 
+            Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);
         //repaint();
     }
 
@@ -1239,13 +1243,12 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
                     && ventanaTexto.isDibujaTexto()){
                 texto.setPosicionInicialX(coordenadasInicioX);
                 texto.setPosicionInicialY(coordenadasInicioY);
-                g2 = (Graphics2D)g;
 
                 FontRenderContext contextoFuente = g2.getFontRenderContext();
                 Font fuente = new Font(texto.getTipo(), texto.getEstilo(), texto.getTamanio());
                 TextLayout layout = new TextLayout( texto.getContenidoTexto(), fuente, contextoFuente );
                 g2.setColor( texto.getColor());
-                layout.draw( g2,getCoordenadasInicioX(), getCoordenadasInicioY());
+                layout.draw( g2, getCoordenadasInicioX(), getCoordenadasInicioY());
                 setHabilitarDibujarTexto(false);
             }
         }

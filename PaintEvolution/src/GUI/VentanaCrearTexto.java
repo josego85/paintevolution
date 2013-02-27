@@ -4,16 +4,45 @@
  */
 package GUI;
 
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 /**
  *
  * @author proyectosbeta
  */
-public class VentanaCrearTexto extends javax.swing.JFrame {
+public class VentanaCrearTexto extends javax.swing.JFrame{
     ////////////////////////////////////////////////////////////////////////////
     // Variables de clase.
     ////////////////////////////////////////////////////////////////////////////
     private panelDibujoTexto panelDibujoTexto;
     private static String rutaImagenTemporal;
+    
+    /**
+     * Cursor actual.
+     * @since 1.6
+     */
+    private Cursor cursorActual;
+    
+    /**
+     * Cursor predeterminado.
+     * @since 1.6
+     */
+    private Cursor cursorPredeterminado;
+    
+    /**
+     * Imagen para el cursor pencil.
+     * @since 1.6
+     */
+     private Image pencilImg;
+     
+     /**
+     * FALTA COMENTAR
+     *
+     * @since 1.6
+     */
+    private Toolkit toolKit;
     
     /**
      * Creates new form VentanaCrearTexto
@@ -35,6 +64,11 @@ public class VentanaCrearTexto extends javax.swing.JFrame {
         getContentPane().add(panelDibujoTexto, java.awt.BorderLayout.EAST);
        
         //setContentPane(panelDibujoTexto);
+        
+        Cursor cursorLetra = new Cursor(Cursor.TEXT_CURSOR);
+        cursorActual = cursorLetra;
+        panelDibujoTexto.setCursorActual(cursorActual);
+        panelDibujoTexto.setModoDibujar(8);
         pack();
     }
 
@@ -61,14 +95,14 @@ public class VentanaCrearTexto extends javax.swing.JFrame {
             jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCrearTextoLayout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 73, Short.MAX_VALUE))
+                .addGap(0, 86, Short.MAX_VALUE))
         );
         jPanelCrearTextoLayout.setVerticalGroup(
             jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCrearTextoLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(jLabel1)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelCrearTexto);
