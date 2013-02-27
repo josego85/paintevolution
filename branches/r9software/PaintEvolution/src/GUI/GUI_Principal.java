@@ -93,7 +93,6 @@ public class GUI_Principal extends javax.swing.JFrame {
      */
     boolean modificarImagenSinGuardar;
 
-
     /**
      * Cursor predeterminado.
      * @since 1.6
@@ -178,7 +177,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         setTitle(Constantes.TITULO_PROGRAMA);
 
         // Maximiza la aplicacion.
-        setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
+        //setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
 
         // Deshabilitar la opcion de Maximizar ventana.
         setResizable(false);
@@ -188,7 +187,7 @@ public class GUI_Principal extends javax.swing.JFrame {
          * GUI_Principal a 487 de ancho. Para que el canvas contenga 700 de alto 
          * se tiene que poner la ventana GUI_Principal a 977 de alto. 
          */
-        setSize(977, 487);
+        setSize(1150, 487);
         
         // Crea el objeto de Mesa de Dibujo
         mesaDeDibujo = new PanelDibujo();
@@ -275,6 +274,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jLabelCoordenadasPuntero = new javax.swing.JLabel();
         jLabelHerramientaSeleccionada = new javax.swing.JLabel();
         jLabelHerramientaSeleccionadaObjeto = new javax.swing.JLabel();
+        jPanelLadoDerecho = new javax.swing.JPanel();
+        jLabelEspacioBlanco10 = new javax.swing.JLabel();
         jMenuBarArchivo = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -704,6 +705,14 @@ public class GUI_Principal extends javax.swing.JFrame {
         jPanelInformacionExtra.add(jLabelHerramientaSeleccionadaObjeto);
 
         getContentPane().add(jPanelInformacionExtra, java.awt.BorderLayout.SOUTH);
+
+        jPanelLadoDerecho.setLayout(new javax.swing.BoxLayout(jPanelLadoDerecho, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabelEspacioBlanco10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelEspacioBlanco10.setText("         ");
+        jPanelLadoDerecho.add(jLabelEspacioBlanco10);
+
+        getContentPane().add(jPanelLadoDerecho, java.awt.BorderLayout.EAST);
 
         jMenuArchivo.setText("Archivo");
         jMenuArchivo.setToolTipText("Archivo");
@@ -1547,6 +1556,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxGrosorBorde;
     private javax.swing.JDialog jDialogColor;
     public static javax.swing.JLabel jLabelCoordenadasPuntero;
+    private javax.swing.JLabel jLabelEspacioBlanco10;
     private javax.swing.JLabel jLabelHerramientaSeleccionada;
     private javax.swing.JLabel jLabelHerramientaSeleccionadaObjeto;
     private javax.swing.JLabel jLabelTamanioGrosor;
@@ -1570,6 +1580,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelBarraAccesoDirecto;
     private javax.swing.JPanel jPanelBarraDeHerramientas;
     private javax.swing.JPanel jPanelInformacionExtra;
+    private javax.swing.JPanel jPanelLadoDerecho;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
