@@ -32,10 +32,13 @@ public class ConexionMysql {
     public ConexionMysql(String user, String password, String baseDatos) throws SQLException{
         setBaseDatos(baseDatos);
         setUser(user);
-        setPassword(password);
-         
+        setPassword(password);      
     }
     
+    /**
+     * Metodo publico que abre una conexion a la base de datos mysql (localhost).
+     * @throws SQLException 
+     */
     public void abrirConexion()throws SQLException{
         this.conexion = DriverManager.getConnection ("jdbc:mysql://localhost/" + getBaseDatos(), 
             getUsuario(), getPassword());
@@ -57,7 +60,7 @@ public class ConexionMysql {
      * @throws SQLException 
      */
     public void terminarConexion() throws SQLException{
-        conexion.close();
+        this.conexion.close();
     }
     
     /**
