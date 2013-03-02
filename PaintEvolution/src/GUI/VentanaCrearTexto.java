@@ -7,6 +7,8 @@ package GUI;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.print.Printable;
+import java.awt.print.PrinterJob;
 /**
  *
  * @author proyectosbeta
@@ -70,6 +72,27 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         panelDibujoTexto.setModoDibujar(0);
         pack();
     }
+    
+    /**
+     * Metodo que muestra la ventana Impresora.
+     * @since 1.6
+     */
+    public void mostrarVentanaImpresora() {
+        PrinterJob printJob = PrinterJob.getPrinterJob();
+        printJob.setPrintable((Printable) panelDibujoTexto);
+
+        // Dialogo de configuracion de impresora.
+        if( printJob.printDialog() ) {
+            try {
+                printJob.print();
+            } catch(java.awt.print.PrinterException e){
+                System.out.println("El servicio de impresion esta desactivado.");
+            }
+            catch( Exception e ) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +106,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         jPanelCrearTexto = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButtonInsertarImagen = new javax.swing.JButton();
+        jButtonImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());
@@ -118,6 +142,14 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
 
         getContentPane().add(jPanelCrearTexto);
 
+        jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonImprimir);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -125,6 +157,11 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         // Busca una imagen para luego insertar en el panelDibujoTexto.
         panelDibujoTexto.abrirImagen();
     }//GEN-LAST:event_jButtonInsertarImagenActionPerformed
+
+    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        // Se muestra la ventana de la impresora.
+        mostrarVentanaImpresora();
+    }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,6 +198,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonInsertarImagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelCrearTexto;

@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import baseDatos.ModeloDefaultTableModel;
+import baseDatos.ModeloTabla;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
     private static ArrayList listaNombreColumnas;
     private static ResultSet resultSetRegistros;
     private DefaultTableModel modelo;
+    private ModeloDefaultTableModel modeloDefaultTableModel;
     private JScrollPane scrollPane;
     
     
@@ -41,15 +44,17 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         
         initComponents();
 
+        //jTableSeleccionarDatos.setPreferredScrollableViewportSize(new Dimension(500, 70));
         /*
-         * Instancia del scrollPane.
+         * Creamos un JscrollPane y le agregamos la JTable
          */
         scrollPane = new JScrollPane();
         
         /*
-         * Se agrega al scrollPane la tabla.
-         */
-        //scrollPane.add(jTableSeleccionarDatos);
+         * Agregamos el JScrollPane al contenedor.
+         */ 
+        //getContentPane().add(scrollPane, BorderLayout.CENTER);
+
         
         /*
          * En este array se cargan las columnas que viene de la listaNombreColumnas.
@@ -60,7 +65,10 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
          * Se crea una instancia del modelo con las nombre de las columnas
          * que se le pasa al constructor.
          */ 
-        modelo = new DefaultTableModel(nombreColumnas, nombreColumnas.length - 1);
+        //modelo = new DefaultTableModel(nombreColumnas, nombreColumnas.length - 1);
+        
+        ModeloTabla modeloTabla = new ModeloTabla();
+        modeloDefaultTableModel = new ModeloDefaultTableModel(nombreColumnas, nombreColumnas.length -1);
         
         // Se agrega filas al modelo.
         agregarFilas();
@@ -68,8 +76,8 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         /*
          * Se coloca el modelo a la tabla.
          */
-        jTableSeleccionarDatos.setModel(modelo);
-        
+        //jTableSeleccionarDatos.setModel(modelo);
+        jTableSeleccionarDatos.setModel(modeloDefaultTableModel);
         
     }
 
@@ -193,10 +201,11 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
      * 
      */
     private String[] cargarColumnas(){
-        String[] nombreColumnas = new String[listaNombreColumnas.size()];
+        String[] nombreColumnas = new String[listaNombreColumnas.size()+1];
         
+        nombreColumnas[0] = "";
         for(int i = 0; i < listaNombreColumnas.size(); i++){
-            nombreColumnas[i] = (String)listaNombreColumnas.get(i);
+            nombreColumnas[i+1] = (String)listaNombreColumnas.get(i);
         }
         return nombreColumnas;
     }
@@ -214,9 +223,11 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
                     datos[i] = resultSetRegistros.getObject(i + 1);
 	        }
                 System.out.println("entro!!!");
-	        this.modelo.addRow(datos);
+                this.modeloDefaultTableModel.addRow(datos);
+	        //this.modelo.addRow(datos);
 	    }
 	}catch(Exception e) {
+            System.out.println("El error es: " + e.getMessage());
         }finally{
             if(resultSetRegistros != null){
                 try{
