@@ -6,7 +6,6 @@ package GUI;
 
 import java.awt.Cursor;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 /**
  *
@@ -67,8 +66,8 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         
         Cursor cursorLetra = new Cursor(Cursor.TEXT_CURSOR);
         cursorActual = cursorLetra;
-        panelDibujoTexto.setCursorActual(cursorActual);
-        panelDibujoTexto.setModoDibujar(8);
+        //panelDibujoTexto.setCursorActual(cursorActual);
+        panelDibujoTexto.setModoDibujar(0);
         pack();
     }
 
@@ -83,18 +82,28 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
 
         jPanelCrearTexto = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButtonInsertarImagen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());
 
         jLabel1.setText("Posicion texto");
 
+        jButtonInsertarImagen.setText("Imagen");
+        jButtonInsertarImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertarImagenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCrearTextoLayout = new javax.swing.GroupLayout(jPanelCrearTexto);
         jPanelCrearTexto.setLayout(jPanelCrearTextoLayout);
         jPanelCrearTextoLayout.setHorizontalGroup(
             jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCrearTextoLayout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jButtonInsertarImagen))
                 .addGap(0, 86, Short.MAX_VALUE))
         );
         jPanelCrearTextoLayout.setVerticalGroup(
@@ -102,13 +111,20 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
             .addGroup(jPanelCrearTextoLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(jLabel1)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonInsertarImagen)
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelCrearTexto);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonInsertarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarImagenActionPerformed
+        // Busca una imagen para luego insertar en el panelDibujoTexto.
+        panelDibujoTexto.abrirImagen();
+    }//GEN-LAST:event_jButtonInsertarImagenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,6 +161,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonInsertarImagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelCrearTexto;
     // End of variables declaration//GEN-END:variables
