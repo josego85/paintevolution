@@ -1333,7 +1333,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         PrinterJob printJob = PrinterJob.getPrinterJob();
         printJob.setPrintable((Printable) mesaDeDibujo);
 
-        // Dialogo de configuracion de impresora
+        // Dialogo de configuracion de impresora.
         if( printJob.printDialog() ) {
             try {
                 printJob.print();

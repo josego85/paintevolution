@@ -95,8 +95,8 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     
     private int coordenadaX;             // x coord - set from drag.
     private int coordenadaY;             // y coord - set from drag.
-    private int _dragFromX;         
-    private int _dragFromY;         
+    private int dragFromX;         
+    private int dragFromY;         
     boolean isMouseDrag;
     
     
@@ -134,8 +134,8 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
        }
        coordenadaX = 50;   // x coord - set from drag
        coordenadaY = 50;   // y coord - set from drag
-       _dragFromX = 0;    // pressed this far inside ball's
-       _dragFromY = 0;    // bounding box.
+       dragFromX = 0;    // pressed this far inside ball's
+       dragFromY = 0;    // bounding box.
        isMouseDrag = false;   
     }
     
@@ -415,8 +415,8 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
          */
         if (isMouseDrag) {   
             //--- Ball pos from mouse and original click displacement
-            coordenadaX = evt.getX() - _dragFromX;
-            coordenadaY = evt.getY() - _dragFromY;
+            coordenadaX = evt.getX() - dragFromX;
+            coordenadaY = evt.getY() - dragFromY;
             
             //--- Don't move the ball off the screen sides
             coordenadaX = Math.max(coordenadaX, 0);
@@ -453,7 +453,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         /*
          * Si no existe ninguna imagenInsertada entonces no se hace el drag.
          */
-        if (imagenInsertada == null){
+        if (getImagenInsertada() == null){
             return;
         }
         
@@ -463,8 +463,8 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
 	if(x >= coordenadaX && x <= (coordenadaX + ANCHO_IMAGEN_REDIMENCIONADA) 
                 && y >= coordenadaY && y <= (coordenadaY + ALTO_IMAGEN_REDIMENCIONADA)){
 	    isMouseDrag = true;
-            _dragFromX = x - coordenadaX;  // how far from left.
-            _dragFromY = y - coordenadaY;  // how far from top.
+            dragFromX = x - coordenadaX;  // how far from left.
+            dragFromY = y - coordenadaY;  // how far from top.
 	}else{
              isMouseDrag = false;
         }
