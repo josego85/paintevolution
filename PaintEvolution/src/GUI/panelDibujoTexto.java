@@ -5,14 +5,12 @@
 package GUI;
 
 import Auxiliar.Constantes;
+import Auxiliar.FiltroArchivo;
 import Auxiliar.Texto;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.font.FontRenderContext;
-import java.awt.font.TextLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -22,6 +20,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,8 +29,19 @@ import javax.imageio.ImageIO;
  */
 public class panelDibujoTexto extends javax.swing.JPanel implements Serializable, Printable{
     // Objetos.
-    private BufferedImage imagen;
+    private BufferedImage imagenInsertada;
+    private BufferedImage imagenPrincipal;
     private static String rutaImagenTemporal;
+
+    /*
+     * Constante del ancho de una imagen con 50 pixeles.
+     */
+    private final static int ANCHO_IMAGEN_REDIMENCIONADA = 50; 
+    
+    /*
+     * Constante del ancho de una imagen con 50 pixeles.
+     */
+    private final static int ALTO_IMAGEN_REDIMENCIONADA = 50; 
     
     /**
      * Constantes:
@@ -65,25 +76,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     private Texto texto;
     
     /**
-     * Las coordenadas de inicio y fin de "x".
-     * @since 1.6
-     */
-    private int coordenadasInicioX, coordenadasFinX;
-
-    /**
-     * Las coordenadas de inicio y fin de "y".
-     * @since 1.6
-     */
-    private int coordenadasInicioY, coordenadasFinY;
-    
-    /**
-     * Guarda las coordenadas iniciales y finales de "x" e "y" que usan el
-     * lapiz y pincel.
-     * @since 1.6
-     */
-    private int lineaX1, lineaX2, lineaY1, lineaY2;
-    
-    /**
      * Lista de Texto a dibujar.
      * @since 1.6
      */
@@ -94,6 +86,19 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      * @since 1.6
      */
     private Cursor cursorActual;
+    
+    /**
+     * El nombre del archivo que se usa para guardar la imagen.
+     * @since 1.6
+     */
+    private File nombreArchivo;
+    
+    private int coordenadaX;             // x coord - set from drag.
+    private int coordenadaY;             // y coord - set from drag.
+    private int _dragFromX;         
+    private int _dragFromY;         
+    boolean isMouseDrag;
+    
     
     /**
      * Creates new form panelDibujoTexto
@@ -111,26 +116,47 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         
         initComponents();
         
+        /*
+         * Imagen insertada es null porque el usuario deberia de elegir manualmente
+         * mediante el boton InsertarImagen.
+         */ 
+        imagenInsertada = null;
+        
         try{         
             System.out.println("El archivo temporal de la imagen es:  " + rutaImagenTemporal);
-            imagen = ImageIO.read(new File(rutaImagenTemporal));
-            int height = imagen.getHeight(this);
-            int width = imagen.getWidth(this);
+            imagenPrincipal = ImageIO.read(new File(rutaImagenTemporal));
+            int height = imagenPrincipal.getHeight(this);
+            int width = imagenPrincipal.getWidth(this);
             setPreferredSize(new Dimension(width, height));
         }catch(IOException ex){
             // handle exception...
             System.out.println("Problemas imagen");
        }
+       coordenadaX = 50;   // x coord - set from drag
+       coordenadaY = 50;   // y coord - set from drag
+       _dragFromX = 0;    // pressed this far inside ball's
+       _dragFromY = 0;    // bounding box.
+       isMouseDrag = false;   
     }
     
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.drawImage(imagen, 0, 0, null);  
-        
+        g.drawImage(imagenPrincipal, 0, 0, null);  
+         
+         if (getImagenInsertada() != null){
+             /*
+            g.drawImage(getImagenInsertada(), getCoordenadasInicioX(), getCoordenadasInicioY(), 
+                ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
+                * */
+              g.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
+                ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
+        }
+         
         // Dibujar Texto anterior.
-        dibujarTexto(g);
+        //dibujarTexto(g);
         
+         /*
         if (modoDibujar == getTEXTO() && isHabilitarDibujarTexto()
             && ventanaTexto.isDibujaTexto()){
             texto.setPosicionInicialX(coordenadasInicioX);
@@ -145,6 +171,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
             layout.draw( g2, getCoordenadasInicioX(), getCoordenadasInicioY());
             setHabilitarDibujarTexto(false);
         }
+        * */
     }
     
     /**
@@ -200,118 +227,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     }
     
     /**
-     * Establece la coordenada final de x.
-     *
-     * @param coordenadasFinX La coordenada final de x
-     * @since 1.6
-     */
-    public void setCoordenadasFinX(int coordenadasFinX) {
-        if(coordenadasFinX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
-                && coordenadasFinX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
-           this.coordenadasFinX = coordenadasFinX;
-        }
-    }
-    
-     /**
-     * Establece la coordenada final de y.
-     *
-     * @param coordenadasFinY La coordenada final de y
-     * @since 1.6
-     */
-    public void setCoordenadasFinY(int coordenadasFinY) {
-        if(coordenadasFinY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
-                && coordenadasFinY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
-            this.coordenadasFinY = coordenadasFinY;
-        }
-    }
-    
-    /**
-     * Establece la coordenada inicial de x.
-     *
-     * @param coordenadasInicioX La coordenada inicial de x
-     * @since 1.6
-     */
-    public void setCoordenadasInicioX(int coordenadasInicioX) {
-        if(coordenadasInicioX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
-                && coordenadasInicioX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
-            this.coordenadasInicioX = coordenadasInicioX;
-        }
-    }
-    
-    /**
-     * Establece la coordenada inicial de y.
-     *
-     * @param coordenadasInicioY La coordenada inicial de y
-     * @since 1.6
-     */
-    public void setCoordenadasInicioY(int coordenadasInicioY) {
-        if(coordenadasInicioY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
-                && coordenadasInicioY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
-            this.coordenadasInicioY = coordenadasInicioY;
-        }
-    }
-    
-    /**
-     * Devuelve la coordenada inicial de x.
-     *
-     * @return La coordenada inicial de x
-     * @since 1.6
-     */
-    public int getCoordenadasInicioX() {
-        return coordenadasInicioX;
-    }
-    
-    /**
-     * Devuelve la coordenada inicial de y.
-     *
-     * @return La coordenada inicial de y
-     * @since 1.6
-     */
-    public int getCoordenadasInicioY() {
-        return coordenadasInicioY;
-    }
-
-    /**
-     * Establece la coordenada inicial de x para el lapiz y pincel.
-     *
-     * @param lineaX1 La coordenada inicial de x para el lapiz y pincel
-     * @since 1.6
-     */
-    public void setLineaX1(int lineaX1) {
-        this.lineaX1 = lineaX1;
-    }
-
-    /**
-     * Establece la coordenada final de x para el lapiz y pincel.
-     *
-     * @param lineaX2 La coordenada final de x para el lapiz y pincel
-     * @since 1.6
-     */
-    public void setLineaX2(int lineaX2) {
-        this.lineaX2 = lineaX2;
-    }
-
-    /**
-     * Establece la coordenada inicial de y para el lapiz y pincel.
-     *
-     * @param lineaY1 La coordenada inicial de y para el lapiz y pincel
-     * @since 1.6
-     */
-    public void setLineaY1(int lineaY1) {
-        this.lineaY1 = lineaY1;
-    }
-
-    /**
-     * Establece la coordenada final de y para el lapiz y pincel.
-     *
-     * @param lineaY2 La coordenada final de y para el lapiz y pincel
-     * @since 1.6
-     */
-    public void setLineaY2(int lineaY2) {
-        this.lineaY2 = lineaY2;
-    }
-    
-    /**
      * Añada un objeto Texto a la lista de texto a dibujar.
      *
      * @param texto Una nuevo objeto Texto a dibujar
@@ -351,6 +266,77 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      */
     public void setCursorActual(Cursor cursorActual) {
         this.cursorActual = cursorActual;
+    }
+    
+    /**
+     * Abre la imagen con formato png.
+     *
+     * @since 1.6
+     */
+    public void abrirImagen(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.setFileFilter(new FiltroArchivo());
+
+        int result = fileChooser.showOpenDialog(null);
+        if(result == JFileChooser.CANCEL_OPTION){
+            return;
+        }  
+
+        nombreArchivo = fileChooser.getSelectedFile();
+
+        if(nombreArchivo != null){
+            try{
+                //borrarTodo();
+                BufferedImage image = ImageIO.read(nombreArchivo);
+                imagenInsertada = ImageIO.read(nombreArchivo);
+                setImagenInsertada(nombreArchivo);
+
+                Graphics g = image.getGraphics();
+                g.drawImage(image, 0, 0, this);
+            }catch(Exception exp){
+                 JOptionPane.showMessageDialog(null,"No se puede abrir el archivo",
+                     "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                     Constantes.TITULO_PROGRAMA, JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else{
+            nombreArchivo = null;
+	}
+        repaint();
+    }
+    
+    /**
+     * Establece la imagen actual.
+     *
+     * @param imagen La imagen actual
+     * @since 1.6
+     */
+    public void setImagenInsertada(Image imagenInsertada){
+        this.imagenInsertada = (BufferedImage)imagenInsertada;          // Imagen insertada.
+        repaint();                                              // Se dibuja la imagen insertada.
+    }
+    
+    /**
+     * Asigna la imagen actual mediante un archivo.
+     *
+     * @param file El archivo de entrada para guardar la imagen.
+     * @throws IOException Error del archivo de entrada para guardar la imagen.
+     * @since 1.6
+     */
+    public void setImagenInsertada(File file) throws IOException{
+        setImagenInsertada(ImageIO.read(file));
+        repaint();                                              // Se dibuja la nueva imagen
+    }
+
+    /**
+     * Devuelve la imagen actual.
+     *
+     * @return La imagen actual
+     * @since 1.6
+     */
+    public BufferedImage getImagenInsertada(){
+        return imagenInsertada;
     }
     
     /**
@@ -401,6 +387,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+       /*
         if(modoDibujar == getTEXTO()){
             mostrarVentanaTexto();
             if(ventanaTexto.isDibujaTexto()){
@@ -413,14 +400,38 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
             }
         }
         repaint();
+        * */
     }//GEN-LAST:event_formMouseClicked
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        //archivoGuardadoUltimaVersion = false;
-        setCoordenadasFinX(evt.getX());
-        setCoordenadasFinY(evt.getY());
+        /*
+         * Si no existe ninguna imagenInsertada entonces no se hace el drag. 
+         */
+        if (imagenInsertada == null){
+            return;
+        }
+        /*
+         * True solo si el click esta encima de la imagenInsertada.
+         */
+        if (isMouseDrag) {   
+            //--- Ball pos from mouse and original click displacement
+            coordenadaX = evt.getX() - _dragFromX;
+            coordenadaY = evt.getY() - _dragFromY;
+            
+            //--- Don't move the ball off the screen sides
+            coordenadaX = Math.max(coordenadaX, 0);
+            coordenadaX = Math.min(coordenadaX, getWidth() - ANCHO_IMAGEN_REDIMENCIONADA);
+            
+            //--- Don't move the ball off top or bottom
+            coordenadaY = Math.max(coordenadaY, 0);
+            coordenadaY = Math.min(coordenadaY, getHeight() - ALTO_IMAGEN_REDIMENCIONADA);
+            
+            /*
+             * Se vuelve a pintar porque se cambio de posicion.
+             */
+            repaint();         
+        }
         //GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
-        repaint();
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
@@ -434,22 +445,37 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        isMouseDrag = false;
         //GUI_Principal.jLabelCoordenadasPuntero.setText("");
     }//GEN-LAST:event_formMouseExited
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        setCoordenadasInicioX(evt.getX());
-        setLineaX1(evt.getX());
-        setLineaX2(evt.getX());
-        setCoordenadasInicioY(evt.getY());
-        setLineaY1(evt.getY());
-        setLineaY2(evt.getY());
+        /*
+         * Si no existe ninguna imagenInsertada entonces no se hace el drag.
+         */
+        if (imagenInsertada == null){
+            return;
+        }
+        
+        int x = evt.getX();   // Save the x coord of the click.
+        int y = evt.getY();   // Save the y coord of the click.
+
+	if(x >= coordenadaX && x <= (coordenadaX + ANCHO_IMAGEN_REDIMENCIONADA) 
+                && y >= coordenadaY && y <= (coordenadaY + ALTO_IMAGEN_REDIMENCIONADA)){
+	    isMouseDrag = true;
+            _dragFromX = x - coordenadaX;  // how far from left.
+            _dragFromY = y - coordenadaY;  // how far from top.
+	}else{
+             isMouseDrag = false;
+        }
+	evt.consume();
         //GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         //GUI_Principal.jLabelCoordenadasPuntero.setText("x: " + evt.getX() + "   y: " + evt.getY());
-        //repaint();
+        isMouseDrag = false;
+        evt.consume();
     }//GEN-LAST:event_formMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
