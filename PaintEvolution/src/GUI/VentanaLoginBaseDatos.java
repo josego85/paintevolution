@@ -170,7 +170,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanelLoginBaseDatos);
-        jPanelLoginBaseDatos.setBounds(0, 0, 397, 298);
+        jPanelLoginBaseDatos.setBounds(0, 0, 397, 287);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
