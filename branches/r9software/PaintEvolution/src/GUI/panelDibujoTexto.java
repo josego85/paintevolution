@@ -397,6 +397,9 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         // Objetos.
         Object objeto;
         
+        // Borra la lista de texto.
+        listaTexto.clear();
+            
         for(int i = 0; i < arrayFilasSeleccionadas.size(); i++){
             ArrayList filaSeleccionada = arrayFilasSeleccionadas.get(i);
             Iterator iterador = filaSeleccionada.iterator();

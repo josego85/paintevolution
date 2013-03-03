@@ -4,9 +4,6 @@
  */
 package GUI;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.print.Printable;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
@@ -276,6 +273,10 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         panelDibujoTexto.prepararImagenesTemporales();
+        
+        // Se cierra VentanaCrearTexto.
+        //this.dispose();
+        
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonInsertarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarImagenActionPerformed
