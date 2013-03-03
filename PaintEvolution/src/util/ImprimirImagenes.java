@@ -7,24 +7,17 @@ package util;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;  
 import java.util.Collection;  
-      
-  
-import javax.print.Doc;  
-import javax.print.DocFlavor;  
-import javax.print.DocPrintJob;  
-import javax.print.PrintException;  
-import javax.print.PrintService;  
-import javax.print.PrintServiceLookup;  
-import javax.print.SimpleDoc;  
-import javax.print.attribute.HashPrintRequestAttributeSet;  
-import javax.print.attribute.PrintRequestAttributeSet;  
-import javax.print.attribute.standard.JobName;  
-import javax.print.attribute.standard.MediaSizeName; 
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -32,63 +25,75 @@ import javax.print.attribute.standard.MediaSizeName;
  */
 public class ImprimirImagenes implements Printable{
     // Objetos.
-    protected ArrayList imageList = new ArrayList<Object>();  
+    protected ArrayList imageList = new ArrayList<String>();
+    private ArrayList imagenes = new ArrayList();
+    
   
     /**
      * 
      */
-    public ImprimirImagenes(){  
+    public ImprimirImagenes(){     
     }  
-          
+    
+    /**
+     * 
+     * @param images
+     * @param printerName
+     * @param requestNumber 
+     */
     @SuppressWarnings("unchecked")  
-    public void print(Collection images, String printerName, String requestNumber){  
+    public void print(Collection images, String requestNumber){  
         this.imageList.clear();  
         this.imageList.addAll(images);  
-        printData(printerName, requestNumber);  
+        
+        crearImagenes();
+        
+        printData(requestNumber);  
     }  
   
-    protected void printData(String printerName, String requestNumber){  
-        String printer = printerName;             
-              
-        DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PRINTABLE;  
-        PrintService printService[] = PrintServiceLookup.lookupPrintServices(null, null);  
-        PrintService service = null;  
-              
-        for (int i = 0; i < printService.length; i++){  
-            String p_name = printService[i].getName();  
-            if (p_name.equals(printer)){  
-                service = printService[i];  
-            }  
-        }                
-  
+    /**
+     * 
+     * @param printerName
+     * @param requestNumber 
+     */
+    protected void printData(String requestNumber){   
         try{  
-            DocPrintJob pj = service.createPrintJob();  
-            PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();  
-            aset.add(new JobName(requestNumber, null));  
-            aset.add(MediaSizeName.NA_LETTER);  
-            Doc doc = new SimpleDoc(this, flavor, null);  
-            pj.print(doc, aset);  
-        }catch(PrintException pe){  
+            PrinterJob printJob = PrinterJob.getPrinterJob();
+            printJob.setPrintable(this);
+            
+            // El nombre por defecto de la impresion.
+            printJob.setJobName(requestNumber);
+            
+            if (printJob.printDialog()){
+                try { 
+                  printJob.print();
+                } catch(PrinterException pe) {
+                  System.out.println("Error printing: " + pe);
+                }
+            }
+            // Borrar todas las imagenes temporales que se imprimieron.
+            eliminarArchivosTempralesImpresion();
+        }catch(Exception pe){  
              System.err.println(pe);  
         }  
     }  
   
+    /**
+     * 
+     * @param g
+     * @param f
+     * @param pageIndex
+     * @return 
+     */
     public int print(Graphics g, PageFormat f, int pageIndex){  
         if (pageIndex >= imageList.size()){  
             return Printable.NO_SUCH_PAGE;  
         }  
-        RenderedImage image = (RenderedImage) imageList.get(pageIndex);  
+        RenderedImage  image = (RenderedImage ) imagenes.get(pageIndex);  
   
         if (image != null){  
             Graphics2D g2 = (Graphics2D) g;  
             g2.translate(f.getImageableX(), f.getImageableY());  
-  
-            int imgWidth = (int)image.getWidth();  
-            int imgHeight = (int)image.getHeight();  
-            double xRatio = (double) f.getImageableWidth() / (double) imgWidth;  
-            double yRatio = (double) f.getImageableHeight() / (double) imgHeight;  
-  
-            g2.scale(xRatio, yRatio);  
   
             AffineTransform at = AffineTransform.getTranslateInstance(f.getImageableX(), f.getImageableY());  
             g2.drawRenderedImage(image, at);  
@@ -98,4 +103,40 @@ public class ImprimirImagenes implements Printable{
             return Printable.NO_SUCH_PAGE;  
         }  
     }  
+    
+    /**
+     * 
+     */
+    private void crearImagenes(){
+        try{
+            for(int j = 0; j < imageList.size(); j++){                     
+                FileInputStream fis = new FileInputStream((imageList.get(j).toString()));  
+                BufferedImage ri = ImageIO.read(fis);  
+                imagenes.add(ri);  
+
+                fis.close();  
+                ri.flush();                   
+                ri = null;  
+            } 
+        }catch(Exception e){
+             System.out.println("El error es: " + e.getMessage());   
+        }
+    }
+    
+    
+    /**
+     * Metodo privado que elimina las imagenes temporales que se imprimio.
+     */
+    private void eliminarArchivosTempralesImpresion(){
+        // Objetos.
+        String rutaImagenTemporal;
+        
+        for(int j = 0; j < imageList.size(); j++){    
+            rutaImagenTemporal = imageList.get(j).toString();
+            File eliminarArchivo = new File(rutaImagenTemporal);
+            
+            // Se elimina el archivo de la imagen Temporal.
+            eliminarArchivo.delete();
+        } 
+    }
 }

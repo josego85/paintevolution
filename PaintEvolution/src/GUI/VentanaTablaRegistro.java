@@ -4,12 +4,14 @@
  */
 package GUI;
 
+import Auxiliar.Constantes;
 import baseDatos.ModeloDefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -137,16 +139,21 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
         ArrayList<ArrayList> arrayFilasSeleccionadas = mandarFilasSeleccionadas();
         
-        System.out.println("La cantidad seleccionada es: " + arrayFilasSeleccionadas.size());
-        
-        // Ir a la ventanaCrearTexto.
-        VentanaCrearTexto ventanaCrearTexto = new VentanaCrearTexto(rutaImagenTemporal, 
+        if(arrayFilasSeleccionadas.size() != 0){
+            // Ir a la ventanaCrearTexto.
+            VentanaCrearTexto ventanaCrearTexto = new VentanaCrearTexto(rutaImagenTemporal, 
             nombreColumnas, arrayFilasSeleccionadas);
-        ventanaCrearTexto.setLocationRelativeTo(this);
-	ventanaCrearTexto.setVisible(true);
+            ventanaCrearTexto.setLocationRelativeTo(this);
+            ventanaCrearTexto.setVisible(true);
         
-        // Se cierra la VentanaTablaRegistro.
-        this.dispose();
+            // Se cierra la VentanaTablaRegistro.
+            this.dispose();
+        }else{
+            String mensaje = "Seleccione pr lo menos un registro para imprimir!!!";
+            JOptionPane.showMessageDialog(this, mensaje,
+                "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO + 
+                Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
     /**
@@ -211,7 +218,8 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
                     if(i < nombreColumnas.length -1 ){
                         datos[i] = resultSetRegistros.getObject(i + 1);
                     }else{
-                        datos[i] = Boolean.TRUE;
+                        //datos[i] = Boolean.TRUE;
+                        datos[i] = Boolean.FALSE;
                     }
 	        }
                 this.modeloDefaultTableModel.addRow(datos);

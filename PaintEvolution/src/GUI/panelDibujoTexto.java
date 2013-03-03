@@ -10,20 +10,15 @@ import Auxiliar.Texto;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.font.FontRenderContext;
-import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -34,13 +29,14 @@ import util.ImprimirImagenes;
  *
  * @author proyectosbeta
  */
-public class panelDibujoTexto extends javax.swing.JPanel implements Serializable, Printable{
+public class panelDibujoTexto extends javax.swing.JPanel implements Serializable{
     // Objetos.
     private BufferedImage imagenInsertada;
     private BufferedImage imagenPrincipal;
     private BufferedImage imagenTemporalImprimir;
     private static String rutaImagenTemporal;
     private ArrayList<String> listaImagenesTemporalesImprimir;
+    private static ArrayList<ArrayList> arrayFilasSeleccionadas;
     
     /*
      * Constante del ancho de una imagen con 50 pixeles.
@@ -71,12 +67,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      * @since 1.6
      */
     private boolean habilitarDibujarTexto;
-    
-    /**
-     * La ventana Texto.
-     * * @since 1.6
-     */
-    private VentanaTexto ventanaTexto;  
     
     /**
      * Donde se manipula el objeto texto con sus atributos.
@@ -112,16 +102,20 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     /**
      * Creates new form panelDibujoTexto
      */
-    public panelDibujoTexto(String rutaImagenTemporal) {
+    public panelDibujoTexto(String rutaImagenTemporal, ArrayList<ArrayList> arrayFilasSeleccionadas) {
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
         this.rutaImagenTemporal = rutaImagenTemporal;
         this.habilitarDibujarTexto = false;
-        this.ventanaTexto = null;
         texto = null;
         setModoDibujar(NULO);
+        
+        /**
+         * Se guardan las filas seleccionadas con sus campos correspondientes.
+         */
+        this.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
         
         initComponents();
         
@@ -132,13 +126,13 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         imagenInsertada = null;
         
         try{         
-            System.out.println("El archivo temporal de la imagen es:  " + rutaImagenTemporal);
+            //System.out.println("El archivo temporal de la imagen es:  " + rutaImagenTemporal);
             imagenPrincipal = ImageIO.read(new File(rutaImagenTemporal));
             int height = imagenPrincipal.getHeight(this);
             int width = imagenPrincipal.getWidth(this);
             setPreferredSize(new Dimension(width, height));
         }catch(IOException ex){
-            // handle exception...
+            // Manejador de excepcines.
             System.out.println("Problemas imagen");
        }
        coordenadaX = 50;   // x coord - set from drag
@@ -157,52 +151,12 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         super.paint(g);
         g.drawImage(imagenPrincipal, 0, 0, null);  
          
-         if (getImagenInsertada() != null){
-             /*
-            g.drawImage(getImagenInsertada(), getCoordenadasInicioX(), getCoordenadasInicioY(), 
-                ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
-                * */
-              g.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
+        if (getImagenInsertada() != null){
+            g.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
                 ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
         }
-         
-        // Dibujar Texto anterior.
-        //dibujarTexto(g);
-        
-        
-        if (modoDibujar == getTEXTO() && isHabilitarDibujarTexto()
-            && ventanaTexto.isDibujaTexto()){
-            texto.setPosicionInicialX(coordenadaX);
-            texto.setPosicionInicialY(coordenadaY);
-            
-            Graphics2D g2 = (Graphics2D)g;
-            FontRenderContext contextoFuente = g2.getFontRenderContext();
-            Font fuente = new Font(texto.getTipo(), texto.getEstilo(), texto.getTamanio());
-            TextLayout layout = new TextLayout( texto.getContenidoTexto(), fuente, contextoFuente );
-            
-            g2.setColor( texto.getColor());
-            layout.draw( g2, coordenadaX, coordenadaY);
-            setHabilitarDibujarTexto(false);
-        }
-       
-        /* 
-        g.setFont(g.getFont().deriveFont(30f));
-        g.drawString("Hello World!", 100, 100);
-        * */
     }
-    
-    /**
-     * Metodo que muestra la ventana Texto.
-     * @since 1.6
-     */
-    public void mostrarVentanaTexto() {
-        if (ventanaTexto == null) {
-            ventanaTexto = new VentanaTexto(null, true);
-            ventanaTexto.setLocationRelativeTo(this);
-        }
-        ventanaTexto.setVisible(true);
-    }
-    
+
     /**
      * Establece en true para poder dibujar texto; false para no dibujar texto.
      *
@@ -361,15 +315,17 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      * en el panelDibujo.
      * @return 
      */
-    public String crearImagenTemporal(){
+    private String crearImagenTemporal(){
         // Creamos una imagen temporal.
         File imagenTemporal = null; 
         
         try {
             imagenTemporal = File.createTempFile("ImagenTemporalImprimir.png", null);
-            
+           
+            /*
             System.out.println("La ruta de la imagen temporal imprimir es: " + 
                 imagenTemporal.getAbsolutePath());
+            */
             
             // Se crea la ultima instancia de lo dibujado en el panelDibujoTexto.
             crearImagen();
@@ -387,7 +343,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      * Metodo publico que crea la imagen temporal para imprimir.
      * @since 1.6
      */
-    public void crearImagen() {
+    private void crearImagen() {
         imagenTemporalImprimir = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = imagenTemporalImprimir.createGraphics();
         
@@ -395,10 +351,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
 
         // Dibuja la imagenPrincipal.
         g2.drawImage(imagenPrincipal, 0, 0, null);  
-        
-        // Se inserta Texto.
-        insertarTextoImagen("Campo 1" , 100 , 20);
-        
+
         // Dibuja tods los textos.
         dibujarTexto(g2);
 
@@ -416,7 +369,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      * @param imagen La imagen actual
      * @since 1.6
      */
-    public void setImagenTemporal(Image imagen){
+    private void setImagenTemporal(Image imagen){
         this.imagenTemporalImprimir = (BufferedImage) imagen;   // Imagen imagenTemporalImprimir.
         repaint();                                              // Se dibuja la imagenTemporalImprimir.
     }
@@ -428,7 +381,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      * @throws IOException Error del archivo de entrada para guardar la imagen.
      * @since 1.6
      */
-    public void setImagenTemporal(File file) throws IOException{
+    private void setImagenTemporal(File file) throws IOException{
         setImagenTemporal(ImageIO.read(file));
         repaint();                                              // Se dibuja la imagenTemporalImprimir.
     }
@@ -437,12 +390,45 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     /**
      * 
      */
-    public void insertarTextoImagen(String campo, int x, int y){
+    private void insertarTextoImagen(String campo, int x, int y){
         Texto texto = new Texto(campo, "Dialog", 0 , 36, Color.BLACK, x, y);
         
         // Se agrega texto a la listaTexto.
-        agregarTexto(texto);
+        agregarTexto(texto); 
+    }
+    
+    /**
+     * 
+     */
+    private void insertarTextoImagenes(){
+        // Objetos.
+        Object objeto;
         
+        for(int i = 0; i < arrayFilasSeleccionadas.size(); i++){
+            ArrayList filaSeleccionada = arrayFilasSeleccionadas.get(i);
+            Iterator iterador = filaSeleccionada.iterator();
+            
+            int x = 100;
+            int y = 20;
+            while(iterador.hasNext()){
+                objeto = iterador.next();
+                x = x + 50;
+                y = y + 50;
+                insertarTextoImagen(objeto.toString() , x , y);
+  
+            }
+            // Crea la imagen temporal para imprimir.
+            crearImagenTemporal();
+            
+            // Borra la lista de texto.
+            listaTexto.clear();
+        }
+    }
+    
+    public void prepararImagenesTemporales(){
+        insertarTextoImagenes();
+        
+        imprimirImagenesTemporales();
     }
     
     /**
@@ -493,20 +479,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-       
-        if(modoDibujar == getTEXTO()){
-            mostrarVentanaTexto();
-            if(ventanaTexto.isDibujaTexto()){
-                texto = ventanaTexto.getTexto();
-                setHabilitarDibujarTexto(true);
-                //desHacerPila.push(texto);
-                agregarTexto(texto);
-            }else{
-                setHabilitarDibujarTexto(false);
-            }
-        }
-        repaint();
-        
     }//GEN-LAST:event_formMouseClicked
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
@@ -588,38 +560,12 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     // End of variables declaration//GEN-END:variables
 
     /**
-     * Este es el metodo que se encarga de la impresion.
-     *
-     * @param g El contexto en el que se dibuja la página
-     * @param pageFormat El tamaño y la orientación de la página
-     * @param pageIndex El indice de la pagina
-     * 
-     * @return Si la página se representa con éxito PAGE_EXISTS o si pageIndex se
-     *         especifica una página que no existe NO_SUCH_PAGE.
-     * @throws PrinterException Se lanza cuando termina la impresion
-     * @since 1.6
-     */
-    @Override
-    public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        
-        
-        
-        if( pageIndex >= 1 ) {
-            return( Printable.NO_SUCH_PAGE );
-        }
-        Graphics2D g2 = (Graphics2D)g;
-        g2.translate( pageFormat.getImageableX(), pageFormat.getImageableY() );
-        paint( g2 );
-        return( Printable.PAGE_EXISTS );
-    }
-    
-    /**
      * 
      */
     public void imprimirImagenesTemporales(){
         // Objetos.
         ImprimirImagenes imprimirImagenesTemporales = new ImprimirImagenes();
         
-        imprimirImagenesTemporales.print(listaImagenesTemporalesImprimir, "PDFCreator", "1");   
+        imprimirImagenesTemporales.print(listaImagenesTemporalesImprimir, "Paint Evolution");   
     }      
 }
