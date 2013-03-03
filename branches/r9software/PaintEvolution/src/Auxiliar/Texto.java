@@ -29,7 +29,7 @@ public class Texto {
     private String contenidoTexto;
 
     /**
-     * El tipó de texto.
+     * El tipo de texto.
      * @since 1.6
      */
     private String tipo;
@@ -279,6 +279,6 @@ public class Texto {
         fuente = new Font(getTipo(), getEstilo(), getTamanio());
         layout = new TextLayout(getContenidoTexto(), fuente, contextoFuente );
         g2.setColor(getColor());
-        layout.draw( g2,getPosicionInicialX(), getPosicionInicialY());
+        layout.draw( g2, getPosicionInicialX(), getPosicionInicialY());
     }
 }

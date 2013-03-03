@@ -1416,7 +1416,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
     
     /**
-     * 
+     * Metodo publico que crea una imagen temporal de la imagen creada
+     * en el panelDibujo.
      * @return 
      */
     public String crearImagenTemporal(){
