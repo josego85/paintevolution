@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.StringTokenizer;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -37,6 +38,8 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     private static String rutaImagenTemporal;
     private ArrayList<String> listaImagenesTemporalesImprimir;
     private static ArrayList<ArrayList> arrayFilasSeleccionadas;
+    private static String[] nombreColumnas;
+    private static ArrayList<String> arrayPosicionesTexto;
     
     /*
      * Constante del ancho de una imagen con 50 pixeles.
@@ -81,12 +84,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     private LinkedList<Texto> listaTexto = new LinkedList<Texto>();
     
     /**
-     * El cursor actual que se esta usando.
-     * @since 1.6
-     */
-    private Cursor cursorActual;
-    
-    /**
      * El nombre del archivo que se usa para guardar la imagen.
      * @since 1.6
      */
@@ -96,13 +93,14 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     private int coordenadaY;             // y coord - set from drag.
     private int dragFromX;         
     private int dragFromY;         
-    boolean isMouseDrag;
+    private boolean isMouseDrag;
     
     
     /**
      * Creates new form panelDibujoTexto
      */
-    public panelDibujoTexto(String rutaImagenTemporal, ArrayList<ArrayList> arrayFilasSeleccionadas) {
+    public panelDibujoTexto(String rutaImagenTemporal, ArrayList<ArrayList> arrayFilasSeleccionadas,
+            String[] nombreColumnas, ArrayList<String> arrayPosicionesTexto) {
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
@@ -116,6 +114,16 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
          * Se guardan las filas seleccionadas con sus campos correspondientes.
          */
         this.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
+        
+        /**
+         * Se guarda el array nombreColumnas.
+         */
+        this.nombreColumnas = nombreColumnas;
+        
+        /**
+         * Se guarda en un array las posiciones de los textos.
+         */
+        this.arrayPosicionesTexto = arrayPosicionesTexto;
         
         initComponents();
         
@@ -151,6 +159,11 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         super.paint(g);
         g.drawImage(imagenPrincipal, 0, 0, null);  
          
+        
+        crearTextoPrototipo();
+        
+        dibujarTexto(g);
+        
         if (getImagenInsertada() != null){
             g.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
                 ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
@@ -217,26 +230,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         for (Texto texto : listaTexto){
                 texto.dibujar(g);
         }
-    }
-    
-    /**
-     * Devuelve el cursor actual.
-     *
-     * @return El cursor actual
-     * @since 1.6
-     */
-    public Cursor getCursorActual() {
-        return cursorActual;
-    }
-    
-    /**
-     * Establece el cursor actual.
-     *
-     * @param cursorActual El cursor actual
-     * @since 1.6
-     */
-    public void setCursorActual(Cursor cursorActual) {
-        this.cursorActual = cursorActual;
     }
     
     /**
@@ -425,10 +418,35 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         }
     }
     
+    /**
+     * 
+     */
     public void prepararImagenesTemporales(){
         insertarTextoImagenes();
         
         imprimirImagenesTemporales();
+    }
+    
+    /**
+     * 
+     */
+    private void crearTextoPrototipo(){
+        // Variables.
+        int x = 0;
+        int y = 0;
+        
+        /**
+         * Como el array de String trae el campo imprimir,
+         * restamos la longitud total con 1, porque
+         * no queremos usar en la lista.
+         */
+        for(int i = 0; i < nombreColumnas.length - 1 ; i++){
+            StringTokenizer stringTokenizer = new StringTokenizer(arrayPosicionesTexto.get(i).toString(), 
+                ",");
+            x = Integer.parseInt(stringTokenizer.nextToken());
+            y = Integer.parseInt(stringTokenizer.nextToken());
+            insertarTextoImagen(nombreColumnas[i], x, y);
+        }
     }
     
     /**
@@ -513,7 +531,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        setCursor(getCursorActual());
     }//GEN-LAST:event_formMouseEntered
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved

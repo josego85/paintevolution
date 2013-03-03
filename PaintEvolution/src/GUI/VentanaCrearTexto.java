@@ -24,32 +24,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
     private static String rutaImagenTemporal;
     private static String[] nombreColumnas;
     private static ArrayList<ArrayList> arrayFilasSeleccionadas;
-    private DefaultTableModel modelTabla;
-    
-    /**
-     * Cursor actual.
-     * @since 1.6
-     */
-    private Cursor cursorActual;
-    
-    /**
-     * Cursor predeterminado.
-     * @since 1.6
-     */
-    private Cursor cursorPredeterminado;
-    
-    /**
-     * Imagen para el cursor pencil.
-     * @since 1.6
-     */
-     private Image pencilImg;
-     
-     /**
-     * FALTA COMENTAR
-     *
-     * @since 1.6
-     */
-    private Toolkit toolKit;
+    private DefaultTableModel modeloTabla;
     
     /**
      * Creates new form VentanaCrearTexto
@@ -76,35 +51,37 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         
         initComponents();
         
-        // Crea el objeto de Mesa de Dibujo.
-        panelDibujoTexto = new panelDibujoTexto(rutaImagenTemporal, arrayFilasSeleccionadas);
-        
-        // Establece un esquema para la mesa de dibujo y agrega a la ventana
-        // principal
-        getContentPane().add(panelDibujoTexto, java.awt.BorderLayout.EAST);
-       
-        //setContentPane(panelDibujoTexto);
-        
-        Cursor cursorLetra = new Cursor(Cursor.TEXT_CURSOR);
-        cursorActual = cursorLetra;
-        //panelDibujoTexto.setCursorActual(cursorActual);
-        panelDibujoTexto.setModoDibujar(0);
-        
         // Se carga en la lista de campos seleccionados.
         cargarListColumnasSelecionadas();
 
          // Modelo para la tabla de PosicionesTexto..
-        modelTabla = new DefaultTableModel(); 
+        modeloTabla = new DefaultTableModel(); 
         
         // Se agrega a la tabla el modelo.
-        jTablePosicionTexto.setModel(modelTabla);
+        jTablePosicionTexto.setModel(modeloTabla);
         
         /*
          * Se carga en la lista las posiciones para colocar el Texto de cada campos
          * correspondiente.
          */
         cargarPosiciones();
-
+        
+        /*
+         * Guarda en un array las posiciones de los Texto (campos) que
+         * el usuario habia seleccionado anteriormente.
+         */
+        ArrayList<String> arrayPosicionesTexto = crearArrayPosicionesTexto();
+        
+        // Crea el objeto de Mesa de Dibujo.
+        panelDibujoTexto = new panelDibujoTexto(rutaImagenTemporal, arrayFilasSeleccionadas, 
+            nombreColumnas, arrayPosicionesTexto);
+        
+        // Establece un esquema para la mesa de dibujo y agrega a la ventana
+        // principal
+        getContentPane().add(panelDibujoTexto, java.awt.BorderLayout.EAST);
+       
+        //setContentPane(panelDibujoTexto);
+        panelDibujoTexto.setModoDibujar(0);
         pack();
     }
     
@@ -153,8 +130,12 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
      */
     private void cargarPosiciones(){
         // Agrego la columna Posicion.
-        modelTabla.addColumn("Posición");
+        modeloTabla.addColumn("Posición");
 
+        // Variables.
+        int x = 100;
+        int y = 50;
+        
         /**
          * Como el array de String trae el campo imprimir,
          * restamos la longitud total con 1, porque
@@ -162,11 +143,27 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
          * que coincidir con el jListCamposSeleccionados.
          */
         for(int i = 0; i < nombreColumnas.length - 1; i++){ 
-            Object nuevo[]= {"100,20"};
-            modelTabla.addRow(nuevo); 
+            x = x + 50;
+            y = y + 25;
+            Object nuevo[]= {x + "," + y};
+            modeloTabla.addRow(nuevo); 
         } 
         // Se agrega al jTablePosicionTexto las posiciones iniciales.
-        jTablePosicionTexto.setModel(modelTabla);
+        jTablePosicionTexto.setModel(modeloTabla);
+    }
+    
+    /**
+     * 
+     */
+    private ArrayList<String> crearArrayPosicionesTexto(){
+        // Objetos.
+        ArrayList<String> arrayPosicionesTexto = new ArrayList<String>();
+        DefaultTableModel modeloTabla = (DefaultTableModel)jTablePosicionTexto.getModel();
+        
+        for(int i = 0; i < modeloTabla.getRowCount(); i++){   
+            arrayPosicionesTexto.add((String)modeloTabla.getValueAt(i, 0).toString());
+        } 
+        return arrayPosicionesTexto;
     }
 
     /**
@@ -236,6 +233,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
                 "Title 1"
             }
         ));
+        jTablePosicionTexto.setEnabled(false);
         jScrollPane2.setViewportView(jTablePosicionTexto);
 
         javax.swing.GroupLayout jPanelCrearTextoLayout = new javax.swing.GroupLayout(jPanelCrearTexto);
@@ -277,13 +275,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        //panelDibujoTexto.crearImagenTemporal();
-        
         panelDibujoTexto.prepararImagenesTemporales();
-        //panelDibujoTexto.imprimirImagenesTemporales();
-        
-        // Se muestra la ventana de la impresora.
-        //mostrarVentanaImpresora();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonInsertarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarImagenActionPerformed
