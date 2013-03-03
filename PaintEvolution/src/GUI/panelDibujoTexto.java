@@ -7,10 +7,15 @@ package GUI;
 import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
 import Auxiliar.Texto;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -18,10 +23,12 @@ import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import util.ImprimirImagenes;
 
 /**
  *
@@ -31,8 +38,10 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     // Objetos.
     private BufferedImage imagenInsertada;
     private BufferedImage imagenPrincipal;
+    private BufferedImage imagenTemporalImprimir;
     private static String rutaImagenTemporal;
-
+    private ArrayList<String> listaImagenesTemporalesImprimir;
+    
     /*
      * Constante del ancho de una imagen con 50 pixeles.
      */
@@ -137,6 +146,10 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
        dragFromX = 0;    // pressed this far inside ball's
        dragFromY = 0;    // bounding box.
        isMouseDrag = false;   
+       
+       // Se crea el array que contendrà las imagenes temporales a imprimir.
+       listaImagenesTemporalesImprimir = new ArrayList<String>();
+       
     }
     
     @Override
@@ -156,11 +169,11 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         // Dibujar Texto anterior.
         //dibujarTexto(g);
         
-         /*
+        
         if (modoDibujar == getTEXTO() && isHabilitarDibujarTexto()
             && ventanaTexto.isDibujaTexto()){
-            texto.setPosicionInicialX(coordenadasInicioX);
-            texto.setPosicionInicialY(coordenadasInicioY);
+            texto.setPosicionInicialX(coordenadaX);
+            texto.setPosicionInicialY(coordenadaY);
             
             Graphics2D g2 = (Graphics2D)g;
             FontRenderContext contextoFuente = g2.getFontRenderContext();
@@ -168,9 +181,13 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
             TextLayout layout = new TextLayout( texto.getContenidoTexto(), fuente, contextoFuente );
             
             g2.setColor( texto.getColor());
-            layout.draw( g2, getCoordenadasInicioX(), getCoordenadasInicioY());
+            layout.draw( g2, coordenadaX, coordenadaY);
             setHabilitarDibujarTexto(false);
         }
+       
+        /* 
+        g.setFont(g.getFont().deriveFont(30f));
+        g.drawString("Hello World!", 100, 100);
         * */
     }
     
@@ -340,6 +357,95 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     }
     
     /**
+     * Metodo publico que crea una imagen temporal de la imagen creada
+     * en el panelDibujo.
+     * @return 
+     */
+    public String crearImagenTemporal(){
+        // Creamos una imagen temporal.
+        File imagenTemporal = null; 
+        
+        try {
+            imagenTemporal = File.createTempFile("ImagenTemporalImprimir.png", null);
+            
+            System.out.println("La ruta de la imagen temporal imprimir es: " + 
+                imagenTemporal.getAbsolutePath());
+            
+            // Se crea la ultima instancia de lo dibujado en el panelDibujoTexto.
+            crearImagen();
+            
+            ImageIO.write(imagenTemporalImprimir, "png", imagenTemporal);
+            
+            listaImagenesTemporalesImprimir.add(imagenTemporal.getAbsolutePath());
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return imagenTemporal.getAbsolutePath();
+    }
+    
+    /**
+     * Metodo publico que crea la imagen temporal para imprimir.
+     * @since 1.6
+     */
+    public void crearImagen() {
+        imagenTemporalImprimir = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = imagenTemporalImprimir.createGraphics();
+        
+        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        // Dibuja la imagenPrincipal.
+        g2.drawImage(imagenPrincipal, 0, 0, null);  
+        
+        // Se inserta Texto.
+        insertarTextoImagen("Campo 1" , 100 , 20);
+        
+        // Dibuja tods los textos.
+        dibujarTexto(g2);
+
+        if (getImagenInsertada() != null){
+            // Dibuja la imagenInsertada.
+            g2.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
+                ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
+        }
+        g2.dispose();
+    }
+    
+    /**
+     * Establece la imagen actual.
+     *
+     * @param imagen La imagen actual
+     * @since 1.6
+     */
+    public void setImagenTemporal(Image imagen){
+        this.imagenTemporalImprimir = (BufferedImage) imagen;   // Imagen imagenTemporalImprimir.
+        repaint();                                              // Se dibuja la imagenTemporalImprimir.
+    }
+
+    /**
+     * Asigna la imagen actual mediante un archivo.
+     *
+     * @param file El archivo de entrada para guardar la imagen.
+     * @throws IOException Error del archivo de entrada para guardar la imagen.
+     * @since 1.6
+     */
+    public void setImagenTemporal(File file) throws IOException{
+        setImagenTemporal(ImageIO.read(file));
+        repaint();                                              // Se dibuja la imagenTemporalImprimir.
+    }
+    
+    
+    /**
+     * 
+     */
+    public void insertarTextoImagen(String campo, int x, int y){
+        Texto texto = new Texto(campo, "Dialog", 0 , 36, Color.BLACK, x, y);
+        
+        // Se agrega texto a la listaTexto.
+        agregarTexto(texto);
+        
+    }
+    
+    /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
@@ -387,7 +493,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-       /*
+       
         if(modoDibujar == getTEXTO()){
             mostrarVentanaTexto();
             if(ventanaTexto.isDibujaTexto()){
@@ -400,7 +506,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
             }
         }
         repaint();
-        * */
+        
     }//GEN-LAST:event_formMouseClicked
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
@@ -481,8 +587,39 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Este es el metodo que se encarga de la impresion.
+     *
+     * @param g El contexto en el que se dibuja la página
+     * @param pageFormat El tamaño y la orientación de la página
+     * @param pageIndex El indice de la pagina
+     * 
+     * @return Si la página se representa con éxito PAGE_EXISTS o si pageIndex se
+     *         especifica una página que no existe NO_SUCH_PAGE.
+     * @throws PrinterException Se lanza cuando termina la impresion
+     * @since 1.6
+     */
     @Override
-    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        
+        
+        
+        if( pageIndex >= 1 ) {
+            return( Printable.NO_SUCH_PAGE );
+        }
+        Graphics2D g2 = (Graphics2D)g;
+        g2.translate( pageFormat.getImageableX(), pageFormat.getImageableY() );
+        paint( g2 );
+        return( Printable.PAGE_EXISTS );
     }
+    
+    /**
+     * 
+     */
+    public void imprimirImagenesTemporales(){
+        // Objetos.
+        ImprimirImagenes imprimirImagenesTemporales = new ImprimirImagenes();
+        
+        imprimirImagenesTemporales.print(listaImagenesTemporalesImprimir, "PDFCreator", "1");   
+    }      
 }
