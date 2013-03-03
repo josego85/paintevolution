@@ -12,7 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import util.ConexionMysql;
+import baseDatos.ConexionMysql;
+import java.util.Iterator;
 
 /**
  *
@@ -253,7 +254,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
              * Se carga en un resultSet todos los registros de la tabla
              * que el usuario eligio en un combobox.
              */
-            ResultSet resultSetRegistros = devolverRegistros(tabla);
+            ResultSet resultSetRegistros = devolverRegistros(tabla, listaNombreColumnas);
             
             // Ir a la ventanaTablaRegistro.
             VentanaTablaRegistro ventanaTablaRegistro = new VentanaTablaRegistro(rutaImagenTemporal, listaNombreColumnas, resultSetRegistros);
@@ -368,7 +369,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
             
             while(ejecutarQueryTablas.next()){
                 tablas.add(ejecutarQueryTablas.getString(1));
-                System.out.println(ejecutarQueryTablas.getString(1));
+                //System.out.println(ejecutarQueryTablas.getString(1));
             }
             for(int x = 0; x < tablas.size(); x++) {
                 jComboBoxTablas.addItem(tablas.get(x).toString());
@@ -446,25 +447,46 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     /**
      * 
      */
-    public ResultSet devolverRegistros(String tabla){
+    private ResultSet devolverRegistros(String tabla, ArrayList listaNombreColumnas){
         // Objetos.
         ResultSet ejecutarQueryRegistro = null;
+        String columnaConsulta = devuelveColumnasConsulta(listaNombreColumnas);
         
         try {
             // Abrir conexion a base de datos mysql local.
             //conexionLocal.abrirConexion();
-            
-
             conexionLocal.setBaseDatos(jComboBoxBD.getSelectedItem().toString());
             
-            System.out.println("El valor de la base de datos es: " + this.baseDatos);
+            //System.out.println("El valor de la base de datos es: " + this.baseDatos);
             
             // Realiza la consulta sql.
-            ejecutarQueryRegistro = conexionLocal.ejecutarQuery("select * from " + tabla);
+            ejecutarQueryRegistro = conexionLocal.ejecutarQuery("select " + 
+                columnaConsulta + " from " + tabla);
+            
+            /*
+            System.out.println("La sentencia sql es: " + "select " + 
+                columnaConsulta + " from " + tabla);
+                * */
         }catch(SQLException ex) {
              Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
         }
         return ejecutarQueryRegistro;
+    }
+    
+    /**
+     * 
+     * @param listaNombreColumnas
+     * @return 
+     */
+    private String devuelveColumnasConsulta(ArrayList listaNombreColumnas){
+        // Objetos.
+        String columnas = "";
+        Iterator iterador = listaNombreColumnas.iterator();
+        
+        while(iterador.hasNext()){
+            columnas = columnas + (String)iterador.next() + ",";
+        }
+        return columnas.substring(0, columnas.length() - 1);
     }
 }
