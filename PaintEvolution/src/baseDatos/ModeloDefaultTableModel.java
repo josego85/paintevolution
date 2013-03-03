@@ -11,19 +11,28 @@ import javax.swing.table.DefaultTableModel;
  * @author proyectosbeta
  */
 public class ModeloDefaultTableModel extends DefaultTableModel {
+    // Objetos
+    private int numeroColumnaBoolean;
+    
+    /**
+     * 
+     * @param nombreColumnas
+     * @param numeroColumnas
+     * @param columnaBoolean 
+     */
+    public ModeloDefaultTableModel(String[] nombreColumnas, int numeroColumnas){
+        super(nombreColumnas, numeroColumnas);
+        this.numeroColumnaBoolean = numeroColumnas;
+    }
+    
     /**
      * La primera columna es boolean, las demas Object.
      * @param columna
      * @return 
      */
-    
-    public ModeloDefaultTableModel(String[] nombreColumnas, int numeroColumnas){
-        super(nombreColumnas, numeroColumnas);
-    }
-    
     public Class getColumnClass(int columna){
-        if (columna == 0){
-            return Integer.class;
+        if (columna == numeroColumnaBoolean){
+            return Boolean.class;
         }
         return Object.class;
     }

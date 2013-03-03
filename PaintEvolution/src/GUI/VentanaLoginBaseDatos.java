@@ -8,7 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import util.ConexionMysql;
+import baseDatos.ConexionMysql;
 
 /**
  *

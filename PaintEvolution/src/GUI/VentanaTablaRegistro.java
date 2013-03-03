@@ -5,14 +5,11 @@
 package GUI;
 
 import baseDatos.ModeloDefaultTableModel;
-import baseDatos.ModeloTabla;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,9 +21,7 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
     private static String[] nombreColumnas;
     private static ArrayList listaNombreColumnas;
     private static ResultSet resultSetRegistros;
-    private DefaultTableModel modelo;
     private ModeloDefaultTableModel modeloDefaultTableModel;
-    private JScrollPane scrollPane;
     
     
     /**
@@ -44,12 +39,6 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         
         initComponents();
 
-        //jTableSeleccionarDatos.setPreferredScrollableViewportSize(new Dimension(500, 70));
-        /*
-         * Creamos un JscrollPane y le agregamos la JTable
-         */
-        scrollPane = new JScrollPane();
-        
         /*
          * Agregamos el JScrollPane al contenedor.
          */ 
@@ -63,12 +52,10 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         
         /* 
          * Se crea una instancia del modelo con las nombre de las columnas
-         * que se le pasa al constructor.
+         * que se le pasa al constructor y la cantidad de columnas.
          */ 
-        //modelo = new DefaultTableModel(nombreColumnas, nombreColumnas.length - 1);
-        
-        ModeloTabla modeloTabla = new ModeloTabla();
-        modeloDefaultTableModel = new ModeloDefaultTableModel(nombreColumnas, nombreColumnas.length -1);
+        modeloDefaultTableModel = new ModeloDefaultTableModel(nombreColumnas, 
+            nombreColumnas.length -1);
         
         // Se agrega filas al modelo.
         agregarFilas();
@@ -76,9 +63,7 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         /*
          * Se coloca el modelo a la tabla.
          */
-        //jTableSeleccionarDatos.setModel(modelo);
         jTableSeleccionarDatos.setModel(modeloDefaultTableModel);
-        
     }
 
     /**
@@ -99,10 +84,7 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
 
         jTableSeleccionarDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -135,25 +117,31 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonSiguiente))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonSiguiente)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jButtonSiguiente)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
+        ArrayList<ArrayList> arrayFilasSeleccionadas = mandarFilasSeleccionadas();
+        
+        System.out.println("La cantidad seleccionada es: " + arrayFilasSeleccionadas.size());
+        
         // Ir a la ventanaCrearTexto.
-        VentanaCrearTexto ventanaCrearTexto = new VentanaCrearTexto(rutaImagenTemporal);
+        VentanaCrearTexto ventanaCrearTexto = new VentanaCrearTexto(rutaImagenTemporal, 
+            nombreColumnas, arrayFilasSeleccionadas);
         ventanaCrearTexto.setLocationRelativeTo(this);
 	ventanaCrearTexto.setVisible(true);
         
@@ -201,12 +189,12 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
      * 
      */
     private String[] cargarColumnas(){
-        String[] nombreColumnas = new String[listaNombreColumnas.size()+1];
+        String[] nombreColumnas = new String[listaNombreColumnas.size() + 1];
         
-        nombreColumnas[0] = "";
         for(int i = 0; i < listaNombreColumnas.size(); i++){
-            nombreColumnas[i+1] = (String)listaNombreColumnas.get(i);
+            nombreColumnas[i] = (String)listaNombreColumnas.get(i);
         }
+        nombreColumnas[listaNombreColumnas.size()] = "Imprimir";
         return nombreColumnas;
     }
     
@@ -220,11 +208,13 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         try {
             while (resultSetRegistros.next()) {
                 for (int i = 0; i < nombreColumnas.length; i++) {
-                    datos[i] = resultSetRegistros.getObject(i + 1);
+                    if(i < nombreColumnas.length -1 ){
+                        datos[i] = resultSetRegistros.getObject(i + 1);
+                    }else{
+                        datos[i] = Boolean.TRUE;
+                    }
 	        }
-                System.out.println("entro!!!");
                 this.modeloDefaultTableModel.addRow(datos);
-	        //this.modelo.addRow(datos);
 	    }
 	}catch(Exception e) {
             System.out.println("El error es: " + e.getMessage());
@@ -242,6 +232,48 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
                 }
             }
         }
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    private ArrayList<ArrayList> mandarFilasSeleccionadas(){
+        // Objetos.
+        ArrayList<ArrayList> arrayFilas = new ArrayList(); 
+        Object objeto;
+        Boolean seImprime;
+        
+        // Variables.
+        int cantidadRegistros = modeloDefaultTableModel.getRowCount();
+        int cantidadColumnas = modeloDefaultTableModel.getColumnCount();
+
+        for(int i = 0; i < cantidadRegistros; i++ ){
+            // Objetos.
+            ArrayList<Object> arrayFila = new ArrayList();
+
+            for(int j = 0; j < cantidadColumnas; j++){
+                objeto = modeloDefaultTableModel.getValueAt(i, j);
+                if (objeto instanceof Boolean) {
+                    seImprime = (Boolean) objeto;
+                    if (seImprime.booleanValue()) {
+                        /*
+                         * La ultima columna pertenece al campo boolean,
+                         * y como no queremos guarda ese valor de ese campo, 
+                         * entonces cantidadColumnas - 1.
+                         */
+                        for(int z = 0; z < cantidadColumnas - 1; z++){
+                            arrayFila.add((Object) modeloDefaultTableModel.getValueAt(i, z));
+                        }
+                        /*
+                         * Se agrega al arrayFilas el arrayFila.
+                         */
+                       arrayFilas.add(arrayFila);  
+                    }
+                }
+            }
+        }
+        return arrayFilas;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
