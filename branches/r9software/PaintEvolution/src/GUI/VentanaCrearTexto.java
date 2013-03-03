@@ -77,7 +77,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         initComponents();
         
         // Crea el objeto de Mesa de Dibujo.
-        panelDibujoTexto = new panelDibujoTexto(rutaImagenTemporal);
+        panelDibujoTexto = new panelDibujoTexto(rutaImagenTemporal, arrayFilasSeleccionadas);
         
         // Establece un esquema para la mesa de dibujo y agrega a la ventana
         // principal
@@ -188,7 +188,6 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         jButtonImprimir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePosicionTexto = new javax.swing.JTable();
-        jButtonTexto = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -239,24 +238,15 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         ));
         jScrollPane2.setViewportView(jTablePosicionTexto);
 
-        jButtonTexto.setText("Texto");
-        jButtonTexto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTextoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelCrearTextoLayout = new javax.swing.GroupLayout(jPanelCrearTexto);
         jPanelCrearTexto.setLayout(jPanelCrearTextoLayout);
         jPanelCrearTextoLayout.setHorizontalGroup(
             jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCrearTextoLayout.createSequentialGroup()
-                .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonTexto)
-                    .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButtonInsertarImagen)
-                        .addComponent(jLabelCamposSeleccionados)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonInsertarImagen)
+                    .addComponent(jLabelCamposSeleccionados)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,9 +268,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
                 .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonInsertarImagen)
                     .addComponent(jButtonImprimir))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonTexto)
-                .addGap(405, 405, 405))
+                .addGap(446, 446, 446))
         );
 
         getContentPane().add(jPanelCrearTexto);
@@ -289,11 +277,9 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        //
-        //panelDibujoTexto.insertarTextoImagen();
+        //panelDibujoTexto.crearImagenTemporal();
         
-        panelDibujoTexto.crearImagenTemporal();
-        
+        panelDibujoTexto.prepararImagenesTemporales();
         //panelDibujoTexto.imprimirImagenesTemporales();
         
         // Se muestra la ventana de la impresora.
@@ -304,10 +290,6 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         // Busca una imagen para luego insertar en el panelDibujoTexto.
         panelDibujoTexto.abrirImagen();
     }//GEN-LAST:event_jButtonInsertarImagenActionPerformed
-
-    private void jButtonTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTextoActionPerformed
-        panelDibujoTexto.setModoDibujar(PanelDibujo.getTEXTO());
-    }//GEN-LAST:event_jButtonTextoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,7 +329,6 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonInsertarImagen;
-    private javax.swing.JButton jButtonTexto;
     private javax.swing.JLabel jLabelCamposSeleccionados;
     private javax.swing.JList jListCamposSeleccionados;
     private javax.swing.JPanel jPanelCrearTexto;
