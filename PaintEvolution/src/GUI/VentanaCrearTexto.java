@@ -4,16 +4,17 @@
  */
 package GUI;
 
-import Auxiliar.Constantes;
 import baseDatos.ModeloDefaultTableCampoPosicion;
 import java.util.ArrayList;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author proyectosbeta
  */
-public class VentanaCrearTexto extends javax.swing.JFrame {
+public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelListener {
     ////////////////////////////////////////////////////////////////////////////
     // Variables de clase.
     ////////////////////////////////////////////////////////////////////////////
@@ -84,12 +85,14 @@ public class VentanaCrearTexto extends javax.swing.JFrame {
          * VentanaCrearTexto
          */ 
         getContentPane().add(panelDibujoTexto, java.awt.BorderLayout.CENTER);
-       
+        //setContentPane(panelDibujoTexto);
+        
         // No se puede mover las columnas de posicion de jTableCamposPosiciones.
         jTableCamposPosiciones.getTableHeader().setReorderingAllowed(false); 
         
-        //setContentPane(panelDibujoTexto);
-        //panelDibujoTexto.setModoDibujar(0);
+        // Escuchador del modeloTablaCamposPosiciones.
+        modeloTablaCamposPosiciones.addTableModelListener(this);
+        
         pack();
     }
     
@@ -178,14 +181,14 @@ public class VentanaCrearTexto extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTablaPosicionesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelTablaPosicionesLayout.setVerticalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTablaPosicionesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         jPanelOpciones.add(jPanelTablaPosiciones, java.awt.BorderLayout.NORTH);
@@ -270,4 +273,24 @@ public class VentanaCrearTexto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCamposPosiciones;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void tableChanged(TableModelEvent e) {
+        // Variables.
+        int fila = e.getFirstRow();
+	int columna = e.getColumn();
+
+        System.out.println("La fila es: " + fila);
+        System.out.println("La columna es: " + columna);
+        
+	String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
+        panelDibujoTexto.actualizarPosicionTexto(fila, valorCeldaCambiada);
+        
+        panelDibujoTexto.repaint();
+
+        /*
+	JOptionPane.showMessageDialog(this, "Value at (" + fila + "," + columna + ") "
+            + "changed to " + "\'" + valorCeldaCambiada + "\'");
+            * */
+    }
 }
