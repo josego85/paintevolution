@@ -5,15 +5,15 @@
 package GUI;
 
 import Auxiliar.Constantes;
+import baseDatos.ConexionMysql;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import baseDatos.ConexionMysql;
-import java.util.Iterator;
 
 /**
  *
@@ -21,22 +21,23 @@ import java.util.Iterator;
  */
 public class VentanaBaseDatos extends javax.swing.JFrame {
     // Variables de clase.
-    private ConexionMysql conexionLocal;
+    private static ConexionMysql conexionLocal;
     private String baseDatos;
     private JCheckBox[] jCheckBoxVariables;
     private ArrayList listaNombreColumnas;
     private static String rutaImagenTemporal;
 
     /**
-     * 
-     * @param conexion 
+     * Constructor con dos parametros (conexion y rutaImagenTemporal)
+     * @param conexion
+     * @param rutaImagenTemporal 
      */
     public VentanaBaseDatos(ConexionMysql conexion, String rutaImagenTemporal) {
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
-        this.rutaImagenTemporal = rutaImagenTemporal;
+        VentanaBaseDatos.rutaImagenTemporal = rutaImagenTemporal;
         
         initComponents();
        
@@ -86,16 +87,19 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     /**
      * 
      */
+    /*
     public VentanaBaseDatos(String rutaImagenTemporal) {
+    * */
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
-        this.rutaImagenTemporal = rutaImagenTemporal;
+    /*
+        VentanaBaseDatos.rutaImagenTemporal = rutaImagenTemporal;
         
         initComponents();
     }
-
+*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -246,7 +250,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
                 listaNombreColumnas.add(jCheckBoxVariables[x].getText());
             }
         }
-        if(listaNombreColumnas.size() != 0){
+        if(!listaNombreColumnas.isEmpty()){
             // Obtener la tabla seleccionada del combobox (jComboBoxTablas).
             String tabla = (String)jComboBoxTablas.getSelectedItem(); 
             
@@ -300,8 +304,9 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new VentanaBaseDatos(rutaImagenTemporal).setVisible(true);
+                new VentanaBaseDatos(conexionLocal, rutaImagenTemporal).setVisible(true);
             }
         });
     }
@@ -320,7 +325,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     */
     private void cargarBasesDatos(){
         // Objetos.
-        ResultSet ejecutarQueryBases =  null;
+        ResultSet ejecutarQueryBases;
         
         try{ 
             ArrayList bases = new ArrayList();
@@ -359,7 +364,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
      */
     private void cargarTablas(String BD) {
         // Objetos.
-        ResultSet ejecutarQueryTablas = null;
+        ResultSet ejecutarQueryTablas;
         
         try {
             jComboBoxTablas.removeAllItems();
@@ -394,15 +399,19 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * 
+     * @param tabla 
+     */
     private void cargarVariablesTabla(String tabla) {
         // Objetos.
-        ResultSet useBase = null;
-        ResultSet ejecutarQueryTablas = null;
+        ResultSet useBase;
+        ResultSet ejecutarQueryTablas;
         
         try {
             jPanelVariables.removeAll();
-            ArrayList variables= new ArrayList();
-            ArrayList tipoDato= new ArrayList();
+            ArrayList variables = new ArrayList();
+            ArrayList tipoDato = new ArrayList();
             
             // Abrir conexion a base de datos mysql local.
             //conexionLocal.abrirConexion();
@@ -445,7 +454,10 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Metodo privado
+     * @param tabla
+     * @param listaNombreColumnas
+     * @return 
      */
     private ResultSet devolverRegistros(String tabla, ArrayList listaNombreColumnas){
         // Objetos.
@@ -475,7 +487,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Metodo privado.
      * @param listaNombreColumnas
      * @return 
      */

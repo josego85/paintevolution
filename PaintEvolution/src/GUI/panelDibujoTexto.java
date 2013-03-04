@@ -105,7 +105,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
-        this.rutaImagenTemporal = rutaImagenTemporal;
+        panelDibujoTexto.rutaImagenTemporal = rutaImagenTemporal;
         this.habilitarDibujarTexto = false;
         texto = null;
         setModoDibujar(NULO);
@@ -113,17 +113,17 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         /**
          * Se guardan las filas seleccionadas con sus campos correspondientes.
          */
-        this.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
+        panelDibujoTexto.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
         
         /**
          * Se guarda el array nombreColumnas.
          */
-        this.nombreColumnas = nombreColumnas;
+        panelDibujoTexto.nombreColumnas = nombreColumnas;
         
         /**
          * Se guarda en un array las posiciones de los textos.
          */
-        this.arrayPosicionesTexto = arrayPosicionesTexto;
+        panelDibujoTexto.arrayPosicionesTexto = arrayPosicionesTexto;
         
         initComponents();
         
@@ -151,7 +151,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
        
        // Se crea el array que contendrà las imagenes temporales a imprimir.
        listaImagenesTemporalesImprimir = new ArrayList<String>();
-       
     }
     
     @Override
@@ -227,8 +226,8 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      * @since 1.6
      */
     public void dibujarTexto(Graphics g){
-        for (Texto texto : listaTexto){
-                texto.dibujar(g);
+        for (Texto texto_temp : listaTexto){
+            texto_temp.dibujar(g);
         }
     }
     
@@ -384,10 +383,10 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      * 
      */
     private void insertarTextoImagen(String campo, int x, int y){
-        Texto texto = new Texto(campo, "Dialog", 0 , 36, Color.BLACK, x, y);
+        Texto texto_temp = new Texto(campo, "Dialog", 0 , 36, Color.BLACK, x, y);
         
         // Se agrega texto a la listaTexto.
-        agregarTexto(texto); 
+        agregarTexto(texto_temp); 
     }
     
     /**
@@ -435,8 +434,8 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
      */
     private void crearTextoPrototipo(){
         // Variables.
-        int x = 0;
-        int y = 0;
+        int x;
+        int y;
         
         /**
          * Como el array de String trae el campo imprimir,

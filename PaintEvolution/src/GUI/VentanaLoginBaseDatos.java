@@ -4,11 +4,11 @@
  */
 package GUI;
 
+import baseDatos.ConexionMysql;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import baseDatos.ConexionMysql;
 
 /**
  *
@@ -31,7 +31,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JFrame {
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
-        this.rutaImagenTemporal = rutaImagenTemporal;
+        VentanaLoginBaseDatos.rutaImagenTemporal = rutaImagenTemporal;
         
         initComponents();
         inicializarObjetos();
@@ -249,6 +249,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JFrame {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 VentanaLoginBaseDatos dialog = new VentanaLoginBaseDatos(rutaImagenTemporal);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {

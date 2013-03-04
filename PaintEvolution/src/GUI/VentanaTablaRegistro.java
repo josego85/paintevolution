@@ -4,7 +4,6 @@
  */
 package GUI;
 
-import Auxiliar.Constantes;
 import baseDatos.ModeloDefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,9 +34,9 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
          * Los valores de los parametros se guardan en variables de clase,
          * porque lueg se los va a usar.
          */
-        this.rutaImagenTemporal = rutaImagenTemporal;
-        this.listaNombreColumnas = listaNombreColumnas;
-        this.resultSetRegistros = resultSetRegistros;
+        VentanaTablaRegistro.rutaImagenTemporal = rutaImagenTemporal;
+        VentanaTablaRegistro.listaNombreColumnas = listaNombreColumnas;
+        VentanaTablaRegistro.resultSetRegistros = resultSetRegistros;
         
         initComponents();
 
@@ -50,7 +49,7 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         /*
          * En este array se cargan las columnas que viene de la listaNombreColumnas.
          */
-        this.nombreColumnas = cargarColumnas();
+        VentanaTablaRegistro.nombreColumnas = cargarColumnas();
         
         /* 
          * Se crea una instancia del modelo con las nombre de las columnas
@@ -138,9 +137,9 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-        ArrayList<ArrayList> arrayFilasSeleccionadas = mandarFilasSeleccionadas();
+        ArrayList<ArrayList> arrayFilasSeleccionadas = devolverArrayFilasSeleccionadas();
         
-        if(arrayFilasSeleccionadas.size() != 0){
+        if(!arrayFilasSeleccionadas.isEmpty()){
             // Ir a la ventanaCrearTexto.
             VentanaCrearTexto ventanaCrearTexto = new VentanaCrearTexto(rutaImagenTemporal, 
             nombreColumnas, arrayFilasSeleccionadas);
@@ -185,32 +184,35 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new VentanaTablaRegistro(rutaImagenTemporal, listaNombreColumnas, 
                     resultSetRegistros).setVisible(true);
             }
         });
     }
-     
+    
     /**
-     * 
+     * Metodo privado que carga en un array la lista de nombres de la columna,
+     * incluyendo el campo "imprimir" que contiene el checkbox.
+     * @return 
      */
     private String[] cargarColumnas(){
-        String[] nombreColumnas = new String[listaNombreColumnas.size() + 1];
+        String[] nombreColumnas_temp = new String[listaNombreColumnas.size() + 1];
         
         for(int i = 0; i < listaNombreColumnas.size(); i++){
-            nombreColumnas[i] = (String)listaNombreColumnas.get(i);
+            nombreColumnas_temp[i] = (String)listaNombreColumnas.get(i);
         }
-        nombreColumnas[listaNombreColumnas.size()] = "Imprimir";
-        return nombreColumnas;
+        nombreColumnas_temp[listaNombreColumnas.size()] = "imprimir";
+        return nombreColumnas_temp;
     }
     
     /**
-     * 
+     * Metodo privado que agrega todos los registros en el modeloDefaultTableModel.
      */
     private void agregarFilas(){
         // Objetos.
-        Object datos[] = new Object[nombreColumnas.length]; //Numero de columnas de la tabla
+        Object datos[] = new Object[nombreColumnas.length];     // Numero de columnas de la tabla.
 
         try {
             while (resultSetRegistros.next()) {
@@ -243,10 +245,11 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Metodo privado que devuelve en un arrayList todas las filas seleccionadas
+     * por el usuario.
      * @return 
      */
-    private ArrayList<ArrayList> mandarFilasSeleccionadas(){
+    private ArrayList<ArrayList> devolverArrayFilasSeleccionadas(){
         // Objetos.
         ArrayList<ArrayList> arrayFilas = new ArrayList(); 
         Object objeto;

@@ -29,7 +29,7 @@ public class VentanaOpcionesImagen extends javax.swing.JFrame {
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
-        this.rutaImagenTemporal = rutaImagenTemporal;
+        VentanaOpcionesImagen.rutaImagenTemporal = rutaImagenTemporal;
         
         initComponents();
         inicializarObjetos();
@@ -137,7 +137,7 @@ public class VentanaOpcionesImagen extends javax.swing.JFrame {
 
     private void jButtonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarActionPerformed
         // Objeto String.
-        String mensaje = "";
+        String mensaje;
         
         if(!jRadioButtonImagenEstatica.isSelected() && !jRadioButtonImagenDinamica.isSelected()){
             mensaje = "Debe seleccionar una opción!!!";
@@ -222,6 +222,7 @@ public class VentanaOpcionesImagen extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new VentanaOpcionesImagen(rutaImagenTemporal).setVisible(true);
             }
