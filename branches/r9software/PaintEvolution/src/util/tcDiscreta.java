@@ -8,16 +8,12 @@ package util;
  *
  * @author Rodo
  */
-class tcDiscreta {
+public class tcDiscreta {
     public static int N = 350;
-
-    
-
     public double C[][] = new double[N][N];
-
     public double Ct[][] = new double[N][N];
     
-    tcDiscreta() {
+    public tcDiscreta() {
         int i;
         int j;
         final double pi = Math.atan(1.0) * 4.0;
@@ -33,7 +29,7 @@ class tcDiscreta {
         }
     }
 
-    void ForwardDCT(final int input[][], final int output[][]) {
+    public void ForwardDCT(final int input[][], final int output[][]) {
         final double temp[][] = new double[N][N];
         double temp1;
         int i, j, k;
@@ -57,7 +53,7 @@ class tcDiscreta {
         }
     }
 
-    void InverseDCT(final int input[][], final int output[][]) {
+    public void InverseDCT(final int input[][], final int output[][]) {
         final double temp[][] = new double[N][N];
         double temp1;
         int i, j, k;
@@ -89,4 +85,3 @@ class tcDiscreta {
         }
     }
 }
-

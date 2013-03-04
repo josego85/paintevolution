@@ -1305,8 +1305,9 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
             fileChooser.setFileFilter(new FiltroArchivo());
             int resultado = fileChooser.showSaveDialog(null);
 
-            if(resultado == JFileChooser.CANCEL_OPTION)
+            if(resultado == JFileChooser.CANCEL_OPTION) {
                 return false;
+            }
             nombreArchivo = fileChooser.getSelectedFile();
 
             if(nombreArchivo == null || nombreArchivo.getName().equals("")){
@@ -1472,8 +1473,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * @since 1.6
      */
     public void dibujarTexto(Graphics g){
-        for (Texto texto : listaTexto){
-                texto.dibujar(g);
+        for (Texto texto_temp : listaTexto){
+            texto_temp.dibujar(g);
         }
     }
 

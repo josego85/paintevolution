@@ -158,6 +158,7 @@ public class Linea extends Figura{
      * @since 1.6
      */
     @Override
+    @SuppressWarnings("empty-statement")
     public void setPosicion(int x, int y) {
         ;
     }

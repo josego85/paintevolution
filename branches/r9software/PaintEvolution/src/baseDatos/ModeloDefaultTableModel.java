@@ -30,6 +30,7 @@ public class ModeloDefaultTableModel extends DefaultTableModel {
      * @param columna
      * @return 
      */
+    @Override
     public Class getColumnClass(int columna){
         if (columna == numeroColumnaBoolean){
             return Boolean.class;

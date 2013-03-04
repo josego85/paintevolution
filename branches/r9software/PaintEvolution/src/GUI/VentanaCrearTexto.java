@@ -32,19 +32,19 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
-        this.rutaImagenTemporal = rutaImagenTemporal;
+        VentanaCrearTexto.rutaImagenTemporal = rutaImagenTemporal;
         
         /*
          * Se guarda el nombre de las columnas.
          * Obs: que viene la columna Imprimir, y deberia suprimirse
          * para no colocar en el combobox.
          */
-        this.nombreColumnas = nombreColumnas;
+        VentanaCrearTexto.nombreColumnas = nombreColumnas;
         
         /**
          * Se guardan las filas seleccionadas con sus campos correspondientes.
          */
-        this.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
+        VentanaCrearTexto.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
         
         initComponents();
         
@@ -155,10 +155,10 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
     private ArrayList<String> crearArrayPosicionesTexto(){
         // Objetos.
         ArrayList<String> arrayPosicionesTexto = new ArrayList<String>();
-        DefaultTableModel modeloTabla = (DefaultTableModel)jTablePosicionTexto.getModel();
+        DefaultTableModel modeloTabla_temp = (DefaultTableModel)jTablePosicionTexto.getModel();
         
-        for(int i = 0; i < modeloTabla.getRowCount(); i++){   
-            arrayPosicionesTexto.add((String)modeloTabla.getValueAt(i, 0).toString());
+        for(int i = 0; i < modeloTabla_temp.getRowCount(); i++){   
+            arrayPosicionesTexto.add((String)modeloTabla_temp.getValueAt(i, 0).toString());
         } 
         return arrayPosicionesTexto;
     }
@@ -314,6 +314,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new VentanaCrearTexto(rutaImagenTemporal, nombreColumnas,
                         arrayFilasSeleccionadas).setVisible(true);

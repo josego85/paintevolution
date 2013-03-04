@@ -63,7 +63,7 @@ public class VentanaAyuda extends javax.swing.JDialog {
      */
     public void mostrarAyuda(){
         try {
-            String path = new String("Ayuda.chm");
+            String path = "Ayuda.chm";
             Process pro = Runtime.getRuntime().exec( "hh.exe " + path); // para windows 7
         }catch (IOException ex){
             JOptionPane.showMessageDialog(null, "No se puede Mostrar la Ayuda",

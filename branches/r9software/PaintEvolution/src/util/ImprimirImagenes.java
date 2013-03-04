@@ -15,7 +15,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;  
+import java.util.ArrayList;
 import java.util.Collection;  
 import javax.imageio.ImageIO;
 
@@ -85,6 +85,7 @@ public class ImprimirImagenes implements Printable{
      * @param pageIndex
      * @return 
      */
+    @Override
     public int print(Graphics g, PageFormat f, int pageIndex){  
         if (pageIndex >= imageList.size()){  
             return Printable.NO_SUCH_PAGE;  
@@ -108,19 +109,21 @@ public class ImprimirImagenes implements Printable{
      * 
      */
     private void crearImagenes(){
+        // Objetos.
+         BufferedImage ri;
+        
         try{
             for(int j = 0; j < imageList.size(); j++){                     
                 FileInputStream fis = new FileInputStream((imageList.get(j).toString()));  
-                BufferedImage ri = ImageIO.read(fis);  
+                ri = ImageIO.read(fis);  
                 imagenes.add(ri);  
 
                 fis.close();  
-                ri.flush();                   
-                ri = null;  
+                ri.flush();                    
             } 
         }catch(Exception e){
              System.out.println("El error es: " + e.getMessage());   
-        }
+        }   
     }
     
     
