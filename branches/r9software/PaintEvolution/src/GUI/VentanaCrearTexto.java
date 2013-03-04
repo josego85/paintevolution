@@ -5,6 +5,7 @@
 package GUI;
 
 import Auxiliar.Constantes;
+import baseDatos.ModeloDefaultTableCampoPosicion;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,7 +21,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame {
     private static String rutaImagenTemporal;
     private static String[] nombreColumnas;
     private static ArrayList<ArrayList> arrayFilasSeleccionadas;
-    private DefaultTableModel modeloTablaCamposPosiciones;
+    private ModeloDefaultTableCampoPosicion modeloTablaCamposPosiciones;
     
     /**
      * Creates new form VentanaCrearTexto
@@ -48,7 +49,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame {
         initComponents();
 
         // Modelo para jTableCamposPosiciones.
-        modeloTablaCamposPosiciones = new DefaultTableModel(); 
+        modeloTablaCamposPosiciones = new ModeloDefaultTableCampoPosicion(); 
         
         // Se agrega a la tabla (jTableCamposPosiciones) el modelo.
         jTableCamposPosiciones.setModel(modeloTablaCamposPosiciones);
