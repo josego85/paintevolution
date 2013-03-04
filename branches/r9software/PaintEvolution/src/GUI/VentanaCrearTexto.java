@@ -85,6 +85,9 @@ public class VentanaCrearTexto extends javax.swing.JFrame {
          */ 
         getContentPane().add(panelDibujoTexto, java.awt.BorderLayout.CENTER);
        
+        // No se puede mover las columnas de posicion de jTableCamposPosiciones.
+        jTableCamposPosiciones.getTableHeader().setReorderingAllowed(false); 
+        
         //setContentPane(panelDibujoTexto);
         //panelDibujoTexto.setModoDibujar(0);
         pack();

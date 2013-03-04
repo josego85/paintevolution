@@ -61,6 +61,9 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         // Se agrega filas al modelo.
         agregarFilas();
                 
+        // No se puede mover las columnas de posicion de jTableSeleccionarDatos.
+        jTableSeleccionarDatos.getTableHeader().setReorderingAllowed(false); 
+        
         /*
          * Se coloca el modelo a la tabla.
          */
