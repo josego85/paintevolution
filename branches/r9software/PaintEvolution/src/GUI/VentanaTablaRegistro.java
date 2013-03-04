@@ -82,7 +82,8 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         jTableSeleccionarDatos = new javax.swing.JTable();
         jButtonSiguiente = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Seleccionar registros");
 
         jTableSeleccionarDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,10 +150,9 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
             // Se cierra la VentanaTablaRegistro.
             this.dispose();
         }else{
-            String mensaje = "Seleccione pr lo menos un registro para imprimir!!!";
+            String mensaje = "Seleccione por lo menos un registro para imprimir!!!";
             JOptionPane.showMessageDialog(this, mensaje,
-                "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO + 
-                Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
+                "Aviso", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 

@@ -115,7 +115,7 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         jButtonSiguiente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Base de Datos locales");
+        setTitle("Seleccionar tabla y campos");
         setResizable(false);
 
         jComboBoxBD.addItemListener(new java.awt.event.ItemListener() {
