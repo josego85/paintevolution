@@ -52,26 +52,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     private final static int ALTO_IMAGEN_REDIMENCIONADA = 50; 
     
     /**
-     * Constantes:
-     * - Texto: 8
-     * - Nulo: 0
-     * @since 1.6
-     */
-    private final static int TEXTO = 8, NULO = 0;
-    
-    /**
-     * Para saber que objeto o texto se va a dibujar.
-     * @since 1.6
-     */
-    private int modoDibujar;
-    
-    /**
-     * True es para habilitar si se va a dibujar texto.
-     * @since 1.6
-     */
-    private boolean habilitarDibujarTexto;
-    
-    /**
      * Donde se manipula el objeto texto con sus atributos.
      * @since 1.6
      */
@@ -106,9 +86,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
          * al crear un Texto con registros de la base de datos.
          */
         panelDibujoTexto.rutaImagenTemporal = rutaImagenTemporal;
-        this.habilitarDibujarTexto = false;
         texto = null;
-        setModoDibujar(NULO);
         
         /**
          * Se guardan las filas seleccionadas con sus campos correspondientes.
@@ -140,13 +118,13 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
             int width = imagenPrincipal.getWidth(this);
             setPreferredSize(new Dimension(width, height));
         }catch(IOException ex){
-            // Manejador de excepcines.
+            // Manejador de excepciones.
             System.out.println("Problemas imagen");
        }
-       coordenadaX = 50;   // x coord - set from drag
-       coordenadaY = 50;   // y coord - set from drag
-       dragFromX = 0;    // pressed this far inside ball's
-       dragFromY = 0;    // bounding box.
+       coordenadaX = 50;    // x coord - set from drag
+       coordenadaY = 50;    // y coord - set from drag
+       dragFromX = 0;       // pressed this far inside ball's
+       dragFromY = 0;       // bounding box.
        isMouseDrag = false;   
        
        // Se crea el array que contendrà las imagenes temporales a imprimir.
@@ -167,46 +145,6 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
             g.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
                 ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
         }
-    }
-
-    /**
-     * Establece en true para poder dibujar texto; false para no dibujar texto.
-     *
-     * @param habilitarDibujarTexto En true para poder dibujar texto; false para no dibujar texto
-     * @since 1.6
-     */
-    public void setHabilitarDibujarTexto(boolean habilitarDibujarTexto) {
-        this.habilitarDibujarTexto = habilitarDibujarTexto;
-    }
-
-    /**
-     * Devuelve para saber si se puede dibujar (true) o no (false) un texto.
-     *
-     * @return True cuando se puede dibujar un texto; caso contrario, false
-     * @since 1.6
-     */
-    public boolean isHabilitarDibujarTexto() {
-        return habilitarDibujarTexto;
-    }
-    
-    /**
-     * Establece el numero del modo a dibujar.
-     *
-     * @param modoDibujar El numero del modo a dibujar
-     * @since 1.6
-     */
-    public void setModoDibujar(int modoDibujar) {
-        this.modoDibujar = modoDibujar;
-    }
-    
-    /**
-     * Devuelve el numero de la constante TEXTO.
-     *
-     * @return El numero de la constante TEXTO
-     * @since 1.6
-     */
-    public static int getTEXTO() {
-        return TEXTO;
     }
     
     /**
@@ -443,12 +381,53 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
          * no queremos usar en la lista.
          */
         for(int i = 0; i < nombreColumnas.length - 1 ; i++){
-            StringTokenizer stringTokenizer = new StringTokenizer(arrayPosicionesTexto.get(i).toString(), 
-                ",");
+            StringTokenizer stringTokenizer = new StringTokenizer(
+                arrayPosicionesTexto.get(i).toString(), ",");
             x = Integer.parseInt(stringTokenizer.nextToken());
             y = Integer.parseInt(stringTokenizer.nextToken());
             insertarTextoImagen(nombreColumnas[i], x, y);
         }
+    }
+    
+    /**
+     * Metodo publico que cambia la posicion "x" e "y" de un campo. 
+     * @param numeroCampo
+     * @param coordenadasXeY 
+     */
+    public void actualizarPosicionTexto(int numeroCampo, String coordenadasXeY){
+        // Variables.
+        int x;
+        int y;
+        
+        /**
+         * Como el array de String trae el campo imprimir,
+         * restamos la longitud total con 1, porque
+         * no queremos usar en la lista.
+         */
+        for(int i = 0; i < nombreColumnas.length - 1 ; i++){
+            if(i == numeroCampo){
+                StringTokenizer stringTokenizer = new StringTokenizer(coordenadasXeY, 
+                    ",");
+                x = Integer.parseInt(stringTokenizer.nextToken());
+                y = Integer.parseInt(stringTokenizer.nextToken());
+                
+                // Cambia la posicion "x" e "y" del campo correspondiente.
+                cambiarPosicionTextoArrayList(i, coordenadasXeY);
+                
+                insertarTextoImagen(nombreColumnas[i], x, y);
+                break;
+            }
+        }
+        // Borra la lista de texto.
+        listaTexto.clear();
+    }
+    
+    /**
+     * Metodo privado que cambia la coordenada "x" e "y" del arraliList 
+     * arrayPosicionesTexto.
+     */
+    private void cambiarPosicionTextoArrayList(int indice, String coordenadaXeY){
+        arrayPosicionesTexto.set(indice, coordenadaXeY);
     }
     
     /**
