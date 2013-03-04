@@ -4,16 +4,15 @@
  */
 package GUI;
 
-import java.awt.print.Printable;
-import java.awt.print.PrinterJob;
+import Auxiliar.Constantes;
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author proyectosbeta
  */
-public class VentanaCrearTexto extends javax.swing.JFrame{
+public class VentanaCrearTexto extends javax.swing.JFrame {
     ////////////////////////////////////////////////////////////////////////////
     // Variables de clase.
     ////////////////////////////////////////////////////////////////////////////
@@ -21,7 +20,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
     private static String rutaImagenTemporal;
     private static String[] nombreColumnas;
     private static ArrayList<ArrayList> arrayFilasSeleccionadas;
-    private DefaultTableModel modeloTabla;
+    private DefaultTableModel modeloTablaCamposPosiciones;
     
     /**
      * Creates new form VentanaCrearTexto
@@ -47,21 +46,14 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
         VentanaCrearTexto.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
         
         initComponents();
-        
-        // Se carga en la lista de campos seleccionados.
-        cargarListColumnasSelecionadas();
 
-         // Modelo para la tabla de PosicionesTexto..
-        modeloTabla = new DefaultTableModel(); 
+        // Modelo para jTableCamposPosiciones.
+        modeloTablaCamposPosiciones = new DefaultTableModel(); 
         
-        // Se agrega a la tabla el modelo.
-        jTablePosicionTexto.setModel(modeloTabla);
+        // Se agrega a la tabla (jTableCamposPosiciones) el modelo.
+        jTableCamposPosiciones.setModel(modeloTablaCamposPosiciones);
         
-        /*
-         * Se carga en la lista las posiciones para colocar el Texto de cada campos
-         * correspondiente.
-         */
-        cargarPosiciones();
+        cargarDatosTabla();
         
         /*
          * Guarda en un array las posiciones de los Texto (campos) que
@@ -69,96 +61,71 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
          */
         ArrayList<String> arrayPosicionesTexto = crearArrayPosicionesTexto();
         
+        // Centrar la VentanaCrearTexto.
+        setLocationRelativeTo(null);
+
+        // Deshabilitar la opcion de Maximizar ventana.
+        setResizable(false);
+        
+        /*
+         * Para que el canvas contenga 350 de ancho se tiene que poner la ventana
+         * VentanaCrearTexto a 487 de ancho. Para que el canvas contenga 700 de alto 
+         * se tiene que poner la ventana VentanaCrearTexto a 977 de alto. 
+         */
+        setSize(1075, 487);
+        
         // Crea el objeto de Mesa de Dibujo.
         panelDibujoTexto = new panelDibujoTexto(rutaImagenTemporal, arrayFilasSeleccionadas, 
             nombreColumnas, arrayPosicionesTexto);
         
-        // Establece un esquema para la mesa de dibujo y agrega a la ventana
-        // principal
-        getContentPane().add(panelDibujoTexto, java.awt.BorderLayout.EAST);
+        /*
+         * Establece un esquema para la mesa de dibujo y agrega a la
+         * VentanaCrearTexto
+         */ 
+        getContentPane().add(panelDibujoTexto, java.awt.BorderLayout.CENTER);
        
         //setContentPane(panelDibujoTexto);
-        panelDibujoTexto.setModoDibujar(0);
+        //panelDibujoTexto.setModoDibujar(0);
         pack();
     }
     
     /**
-     * Metodo privado que muestra la ventana Impresora.
-     * @since 1.6
+     * Metodo privado que carga datos al modelo (modeloTablaCamposPosiciones).
      */
-    private void mostrarVentanaImpresora() {
-        PrinterJob printJob = PrinterJob.getPrinterJob();
-        printJob.setPrintable((Printable) panelDibujoTexto);
-
-        // Dialogo de configuracion de impresora.
-        if( printJob.printDialog() ) {
-            try {
-                printJob.print();
-            } catch(java.awt.print.PrinterException e){
-                System.out.println("El servicio de impresion esta desactivado.");
-            }
-            catch( Exception e ) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    /**
-     * 
-     */
-    private void cargarListColumnasSelecionadas(){
-        // Objetos.
-        DefaultListModel listModelo = new DefaultListModel(); 
-        
-        /**
-         * Como el array de String trae el campo imprimir,
-         * restamos la longitud total con 1, porque
-         * no queremos usar en la lista.
-         */
-        for(int i = 0; i < nombreColumnas.length - 1; i++){ 
-            listModelo.addElement(nombreColumnas[i]); 
-        } 
-        // Se agrega al jListCamposSeleccionados los campos seleccionados.
-        jListCamposSeleccionados.setModel(listModelo); 
-    }
-    
-    /*
-     * 
-     */
-    private void cargarPosiciones(){
-        // Agrego la columna Posicion.
-        modeloTabla.addColumn("Posición");
-
+    private void cargarDatosTabla(){
         // Variables.
         int x = 100;
         int y = 50;
         
+        // Agregar columnas al modeloTablaCamposPosiciones.
+        modeloTablaCamposPosiciones.addColumn("Campos");
+        modeloTablaCamposPosiciones.addColumn("Posición(x,y)");
+        
         /**
          * Como el array de String trae el campo imprimir,
          * restamos la longitud total con 1, porque
-         * no queremos usar en la lista porque tiene
-         * que coincidir con el jListCamposSeleccionados.
+         * no queremos usar en la tabla porque no es necesario.
          */
         for(int i = 0; i < nombreColumnas.length - 1; i++){ 
             x = x + 50;
             y = y + 25;
-            Object nuevo[]= {x + "," + y};
-            modeloTabla.addRow(nuevo); 
+            Object nuevo[] = new Object[2];
+            nuevo[0] = nombreColumnas[i];
+            nuevo[1] = "" + x + "," + y;
+            this.modeloTablaCamposPosiciones.addRow(nuevo); 
         } 
-        // Se agrega al jTablePosicionTexto las posiciones iniciales.
-        jTablePosicionTexto.setModel(modeloTabla);
     }
-    
+
     /**
      * 
      */
     private ArrayList<String> crearArrayPosicionesTexto(){
         // Objetos.
         ArrayList<String> arrayPosicionesTexto = new ArrayList<String>();
-        DefaultTableModel modeloTabla_temp = (DefaultTableModel)jTablePosicionTexto.getModel();
+        DefaultTableModel modeloTabla_temp = (DefaultTableModel)jTableCamposPosiciones.getModel();
         
         for(int i = 0; i < modeloTabla_temp.getRowCount(); i++){   
-            arrayPosicionesTexto.add((String)modeloTabla_temp.getValueAt(i, 0).toString());
+            arrayPosicionesTexto.add((String)modeloTabla_temp.getValueAt(i, 1).toString());
         } 
         return arrayPosicionesTexto;
     }
@@ -172,33 +139,52 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanelCrearTexto = new javax.swing.JPanel();
-        jButtonInsertarImagen = new javax.swing.JButton();
+        jPanelOpciones = new javax.swing.JPanel();
+        jPanelTablaPosiciones = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jListCamposSeleccionados = new javax.swing.JList();
-        jLabelCamposSeleccionados = new javax.swing.JLabel();
+        jTableCamposPosiciones = new javax.swing.JTable();
+        jPanelBotones = new javax.swing.JPanel();
+        jButtonInsertarImagen = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTablePosicionTexto = new javax.swing.JTable();
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Imprimir imagen dinámica");
-        getContentPane().setLayout(new java.awt.FlowLayout());
+
+        jPanelOpciones.setLayout(new java.awt.BorderLayout());
+
+        jPanelTablaPosiciones.setPreferredSize(new java.awt.Dimension(300, 295));
+
+        jTableCamposPosiciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Campos", "Posiciones (x,y)"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableCamposPosiciones);
+
+        javax.swing.GroupLayout jPanelTablaPosicionesLayout = new javax.swing.GroupLayout(jPanelTablaPosiciones);
+        jPanelTablaPosiciones.setLayout(jPanelTablaPosicionesLayout);
+        jPanelTablaPosicionesLayout.setHorizontalGroup(
+            jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTablaPosicionesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        jPanelTablaPosicionesLayout.setVerticalGroup(
+            jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTablaPosicionesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(193, Short.MAX_VALUE))
+        );
+
+        jPanelOpciones.add(jPanelTablaPosiciones, java.awt.BorderLayout.NORTH);
 
         jButtonInsertarImagen.setText("Imagen");
         jButtonInsertarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -206,15 +192,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
                 jButtonInsertarImagenActionPerformed(evt);
             }
         });
-
-        jListCamposSeleccionados.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jListCamposSeleccionados);
-
-        jLabelCamposSeleccionados.setText("Campos seleccionados:");
+        jPanelBotones.add(jButtonInsertarImagen);
 
         jButtonImprimir.setText("Imprimir");
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -222,68 +200,26 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
                 jButtonImprimirActionPerformed(evt);
             }
         });
+        jPanelBotones.add(jButtonImprimir);
 
-        jTablePosicionTexto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jPanelOpciones.add(jPanelBotones, java.awt.BorderLayout.SOUTH);
 
-            },
-            new String [] {
-                "Title 1"
-            }
-        ));
-        jTablePosicionTexto.setEnabled(false);
-        jScrollPane2.setViewportView(jTablePosicionTexto);
-
-        javax.swing.GroupLayout jPanelCrearTextoLayout = new javax.swing.GroupLayout(jPanelCrearTexto);
-        jPanelCrearTexto.setLayout(jPanelCrearTextoLayout);
-        jPanelCrearTextoLayout.setHorizontalGroup(
-            jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelCrearTextoLayout.createSequentialGroup()
-                .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonInsertarImagen)
-                    .addComponent(jLabelCamposSeleccionados)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonImprimir))
-                .addContainerGap(175, Short.MAX_VALUE))
-        );
-        jPanelCrearTextoLayout.setVerticalGroup(
-            jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelCrearTextoLayout.createSequentialGroup()
-                .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCrearTextoLayout.createSequentialGroup()
-                        .addComponent(jLabelCamposSeleccionados)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelCrearTextoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(76, 76, 76)
-                .addGroup(jPanelCrearTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonInsertarImagen)
-                    .addComponent(jButtonImprimir))
-                .addGap(446, 446, 446))
-        );
-
-        getContentPane().add(jPanelCrearTexto);
+        getContentPane().add(jPanelOpciones, java.awt.BorderLayout.WEST);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonInsertarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarImagenActionPerformed
+        // Busca una imagen para luego insertar en el panelDibujoTexto.
+        panelDibujoTexto.abrirImagen();
+    }//GEN-LAST:event_jButtonInsertarImagenActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         panelDibujoTexto.prepararImagenesTemporales();
         
         // Se cierra VentanaCrearTexto.
         //this.dispose();
-        
     }//GEN-LAST:event_jButtonImprimirActionPerformed
-
-    private void jButtonInsertarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarImagenActionPerformed
-        // Busca una imagen para luego insertar en el panelDibujoTexto.
-        panelDibujoTexto.abrirImagen();
-    }//GEN-LAST:event_jButtonInsertarImagenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,20 +253,17 @@ public class VentanaCrearTexto extends javax.swing.JFrame{
             @Override
             public void run() {
                 new VentanaCrearTexto(rutaImagenTemporal, nombreColumnas,
-                        arrayFilasSeleccionadas).setVisible(true);
+                    arrayFilasSeleccionadas).setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonInsertarImagen;
-    private javax.swing.JLabel jLabelCamposSeleccionados;
-    private javax.swing.JList jListCamposSeleccionados;
-    private javax.swing.JPanel jPanelCrearTexto;
+    private javax.swing.JPanel jPanelBotones;
+    private javax.swing.JPanel jPanelOpciones;
+    private javax.swing.JPanel jPanelTablaPosiciones;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTablePosicionTexto;
+    private javax.swing.JTable jTableCamposPosiciones;
     // End of variables declaration//GEN-END:variables
 }
