@@ -214,6 +214,21 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         // Objetos.
         Object datos[] = new Object[nombreColumnas.length];     // Numero de columnas de la tabla.
 
+        // 
+        /**
+         * Eliminar filas vacias del modeloDefaultTableModel.
+         * De alguna manera crea filas vacias como columnasNmbres haya de la consulta 
+         * de la base de datos. 
+         * En este caso se resta la cantidad total por 1, porque se le agrego la
+         * columna "imprimir".
+         * Esta parte de borrar las filas, es un codigo sucio que se tiene
+         * que ver de alguna manera de que el modelo no tenga ningun valor por
+         * defecto.
+         */
+        for(int i = 0; i < nombreColumnas.length - 1; i++){
+            this.modeloDefaultTableModel.removeRow(0);
+        }
+
         try {
             while (resultSetRegistros.next()) {
                 for (int i = 0; i < nombreColumnas.length; i++) {
@@ -234,7 +249,7 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
                     // Se cierra el ResultSet (resultSetRegistros).
                     resultSetRegistros.close();
                     
-                    System.out.println("Se cierra el ResultSet de las tablas!!!");
+                    //System.out.println("Se cierra el ResultSet de las tablas!!!");
                 }catch(SQLException ex){ 
                      Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
                 }catch(Exception ex){  
@@ -259,6 +274,8 @@ public class VentanaTablaRegistro extends javax.swing.JFrame {
         int cantidadRegistros = modeloDefaultTableModel.getRowCount();
         int cantidadColumnas = modeloDefaultTableModel.getColumnCount();
 
+        System.out.println("La cantidad de filas es: " + cantidadRegistros);
+        
         for(int i = 0; i < cantidadRegistros; i++ ){
             // Objetos.
             ArrayList<Object> arrayFila = new ArrayList();
