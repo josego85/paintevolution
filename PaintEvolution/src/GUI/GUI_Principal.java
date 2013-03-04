@@ -187,7 +187,7 @@ public class GUI_Principal extends javax.swing.JFrame {
          * GUI_Principal a 487 de ancho. Para que el canvas contenga 700 de alto 
          * se tiene que poner la ventana GUI_Principal a 977 de alto. 
          */
-        setSize(1150, 487);
+        setSize(1075, 487);
         
         // Crea el objeto de Mesa de Dibujo
         mesaDeDibujo = new PanelDibujo();

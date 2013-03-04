@@ -52,7 +52,8 @@ public class VentanaOpcionesImagen extends javax.swing.JFrame {
         jButtonGenerar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Opciones de imagen");
 
         jLabel2.setText("Opciones de imagen");
 
@@ -140,10 +141,10 @@ public class VentanaOpcionesImagen extends javax.swing.JFrame {
         
         if(!jRadioButtonImagenEstatica.isSelected() && !jRadioButtonImagenDinamica.isSelected()){
             mensaje = "Debe seleccionar una opción!!!";
-            JOptionPane.showMessageDialog(null, mensaje, "Error!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, mensaje, "Aviso", JOptionPane.WARNING_MESSAGE);
         }else if(jRadioButtonImagenEstatica.isSelected()){
-             mensaje = "Imagen Estatica!!!";
-            JOptionPane.showMessageDialog(null, mensaje, "Error!", JOptionPane.WARNING_MESSAGE);
+             mensaje = "Imagen Estática!!!";
+            JOptionPane.showMessageDialog(null, mensaje, "Aviso", JOptionPane.WARNING_MESSAGE);
         }else if(jRadioButtonImagenDinamica.isSelected()){
              ventanaLoginBaseDatos = new VentanaLoginBaseDatos(rutaImagenTemporal);
              ventanaLoginBaseDatos.setLocationRelativeTo(this);
