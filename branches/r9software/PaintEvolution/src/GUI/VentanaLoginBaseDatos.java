@@ -7,6 +7,7 @@ package GUI;
 import baseDatos.ConexionMysql;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -25,7 +26,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JFrame {
     /**
      * Creates new form VentanaLoginBaseDatos
      */
-    VentanaBaseDatos ventanaBaseDatos;
+    VentanaBaseDatos2 ventanaBaseDatos;
     public VentanaLoginBaseDatos(String rutaImagenTemporal) {
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
@@ -192,7 +193,7 @@ public class VentanaLoginBaseDatos extends javax.swing.JFrame {
         if(!user.equals("")&&!pwd.equals("")){
             try {
                 conexion= new ConexionMysql(user,pwd,BD);
-                ventanaBaseDatos= new VentanaBaseDatos(conexion, rutaImagenTemporal);
+                ventanaBaseDatos = new VentanaBaseDatos2(conexion, rutaImagenTemporal);
                 ventanaBaseDatos.setLocationRelativeTo(this);
                 ventanaBaseDatos.setVisible(true);
                 

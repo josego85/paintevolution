@@ -88,7 +88,7 @@ public class Texto {
         setTamanio(tamanio);
         setColor(color);
         setPosicionInicialX(posicionInicialX);
-        setPosicionInicialY(posicionInicialX);
+        setPosicionInicialY(posicionInicialY);
     }
 
     /**
@@ -279,6 +279,6 @@ public class Texto {
         fuente = new Font(getTipo(), getEstilo(), getTamanio());
         layout = new TextLayout(getContenidoTexto(), fuente, contextoFuente );
         g2.setColor(getColor());
-        layout.draw( g2, getPosicionInicialX(), getPosicionInicialY());
+        layout.draw(g2, getPosicionInicialX(), getPosicionInicialY());
     }
 }
