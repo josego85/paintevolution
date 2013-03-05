@@ -284,13 +284,13 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
         System.out.println("La columna es: " + columna);
         
 	String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
+        
+        // Actualiza las posiciones de Texto en el panel de dibujo texto.
         panelDibujoTexto.actualizarPosicionTexto(fila, valorCeldaCambiada);
         
-        panelDibujoTexto.repaint();
-
         /*
-	JOptionPane.showMessageDialog(this, "Value at (" + fila + "," + columna + ") "
-            + "changed to " + "\'" + valorCeldaCambiada + "\'");
-            * */
+         * Se redibuja en el panel de Dibujo text para que se visualice los cambios.
+         */
+        panelDibujoTexto.repaint();
     }
 }

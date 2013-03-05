@@ -127,7 +127,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
        dragFromY = 0;       // bounding box.
        isMouseDrag = false;   
        
-       // Se crea el array que contendrà las imagenes temporales a imprimir.
+       // Se crea el array que contendra las imagenes temporales a imprimir.
        listaImagenesTemporalesImprimir = new ArrayList<String>();
     }
     
@@ -333,6 +333,9 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     private void insertarTextoImagenes(){
         // Objetos.
         Object objeto;
+                
+        // Variables.
+        int x, y, contador = 0;
         
         // Borra la lista de texto.
         listaTexto.clear();
@@ -340,16 +343,16 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
         for(int i = 0; i < arrayFilasSeleccionadas.size(); i++){
             ArrayList filaSeleccionada = arrayFilasSeleccionadas.get(i);
             Iterator iterador = filaSeleccionada.iterator();
-            
-            int x = 100;
-            int y = 20;
             while(iterador.hasNext()){
                 objeto = iterador.next();
-                x = x + 50;
-                y = y + 50;
+                StringTokenizer stringTokenizer = new StringTokenizer(
+                    arrayPosicionesTexto.get(contador).toString(), ",");
+                x = Integer.parseInt(stringTokenizer.nextToken());
+                y = Integer.parseInt(stringTokenizer.nextToken());
                 insertarTextoImagen(objeto.toString() , x , y);
-  
+                contador++;
             }
+            contador = 0;
             // Crea la imagen temporal para imprimir.
             crearImagenTemporal();
             
