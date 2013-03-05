@@ -5,7 +5,11 @@
 package GUI;
 
 import baseDatos.ModeloDefaultTableCampoPosicion;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +27,19 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
     private static String[] nombreColumnas;
     private static ArrayList<ArrayList> arrayFilasSeleccionadas;
     private ModeloDefaultTableCampoPosicion modeloTablaCamposPosiciones;
+    
+    /**
+     * FALTA COMENTAR
+     *
+     * @since 1.6
+     */
+    private Toolkit toolKit;
+    
+    /*
+     * El icono de la aplicacion.
+     * @since 1.6
+     */
+    private Image iconoAplicacion;
     
     /**
      * Creates new form VentanaCrearTexto
@@ -76,6 +93,11 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
          */
         setSize(1075, 487);
         
+        // Agregar el icono de la aplicacion.
+        toolKit = Toolkit.getDefaultToolkit();
+        iconoAplicacion = toolKit.getImage(getClass().getResource("/imagenes/iconos/paintEvolution.png"));
+        this.setIconImage(iconoAplicacion);
+        
         // Crea el objeto de Mesa de Dibujo.
         panelDibujoTexto = new panelDibujoTexto(rutaImagenTemporal, arrayFilasSeleccionadas, 
             nombreColumnas, arrayPosicionesTexto);
@@ -115,7 +137,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
          */
         for(int i = 0; i < nombreColumnas.length - 1; i++){ 
             x = x + 50;
-            y = y + 25;
+            y = y + 45;
             Object nuevo[] = new Object[2];
             nuevo[0] = nombreColumnas[i];
             nuevo[1] = "" + x + "," + y;
@@ -279,18 +301,55 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
         // Variables.
         int fila = e.getFirstRow();
 	int columna = e.getColumn();
-
-        System.out.println("La fila es: " + fila);
-        System.out.println("La columna es: " + columna);
         
 	String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
         
-        // Actualiza las posiciones de Texto en el panel de dibujo texto.
-        panelDibujoTexto.actualizarPosicionTexto(fila, valorCeldaCambiada);
+        if(validarCoordenadasXeY(valorCeldaCambiada)){
+            // Actualiza las posiciones de Texto en el panel de dibujo texto.
+            panelDibujoTexto.actualizarPosicionTexto(fila, valorCeldaCambiada);
         
-        /*
-         * Se redibuja en el panel de Dibujo text para que se visualice los cambios.
-         */
-        panelDibujoTexto.repaint();
+            /*
+             * Se redibuja en el panel de Dibujo text para que se visualice los cambios.
+             */
+            panelDibujoTexto.repaint();
+        }else{
+             JOptionPane.showMessageDialog(this, "Por favor introduzca correctamente "
+                 + "x e y separados entre coma. Ej: 150,95", 
+                 "Error", JOptionPane.ERROR_MESSAGE);
+             
+             /**
+              * x comienza por 100 y se incrementa con 50.
+              * y comienza por 50 y se incrementa con 45.
+              * O sea, la primera file seria 150,75 y la segunda 200,100, y
+              * asi sucesivamente. Estos son los valores de las coordenadas por
+              * defecto.
+              */
+             int x = (100 + 50 * (fila + 1));
+             int y = (50 + 45 * (fila + 1));
+             String valorCelda = "" + x + "," + y; 
+             modeloTablaCamposPosiciones.setValueAt(valorCelda, fila, columna);
+        }     
+    }
+    
+    /**
+     * Metodo privado que devuelve true o false si el usuario introdujo correctamente 
+     * en la celda numeros y una coma para separar en ellos. Ejemplo x,y --> 100,30
+     * @param coordenadasXeY 
+     */
+    private boolean validarCoordenadasXeY(String coordenadasXeY){
+        // Objetos.
+        StringTokenizer stringTokenizer = new StringTokenizer(coordenadasXeY, 
+            ",");
+        
+        // Variables.
+        int x,y;
+        
+        try{
+            x = Integer.parseInt(stringTokenizer.nextToken());
+            y = Integer.parseInt(stringTokenizer.nextToken());
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 }
