@@ -7,7 +7,6 @@ package GUI;
 import baseDatos.ConexionMysql;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -19,7 +18,7 @@ import javax.swing.JOptionPane;
  * Clase Ventana donde sale el login a la base de datos.
  * Puede ser dinamica o estatica.
  */
-public class VentanaLoginBaseDatos extends javax.swing.JFrame {
+public class VentanaLoginBaseDatos extends VentanaComun {
     // Objetos de clase.
     private static String rutaImagenTemporal;
     
@@ -208,7 +207,8 @@ public class VentanaLoginBaseDatos extends javax.swing.JFrame {
                 //Logger.getLogger(VentanaLoginBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
             } 
         }else{
-            JOptionPane.showMessageDialog(jButtonLogin,"Por favor introduzca el usuario y la contraseña.","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor introduzca "
+                + "el usuario y la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 

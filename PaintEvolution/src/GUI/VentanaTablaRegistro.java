@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author proyectosbeta
  */
-public class VentanaTablaRegistro extends javax.swing.JFrame {
+public class VentanaTablaRegistro extends VentanaComun {
     // Objetos.
     private static String rutaImagenTemporal;
     private static String[] nombreColumnas;
