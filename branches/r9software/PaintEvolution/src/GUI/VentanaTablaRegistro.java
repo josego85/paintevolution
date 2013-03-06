@@ -143,11 +143,12 @@ public class VentanaTablaRegistro extends VentanaComun {
         ArrayList<ArrayList> arrayFilasSeleccionadas = devolverArrayFilasSeleccionadas();
         
         if(!arrayFilasSeleccionadas.isEmpty()){
-            // Ir a la ventanaCrearTexto.
-            VentanaCrearTexto ventanaCrearTexto = new VentanaCrearTexto(rutaImagenTemporal, 
+            // Ir a la ventanaImprimir.
+            VentanaImprimirImagenDinamica ventanaImprimirImagenDinamica = new 
+                VentanaImprimirImagenDinamica(rutaImagenTemporal, 
             nombreColumnas, arrayFilasSeleccionadas);
-            ventanaCrearTexto.setLocationRelativeTo(this);
-            ventanaCrearTexto.setVisible(true);
+            ventanaImprimirImagenDinamica.setLocationRelativeTo(this);
+            ventanaImprimirImagenDinamica.setVisible(true);
         
             // Se cierra la VentanaTablaRegistro.
             this.dispose();

@@ -30,7 +30,7 @@ import util.ImprimirImagenes;
  *
  * @author proyectosbeta
  */
-public class panelDibujoTexto extends javax.swing.JPanel implements Serializable{
+public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Serializable{
     // Objetos.
     private BufferedImage imagenInsertada;
     private BufferedImage imagenPrincipal;
@@ -77,31 +77,31 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     
     
     /**
-     * Creates new form panelDibujoTexto
+     * Creates new form PanelDibujoImagenDinamica
      */
-    public panelDibujoTexto(String rutaImagenTemporal, ArrayList<ArrayList> arrayFilasSeleccionadas,
+    public PanelDibujoImagenDinamica(String rutaImagenTemporal, ArrayList<ArrayList> arrayFilasSeleccionadas,
             String[] nombreColumnas, ArrayList<String> arrayPosicionesTexto) {
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
-        panelDibujoTexto.rutaImagenTemporal = rutaImagenTemporal;
+        PanelDibujoImagenDinamica.rutaImagenTemporal = rutaImagenTemporal;
         texto = null;
         
         /**
          * Se guardan las filas seleccionadas con sus campos correspondientes.
          */
-        panelDibujoTexto.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
+        PanelDibujoImagenDinamica.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
         
         /**
          * Se guarda el array nombreColumnas.
          */
-        panelDibujoTexto.nombreColumnas = nombreColumnas;
+        PanelDibujoImagenDinamica.nombreColumnas = nombreColumnas;
         
         /**
          * Se guarda en un array las posiciones de los textos.
          */
-        panelDibujoTexto.arrayPosicionesTexto = arrayPosicionesTexto;
+        PanelDibujoImagenDinamica.arrayPosicionesTexto = arrayPosicionesTexto;
         
         initComponents();
         
@@ -148,7 +148,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
     }
     
     /**
-     * Añada un objeto Texto a la lista de texto a dibujar.
+     * A?ada un objeto Texto a la lista de texto a dibujar.
      *
      * @param texto Una nuevo objeto Texto a dibujar
      * @since 1.6
@@ -257,7 +257,7 @@ public class panelDibujoTexto extends javax.swing.JPanel implements Serializable
                 imagenTemporal.getAbsolutePath());
             */
             
-            // Se crea la ultima instancia de lo dibujado en el panelDibujoTexto.
+            // Se crea la ultima instancia de lo dibujado en el PanelDibujoImagenDinamica.
             crearImagen();
             
             ImageIO.write(imagenTemporalImprimir, "png", imagenTemporal);
