@@ -475,10 +475,13 @@
             <Property name="text" type="java.lang.String" value="QR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonRSA">
+        <Component class="javax.swing.JButton" name="jButtonAES">
           <Properties>
-            <Property name="text" type="java.lang.String" value="RSA"/>
+            <Property name="text" type="java.lang.String" value="AES"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAESActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonPDF">
           <Properties>

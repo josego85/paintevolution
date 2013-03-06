@@ -85,6 +85,10 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
 
         jPanelOpciones = new javax.swing.JPanel();
         jPanelTablaPosiciones = new javax.swing.JPanel();
+        jButtonQR = new javax.swing.JButton();
+        jButtonAES = new javax.swing.JButton();
+        jButtonPDF = new javax.swing.JButton();
+        jButtonCodigoBarras = new javax.swing.JButton();
         jPanelBotones = new javax.swing.JPanel();
         jButtonInsertarImagen = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
@@ -96,15 +100,39 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
 
         jPanelTablaPosiciones.setPreferredSize(new java.awt.Dimension(300, 295));
 
+        jButtonQR.setText("QR");
+
+        jButtonAES.setText("AES");
+
+        jButtonPDF.setText("PDF");
+
+        jButtonCodigoBarras.setText("Código de Barras");
+
         javax.swing.GroupLayout jPanelTablaPosicionesLayout = new javax.swing.GroupLayout(jPanelTablaPosiciones);
         jPanelTablaPosiciones.setLayout(jPanelTablaPosicionesLayout);
         jPanelTablaPosicionesLayout.setHorizontalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jPanelTablaPosicionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonQR)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonAES)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonPDF)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCodigoBarras)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelTablaPosicionesLayout.setVerticalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 295, Short.MAX_VALUE)
+            .addGroup(jPanelTablaPosicionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonQR)
+                    .addComponent(jButtonAES)
+                    .addComponent(jButtonPDF)
+                    .addComponent(jButtonCodigoBarras))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
 
         jPanelOpciones.add(jPanelTablaPosiciones, java.awt.BorderLayout.NORTH);
@@ -180,8 +208,12 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAES;
+    private javax.swing.JButton jButtonCodigoBarras;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonInsertarImagen;
+    private javax.swing.JButton jButtonPDF;
+    private javax.swing.JButton jButtonQR;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelOpciones;
     private javax.swing.JPanel jPanelTablaPosiciones;
