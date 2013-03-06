@@ -183,6 +183,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
 
         jPanelTablaPosiciones.setPreferredSize(new java.awt.Dimension(300, 295));
 
+        jTableCamposPosiciones.setAutoCreateRowSorter(true);
         jTableCamposPosiciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
