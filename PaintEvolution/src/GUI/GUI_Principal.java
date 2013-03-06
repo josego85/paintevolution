@@ -246,7 +246,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonDesactivarPantallaCompleta = new javax.swing.JButton();
         jButtonOpcionesImagen = new javax.swing.JButton();
         jButtonQR = new javax.swing.JButton();
-        jButtonRSA = new javax.swing.JButton();
+        jButtonAES = new javax.swing.JButton();
         jButtonPDF = new javax.swing.JButton();
         jButtonCodigoBarras = new javax.swing.JButton();
         jPanelBarraDeHerramientas = new javax.swing.JPanel();
@@ -475,8 +475,13 @@ public class GUI_Principal extends javax.swing.JFrame {
         jButtonQR.setText("QR");
         jPanelBarraAccesoDirecto.add(jButtonQR);
 
-        jButtonRSA.setText("RSA");
-        jPanelBarraAccesoDirecto.add(jButtonRSA);
+        jButtonAES.setText("AES");
+        jButtonAES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAESActionPerformed(evt);
+            }
+        });
+        jPanelBarraAccesoDirecto.add(jButtonAES);
 
         jButtonPDF.setText("PDF");
         jPanelBarraAccesoDirecto.add(jButtonPDF);
@@ -1171,6 +1176,10 @@ public class GUI_Principal extends javax.swing.JFrame {
         mostrarVentanaOpcionesImagen();
     }//GEN-LAST:event_jButtonOpcionesImagenActionPerformed
 
+    private void jButtonAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAESActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAESActionPerformed
+
     
     ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
@@ -1531,6 +1540,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupObjetos;
+    private javax.swing.JButton jButtonAES;
     private javax.swing.JButton jButtonAbrir;
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonBorraTodoLosObjetos;
@@ -1548,7 +1558,6 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonPDF;
     private javax.swing.JButton jButtonPantallaCompleta;
     private javax.swing.JButton jButtonQR;
-    private javax.swing.JButton jButtonRSA;
     private javax.swing.JButton jButtonZoomIn;
     private javax.swing.JButton jButtonZoomOut;
     private javax.swing.JCheckBox jCheckBoxActivarRelleno;
