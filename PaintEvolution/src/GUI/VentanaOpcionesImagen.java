@@ -6,8 +6,6 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +19,7 @@ import javax.swing.JOptionPane;
 public class VentanaOpcionesImagen extends VentanaComun {
     // Objetos de clase.
     private VentanaLoginBaseDatos ventanaLoginBaseDatos;
+    private VentanaImprimirImagenEstatica ventanaImprimirImagenEstatica;
     private static String rutaImagenTemporal;
     
     /**
@@ -145,8 +144,12 @@ public class VentanaOpcionesImagen extends VentanaComun {
             mensaje = "Debe seleccionar una opción!!!";
             JOptionPane.showMessageDialog(this, mensaje, "Aviso", JOptionPane.WARNING_MESSAGE);
         }else if(jRadioButtonImagenEstatica.isSelected()){
-             mensaje = "Imagen Estática!!!";
-            JOptionPane.showMessageDialog(this, mensaje, "Aviso", JOptionPane.WARNING_MESSAGE);
+             ventanaImprimirImagenEstatica = new VentanaImprimirImagenEstatica(rutaImagenTemporal);
+             ventanaImprimirImagenEstatica.setLocationRelativeTo(this);
+	     ventanaImprimirImagenEstatica.setVisible(true);
+             
+            // Se cierra la VentanaOpcionesImagen.
+            this.dispose();   
         }else if(jRadioButtonImagenDinamica.isSelected()){
              ventanaLoginBaseDatos = new VentanaLoginBaseDatos(rutaImagenTemporal);
              ventanaLoginBaseDatos.setLocationRelativeTo(this);

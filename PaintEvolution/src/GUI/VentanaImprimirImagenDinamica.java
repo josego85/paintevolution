@@ -18,11 +18,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author proyectosbeta
  */
-public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelListener {
+public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements TableModelListener {
     ////////////////////////////////////////////////////////////////////////////
     // Variables de clase.
     ////////////////////////////////////////////////////////////////////////////
-    private panelDibujoTexto panelDibujoTexto;
+    private PanelDibujoImagenDinamica panelDibujoImagenDinamica;
     private static String rutaImagenTemporal;
     private static String[] nombreColumnas;
     private static ArrayList<ArrayList> arrayFilasSeleccionadas;
@@ -42,27 +42,27 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
     private Image iconoAplicacion;
     
     /**
-     * Creates new form VentanaCrearTexto
+     * Creates new form VentanaImprimirImagenDinamica
      */
-    public VentanaCrearTexto(String rutaImagenTemporal, String[] nombreColumnas,
+    public VentanaImprimirImagenDinamica(String rutaImagenTemporal, String[] nombreColumnas,
             ArrayList<ArrayList> arrayFilasSeleccionadas) {
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
-        VentanaCrearTexto.rutaImagenTemporal = rutaImagenTemporal;
+        VentanaImprimirImagenDinamica.rutaImagenTemporal = rutaImagenTemporal;
         
         /*
          * Se guarda el nombre de las columnas.
          * Obs: que viene la columna Imprimir, y deberia suprimirse
          * para no colocar en el combobox.
          */
-        VentanaCrearTexto.nombreColumnas = nombreColumnas;
+        VentanaImprimirImagenDinamica.nombreColumnas = nombreColumnas;
         
         /**
          * Se guardan las filas seleccionadas con sus campos correspondientes.
          */
-        VentanaCrearTexto.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
+        VentanaImprimirImagenDinamica.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
         
         initComponents();
 
@@ -80,7 +80,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
          */
         ArrayList<String> arrayPosicionesTexto = crearArrayPosicionesTexto();
         
-        // Centrar la VentanaCrearTexto.
+        // Centrar la VentanaImprimirImagenDinamica.
         setLocationRelativeTo(null);
 
         // Deshabilitar la opcion de Maximizar ventana.
@@ -88,8 +88,8 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
         
         /*
          * Para que el canvas contenga 350 de ancho se tiene que poner la ventana
-         * VentanaCrearTexto a 487 de ancho. Para que el canvas contenga 700 de alto 
-         * se tiene que poner la ventana VentanaCrearTexto a 977 de alto. 
+         * VentanaImprimirImagenDinamica a 487 de ancho. Para que el canvas contenga 700 de alto 
+         * se tiene que poner la ventana VentanaImprimirImagenDinamica a 977 de alto. 
          */
         setSize(1075, 487);
         
@@ -99,14 +99,14 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
         this.setIconImage(iconoAplicacion);
         
         // Crea el objeto de Mesa de Dibujo.
-        panelDibujoTexto = new panelDibujoTexto(rutaImagenTemporal, arrayFilasSeleccionadas, 
-            nombreColumnas, arrayPosicionesTexto);
+        panelDibujoImagenDinamica = new PanelDibujoImagenDinamica(rutaImagenTemporal, 
+            arrayFilasSeleccionadas, nombreColumnas, arrayPosicionesTexto);
         
         /*
          * Establece un esquema para la mesa de dibujo y agrega a la
-         * VentanaCrearTexto
+         * VentanaImprimirImagenDinamica.
          */ 
-        getContentPane().add(panelDibujoTexto, java.awt.BorderLayout.CENTER);
+        getContentPane().add(panelDibujoImagenDinamica, java.awt.BorderLayout.CENTER);
         //setContentPane(panelDibujoTexto);
         
         // No se puede mover las columnas de posicion de jTableCamposPosiciones.
@@ -177,7 +177,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
         jButtonImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Imprimir imagen dinámica");
+        setTitle("Imprimir imagenes");
 
         jPanelOpciones.setLayout(new java.awt.BorderLayout());
 
@@ -201,14 +201,14 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
         jPanelTablaPosicionesLayout.setHorizontalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTablaPosicionesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanelTablaPosicionesLayout.setVerticalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTablaPosicionesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(192, Short.MAX_VALUE))
         );
@@ -240,13 +240,13 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
 
     private void jButtonInsertarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarImagenActionPerformed
         // Busca una imagen para luego insertar en el panelDibujoTexto.
-        panelDibujoTexto.abrirImagen();
+        panelDibujoImagenDinamica.abrirImagen();
     }//GEN-LAST:event_jButtonInsertarImagenActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        panelDibujoTexto.prepararImagenesTemporales();
+        panelDibujoImagenDinamica.prepararImagenesTemporales();
         
-        // Se cierra VentanaCrearTexto.
+        // Se cierra VentanaImprimirImagenDinamica.
         //this.dispose();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
@@ -267,13 +267,13 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaCrearTexto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaImprimirImagenDinamica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaCrearTexto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaImprimirImagenDinamica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaCrearTexto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaImprimirImagenDinamica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaCrearTexto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaImprimirImagenDinamica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -281,7 +281,7 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new VentanaCrearTexto(rutaImagenTemporal, nombreColumnas,
+                new VentanaImprimirImagenDinamica(rutaImagenTemporal, nombreColumnas,
                     arrayFilasSeleccionadas).setVisible(true);
             }
         });
@@ -306,12 +306,12 @@ public class VentanaCrearTexto extends javax.swing.JFrame implements TableModelL
         
         if(validarCoordenadasXeY(valorCeldaCambiada)){
             // Actualiza las posiciones de Texto en el panel de dibujo texto.
-            panelDibujoTexto.actualizarPosicionTexto(fila, valorCeldaCambiada);
+            panelDibujoImagenDinamica.actualizarPosicionTexto(fila, valorCeldaCambiada);
         
             /*
              * Se redibuja en el panel de Dibujo text para que se visualice los cambios.
              */
-            panelDibujoTexto.repaint();
+            panelDibujoImagenDinamica.repaint();
         }else{
              JOptionPane.showMessageDialog(this, "Por favor introduzca correctamente "
                  + "x e y separados entre coma. Ej: 150,95", 
