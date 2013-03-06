@@ -87,6 +87,7 @@ public class VentanaTablaRegistro extends VentanaComun {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Seleccionar registros");
 
+        jTableSeleccionarDatos.setAutoCreateRowSorter(true);
         jTableSeleccionarDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
