@@ -25,7 +25,7 @@ public class VentanaLoginBaseDatos extends VentanaComun {
     /**
      * Creates new form VentanaLoginBaseDatos
      */
-    VentanaBaseDatos2 ventanaBaseDatos;
+    VentanaBaseDatos ventanaBaseDatos;
     public VentanaLoginBaseDatos(String rutaImagenTemporal) {
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
@@ -141,7 +141,7 @@ public class VentanaLoginBaseDatos extends VentanaComun {
                         .addGap(29, 29, 29)
                         .addComponent(jLabel1)))
                 .addContainerGap())
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 397, Short.MAX_VALUE)
         );
         jPanelLoginBaseDatosLayout.setVerticalGroup(
             jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +170,7 @@ public class VentanaLoginBaseDatos extends VentanaComun {
         );
 
         getContentPane().add(jPanelLoginBaseDatos);
-        jPanelLoginBaseDatos.setBounds(0, 0, 397, 287);
+        jPanelLoginBaseDatos.setBounds(0, 0, 397, 318);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -192,7 +192,7 @@ public class VentanaLoginBaseDatos extends VentanaComun {
         if(!user.equals("")&&!pwd.equals("")){
             try {
                 conexion= new ConexionMysql(user,pwd,BD);
-                ventanaBaseDatos = new VentanaBaseDatos2(conexion, rutaImagenTemporal);
+                ventanaBaseDatos = new VentanaBaseDatos(conexion, rutaImagenTemporal);
                 ventanaBaseDatos.setLocationRelativeTo(this);
                 ventanaBaseDatos.setVisible(true);
                 
