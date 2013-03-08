@@ -314,8 +314,6 @@ public class VentanaTablaRegistro extends VentanaComun {
         // Variables.
         int cantidadRegistros = modeloDefaultTableModel.getRowCount();
         int cantidadColumnas = modeloDefaultTableModel.getColumnCount();
-
-        System.out.println("La cantidad de filas es: " + cantidadRegistros);
         
         for(int i = 0; i < cantidadRegistros; i++ ){
             // Objetos.

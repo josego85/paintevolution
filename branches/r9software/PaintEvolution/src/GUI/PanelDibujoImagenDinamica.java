@@ -321,7 +321,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
      * 
      */
     private void insertarTextoImagen(String campo, int x, int y){
-        Texto texto_temp = new Texto(campo, "Dialog", 0 , 36, Color.BLACK, x, y);
+        Texto texto_temp = new Texto(campo, "Serif", 0 , 36, Color.BLACK, x, y);
         
         // Se agrega texto a la listaTexto.
         agregarTexto(texto_temp); 

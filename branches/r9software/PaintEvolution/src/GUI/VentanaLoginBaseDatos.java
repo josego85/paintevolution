@@ -141,7 +141,7 @@ public class VentanaLoginBaseDatos extends VentanaComun {
                         .addGap(29, 29, 29)
                         .addComponent(jLabel1)))
                 .addContainerGap())
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 397, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
         );
         jPanelLoginBaseDatosLayout.setVerticalGroup(
             jPanelLoginBaseDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +170,7 @@ public class VentanaLoginBaseDatos extends VentanaComun {
         );
 
         getContentPane().add(jPanelLoginBaseDatos);
-        jPanelLoginBaseDatos.setBounds(0, 0, 397, 318);
+        jPanelLoginBaseDatos.setBounds(0, 0, 397, 287);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
