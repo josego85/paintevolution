@@ -87,7 +87,7 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
             setPreferredSize(new Dimension(width, height));
         }catch(IOException ex){
             // Manejador de excepciones.
-            System.out.println("Problemas imagen");
+            //System.out.println("Problemas imagen");
        }
        coordenadaX = 50;    // x coord - set from drag
        coordenadaY = 50;    // y coord - set from drag
