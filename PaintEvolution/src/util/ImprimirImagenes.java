@@ -92,6 +92,9 @@ public class ImprimirImagenes implements Printable{
         }  
         RenderedImage  image = (RenderedImage ) imagenes.get(pageIndex);  
   
+        // Se coloco en forma Vertical la pagina para la impresion.
+        f.setOrientation(PageFormat.PORTRAIT); 
+        
         if (image != null){  
             Graphics2D g2 = (Graphics2D) g;  
             g2.translate(f.getImageableX(), f.getImageableY());  
