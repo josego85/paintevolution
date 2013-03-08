@@ -9,13 +9,13 @@ package Pruebas;
  * @author Rodo
  */
 public class AESKey {
-private String encoded;
+    private String encoded;
 
-public String getEncoded() {
-return encoded;
-}
+    public String getEncoded() {
+        return encoded;
+    }
 
-public void setEncoded(String encoded) {
-this.encoded = encoded;
-}
+    public void setEncoded(String encoded) {
+        this.encoded = encoded;
+    }
 }

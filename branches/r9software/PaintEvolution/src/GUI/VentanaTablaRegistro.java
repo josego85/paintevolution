@@ -4,13 +4,18 @@
  */
 package GUI;
 
+import Auxiliar.CabeceraCheckBox;
 import baseDatos.ModeloDefaultTableModel;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -23,6 +28,7 @@ public class VentanaTablaRegistro extends VentanaComun {
     private static ArrayList listaNombreColumnas;
     private static ResultSet resultSetRegistros;
     private ModeloDefaultTableModel modeloDefaultTableModel;
+    private TableColumn columnaTablaCabecera;
     
     
     /**
@@ -68,6 +74,16 @@ public class VentanaTablaRegistro extends VentanaComun {
          * Se coloca el modelo a la tabla.
          */
         jTableSeleccionarDatos.setModel(modeloDefaultTableModel);
+         
+        /*
+         * Se coloca una columnaCabecera que contiene un checkboz para poder
+         * seleccionar todos de una vez.
+         */
+        columnaTablaCabecera = jTableSeleccionarDatos.getColumnModel().getColumn(
+            modeloDefaultTableModel.getNumeroColumnaBoolean());  
+        columnaTablaCabecera.setCellEditor(jTableSeleccionarDatos.getDefaultEditor(Boolean.class));  
+        columnaTablaCabecera.setCellRenderer(jTableSeleccionarDatos.getDefaultRenderer(Boolean.class));  
+        columnaTablaCabecera.setHeaderRenderer(new CabeceraCheckBox(new ListenerCheckBoxTodos()));
     }
 
     /**
@@ -196,6 +212,26 @@ public class VentanaTablaRegistro extends VentanaComun {
             }
         });
     }
+    
+    /**
+     * Un listener para seleccionar todos los chechbox que hay en la tabla de 
+     * una vez.
+     */
+    class ListenerCheckBoxTodos implements ItemListener {  
+        public void itemStateChanged(ItemEvent e) {  
+            Object source = e.getSource();  
+            
+            //columnaTablaCabecera.setHeaderValue(false);
+            if (source instanceof AbstractButton == false){
+                return;  
+            }   
+            boolean checked = e.getStateChange() == ItemEvent.SELECTED;  
+            for(int x = 0, y = jTableSeleccionarDatos.getRowCount(); x < y; x++){  
+                jTableSeleccionarDatos.setValueAt(new Boolean(checked), x, 
+                    modeloDefaultTableModel.getNumeroColumnaBoolean());  
+            }    
+        }  
+    }  
     
     /**
      * Metodo privado que carga en un array la lista de nombres de la columna,

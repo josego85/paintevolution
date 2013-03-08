@@ -19,9 +19,8 @@ import net.sourceforge.jbarcodebean.JBarcodeBean;
 import net.sourceforge.jbarcodebean.model.Interleaved25;
 
 public class TestBarCode {
-
-    public static void main(String[] args) throws IOException, BarcodeException {
-
+    public static void main(String[] args) throws IOException/*, BarcodeException */{
+        
         JBarcodeBean barcode = new JBarcodeBean();
 
         // nuestro tipo de codigo de barra
@@ -37,7 +36,5 @@ public class TestBarCode {
         // guardar en disco como png
         File file = new File("codebar.png");
         ImageIO.write(bufferedImage, "png", file);
-
     }
-
 }

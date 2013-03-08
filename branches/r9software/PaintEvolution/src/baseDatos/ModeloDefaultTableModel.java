@@ -38,5 +38,11 @@ public class ModeloDefaultTableModel extends DefaultTableModel {
         return Object.class;
     }
     
-    
+    /**
+     * Metodo publico que devuelve el numero de la columna
+     * booleana.
+     */
+    public int getNumeroColumnaBoolean(){
+        return this.numeroColumnaBoolean;
+    }  
 }
