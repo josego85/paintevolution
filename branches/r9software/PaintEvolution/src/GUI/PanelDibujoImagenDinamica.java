@@ -8,6 +8,7 @@ import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
 import Auxiliar.Imagen;
 import Auxiliar.Texto;
+import algoritmos.AES;
 import algoritmos.CodigoBarra;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -353,7 +354,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
      * @param y 
      */
     private void insertarTextoImagen(String campo, int x, int y){
-        Texto texto_temp = new Texto(campo, "Serif", 0 , 36, Color.BLACK, x, y);
+        Texto texto_temp = new Texto(campo, "Serif", 0 , 23, Color.BLACK, x, y);
         
         // Se agrega texto a la listaTexto.
         agregarTexto(texto_temp); 
@@ -409,7 +410,11 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
                      QR algoritmoQR = new QR(objeto.toString(), 100, 100);
                      insertarImagenAlgoritmo(objeto.toString(), x, y, algoritmoQR.devolverImagenQR());
                 }else if(arrayAlgoritmos.get(contador).toString().equals("AES")){
-                    
+                     AES algoritmoAES = new AES(objeto.toString());
+                     String valorEncriptado = algoritmoAES.encriptar();
+                     System.out.println("El valor encriptado es: " + valorEncriptado);
+                     //System.out.println("El valor desencriptado es: " + algoritmoAES.desencriptar());
+                     insertarTextoImagen(valorEncriptado, x, y);
                 }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
                     CodigoBarra algoritmoCodigoBarra = new CodigoBarra();
                     insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
