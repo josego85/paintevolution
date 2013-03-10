@@ -14,8 +14,8 @@ import javax.swing.table.DefaultTableModel;
 public class ModeloDefaultTableCampoPosicion extends DefaultTableModel{
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        // Solo si es columna 1 se puede editar.
-        if(columnIndex == 1){
+        // Solo si es columna 1 y 2 se puede editar.
+        if(columnIndex == 1 || columnIndex == 2){
             return true;
         }
         return false;

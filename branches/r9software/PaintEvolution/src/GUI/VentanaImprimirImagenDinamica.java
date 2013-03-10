@@ -7,8 +7,12 @@ package GUI;
 import baseDatos.ModeloDefaultTableCampoPosicion;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -41,6 +45,30 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
      */
     private Image iconoAplicacion;
     
+    /*
+     * Constante que indica con cuantos pixeles empieza
+     * el ancho del prototipo.
+     */
+    private final static int COMIENZA_ANCHO_PROTOTIPO = 10;
+    
+    /*
+     * Constante que indica con cuantos pixeles empieza
+     * el alto del prototipo.
+     */
+    private final static int COMIENZA_ALTO_PROTOTIPO = 50;
+    
+    /*
+     * Constante que indica cuanto pixeles incrementa
+     * el ancho del prototipo.
+     */
+    private final static int INCREMENTO_ANCHO_PROTOTIPO = 45;
+    
+    /*
+     * Constante que indica cuanto pixeles incrementa
+     * el alto del prototipo.
+     */
+    private final static int INCREMENTO_ALTO_PROTOTIPO = 65;
+    
     /**
      * Creates new form VentanaImprimirImagenDinamica
      */
@@ -68,7 +96,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
 
         // Modelo para jTableCamposPosiciones.
         modeloTablaCamposPosiciones = new ModeloDefaultTableCampoPosicion(); 
-        
+
         // Se agrega a la tabla (jTableCamposPosiciones) el modelo.
         jTableCamposPosiciones.setModel(modeloTablaCamposPosiciones);
         
@@ -79,6 +107,12 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
          * el usuario habia seleccionado anteriormente.
          */
         ArrayList<String> arrayPosicionesTexto = crearArrayPosicionesTexto();
+        
+        /*
+         * Guarda en un array los algortimos que coiciden con las posiciones de 
+         * los textos.
+         */
+        ArrayList<String> arrayAlgoritmos = crearArrayAlgoritmos();
         
         // Centrar la VentanaImprimirImagenDinamica.
         setLocationRelativeTo(null);
@@ -100,7 +134,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         
         // Crea el objeto de Mesa de Dibujo.
         panelDibujoImagenDinamica = new PanelDibujoImagenDinamica(rutaImagenTemporal, 
-            arrayFilasSeleccionadas, nombreColumnas, arrayPosicionesTexto);
+            arrayFilasSeleccionadas, nombreColumnas, arrayPosicionesTexto, arrayAlgoritmos);
         
         /*
          * Establece un esquema para la mesa de dibujo y agrega a la
@@ -123,12 +157,13 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
      */
     private void cargarDatosTabla(){
         // Variables.
-        int x = 100;
-        int y = 50;
-        
+        int x = COMIENZA_ANCHO_PROTOTIPO;
+        int y = COMIENZA_ALTO_PROTOTIPO;
+
         // Agregar columnas al modeloTablaCamposPosiciones.
         modeloTablaCamposPosiciones.addColumn("Campos");
         modeloTablaCamposPosiciones.addColumn("Posición(x,y)");
+        modeloTablaCamposPosiciones.addColumn("Algoritmos");
         
         /**
          * Como el array de String trae el campo imprimir,
@@ -136,13 +171,20 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
          * no queremos usar en la tabla porque no es necesario.
          */
         for(int i = 0; i < nombreColumnas.length - 1; i++){ 
-            x = x + 50;
-            y = y + 45;
-            Object nuevo[] = new Object[2];
+            x = x + INCREMENTO_ANCHO_PROTOTIPO;
+            y = y + INCREMENTO_ALTO_PROTOTIPO;
+            Object nuevo[] = new Object[3];
             nuevo[0] = nombreColumnas[i];
             nuevo[1] = "" + x + "," + y;
+            nuevo[2] = "Ninguno";           // Valor por defecto.
             this.modeloTablaCamposPosiciones.addRow(nuevo); 
         } 
+        
+        // Crear ComboBox con los algoritmos QR, AES, Codigo de barras.
+        String[] itemsAlgorimos = {"Ninguno", "QR", "AES", "Codigo de barra"};
+        JComboBox comboBox = new JComboBox(itemsAlgorimos);
+        DefaultCellEditor defaultCellEditor = new DefaultCellEditor(comboBox);
+        jTableCamposPosiciones.getColumnModel().getColumn(2).setCellEditor(defaultCellEditor);
     }
 
     /**
@@ -157,6 +199,21 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
             arrayPosicionesTexto.add((String)modeloTabla_temp.getValueAt(i, 1).toString());
         } 
         return arrayPosicionesTexto;
+    }
+    
+    /**
+     * 
+     */
+    private ArrayList<String> crearArrayAlgoritmos(){
+        // Objetos.
+        ArrayList<String> arrayAlgoritmos = new ArrayList<String>();
+        DefaultTableModel modeloTabla_temp = (DefaultTableModel)jTableCamposPosiciones.getModel();
+        
+        for(int i = 0; i < modeloTabla_temp.getRowCount(); i++){   
+            arrayAlgoritmos.add((String)modeloTabla_temp.getValueAt(i, 2).toString());
+            System.out.println((String)modeloTabla_temp.getValueAt(i, 2).toString());
+        } 
+        return arrayAlgoritmos;
     }
 
     /**
@@ -186,13 +243,13 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         jTableCamposPosiciones.setAutoCreateRowSorter(true);
         jTableCamposPosiciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Campos", "Posiciones (x,y)"
+                "Campos", "Posiciones (x,y)", "Algoritmos"
             }
         ));
         jScrollPane1.setViewportView(jTableCamposPosiciones);
@@ -303,33 +360,44 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         int fila = e.getFirstRow();
 	int columna = e.getColumn();
         
-	String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
-        
-        if(validarCoordenadasXeY(valorCeldaCambiada)){
-            // Actualiza las posiciones de Texto en el panel de dibujo texto.
-            panelDibujoImagenDinamica.actualizarPosicionTexto(fila, valorCeldaCambiada);
-        
-            /*
-             * Se redibuja en el panel de Dibujo text para que se visualice los cambios.
-             */
-            panelDibujoImagenDinamica.repaint();
-        }else{
-             JOptionPane.showMessageDialog(this, "Por favor introduzca correctamente "
-                 + "x e y separados entre coma. Ej: 150,95", 
-                 "Error", JOptionPane.ERROR_MESSAGE);
+        /*
+         * Solo se verifica a la columna 1.
+         * En la columna dos, se cambia el valor del algoritmo.
+         */
+        if(columna == 1){
+            String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
+   
+            if(validarCoordenadasXeY(valorCeldaCambiada)){
+                // Actualiza las posiciones de Texto en el panel de dibujo texto.
+                panelDibujoImagenDinamica.actualizarPosicionTexto(fila, valorCeldaCambiada);
+
+                /*
+                 * Se redibuja en el panel de Dibujo text para que se visualice los cambios.
+                 */
+                panelDibujoImagenDinamica.repaint();
+            }else{
+                 JOptionPane.showMessageDialog(this, "Por favor introduzca correctamente "
+                     + "x e y separados entre coma. Ej: 150,95", 
+                     "Error", JOptionPane.ERROR_MESSAGE);
+
+                 /**
+                  * x comienza por 100 y se incrementa con 50.
+                  * y comienza por 50 y se incrementa con 45.
+                  * O sea, la primera file seria 150,75 y la segunda 200,100, y
+                  * asi sucesivamente. Estos son los valores de las coordenadas por
+                  * defecto.
+                  */
+                 int x = (COMIENZA_ANCHO_PROTOTIPO + INCREMENTO_ANCHO_PROTOTIPO * (fila + 1));
+                 int y = (COMIENZA_ALTO_PROTOTIPO + INCREMENTO_ALTO_PROTOTIPO * (fila + 1));
+                 String valorCelda = "" + x + "," + y; 
+                 modeloTablaCamposPosiciones.setValueAt(valorCelda, fila, columna);
+            }  
+        }else if (columna == 2){
+             String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
              
-             /**
-              * x comienza por 100 y se incrementa con 50.
-              * y comienza por 50 y se incrementa con 45.
-              * O sea, la primera file seria 150,75 y la segunda 200,100, y
-              * asi sucesivamente. Estos son los valores de las coordenadas por
-              * defecto.
-              */
-             int x = (100 + 50 * (fila + 1));
-             int y = (50 + 45 * (fila + 1));
-             String valorCelda = "" + x + "," + y; 
-             modeloTablaCamposPosiciones.setValueAt(valorCelda, fila, columna);
-        }     
+             // Actualiza el valor del algoritmo.
+             panelDibujoImagenDinamica.actualizarArrayAlgoritmos(fila, valorCeldaCambiada);
+        }
     }
     
     /**
@@ -343,7 +411,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
             ",");
         
         // Variables.
-        int x,y;
+        int x, y;
         
         try{
             x = Integer.parseInt(stringTokenizer.nextToken());

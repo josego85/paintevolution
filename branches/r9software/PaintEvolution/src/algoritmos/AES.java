@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package algoritmos;
 
 /**
  *
@@ -42,8 +42,8 @@ public class AES {
 
     public static void main (String[] args)throws Exception { 
         String s = "miclavesereta"; 
-        AES.encriptar (s.toCharArray(), new File("C://Users//Rodo//Pictures//fondo.jpg"), new File ("C://Users//Rodo//Pictures//fondo_prote.jpg")); 
-        AES.desencriptar (s.toCharArray(), new File("C://Users//Rodo//Pictures//fondo_prote.jpg"), new File ("C://Users//Rodo//Pictures//fondo_copia.jpg")); 
+        AES.encriptar (s.toCharArray(), new File("C://Users//proyectosbeta//fondo.bmp"), new File ("C://Users//proyectosbeta//fondo_prote.bmp")); 
+        AES.desencriptar (s.toCharArray(), new File("C://Users//proyectosbeta//fondo_prote.bmp"), new File ("C://Users//proyectosbeta//fondo_copia.bmp")); 
     } 
 
     public static void desencriptar (char[] pass, File desde, File hacia)throws Exception{ 

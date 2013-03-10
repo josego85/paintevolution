@@ -6,7 +6,9 @@ package GUI;
 
 import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
+import Auxiliar.Imagen;
 import Auxiliar.Texto;
+import algoritmos.CodigoBarra;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -25,6 +27,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import util.ImprimirImagenes;
+import algoritmos.QR;
 
 /**
  *
@@ -40,6 +43,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
     private static ArrayList<ArrayList> arrayFilasSeleccionadas;
     private static String[] nombreColumnas;
     private static ArrayList<String> arrayPosicionesTexto;
+    private static ArrayList<String> arrayAlgoritmos;
     
     /*
      * Constante del ancho de una imagen con 50 pixeles.
@@ -64,6 +68,12 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
     private LinkedList<Texto> listaTexto = new LinkedList<Texto>();
     
     /**
+     * Lista de algortimos a dibujar.
+     */
+    private LinkedList<Imagen> listaImagenesAlgoritmos = new LinkedList<Imagen>();
+    
+    
+    /**
      * El nombre del archivo que se usa para guardar la imagen.
      * @since 1.6
      */
@@ -80,7 +90,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
      * Creates new form PanelDibujoImagenDinamica
      */
     public PanelDibujoImagenDinamica(String rutaImagenTemporal, ArrayList<ArrayList> arrayFilasSeleccionadas,
-            String[] nombreColumnas, ArrayList<String> arrayPosicionesTexto) {
+            String[] nombreColumnas, ArrayList<String> arrayPosicionesTexto, ArrayList<String> arrayAlgoritmos) {
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
@@ -102,6 +112,12 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
          * Se guarda en un array las posiciones de los textos.
          */
         PanelDibujoImagenDinamica.arrayPosicionesTexto = arrayPosicionesTexto;
+        
+        /**
+         * Se guarda en un array los algoritmos de los textos si es que los 
+         * contiene..
+         */
+        PanelDibujoImagenDinamica.arrayAlgoritmos = arrayAlgoritmos;
         
         initComponents();
         
@@ -148,13 +164,21 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
     }
     
     /**
-     * A?ada un objeto Texto a la lista de texto a dibujar.
+     * Anhada un objeto Texto a la lista de texto a dibujar.
      *
      * @param texto Una nuevo objeto Texto a dibujar
      * @since 1.6
      */
     public void agregarTexto(Texto texto){
         listaTexto.add(texto);
+    }
+    
+    /**
+     * Anhada un objeto Imagen a la lista de imagenesAlgoritmos a dibujar.
+     * @param imagen 
+     */
+    public void agregarImagenAlgoritmo(Imagen imagen){
+        listaImagenesAlgoritmos.add(imagen);
     }
     
     /**
@@ -282,8 +306,14 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         // Dibuja la imagenPrincipal.
         g2.drawImage(imagenPrincipal, 0, 0, null);  
 
-        // Dibuja tods los textos.
+        // Dibuja todos los textos.
         dibujarTexto(g2);
+        
+        // Dibujar imagenes algoritmos.
+        for (Imagen imagen_temp : listaImagenesAlgoritmos){
+            g2.drawImage(imagen_temp.getImagen(), imagen_temp.getCoordenadaX(), 
+                imagen_temp.getCoordenadaY(), null);  
+        }
 
         if (getImagenInsertada() != null){
             // Dibuja la imagenInsertada.
@@ -315,16 +345,39 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         setImagenTemporal(ImageIO.read(file));
         repaint();                                              // Se dibuja la imagenTemporalImprimir.
     }
-    
-    
+
     /**
      * 
+     * @param campo
+     * @param x
+     * @param y 
      */
     private void insertarTextoImagen(String campo, int x, int y){
         Texto texto_temp = new Texto(campo, "Serif", 0 , 36, Color.BLACK, x, y);
         
         // Se agrega texto a la listaTexto.
         agregarTexto(texto_temp); 
+    }
+    
+    /**
+     * 
+     * @param nombre
+     * @param coordenadaX
+     * @param coordenadaY
+     * @param imagen 
+     */
+    private void insertarImagenAlgoritmo(String nombre, int coordenadaX, int coordenadaY,
+        BufferedImage imagen){
+        Imagen imagenInsertar = new Imagen(nombre, coordenadaX, coordenadaY, imagen);
+        /*
+        if(imagen != null){
+            try{
+                ImageIO.write(imagen, "jpg", new File(nombre + ".jpg"));
+            }catch(Exception e){
+            }
+        }*/
+         // Se agrega la imagenAlgoritmo a la listaImagenesAlgoritmos.
+        agregarImagenAlgoritmo(imagenInsertar);
     }
     
     /**
@@ -349,7 +402,18 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
                     arrayPosicionesTexto.get(contador).toString(), ",");
                 x = Integer.parseInt(stringTokenizer.nextToken());
                 y = Integer.parseInt(stringTokenizer.nextToken());
-                insertarTextoImagen(objeto.toString() , x , y);
+                
+                if(arrayAlgoritmos.get(contador).toString().equals("Ninguno")){
+                    insertarTextoImagen(objeto.toString(), x, y);
+                }else if(arrayAlgoritmos.get(contador).toString().equals("QR")){
+                     QR algoritmoQR = new QR(objeto.toString(), 100, 100);
+                     insertarImagenAlgoritmo(objeto.toString(), x, y, algoritmoQR.devolverImagenQR());
+                }else if(arrayAlgoritmos.get(contador).toString().equals("AES")){
+                    
+                }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
+                    CodigoBarra algoritmoCodigoBarra = new CodigoBarra();
+                    insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
+                }
                 contador++;
             }
             contador = 0;
@@ -358,9 +422,12 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
             
             // Borra la lista de texto.
             listaTexto.clear();
+            
+            // Borra la lista de imagenes algoritmos.
+            listaImagenesAlgoritmos.clear();
         }
     }
-    
+
     /**
      * 
      */
@@ -424,13 +491,47 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         // Borra la lista de texto.
         listaTexto.clear();
     }
+
+    /**
+     * Metodo publico que cambia el valor del algoritmo..
+     * @param numeroCampo
+     * @param algoritmo 
+     */
+    public void actualizarArrayAlgoritmos(int numeroCampo, String algoritmo){
+        // Variables.
+        
+        /**
+         * Como el array de String trae el campo imprimir,
+         * restamos la longitud total con 1, porque
+         * no queremos usar en la lista.
+         */
+        for(int i = 0; i < nombreColumnas.length - 1 ; i++){
+            if(i == numeroCampo){
+                // Cambia el valor del algoritmo.
+                cambiarAlgoritmosArrayList(i, algoritmo);
+                break;
+            }
+        }
+    }
     
     /**
      * Metodo privado que cambia la coordenada "x" e "y" del arraliList 
      * arrayPosicionesTexto.
+     * @param indice
+     * @param coordenadaXeY 
      */
     private void cambiarPosicionTextoArrayList(int indice, String coordenadaXeY){
         arrayPosicionesTexto.set(indice, coordenadaXeY);
+    }
+    
+    /**
+     * Metodo privado que cambia el valor de los algoritmos del arraliList 
+     * arrayPosicionesTexto.
+     * @param indice
+     * @param algoritmo 
+     */
+    private void cambiarAlgoritmosArrayList(int indice, String algoritmo){
+        arrayAlgoritmos.set(indice, algoritmo);
     }
     
     /**
