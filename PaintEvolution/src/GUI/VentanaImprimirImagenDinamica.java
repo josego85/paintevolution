@@ -4,11 +4,9 @@
  */
 package GUI;
 
-import baseDatos.ModeloDefaultTableCampoPosicion;
+import baseDatos.ModeloDefaultTableCampoPosicionImagenDinamica;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import javax.swing.DefaultCellEditor;
@@ -30,7 +28,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
     private static String rutaImagenTemporal;
     private static String[] nombreColumnas;
     private static ArrayList<ArrayList> arrayFilasSeleccionadas;
-    private ModeloDefaultTableCampoPosicion modeloTablaCamposPosiciones;
+    private ModeloDefaultTableCampoPosicionImagenDinamica modeloTablaCamposPosiciones;
     
     /**
      * FALTA COMENTAR
@@ -95,7 +93,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         initComponents();
 
         // Modelo para jTableCamposPosiciones.
-        modeloTablaCamposPosiciones = new ModeloDefaultTableCampoPosicion(); 
+        modeloTablaCamposPosiciones = new ModeloDefaultTableCampoPosicionImagenDinamica(); 
 
         // Se agrega a la tabla (jTableCamposPosiciones) el modelo.
         jTableCamposPosiciones.setModel(modeloTablaCamposPosiciones);
@@ -162,7 +160,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
 
         // Agregar columnas al modeloTablaCamposPosiciones.
         modeloTablaCamposPosiciones.addColumn("Campos");
-        modeloTablaCamposPosiciones.addColumn("Posición(x,y)");
+        modeloTablaCamposPosiciones.addColumn("Posiciones(x,y)");
         modeloTablaCamposPosiciones.addColumn("Algoritmos");
         
         /**
@@ -188,7 +186,8 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
     }
 
     /**
-     * 
+     * Metodo privado que devuelve en un arrayList de las posiciones "x" e "y"
+     * de los textos.
      */
     private ArrayList<String> crearArrayPosicionesTexto(){
         // Objetos.
@@ -202,7 +201,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
     }
     
     /**
-     * 
+     * Metodo privado que devuelve en un arrayList los algoritmos-
      */
     private ArrayList<String> crearArrayAlgoritmos(){
         // Objetos.

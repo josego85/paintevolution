@@ -153,7 +153,10 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         super.paint(g);
         g.drawImage(imagenPrincipal, 0, 0, null);  
          
-        
+        /*
+         * Crear prototipos donde van despues al imprimir, las variablesque se sacaron de la
+         * base de datos o los algorimos.
+         */
         crearTextoPrototipo();
         
         dibujarTexto(g);
@@ -167,7 +170,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
     /**
      * Anhada un objeto Texto a la lista de texto a dibujar.
      *
-     * @param texto Una nuevo objeto Texto a dibujar
+     * @param texto Un nuevo objeto Texto a dibujar
      * @since 1.6
      */
     public void agregarTexto(Texto texto){
@@ -370,19 +373,14 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
     private void insertarImagenAlgoritmo(String nombre, int coordenadaX, int coordenadaY,
         BufferedImage imagen){
         Imagen imagenInsertar = new Imagen(nombre, coordenadaX, coordenadaY, imagen);
-        /*
-        if(imagen != null){
-            try{
-                ImageIO.write(imagen, "jpg", new File(nombre + ".jpg"));
-            }catch(Exception e){
-            }
-        }*/
+
          // Se agrega la imagenAlgoritmo a la listaImagenesAlgoritmos.
         agregarImagenAlgoritmo(imagenInsertar);
     }
     
     /**
-     * 
+     * Metodo privado donde se insertan las el texto o los algoritmos
+     * para luego usarlos en la impresion.
      */
     private void insertarTextoImagenes(){
         // Objetos.
@@ -443,7 +441,9 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
     }
     
     /**
-     * 
+     * Metodo privado donde se crean los prototipos de las variables donde al
+     * imprimir se van a reeemplazar por los valores de la base de datos o los 
+     * algortimos seleccionados.
      */
     private void crearTextoPrototipo(){
         // Variables.
@@ -455,7 +455,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
          * restamos la longitud total con 1, porque
          * no queremos usar en la lista.
          */
-        for(int i = 0; i < nombreColumnas.length - 1 ; i++){
+        for(int i = 0; i < nombreColumnas.length - 1; i++){
             StringTokenizer stringTokenizer = new StringTokenizer(
                 arrayPosicionesTexto.get(i).toString(), ",");
             x = Integer.parseInt(stringTokenizer.nextToken());
@@ -479,7 +479,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
          * restamos la longitud total con 1, porque
          * no queremos usar en la lista.
          */
-        for(int i = 0; i < nombreColumnas.length - 1 ; i++){
+        for(int i = 0; i < nombreColumnas.length - 1; i++){
             if(i == numeroCampo){
                 StringTokenizer stringTokenizer = new StringTokenizer(coordenadasXeY, 
                     ",");
@@ -503,14 +503,12 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
      * @param algoritmo 
      */
     public void actualizarArrayAlgoritmos(int numeroCampo, String algoritmo){
-        // Variables.
-        
         /**
          * Como el array de String trae el campo imprimir,
          * restamos la longitud total con 1, porque
          * no queremos usar en la lista.
          */
-        for(int i = 0; i < nombreColumnas.length - 1 ; i++){
+        for(int i = 0; i < nombreColumnas.length - 1; i++){
             if(i == numeroCampo){
                 // Cambia el valor del algoritmo.
                 cambiarAlgoritmosArrayList(i, algoritmo);
