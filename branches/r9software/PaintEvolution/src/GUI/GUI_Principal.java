@@ -50,13 +50,6 @@ public class GUI_Principal extends javax.swing.JFrame {
      * @since 1.6
      */
     private PanelDibujo mesaDeDibujo;
-   
-    /**
-     * Ventana Ayuda.
-     *
-     * @since 1.6
-     */
-    private VentanaAyuda ventanaAyuda;
 
     /**
      * El color del borde de los objetos.
@@ -180,7 +173,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         //setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
 
         // Deshabilitar la opcion de Maximizar ventana.
-        setResizable(false);
+        setResizable(true);
         
         /*
          * Para que el canvas contenga 350 de ancho se tiene que poner la ventana
@@ -188,12 +181,10 @@ public class GUI_Principal extends javax.swing.JFrame {
          * se tiene que poner la ventana GUI_Principal a 977 de alto. 
          */
         //setSize(1075, 487);
-        setSize(637, 844);              // 400 de ancho y 700 de alto.
+        setSize(447, 609);              // 250 de ancho y 500 de alto para la mesa de dibujo.
         
         // Crea el objeto de Mesa de Dibujo
         mesaDeDibujo = new PanelDibujo();
-
-        ventanaAyuda = null;
 
         jLabelHerramientaSeleccionadaObjeto.setText("Lápiz");
 
@@ -290,10 +281,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItemZoomIn = new javax.swing.JMenuItem();
         jMenuItemZoomOut = new javax.swing.JMenuItem();
-        jMenuAyuda = new javax.swing.JMenu();
-        jMenuItemIndice = new javax.swing.JMenuItem();
-        jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        jMenuItemAcercaDe = new javax.swing.JMenuItem();
 
         jDialogColor.setTitle("Colores");
         jDialogColor.setMinimumSize(new java.awt.Dimension(660, 395));
@@ -349,8 +336,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         jPanelBarraAccesoDirecto.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
-        jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoNuevo_32px.png"))); // NOI18N
-        jButtonNuevo.setText("Nuevo");
+        jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoNuevo_16px.png"))); // NOI18N
         jButtonNuevo.setToolTipText("Nuevo");
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -361,8 +347,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonNuevo);
 
-        jButtonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoAbrir_32px.png"))); // NOI18N
-        jButtonAbrir.setText("Abrir");
+        jButtonAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/documentoAbrir_16px.png"))); // NOI18N
         jButtonAbrir.setToolTipText("Abrir");
         jButtonAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -373,8 +358,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonAbrir);
 
-        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/guardar_32px.png"))); // NOI18N
-        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/guardar_16px.png"))); // NOI18N
         jButtonGuardar.setToolTipText("Guardar");
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -385,8 +369,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonGuardar);
 
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/impresora_32px.png"))); // NOI18N
-        jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/impresora_16px.png"))); // NOI18N
         jButtonImprimir.setToolTipText("Imprimir");
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -397,8 +380,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonImprimir);
 
-        jButtonDeshacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/desHacer_32px.png"))); // NOI18N
-        jButtonDeshacer.setText("Deshacer");
+        jButtonDeshacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/desHacer_16px.png"))); // NOI18N
         jButtonDeshacer.setToolTipText("Deshacer");
         jButtonDeshacer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDeshacer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -409,8 +391,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonDeshacer);
 
-        jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_32px.png"))); // NOI18N
-        jButtonZoomIn.setText("Zoom In");
+        jButtonZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_in_16px.png"))); // NOI18N
         jButtonZoomIn.setToolTipText("Zoom In");
         jButtonZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -421,8 +402,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonZoomIn);
 
-        jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_out_32px.png"))); // NOI18N
-        jButtonZoomOut.setText("Zoom Out");
+        jButtonZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/zoom_out_16px.png"))); // NOI18N
         jButtonZoomOut.setToolTipText("Zoom Out");
         jButtonZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -433,8 +413,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonZoomOut);
 
-        jButtonPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/pantallaCompleta_32px.png"))); // NOI18N
-        jButtonPantallaCompleta.setText("Pantalla Completa");
+        jButtonPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/pantallaCompleta_16px.png"))); // NOI18N
         jButtonPantallaCompleta.setToolTipText("Pantalla Completa");
         jButtonPantallaCompleta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPantallaCompleta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -445,8 +424,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonPantallaCompleta);
 
-        jButtonDesactivarPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/DesactivarPantallaCompleta_32px.png"))); // NOI18N
-        jButtonDesactivarPantallaCompleta.setText("Desactivar Pantalla Completa");
+        jButtonDesactivarPantallaCompleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/DesactivarPantallaCompleta_16px.png"))); // NOI18N
         jButtonDesactivarPantallaCompleta.setToolTipText("Desactivar Pantalla Completa");
         jButtonDesactivarPantallaCompleta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDesactivarPantallaCompleta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -457,8 +435,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanelBarraAccesoDirecto.add(jButtonDesactivarPantallaCompleta);
 
-        jButtonOpcionesImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/opcionesImagen_32px.png"))); // NOI18N
-        jButtonOpcionesImagen.setText("Opciones Imagen");
+        jButtonOpcionesImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/AccesosDirectos/opcionesImagen_16px.png"))); // NOI18N
         jButtonOpcionesImagen.setToolTipText("Opciones Imagen");
         jButtonOpcionesImagen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOpcionesImagen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -471,11 +448,16 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         getContentPane().add(jPanelBarraAccesoDirecto, java.awt.BorderLayout.NORTH);
 
+        jPanelBarraDeHerramientas.setPreferredSize(new java.awt.Dimension(152, 389));
         jPanelBarraDeHerramientas.setLayout(new javax.swing.BoxLayout(jPanelBarraDeHerramientas, javax.swing.BoxLayout.PAGE_AXIS));
 
         jToolBarBarraDeHerramientas.setFloatable(false);
         jToolBarBarraDeHerramientas.setRollover(true);
+        jToolBarBarraDeHerramientas.setMinimumSize(new java.awt.Dimension(100, 387));
+        jToolBarBarraDeHerramientas.setPreferredSize(new java.awt.Dimension(100, 387));
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(100, 387));
+        jPanel1.setPreferredSize(new java.awt.Dimension(100, 387));
         jPanel1.setLayout(new java.awt.GridLayout(9, 2));
 
         buttonGroupObjetos.add(jToggleButtonPincel);
@@ -483,6 +465,9 @@ public class GUI_Principal extends javax.swing.JFrame {
         jToggleButtonPincel.setToolTipText("Pincel");
         jToggleButtonPincel.setFocusable(false);
         jToggleButtonPincel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButtonPincel.setMaximumSize(new java.awt.Dimension(63, 43));
+        jToggleButtonPincel.setMinimumSize(new java.awt.Dimension(63, 43));
+        jToggleButtonPincel.setPreferredSize(new java.awt.Dimension(63, 43));
         jToggleButtonPincel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToggleButtonPincel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -601,6 +586,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonBorraTodoLosObjetos);
 
+        jButtonColorDeFondoPantalla.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jButtonColorDeFondoPantalla.setText("Fondo");
         jButtonColorDeFondoPantalla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -609,8 +595,9 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonColorDeFondoPantalla);
 
-        jButtonColorBordeObjetos.setText("Color Borde");
-        jButtonColorBordeObjetos.setToolTipText("Color Borde");
+        jButtonColorBordeObjetos.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jButtonColorBordeObjetos.setText("C. Borde");
+        jButtonColorBordeObjetos.setToolTipText("C. Borde");
         jButtonColorBordeObjetos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonColorBordeObjetosActionPerformed(evt);
@@ -618,7 +605,9 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonColorBordeObjetos);
 
-        jButtonColorRelleno.setText("Color Relleno");
+        jButtonColorRelleno.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jButtonColorRelleno.setText("C. Relleno");
+        jButtonColorRelleno.setToolTipText("C. Relleno");
         jButtonColorRelleno.setEnabled(false);
         jButtonColorRelleno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -655,6 +644,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         jPanel1.add(jComboBoxGrosorBorde);
 
         buttonGroupObjetos.add(jToggleButtonArrastrarObjetos);
+        jToggleButtonArrastrarObjetos.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButtonArrastrarObjetos.setText("Arrastrar");
         jToggleButtonArrastrarObjetos.setToolTipText("Arrastrar Objetos");
         jToggleButtonArrastrarObjetos.setFocusable(false);
@@ -668,7 +658,8 @@ public class GUI_Principal extends javax.swing.JFrame {
         jPanel1.add(jToggleButtonArrastrarObjetos);
 
         buttonGroupObjetos.add(jToggleInfoBorrado);
-        jToggleInfoBorrado.setText("Info Borrado");
+        jToggleInfoBorrado.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleInfoBorrado.setText("Info");
         jToggleInfoBorrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleInfoBorradoActionPerformed(evt);
@@ -821,34 +812,6 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         jMenuBarArchivo.add(jMenuEditar);
 
-        jMenuAyuda.setText("Ayuda");
-        jMenuAyuda.setToolTipText("Ayuda");
-
-        jMenuItemIndice.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemIndice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/ayuda_16px.png"))); // NOI18N
-        jMenuItemIndice.setText("Índice");
-        jMenuItemIndice.setToolTipText("Índice");
-        jMenuItemIndice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemIndiceActionPerformed(evt);
-            }
-        });
-        jMenuAyuda.add(jMenuItemIndice);
-        jMenuAyuda.add(jSeparator5);
-
-        jMenuItemAcercaDe.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/Menus/acercaDe_16px.png"))); // NOI18N
-        jMenuItemAcercaDe.setText("Acerca de");
-        jMenuItemAcercaDe.setToolTipText("Acerca de");
-        jMenuItemAcercaDe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAcercaDeActionPerformed(evt);
-            }
-        });
-        jMenuAyuda.add(jMenuItemAcercaDe);
-
-        jMenuBarArchivo.add(jMenuAyuda);
-
         setJMenuBar(jMenuBarArchivo);
 
         pack();
@@ -999,21 +962,6 @@ public class GUI_Principal extends javax.swing.JFrame {
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         operacionNuevo();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
-
-    private void jMenuItemIndiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemIndiceActionPerformed
-        mostrarVentanaAyuda();
-    }//GEN-LAST:event_jMenuItemIndiceActionPerformed
-
-    private void jMenuItemAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAcercaDeActionPerformed
-        String codigoHTML = "<html><body><p><b>&nbsp;&nbsp;&nbsp;&nbsp;Autor:</b> " +
-                "José González von Schmeling<br><b>&nbsp;&nbsp;&nbsp;&nbsp;Mail:</b> " +
-                "josego85@gmail.com<br><b>&nbsp;&nbsp;&nbsp;&nbsp;Año:</b> 2010" +
-                "<br><b>&nbsp;&nbsp;&nbsp;&nbsp;Paint Evolution v.1.0</b></body></html>";
-        JOptionPane.showMessageDialog(this, codigoHTML,
-                "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO + 
-                Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
-        mesaDeDibujo.repaint();
-    }//GEN-LAST:event_jMenuItemAcercaDeActionPerformed
 
     private void jMenuItemDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDeshacerActionPerformed
         llamarObjetosDiferentes(evt);
@@ -1264,27 +1212,6 @@ public class GUI_Principal extends javax.swing.JFrame {
         mesaDeDibujo.setColorRelleno(Color.WHITE);
         jCheckBoxActivarRelleno.setSelected(false);
 	mesaDeDibujo.repaint();
-    }
-
-    /**
-     * Metodo que muestra la ventana Ayuda.
-     * @since 1.6
-     */
-    public void mostrarVentanaAyuda() {
-        this.setLocationRelativeTo(null);
-        ventanaAyuda = new VentanaAyuda(this, rootPaneCheckingEnabled);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int w = this.getSize().width;
-        int h = this.getSize().height;
-        int x = (dim.width - w)/2;
-        int y = (dim.height - h)/2;
-        ventanaAyuda.setSize(dim);
-       // ventanaAyuda.setLocation(x, y);
-       // ventanaAyuda.mostrarAyuda();
-       // ventanaAyuda.setVisible(true);
-        //ventanaAyuda.setLocationRelativeTo(this);
-        ventanaAyuda.setLocationRelativeTo(this);
-	ventanaAyuda.mostrarAyuda();
     }
     
     /**
@@ -1542,17 +1469,14 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelHerramientaSeleccionadaObjeto;
     private javax.swing.JLabel jLabelTamanioGrosor;
     private javax.swing.JMenu jMenuArchivo;
-    private javax.swing.JMenu jMenuAyuda;
     private javax.swing.JMenuBar jMenuBarArchivo;
     private javax.swing.JMenu jMenuEditar;
     private javax.swing.JMenuItem jMenuItemAbrir;
-    private javax.swing.JMenuItem jMenuItemAcercaDe;
     private javax.swing.JMenuItem jMenuItemCerrar;
     private javax.swing.JMenuItem jMenuItemDeshacer;
     private javax.swing.JMenuItem jMenuItemGuardar;
     private javax.swing.JMenuItem jMenuItemGuardarComo;
     private javax.swing.JMenuItem jMenuItemImprimir;
-    private javax.swing.JMenuItem jMenuItemIndice;
     private javax.swing.JMenuItem jMenuItemNuevo;
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenuItem jMenuItemZoomIn;
@@ -1566,7 +1490,6 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
-    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JToggleButton jToggleButtonArrastrarObjetos;
     private javax.swing.JToggleButton jToggleButtonBorrador;
     private javax.swing.JToggleButton jToggleButtonCirculo;

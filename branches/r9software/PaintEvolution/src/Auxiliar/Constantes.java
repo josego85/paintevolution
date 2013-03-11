@@ -30,7 +30,7 @@ public class Constantes {
      * @since 1.6
      */
     //public static final int MAXIMO_LARGO_PANTALLA_DIBUJO = 850;
-    public static final int MAXIMO_LARGO_PANTALLA_DIBUJO = 400;
+    public static final int MAXIMO_LARGO_PANTALLA_DIBUJO = 262;
     /**
      * Tamanhio maximo del largo de la pantalla dibujo.
      * @since 1.6
@@ -40,7 +40,7 @@ public class Constantes {
      * Tamanhio maximo del ancho de la pantalla dibujo.
      * @since 1.6
      */
-    public static final int MAXIMO_ANCHO_PANTALLA_DIBUJO = 700;
+    public static final int MAXIMO_ANCHO_PANTALLA_DIBUJO = 500;
     //public static final int MAXIMO_ANCHO_PANTALLA_DIBUJO = 350;
 
     /**

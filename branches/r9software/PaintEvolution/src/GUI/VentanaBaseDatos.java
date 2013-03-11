@@ -6,6 +6,7 @@ package GUI;
 
 import Auxiliar.Constantes;
 import baseDatos.ConexionMysql;
+import java.awt.GridLayout;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author Rodo
  */
-public class VentanaBaseDatos extends javax.swing.JFrame {
+public class VentanaBaseDatos extends VentanaComun {
     // Variables de clase.
     private static ConexionMysql conexionLocal;
     private String baseDatos;
@@ -83,23 +84,6 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
             }*/
         }
     }
-    
-    /**
-     * 
-     */
-    /*
-    public VentanaBaseDatos(String rutaImagenTemporal) {
-    * */
-        /*
-         * Se guarda la ruta de la imagen temporal para luego usar,
-         * al crear un Texto con registros de la base de datos.
-         */
-    /*
-        VentanaBaseDatos.rutaImagenTemporal = rutaImagenTemporal;
-        
-        initComponents();
-    }
-*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,11 +104,15 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Seleccionar tabla y campos");
-        setResizable(false);
 
         jComboBoxBD.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBoxBDItemStateChanged(evt);
+            }
+        });
+        jComboBoxBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxBDActionPerformed(evt);
             }
         });
 
@@ -136,14 +124,17 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         );
         jPanelBasesDatosLayout.setVerticalGroup(
             jPanelBasesDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBasesDatosLayout.createSequentialGroup()
-                .addComponent(jComboBoxBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jComboBoxBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jComboBoxTablas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBoxTablasItemStateChanged(evt);
+            }
+        });
+        jComboBoxTablas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTablasActionPerformed(evt);
             }
         });
 
@@ -158,20 +149,18 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         );
         jPanelTablasLayout.setVerticalGroup(
             jPanelTablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTablasLayout.createSequentialGroup()
-                .addComponent(jComboBoxTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 292, Short.MAX_VALUE))
+            .addComponent(jComboBoxTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout jPanelVariablesLayout = new javax.swing.GroupLayout(jPanelVariables);
         jPanelVariables.setLayout(jPanelVariablesLayout);
         jPanelVariablesLayout.setHorizontalGroup(
             jPanelVariablesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 122, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanelVariablesLayout.setVerticalGroup(
             jPanelVariablesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 316, Short.MAX_VALUE)
+            .addGap(0, 226, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -180,22 +169,25 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jPanelBasesDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelVariables, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelVariables, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanelBasesDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelTablas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelBasesDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelVariables, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanelTablas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelBasesDatos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelVariables, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jButtonSiguiente.setText("Siguiente");
@@ -210,19 +202,19 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(204, 693, Short.MAX_VALUE)
                 .addComponent(jButtonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSiguiente)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -235,8 +227,8 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxBDItemStateChanged
 
     private void jComboBoxTablasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTablasItemStateChanged
-        if(jComboBoxTablas.getSelectedItem()!=null) {
-            cargarVariablesTabla(jComboBoxTablas.getSelectedItem().toString());
+        if(jComboBoxTablas.getSelectedItem() != null) {
+            cargarCampos(jComboBoxTablas.getSelectedItem().toString());
         }
         
     }//GEN-LAST:event_jComboBoxTablasItemStateChanged
@@ -274,6 +266,14 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
                 Constantes.TITULO_PROGRAMA, JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
+
+    private void jComboBoxBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxBDActionPerformed
+
+    private void jComboBoxTablasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTablasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxTablasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,14 +403,14 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
      * 
      * @param tabla 
      */
-    private void cargarVariablesTabla(String tabla) {
+    private void cargarCampos(String tabla) {
         // Objetos.
         ResultSet useBase;
         ResultSet ejecutarQueryTablas;
         
         try {
             jPanelVariables.removeAll();
-            ArrayList variables = new ArrayList();
+            ArrayList campos = new ArrayList();
             ArrayList tipoDato = new ArrayList();
             
             // Abrir conexion a base de datos mysql local.
@@ -420,19 +420,28 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
             ejecutarQueryTablas = conexionLocal.ejecutarQuery("DESCRIBE " + tabla);
             
             while(ejecutarQueryTablas.next()){
-                variables.add(ejecutarQueryTablas.getString(1));
+                campos.add(ejecutarQueryTablas.getString(1));
                 tipoDato.add(ejecutarQueryTablas.getString(2));
                 //System.out.println(ejecutarQueryTablas.getString(1)+"------->"+ejecutarQueryTablas.getString(2));
             }
-            jCheckBoxVariables= new JCheckBox[variables.size()];
+            jCheckBoxVariables = new JCheckBox[campos.size()];
             
-            for(int x = 0; x < variables.size(); x++) {
-              jCheckBoxVariables[x] = new JCheckBox(variables.get(x).toString());
-              jCheckBoxVariables[x].setBounds(0, 35*(x+1), 100, 25);
-              jPanelVariables.add(jCheckBoxVariables[x]);
-              jPanelVariables.repaint();
-              jButtonSiguiente.setEnabled(true);
-           }
+            for(int x = 0; x < campos.size(); x++) {
+                jCheckBoxVariables[x] = new JCheckBox(campos.get(x).toString());
+                jCheckBoxVariables[x].setBounds(0, 35*(x+1), 100, 25);
+                //jPanelVariables.add(jCheckBoxVariables[x]);
+                //jPanelVariables.repaint();
+            }
+            int cantidadFilas = campos.size() / 3;
+            // Colocación en el contenedor
+            jPanelVariables.setLayout (new GridLayout (cantidadFilas, 3));  // 3 filas y 3 columnas
+            
+            for (int i = 0; i < campos.size(); i++){
+                jPanelVariables.add (jCheckBoxVariables[i]);  // Añade los checkbo de 1 en 1.
+                jPanelVariables.repaint();
+            }
+            
+            jButtonSiguiente.setEnabled(true);
         }catch(SQLException ex) {
              Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
@@ -474,11 +483,6 @@ public class VentanaBaseDatos extends javax.swing.JFrame {
             // Realiza la consulta sql.
             ejecutarQueryRegistro = conexionLocal.ejecutarQuery("select " + 
                 columnaConsulta + " from " + tabla);
-            
-            /*
-            System.out.println("La sentencia sql es: " + "select " + 
-                columnaConsulta + " from " + tabla);
-                * */
         }catch(SQLException ex) {
              Logger.getLogger(VentanaBaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
