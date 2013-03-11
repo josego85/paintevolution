@@ -7,14 +7,15 @@ package baseDatos;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Clase ModeloDefaultTableCampoPosicion que hereda de DefaultTableModel
- * para que solo se pueda editar la columna 1.
+ * Clase ModeloDefaultTableCampoPosicionImagenDinamica que hereda de DefaultTableModel
+ * para que solo se pueda editar las columnas 1 y 2 en la tabla de la imagen
+ * dinamica.
  * @author proyectosbeta
  */
-public class ModeloDefaultTableCampoPosicion extends DefaultTableModel{
+public class ModeloDefaultTableCampoPosicionImagenDinamica extends DefaultTableModel{
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        // Solo si es columna 1 y 2 se puede editar.
+        // Solo si son columna 1 y 2 se puede editar.
         if(columnIndex == 1 || columnIndex == 2){
             return true;
         }

@@ -4,19 +4,29 @@
  */
 package GUI;
 
+import baseDatos.ModeloDefaultTableCampoPosicionImagenEstatica;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author proyectosbeta
  */
-public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
+public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements TableModelListener{
     ////////////////////////////////////////////////////////////////////////////
     // Variables de clase.
     ////////////////////////////////////////////////////////////////////////////
     private PanelDibujoImagenEstatica panelDibujoImagenEstatica;
     private static String rutaImagenTemporal;
+    private ModeloDefaultTableCampoPosicionImagenEstatica modeloTablaCamposPosiciones;
     
     /**
      * FALTA COMENTAR
@@ -31,6 +41,30 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
      */
     private Image iconoAplicacion;
     
+    /*
+     * Constante que indica con cuantos pixeles empieza
+     * el ancho del prototipo.
+     */
+    private final static int COMIENZA_ANCHO_PROTOTIPO = 10;
+    
+    /*
+     * Constante que indica con cuantos pixeles empieza
+     * el alto del prototipo.
+     */
+    private final static int COMIENZA_ALTO_PROTOTIPO = 50;
+    
+    /*
+     * Constante que indica cuanto pixeles incrementa
+     * el ancho del prototipo.
+     */
+    private final static int INCREMENTO_ANCHO_PROTOTIPO = 45;
+    
+    /*
+     * Constante que indica cuanto pixeles incrementa
+     * el alto del prototipo.
+     */
+    private final static int INCREMENTO_ALTO_PROTOTIPO = 65;
+    
     /**
      * Creates new form VentanaImprimirImagenEstatica
      */
@@ -42,6 +76,26 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
         VentanaImprimirImagenEstatica.rutaImagenTemporal = rutaImagenTemporal;
         
         initComponents();
+        
+        // Modelo para jTableCamposPosiciones.
+        modeloTablaCamposPosiciones = new ModeloDefaultTableCampoPosicionImagenEstatica(); 
+
+        // Se agrega a la tabla (jTableCamposPosiciones) el modelo.
+        jTableCamposPosiciones.setModel(modeloTablaCamposPosiciones);
+        
+        cargarDatosTabla();
+        
+        /*
+         * Guarda en un array las posiciones de los Texto (campos) que
+         * el usuario habia seleccionado anteriormente.
+         */
+        ArrayList<String> arrayPosicionesTexto = crearArrayPosicionesTexto();
+        
+        /*
+         * Guarda en un array los algortimos que coiciden con las posiciones de 
+         * los textos.
+         */
+        ArrayList<String> arrayAlgoritmos = crearArrayAlgoritmos();
         
         // Centrar la VentanaImprimirImagenEstatica.
         setLocationRelativeTo(null);
@@ -61,17 +115,86 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
         iconoAplicacion = toolKit.getImage(getClass().getResource("/imagenes/iconos/paintEvolution.png"));
         this.setIconImage(iconoAplicacion);
         
+        ArrayList <String> arrayFilasSeleccionadas = new  ArrayList <String>();
+        arrayFilasSeleccionadas.add("QR");
+        
         // Crea el objeto de Mesa de Dibujo.
-        panelDibujoImagenEstatica = new PanelDibujoImagenEstatica(rutaImagenTemporal);
+        panelDibujoImagenEstatica = new PanelDibujoImagenEstatica(rutaImagenTemporal,
+            arrayFilasSeleccionadas, arrayPosicionesTexto, arrayAlgoritmos);
         
         /*
          * Establece un esquema para la mesa de dibujo y agrega a la
          * VentanaImprimirImagenEstatica.
          */ 
         getContentPane().add(panelDibujoImagenEstatica, java.awt.BorderLayout.CENTER);
-        //setContentPane(panelDibujoTexto);
+        
+        // No se puede mover las columnas de posicion de jTableCamposPosiciones.
+        jTableCamposPosiciones.getTableHeader().setReorderingAllowed(false); 
+        
+        // Escuchador del modeloTablaCamposPosiciones.
+        modeloTablaCamposPosiciones.addTableModelListener(this);
 
         pack();
+    }
+    
+    /**
+     * Metodo privado que carga datos al modelo (modeloTablaCamposPosiciones).
+     */
+    private void cargarDatosTabla(){
+        // Variables.
+        int x = COMIENZA_ANCHO_PROTOTIPO;
+        int y = COMIENZA_ALTO_PROTOTIPO;
+
+        // Agregar columnas al modeloTablaCamposPosiciones.
+        modeloTablaCamposPosiciones.addColumn("Valor");
+        modeloTablaCamposPosiciones.addColumn("Posicion(x,y)");
+        modeloTablaCamposPosiciones.addColumn("Algoritmo");
+        
+        for(int i = 0; i < 1; i++){ 
+            x = x + INCREMENTO_ANCHO_PROTOTIPO;
+            y = y + INCREMENTO_ALTO_PROTOTIPO;
+            Object nuevo[] = new Object[3];
+            nuevo[0] = "Ningun valor";
+            nuevo[1] = "" + x + "," + y;
+            nuevo[2] = "Ninguno";           // Valor por defecto.
+            this.modeloTablaCamposPosiciones.addRow(nuevo); 
+        } 
+        
+        // Crear ComboBox con los algoritmos QR, AES, Codigo de barras.
+        String[] itemsAlgorimos = {"Ninguno", "QR", "AES", "Codigo de barra"};
+        JComboBox comboBox = new JComboBox(itemsAlgorimos);
+        DefaultCellEditor defaultCellEditor = new DefaultCellEditor(comboBox);
+        jTableCamposPosiciones.getColumnModel().getColumn(2).setCellEditor(defaultCellEditor);
+    }
+    
+    /**
+     * Metodo privado que devuelve en un arrayList de las posiciones "x" e "y"
+     * de los textos.
+     */
+    private ArrayList<String> crearArrayPosicionesTexto(){
+        // Objetos.
+        ArrayList<String> arrayPosicionesTexto = new ArrayList<String>();
+        DefaultTableModel modeloTabla_temp = (DefaultTableModel)jTableCamposPosiciones.getModel();
+        
+        for(int i = 0; i < modeloTabla_temp.getRowCount(); i++){   
+            arrayPosicionesTexto.add((String)modeloTabla_temp.getValueAt(i, 1).toString());
+        } 
+        return arrayPosicionesTexto;
+    }
+    
+    /**
+     * Metodo privado que devuelve en un arrayList los algoritmos-
+     */
+    private ArrayList<String> crearArrayAlgoritmos(){
+        // Objetos.
+        ArrayList<String> arrayAlgoritmos = new ArrayList<String>();
+        DefaultTableModel modeloTabla_temp = (DefaultTableModel)jTableCamposPosiciones.getModel();
+        
+        for(int i = 0; i < modeloTabla_temp.getRowCount(); i++){   
+            arrayAlgoritmos.add((String)modeloTabla_temp.getValueAt(i, 2).toString());
+            System.out.println((String)modeloTabla_temp.getValueAt(i, 2).toString());
+        } 
+        return arrayAlgoritmos;
     }
 
     /**
@@ -85,10 +208,8 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
 
         jPanelOpciones = new javax.swing.JPanel();
         jPanelTablaPosiciones = new javax.swing.JPanel();
-        jButtonQR = new javax.swing.JButton();
-        jButtonAES = new javax.swing.JButton();
-        jButtonPDF = new javax.swing.JButton();
-        jButtonCodigoBarras = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableCamposPosiciones = new javax.swing.JTable();
         jPanelBotones = new javax.swing.JPanel();
         jButtonInsertarImagen = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
@@ -100,39 +221,30 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
 
         jPanelTablaPosiciones.setPreferredSize(new java.awt.Dimension(300, 295));
 
-        jButtonQR.setText("QR");
-
-        jButtonAES.setText("AES");
-
-        jButtonPDF.setText("PDF");
-
-        jButtonCodigoBarras.setText("Código de Barras");
+        jTableCamposPosiciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Valor", "Posiciones (x,y)", "Algoritmos"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableCamposPosiciones);
 
         javax.swing.GroupLayout jPanelTablaPosicionesLayout = new javax.swing.GroupLayout(jPanelTablaPosiciones);
         jPanelTablaPosiciones.setLayout(jPanelTablaPosicionesLayout);
         jPanelTablaPosicionesLayout.setHorizontalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTablaPosicionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonQR)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAES)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonPDF)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCodigoBarras)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         jPanelTablaPosicionesLayout.setVerticalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTablaPosicionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonQR)
-                    .addComponent(jButtonAES)
-                    .addComponent(jButtonPDF)
-                    .addComponent(jButtonCodigoBarras))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 204, Short.MAX_VALUE))
         );
 
         jPanelOpciones.add(jPanelTablaPosiciones, java.awt.BorderLayout.NORTH);
@@ -208,14 +320,80 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame{
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAES;
-    private javax.swing.JButton jButtonCodigoBarras;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonInsertarImagen;
-    private javax.swing.JButton jButtonPDF;
-    private javax.swing.JButton jButtonQR;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelOpciones;
     private javax.swing.JPanel jPanelTablaPosiciones;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableCamposPosiciones;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void tableChanged(TableModelEvent e) {
+        // Variables.
+        int fila = e.getFirstRow();
+	int columna = e.getColumn();
+        
+        /*
+         * Solo se verifica a la columna 1.
+         * En la columna dos, se cambia el valor del algoritmo.
+         */
+        if(columna == 1){
+            String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
+   
+            if(validarCoordenadasXeY(valorCeldaCambiada)){
+                // Actualiza las posiciones de Texto en el panel de dibujo texto.
+                panelDibujoImagenEstatica.actualizarPosicionTexto(fila, valorCeldaCambiada);
+
+                /*
+                 * Se redibuja en el panel de Dibujo text para que se visualice los cambios.
+                 */
+                panelDibujoImagenEstatica.repaint();
+            }else{
+                 JOptionPane.showMessageDialog(this, "Por favor introduzca correctamente "
+                     + "x e y separados entre coma. Ej: 150,95", 
+                     "Error", JOptionPane.ERROR_MESSAGE);
+
+                 /**
+                  * x comienza por 100 y se incrementa con 50.
+                  * y comienza por 50 y se incrementa con 45.
+                  * O sea, la primera file seria 150,75 y la segunda 200,100, y
+                  * asi sucesivamente. Estos son los valores de las coordenadas por
+                  * defecto.
+                  */
+                 int x = (COMIENZA_ANCHO_PROTOTIPO + INCREMENTO_ANCHO_PROTOTIPO * (fila + 1));
+                 int y = (COMIENZA_ALTO_PROTOTIPO + INCREMENTO_ALTO_PROTOTIPO * (fila + 1));
+                 String valorCelda = "" + x + "," + y; 
+                 modeloTablaCamposPosiciones.setValueAt(valorCelda, fila, columna);
+            }  
+        }else if (columna == 2){
+             String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
+             
+             // Actualiza el valor del algoritmo.
+             panelDibujoImagenEstatica.actualizarArrayAlgoritmos(fila, valorCeldaCambiada);
+        }
+    }
+    
+    /**
+     * Metodo privado que devuelve true o false si el usuario introdujo correctamente 
+     * en la celda numeros y una coma para separar en ellos. Ejemplo x,y --> 100,30
+     * @param coordenadasXeY 
+     */
+    private boolean validarCoordenadasXeY(String coordenadasXeY){
+        // Objetos.
+        StringTokenizer stringTokenizer = new StringTokenizer(coordenadasXeY, 
+            ",");
+        
+        // Variables.
+        int x, y;
+        
+        try{
+            x = Integer.parseInt(stringTokenizer.nextToken());
+            y = Integer.parseInt(stringTokenizer.nextToken());
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
 }

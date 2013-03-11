@@ -6,7 +6,11 @@ package GUI;
 
 import Auxiliar.Constantes;
 import Auxiliar.FiltroArchivo;
+import Auxiliar.Imagen;
 import Auxiliar.Texto;
+import algoritmos.AES;
+import algoritmos.CodigoBarra;
+import algoritmos.QR;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -37,7 +41,20 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
     private BufferedImage imagenTemporalImprimir;
     private static String rutaImagenTemporal;
     private ArrayList<String> listaImagenesTemporalesImprimir;
+    private static ArrayList<String> arrayPosicionesTexto;
+    private static ArrayList<String> arrayAlgoritmos;
+    private static ArrayList<String> arrayFilasSeleccionadas;
     
+    /**
+     * Lista de Texto a dibujar.
+     * @since 1.6
+     */
+    private LinkedList<Texto> listaTexto = new LinkedList<Texto>();
+    
+    /**
+     * Lista de algortimos a dibujar.
+     */
+    private LinkedList<Imagen> listaImagenesAlgoritmos = new LinkedList<Imagen>();
     /*
      * Constante del ancho de una imagen con 50 pixeles.
      */
@@ -64,12 +81,30 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
     /**
      * Creates new form PanelDibujoImagenEstatica
      */
-    public PanelDibujoImagenEstatica(String rutaImagenTemporal) {
+    public PanelDibujoImagenEstatica(String rutaImagenTemporal, ArrayList<String> arrayFilasSeleccionadas,
+        ArrayList<String> arrayPosicionesTexto, ArrayList<String> arrayAlgoritmos) {
+        
+        /**
+         * Se guardan las filas seleccionadas con sus campos correspondientes.
+         */
+        PanelDibujoImagenEstatica.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
+        
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
          * al crear un Texto con registros de la base de datos.
          */
         PanelDibujoImagenEstatica.rutaImagenTemporal = rutaImagenTemporal;
+        
+        /**
+         * Se guarda en un array las posiciones de los textos.
+         */
+        PanelDibujoImagenEstatica.arrayPosicionesTexto = arrayPosicionesTexto;
+        
+        /**
+         * Se guarda en un array los algoritmos de los textos si es que los 
+         * contiene..
+         */
+        PanelDibujoImagenEstatica.arrayAlgoritmos = arrayAlgoritmos;
 
         initComponents();
         
@@ -103,6 +138,14 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(imagenPrincipal, 0, 0, null);  
+        
+        /*
+         * Crear prototipos donde van despues las variables que se sacaron de la
+         * base de datos.
+         */
+        crearTextoPrototipo();
+        
+        dibujarTexto(g);
         
         if (getImagenInsertada() != null){
             g.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
@@ -223,6 +266,12 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         // Dibuja la imagenPrincipal.
         g2.drawImage(imagenPrincipal, 0, 0, null);  
         
+        // Dibujar imagenes algoritmos.
+        for (Imagen imagen_temp : listaImagenesAlgoritmos){
+            g2.drawImage(imagen_temp.getImagen(), imagen_temp.getCoordenadaX(), 
+                imagen_temp.getCoordenadaY(), null);  
+        }
+        
         if (getImagenInsertada() != null){
             // Dibuja la imagenInsertada.
             g2.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
@@ -263,6 +312,194 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
             
         imprimirImagenesTemporales();
     }
+    
+    /**
+     * Metodo privado donde se crean los prototipos de las variables donde al
+     * imprimir se van a reeemplazar por los valores de la base de datos o los 
+     * algortimos seleccionados.
+     */
+    private void crearTextoPrototipo(){
+        // Variables.
+        int x;
+        int y;
+        
+        for(int i = 0; i < 1; i++){
+            StringTokenizer stringTokenizer = new StringTokenizer(
+                arrayPosicionesTexto.get(i).toString(), ",");
+            x = Integer.parseInt(stringTokenizer.nextToken());
+            y = Integer.parseInt(stringTokenizer.nextToken());
+            insertarTextoImagen("Algoritmo", x, y);
+        }
+    }
+    
+    /**
+     * 
+     * @param campo
+     * @param x
+     * @param y 
+     */
+    private void insertarTextoImagen(String campo, int x, int y){
+        Texto texto_temp = new Texto(campo, "Serif", 0 , 23, Color.BLACK, x, y);
+        
+        // Se agrega texto a la listaTexto.
+        agregarTexto(texto_temp); 
+    }
+    
+    /**
+     * Anhada un objeto Texto a la lista de texto a dibujar.
+     *
+     * @param texto Un nuevo objeto Texto a dibujar
+     * @since 1.6
+     */
+    public void agregarTexto(Texto texto){
+        listaTexto.add(texto);
+    }
+    
+    /**
+     * Metodo privado donde se insertan las el texto o los algoritmos
+     * para luego usarlos en la impresion.
+     */
+    private void insertarTextoImagenes(){
+        // Objetos.
+        Object objeto;
+                
+        // Variables.
+        int x, y, contador = 0;
+        
+        // Borra la lista de texto.
+        listaTexto.clear();
+            
+        for(int i = 0; i < arrayFilasSeleccionadas.size(); i++){
+            String valor = arrayFilasSeleccionadas.get(i);
+            StringTokenizer stringTokenizer = new StringTokenizer(
+                    arrayPosicionesTexto.get(contador).toString(), ",");
+            x = Integer.parseInt(stringTokenizer.nextToken());
+            y = Integer.parseInt(stringTokenizer.nextToken());
+                
+            if(arrayAlgoritmos.get(contador).toString().equals("Ninguno")){
+                insertarTextoImagen(valor.toString(), x, y);
+            }else if(arrayAlgoritmos.get(contador).toString().equals("QR")){
+                 QR algoritmoQR = new QR(valor.toString(), 100, 100);
+                 insertarImagenAlgoritmo(valor.toString(), x, y, algoritmoQR.devolverImagenQR());
+            }else if(arrayAlgoritmos.get(contador).toString().equals("AES")){
+                 AES algoritmoAES = new AES(valor.toString());
+                 String valorEncriptado = algoritmoAES.encriptar();
+                 System.out.println("El valor encriptado es: " + valorEncriptado);
+                 System.out.println("El valor desencriptado es: " + algoritmoAES.desencriptar());
+                 insertarTextoImagen(valorEncriptado, x, y);
+            }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
+                 CodigoBarra algoritmoCodigoBarra = new CodigoBarra();
+                 insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
+            }
+            // Crea la imagen temporal para imprimir.
+            crearImagenTemporal();
+            
+            // Borra la lista de texto.
+            listaTexto.clear();
+            
+            // Borra la lista de imagenes algoritmos.
+            listaImagenesAlgoritmos.clear();
+        }
+    }
+    
+    /**
+     * 
+     * @param nombre
+     * @param coordenadaX
+     * @param coordenadaY
+     * @param imagen 
+     */
+    private void insertarImagenAlgoritmo(String nombre, int coordenadaX, int coordenadaY,
+        BufferedImage imagen){
+        Imagen imagenInsertar = new Imagen(nombre, coordenadaX, coordenadaY, imagen);
+
+         // Se agrega la imagenAlgoritmo a la listaImagenesAlgoritmos.
+        agregarImagenAlgoritmo(imagenInsertar);
+    }
+    
+    /**
+     * Anhada un objeto Imagen a la lista de imagenesAlgoritmos a dibujar.
+     * @param imagen 
+     */
+    public void agregarImagenAlgoritmo(Imagen imagen){
+        listaImagenesAlgoritmos.add(imagen);
+    }
+    
+    /**
+     * Dibuja todos los objetos texto de la lista.
+     *
+     * @param g Dibuja todos los objetos texto de la lista
+     * @since 1.6
+     */
+    public void dibujarTexto(Graphics g){
+        for (Texto texto_temp : listaTexto){
+            texto_temp.dibujar(g);
+        }
+    }
+    
+    /**
+     * Metodo publico que cambia la posicion "x" e "y" de un campo. 
+     * @param numeroCampo
+     * @param coordenadasXeY 
+     */
+    public void actualizarPosicionTexto(int numeroCampo, String coordenadasXeY){
+        // Variables.
+        int x;
+        int y;
+        
+        for(int i = 0; i < 1; i++){
+            if(i == numeroCampo){
+                StringTokenizer stringTokenizer = new StringTokenizer(coordenadasXeY, 
+                    ",");
+                x = Integer.parseInt(stringTokenizer.nextToken());
+                y = Integer.parseInt(stringTokenizer.nextToken());
+                
+                // Cambia la posicion "x" e "y" del campo correspondiente.
+                cambiarPosicionTextoArrayList(i, coordenadasXeY);
+                
+                insertarTextoImagen("hola2", x, y);
+                break;
+            }
+        }
+        // Borra la lista de texto.
+        listaTexto.clear();
+    }
+    
+    /**
+     * Metodo privado que cambia la coordenada "x" e "y" del arraliList 
+     * arrayPosicionesTexto.
+     * @param indice
+     * @param coordenadaXeY 
+     */
+    private void cambiarPosicionTextoArrayList(int indice, String coordenadaXeY){
+        arrayPosicionesTexto.set(indice, coordenadaXeY);
+    }
+    
+    /**
+     * Metodo publico que cambia el valor del algoritmo..
+     * @param numeroCampo
+     * @param algoritmo 
+     */
+    public void actualizarArrayAlgoritmos(int numeroCampo, String algoritmo){
+        for(int i = 0; i < 1; i++){
+            if(i == numeroCampo){
+                // Cambia el valor del algoritmo.
+                cambiarAlgoritmosArrayList(i, algoritmo);
+                break;
+            }
+        }
+    }
+    
+    /**
+     * Metodo privado que cambia el valor de los algoritmos del arraliList 
+     * arrayPosicionesTexto.
+     * @param indice
+     * @param algoritmo 
+     */
+    private void cambiarAlgoritmosArrayList(int indice, String algoritmo){
+        arrayAlgoritmos.set(indice, algoritmo);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
