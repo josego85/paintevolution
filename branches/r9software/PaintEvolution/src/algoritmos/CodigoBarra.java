@@ -14,12 +14,18 @@ import net.sourceforge.jbarcodebean.model.Interleaved25;
  */
 public class CodigoBarra {
     // Variables de clase.
+    private String valorCodigoBarra;
     
-    public CodigoBarra(){
+   /**
+    * Constructor con 1 parametro.
+    * @param valorCodigoBarra 
+    */
+    public CodigoBarra(String valorCodigoBarra){
+        setValorCodigoBarra(valorCodigoBarra);
     }
     
     /**
-     * 
+     * Metodo publico que devuelve un BufferedImage del codigo de barra.
      */
     public BufferedImage devolverImagenCodigoBarra(){
         JBarcodeBean barcode = new JBarcodeBean();
@@ -29,8 +35,8 @@ public class CodigoBarra {
         barcode.setCodeType(new Interleaved25());
         //barcode.setCodeType(new Code39());
 
-        // nuestro valor a codificar y algunas configuraciones mas
-        barcode.setCode("1234554321987654321123456789");
+        // Nuestro valor a codificar y algunas configuraciones mas.
+        barcode.setCode(getValorCodigoBarra());
         barcode.setCheckDigit(true);
 
         bufferedImage = barcode.draw(new BufferedImage(400, 400, BufferedImage.TYPE_INT_RGB));
@@ -40,5 +46,13 @@ public class CodigoBarra {
         //ImageIO.write(bufferedImage, "png", file);
         
         return bufferedImage;
+    }
+
+    public String getValorCodigoBarra() {
+        return valorCodigoBarra;
+    }
+
+    public void setValorCodigoBarra(String valorCodigoBarra) {
+        this.valorCodigoBarra = valorCodigoBarra;
     }
 }
