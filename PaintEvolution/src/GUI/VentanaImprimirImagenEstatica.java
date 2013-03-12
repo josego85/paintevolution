@@ -7,11 +7,14 @@ package GUI;
 import baseDatos.ModeloDefaultTableCampoPosicionImagenEstatica;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +30,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
     private PanelDibujoImagenEstatica panelDibujoImagenEstatica;
     private static String rutaImagenTemporal;
     private ModeloDefaultTableCampoPosicionImagenEstatica modeloTablaCamposPosiciones;
+    private String valorInicialImprimir;        // Variable inicial para imprimir.
     
     /**
      * FALTA COMENTAR
@@ -115,12 +119,11 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         iconoAplicacion = toolKit.getImage(getClass().getResource("/imagenes/iconos/paintEvolution.png"));
         this.setIconImage(iconoAplicacion);
         
-        ArrayList <String> arrayFilasSeleccionadas = new  ArrayList <String>();
-        arrayFilasSeleccionadas.add("QR");
+        
         
         // Crea el objeto de Mesa de Dibujo.
         panelDibujoImagenEstatica = new PanelDibujoImagenEstatica(rutaImagenTemporal,
-            arrayFilasSeleccionadas, arrayPosicionesTexto, arrayAlgoritmos);
+            valorInicialImprimir, arrayPosicionesTexto, arrayAlgoritmos);
         
         /*
          * Establece un esquema para la mesa de dibujo y agrega a la
@@ -135,6 +138,18 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         modeloTablaCamposPosiciones.addTableModelListener(this);
 
         pack();
+        
+        // Escuchador que se cierra la ventana.
+        setDefaultCloseOperation (WindowConstants.DO_NOTHING_ON_CLOSE);
+ 
+        addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent we){
+                // Elimina los archivos de las imagenes temporales.
+                panelDibujoImagenEstatica.getImprimirImagenesTemporales().eliminarArchivosTemporalesImpresion();
+                System.exit(0);
+            }
+        });
     }
     
     /**
@@ -150,11 +165,13 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         modeloTablaCamposPosiciones.addColumn("Posicion(x,y)");
         modeloTablaCamposPosiciones.addColumn("Algoritmo");
         
+        valorInicialImprimir = "Ningun valor";
+        
         for(int i = 0; i < 1; i++){ 
             x = x + INCREMENTO_ANCHO_PROTOTIPO;
             y = y + INCREMENTO_ALTO_PROTOTIPO;
             Object nuevo[] = new Object[3];
-            nuevo[0] = "Ningun valor";
+            nuevo[0] = valorInicialImprimir;
             nuevo[1] = "" + x + "," + y;
             nuevo[2] = "Ninguno";           // Valor por defecto.
             this.modeloTablaCamposPosiciones.addRow(nuevo); 
@@ -334,14 +351,16 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         // Variables.
         int fila = e.getFirstRow();
 	int columna = e.getColumn();
+        String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
         
         /*
-         * Solo se verifica a la columna 1.
-         * En la columna dos, se cambia el valor del algoritmo.
+         * - Si es columna 0 se actualiza el valor que se va a imprimir.
+         * - Si es columna 1 se hace la verificacion si son numeros "x" e "y".
+         * - Si es columna se cambia el valor del algoritmo.
          */
-        if(columna == 1){
-            String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
-   
+        if(columna == 0){
+            panelDibujoImagenEstatica.setValorInicialImprimir(valorInicialImprimir);
+        }else if(columna == 1){
             if(validarCoordenadasXeY(valorCeldaCambiada)){
                 // Actualiza las posiciones de Texto en el panel de dibujo texto.
                 panelDibujoImagenEstatica.actualizarPosicionTexto(fila, valorCeldaCambiada);
@@ -368,8 +387,6 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
                  modeloTablaCamposPosiciones.setValueAt(valorCelda, fila, columna);
             }  
         }else if (columna == 2){
-             String valorCeldaCambiada = String.valueOf(jTableCamposPosiciones.getValueAt(fila, columna));
-             
              // Actualiza el valor del algoritmo.
              panelDibujoImagenEstatica.actualizarArrayAlgoritmos(fila, valorCeldaCambiada);
         }

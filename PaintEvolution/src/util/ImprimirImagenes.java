@@ -72,7 +72,7 @@ public class ImprimirImagenes implements Printable{
                 }
             }
             // Borrar todas las imagenes temporales que se imprimieron.
-            eliminarArchivosTempralesImpresion();
+            //eliminarArchivosTemporalesImpresion();
         }catch(Exception pe){  
              System.err.println(pe);  
         }  
@@ -131,9 +131,9 @@ public class ImprimirImagenes implements Printable{
     
     
     /**
-     * Metodo privado que elimina las imagenes temporales que se imprimio.
+     * Metodo publico que elimina las imagenes temporales que se imprimio.
      */
-    private void eliminarArchivosTempralesImpresion(){
+    public void eliminarArchivosTemporalesImpresion(){
         // Objetos.
         String rutaImagenTemporal;
         

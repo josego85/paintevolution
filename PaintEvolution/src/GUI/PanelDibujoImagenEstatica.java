@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 import javax.imageio.ImageIO;
@@ -43,7 +42,9 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
     private ArrayList<String> listaImagenesTemporalesImprimir;
     private static ArrayList<String> arrayPosicionesTexto;
     private static ArrayList<String> arrayAlgoritmos;
-    private static ArrayList<String> arrayFilasSeleccionadas;
+    private String valorInicialImprimir;
+    private ImprimirImagenes imprimirImagenesTemporales;
+    
     
     /**
      * Lista de Texto a dibujar.
@@ -81,13 +82,13 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
     /**
      * Creates new form PanelDibujoImagenEstatica
      */
-    public PanelDibujoImagenEstatica(String rutaImagenTemporal, ArrayList<String> arrayFilasSeleccionadas,
+    public PanelDibujoImagenEstatica(String rutaImagenTemporal, String valorInicialImprimir,
         ArrayList<String> arrayPosicionesTexto, ArrayList<String> arrayAlgoritmos) {
         
         /**
-         * Se guardan las filas seleccionadas con sus campos correspondientes.
+         * Se guarda en una variable el valor que se va a imprimir. 
          */
-        PanelDibujoImagenEstatica.arrayFilasSeleccionadas = arrayFilasSeleccionadas;
+        this.valorInicialImprimir = valorInicialImprimir;
         
         /*
          * Se guarda la ruta de la imagen temporal para luego usar,
@@ -199,7 +200,7 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
      */
     public void setImagenInsertada(Image imagenInsertada){
         this.imagenInsertada = (BufferedImage)imagenInsertada;          // Imagen insertada.
-        repaint();                                              // Se dibuja la imagen insertada.
+        repaint();                                                      // Se dibuja la imagen insertada.
     }
     
     /**
@@ -266,6 +267,9 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         // Dibuja la imagenPrincipal.
         g2.drawImage(imagenPrincipal, 0, 0, null);  
         
+        // Dibuja todos los textos.
+        dibujarTexto(g2);
+        
         // Dibujar imagenes algoritmos.
         for (Imagen imagen_temp : listaImagenesAlgoritmos){
             g2.drawImage(imagen_temp.getImagen(), imagen_temp.getCoordenadaX(), 
@@ -307,8 +311,7 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
      * 
      */
     public void prepararImagenesTemporales(){
-        // Crea la imagen temporal para imprimir.
-        crearImagenTemporal();
+        insertarTextoImagenes();
             
         imprimirImagenesTemporales();
     }
@@ -369,37 +372,35 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         // Borra la lista de texto.
         listaTexto.clear();
             
-        for(int i = 0; i < arrayFilasSeleccionadas.size(); i++){
-            String valor = arrayFilasSeleccionadas.get(i);
-            StringTokenizer stringTokenizer = new StringTokenizer(
-                    arrayPosicionesTexto.get(contador).toString(), ",");
-            x = Integer.parseInt(stringTokenizer.nextToken());
-            y = Integer.parseInt(stringTokenizer.nextToken());
+        String valor = valorInicialImprimir;
+        StringTokenizer stringTokenizer = new StringTokenizer(
+            arrayPosicionesTexto.get(contador).toString(), ",");
+        x = Integer.parseInt(stringTokenizer.nextToken());
+        y = Integer.parseInt(stringTokenizer.nextToken());
                 
-            if(arrayAlgoritmos.get(contador).toString().equals("Ninguno")){
-                insertarTextoImagen(valor.toString(), x, y);
-            }else if(arrayAlgoritmos.get(contador).toString().equals("QR")){
-                 QR algoritmoQR = new QR(valor.toString(), 100, 100);
-                 insertarImagenAlgoritmo(valor.toString(), x, y, algoritmoQR.devolverImagenQR());
-            }else if(arrayAlgoritmos.get(contador).toString().equals("AES")){
-                 AES algoritmoAES = new AES(valor.toString());
-                 String valorEncriptado = algoritmoAES.encriptar();
-                 System.out.println("El valor encriptado es: " + valorEncriptado);
-                 System.out.println("El valor desencriptado es: " + algoritmoAES.desencriptar());
-                 insertarTextoImagen(valorEncriptado, x, y);
-            }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
-                 CodigoBarra algoritmoCodigoBarra = new CodigoBarra();
-                 insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
-            }
-            // Crea la imagen temporal para imprimir.
-            crearImagenTemporal();
-            
-            // Borra la lista de texto.
-            listaTexto.clear();
-            
-            // Borra la lista de imagenes algoritmos.
-            listaImagenesAlgoritmos.clear();
+        if(arrayAlgoritmos.get(contador).toString().equals("Ninguno")){
+            insertarTextoImagen(valor.toString(), x, y);
+        }else if(arrayAlgoritmos.get(contador).toString().equals("QR")){
+             QR algoritmoQR = new QR(valor.toString(), 100, 100);
+             insertarImagenAlgoritmo(valor.toString(), x, y, algoritmoQR.devolverImagenQR());
+        }else if(arrayAlgoritmos.get(contador).toString().equals("AES")){
+             AES algoritmoAES = new AES(valor.toString());
+             String valorEncriptado = algoritmoAES.encriptar();
+             System.out.println("El valor encriptado es: " + valorEncriptado);
+             System.out.println("El valor desencriptado es: " + algoritmoAES.desencriptar());
+             insertarTextoImagen(valorEncriptado, x, y);
+        }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
+             CodigoBarra algoritmoCodigoBarra = new CodigoBarra();
+             insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
         }
+        // Crea la imagen temporal para imprimir.
+        crearImagenTemporal();
+            
+        // Borra la lista de texto.
+        listaTexto.clear();
+            
+        // Borra la lista de imagenes algoritmos.
+        listaImagenesAlgoritmos.clear();
     }
     
     /**
@@ -457,7 +458,7 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
                 // Cambia la posicion "x" e "y" del campo correspondiente.
                 cambiarPosicionTextoArrayList(i, coordenadasXeY);
                 
-                insertarTextoImagen("hola2", x, y);
+                insertarTextoImagen(this.valorInicialImprimir, x, y);
                 break;
             }
         }
@@ -633,8 +634,32 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
      */
     public void imprimirImagenesTemporales(){
         // Objetos.
-        ImprimirImagenes imprimirImagenesTemporales = new ImprimirImagenes();
+        imprimirImagenesTemporales = new ImprimirImagenes();
         
         imprimirImagenesTemporales.print(listaImagenesTemporalesImprimir, "Paint Evolution");   
-    }      
+    } 
+    
+    /**
+     * Metodo publico que devuelve el objeto ImprimirImagenes.
+     * @return 
+     */
+    public ImprimirImagenes getImprimirImagenesTemporales() {
+        return imprimirImagenesTemporales;
+    }
+
+    /**
+     * Metodo publico que devuelve valorInicialImprimir.
+     * @return 
+     */
+    public String getValorInicialImprimir() {
+        return valorInicialImprimir;
+    }
+
+    /**
+     * Metodo publico que setea valorInicialImprimir.
+     * @param valorInicialImprimir 
+     */
+    public void setValorInicialImprimir(String valorInicialImprimir) {
+        this.valorInicialImprimir = valorInicialImprimir;
+    }
 }

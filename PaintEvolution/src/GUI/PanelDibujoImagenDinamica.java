@@ -45,6 +45,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
     private static String[] nombreColumnas;
     private static ArrayList<String> arrayPosicionesTexto;
     private static ArrayList<String> arrayAlgoritmos;
+    private ImprimirImagenes imprimirImagenesTemporales;
     
     /*
      * Constante del ancho de una imagen con 50 pixeles.
@@ -669,8 +670,16 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
      */
     public void imprimirImagenesTemporales(){
         // Objetos.
-        ImprimirImagenes imprimirImagenesTemporales = new ImprimirImagenes();
+        imprimirImagenesTemporales = new ImprimirImagenes();
         
         imprimirImagenesTemporales.print(listaImagenesTemporalesImprimir, "Paint Evolution");   
-    }      
+    }   
+
+    /**
+     * Metodo publico que devuelve el objeto ImprimirImagenes.
+     * @return 
+     */
+    public ImprimirImagenes getImprimirImagenesTemporales() {
+        return imprimirImagenesTemporales;
+    }
 }
