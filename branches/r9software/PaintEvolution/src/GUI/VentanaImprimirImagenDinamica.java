@@ -7,11 +7,14 @@ package GUI;
 import baseDatos.ModeloDefaultTableCampoPosicionImagenDinamica;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -139,7 +142,6 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
          * VentanaImprimirImagenDinamica.
          */ 
         getContentPane().add(panelDibujoImagenDinamica, java.awt.BorderLayout.CENTER);
-        //setContentPane(panelDibujoTexto);
         
         // No se puede mover las columnas de posicion de jTableCamposPosiciones.
         jTableCamposPosiciones.getTableHeader().setReorderingAllowed(false); 
@@ -148,6 +150,18 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         modeloTablaCamposPosiciones.addTableModelListener(this);
         
         pack();
+        
+        // Escuchador que se cierra la ventana.
+        setDefaultCloseOperation (WindowConstants.DO_NOTHING_ON_CLOSE);
+ 
+        addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent we){
+                // Elimina los archivos de las imagenes temporales.
+                panelDibujoImagenDinamica.getImprimirImagenesTemporales().eliminarArchivosTemporalesImpresion();
+                System.exit(0);
+            }
+        });
     }
     
     /**
