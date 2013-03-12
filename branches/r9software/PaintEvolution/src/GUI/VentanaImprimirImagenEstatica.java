@@ -330,7 +330,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
                   JOptionPane.showMessageDialog(this, "Tiene que elegir un algoritmo.", 
                       "Error", JOptionPane.ERROR_MESSAGE);
              }
-        }    
+        }   
         // Se cierra VentanaImprimirImagenEstatica.
         //this.dispose();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
@@ -421,8 +421,10 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
                  modeloTablaCamposPosiciones.setValueAt(valorCelda, fila, columna);
             }  
         }else if (columna == 2){
+            System.out.println("El valor de la celda es: " + valorCeldaCambiada);
+            
              if(valorCeldaCambiada.equals("Codigo de barra")){
-                 if(esCodigoBarraValido(valorCeldaCambiada)){
+                 if(esCodigoBarraValido(String.valueOf(jTableCamposPosiciones.getValueAt(0, 0)))){
                     
                  }else{
                       JOptionPane.showMessageDialog(this, "No es un código de barra válido.", 
@@ -465,7 +467,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
     }
     
     /**
-     * 
+     * Metodo privado que verifica si es valido el codigo de barra.
      */
     private boolean esCodigoBarraValido(String codigoBarra){
         if(codigoBarra.length() == 25){
