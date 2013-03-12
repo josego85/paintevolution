@@ -145,9 +145,14 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent we){
-                // Elimina los archivos de las imagenes temporales.
-                panelDibujoImagenEstatica.getImprimirImagenesTemporales().eliminarArchivosTemporalesImpresion();
-                System.exit(0);
+                try{
+                    // Elimina los archivos de las imagenes temporales.
+                    panelDibujoImagenEstatica.getImprimirImagenesTemporales().eliminarArchivosTemporalesImpresion();
+                }catch (Exception e){
+                    
+                }finally{
+                    System.exit(0);
+                }
             }
         });
     }
@@ -174,7 +179,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
             nuevo[0] = valorInicialImprimir;
             nuevo[1] = "" + x + "," + y;
             nuevo[2] = "Ninguno";           // Valor por defecto.
-            this.modeloTablaCamposPosiciones.addRow(nuevo); 
+            this.modeloTablaCamposPosiciones.addRow(nuevo);  
         } 
         
         // Crear ComboBox con los algoritmos QR, AES, Codigo de barras.
@@ -295,8 +300,37 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
     }//GEN-LAST:event_jButtonInsertarImagenActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        panelDibujoImagenEstatica.prepararImagenesTemporales();
-        
+        // La primera fila en la columna 0
+        Object valorImpresion = jTableCamposPosiciones.getModel().getValueAt(0, 0);
+        Object valorAlgoritmo = jTableCamposPosiciones.getModel().getValueAt(0, 2);
+
+        if(valorAlgoritmo.equals("Codigo de barra")){
+            if(esCodigoBarraValido((String)valorImpresion)){
+                if(!valorImpresion.toString().equals("") && !valorAlgoritmo.toString().equals("Ninguno")){
+                    panelDibujoImagenEstatica.prepararImagenesTemporales();
+                }else if (valorImpresion.toString().equals("")) {
+                     JOptionPane.showMessageDialog(this, "No puede contener valor nulo o vacio.", 
+                         "Error", JOptionPane.ERROR_MESSAGE);
+                }else if (valorAlgoritmo.toString().equals("Ninguno")) {
+                     JOptionPane.showMessageDialog(this, "Tiene que elegir un algoritmo.", 
+                         "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                 JOptionPane.showMessageDialog(this, "No es un código de barra válido.", 
+                     "Error", JOptionPane.ERROR_MESSAGE);
+                 System.out.println("El código NO es válido.");  
+            } 
+        }else{
+             if(!valorImpresion.toString().equals("") && !valorAlgoritmo.toString().equals("Ninguno")){
+                 panelDibujoImagenEstatica.prepararImagenesTemporales();
+             }else if (valorImpresion.toString().equals("")) {
+                  JOptionPane.showMessageDialog(this, "No puede contener valor nulo o vacio.", 
+                      "Error", JOptionPane.ERROR_MESSAGE);
+             }else if (valorAlgoritmo.toString().equals("Ninguno")) {
+                  JOptionPane.showMessageDialog(this, "Tiene que elegir un algoritmo.", 
+                      "Error", JOptionPane.ERROR_MESSAGE);
+             }
+        }    
         // Se cierra VentanaImprimirImagenEstatica.
         //this.dispose();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
@@ -359,7 +393,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
          * - Si es columna se cambia el valor del algoritmo.
          */
         if(columna == 0){
-            panelDibujoImagenEstatica.setValorInicialImprimir(valorInicialImprimir);
+            panelDibujoImagenEstatica.setValorInicialImprimir(valorCeldaCambiada);
         }else if(columna == 1){
             if(validarCoordenadasXeY(valorCeldaCambiada)){
                 // Actualiza las posiciones de Texto en el panel de dibujo texto.
@@ -371,7 +405,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
                 panelDibujoImagenEstatica.repaint();
             }else{
                  JOptionPane.showMessageDialog(this, "Por favor introduzca correctamente "
-                     + "x e y separados entre coma. Ej: 150,95", 
+                     + "x e y separados entre coma y que x >= 0 e y >= 17. Ej: 150,95", 
                      "Error", JOptionPane.ERROR_MESSAGE);
 
                  /**
@@ -387,6 +421,14 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
                  modeloTablaCamposPosiciones.setValueAt(valorCelda, fila, columna);
             }  
         }else if (columna == 2){
+             if(valorCeldaCambiada.equals("Codigo de barra")){
+                 if(esCodigoBarraValido(valorCeldaCambiada)){
+                    
+                 }else{
+                      JOptionPane.showMessageDialog(this, "No es un código de barra válido.", 
+                          "Error", JOptionPane.ERROR_MESSAGE); 
+                 }
+             }
              // Actualiza el valor del algoritmo.
              panelDibujoImagenEstatica.actualizarArrayAlgoritmos(fila, valorCeldaCambiada);
         }
@@ -408,9 +450,53 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         try{
             x = Integer.parseInt(stringTokenizer.nextToken());
             y = Integer.parseInt(stringTokenizer.nextToken());
-            return true;
+            
+            /**
+             * x puede valer desde 0 a 
+             * y puede valer desde 17 a 
+             */
+            if(x >= 0 && y >= 17){
+                return true;
+            }
+            return false;
         }catch(Exception e){
             return false;
         }
     }
+    
+    /**
+     * 
+     */
+    private boolean esCodigoBarraValido(String codigoBarra){
+        if(codigoBarra.length() == 25){
+           for(int i = 0; i < codigoBarra.length(); i++){
+               if(!esNumero(codigoBarra.charAt(i))){
+                   return false;
+               }
+           } 
+           return true;
+        }
+        return false;
+        
+        
+        
+    }
+    
+    /**
+     * Metodo privado que devuelve true o false si es un numero o no.
+     * @param numero
+     * @return 
+     */
+    private boolean esNumero(char numero){
+        try{
+            // Convertir de char a String.
+            String numeroString = String.valueOf(numero);
+
+            Integer.parseInt(numeroString);
+            return true;
+        }catch(NumberFormatException nfe){            
+             return false;
+        }
+    }
+    
 }

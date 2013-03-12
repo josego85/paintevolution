@@ -119,7 +119,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         setLocationRelativeTo(null);
 
         // Deshabilitar la opcion de Maximizar ventana.
-        setResizable(false);
+        setResizable(true);
         
         /*
          * Para que el canvas contenga 350 de ancho se tiene que poner la ventana
@@ -157,9 +157,14 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent we){
-                // Elimina los archivos de las imagenes temporales.
-                panelDibujoImagenDinamica.getImprimirImagenesTemporales().eliminarArchivosTemporalesImpresion();
-                System.exit(0);
+                try{
+                    // Elimina los archivos de las imagenes temporales.
+                    panelDibujoImagenDinamica.getImprimirImagenesTemporales().eliminarArchivosTemporalesImpresion();
+                }catch (Exception e){
+                    
+                }finally{
+                    System.exit(0);
+                }
             }
         });
     }
@@ -390,7 +395,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
                 panelDibujoImagenDinamica.repaint();
             }else{
                  JOptionPane.showMessageDialog(this, "Por favor introduzca correctamente "
-                     + "x e y separados entre coma. Ej: 150,95", 
+                     + "x e y separados entre coma y que x >= 0 e y >= 17. Ej: 150,95", 
                      "Error", JOptionPane.ERROR_MESSAGE);
 
                  /**
@@ -429,7 +434,15 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         try{
             x = Integer.parseInt(stringTokenizer.nextToken());
             y = Integer.parseInt(stringTokenizer.nextToken());
-            return true;
+            
+            /**
+             * x puede valer desde 0 a 
+             * y puede valer desde 17 a 
+             */
+            if(x >= 0 && y >= 17){
+                return true;
+            }
+            return false;
         }catch(Exception e){
             return false;
         }

@@ -372,30 +372,32 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         // Borra la lista de texto.
         listaTexto.clear();
             
-        String valor = valorInicialImprimir;
+        String valor = this.valorInicialImprimir;
         StringTokenizer stringTokenizer = new StringTokenizer(
             arrayPosicionesTexto.get(contador).toString(), ",");
         x = Integer.parseInt(stringTokenizer.nextToken());
         y = Integer.parseInt(stringTokenizer.nextToken());
-                
-        if(arrayAlgoritmos.get(contador).toString().equals("Ninguno")){
-            insertarTextoImagen(valor.toString(), x, y);
-        }else if(arrayAlgoritmos.get(contador).toString().equals("QR")){
-             QR algoritmoQR = new QR(valor.toString(), 100, 100);
-             insertarImagenAlgoritmo(valor.toString(), x, y, algoritmoQR.devolverImagenQR());
-        }else if(arrayAlgoritmos.get(contador).toString().equals("AES")){
-             AES algoritmoAES = new AES(valor.toString());
-             String valorEncriptado = algoritmoAES.encriptar();
-             System.out.println("El valor encriptado es: " + valorEncriptado);
-             System.out.println("El valor desencriptado es: " + algoritmoAES.desencriptar());
-             insertarTextoImagen(valorEncriptado, x, y);
-        }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
-             CodigoBarra algoritmoCodigoBarra = new CodigoBarra();
-             insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
-        }
-        // Crea la imagen temporal para imprimir.
-        crearImagenTemporal();
             
+        if(!valor.equals("")){
+            if(arrayAlgoritmos.get(contador).toString().equals("Ninguno")){
+                insertarTextoImagen(valor.toString(), x, y);
+            }else if(arrayAlgoritmos.get(contador).toString().equals("QR")){
+                 QR algoritmoQR = new QR(valor.toString(), 100, 100);
+                 insertarImagenAlgoritmo(valor.toString(), x, y, algoritmoQR.devolverImagenQR());
+            }else if(arrayAlgoritmos.get(contador).toString().equals("AES")){
+                 AES algoritmoAES = new AES(valor.toString());
+                 String valorEncriptado = algoritmoAES.encriptar();
+                 //System.out.println("El valor encriptado es: " + valorEncriptado);
+                 //System.out.println("El valor desencriptado es: " + algoritmoAES.desencriptar());
+                 insertarTextoImagen(valorEncriptado, x, y);
+            }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
+                 CodigoBarra algoritmoCodigoBarra = new CodigoBarra(valor.toString());
+                 insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
+            }
+        }  
+        // Crea la imagen temporal para imprimir.
+        crearImagenTemporal(); 
+        
         // Borra la lista de texto.
         listaTexto.clear();
             
@@ -636,7 +638,10 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         // Objetos.
         imprimirImagenesTemporales = new ImprimirImagenes();
         
-        imprimirImagenesTemporales.print(listaImagenesTemporalesImprimir, "Paint Evolution");   
+        imprimirImagenesTemporales.print(listaImagenesTemporalesImprimir, "Paint Evolution");  
+        
+        // Borrar de la lista listaImagenesTemporalesImprimir.
+        listaImagenesTemporalesImprimir.clear();
     } 
     
     /**

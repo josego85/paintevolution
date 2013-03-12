@@ -18,6 +18,9 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collection;  
 import javax.imageio.ImageIO;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.ResolutionSyntax;
+import javax.print.attribute.standard.PrinterResolution;
 
 /**
  *
@@ -65,10 +68,15 @@ public class ImprimirImagenes implements Printable{
             printJob.setJobName(requestNumber);
             
             if (printJob.printDialog()){
-                try { 
-                  printJob.print();
-                } catch(PrinterException pe) {
-                  System.out.println("Error printing: " + pe);
+                try{ 
+                    // Resolucion.
+                    //HashPrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
+                    //PrinterResolution pr = new PrinterResolution(100, 250, ResolutionSyntax.DPI);
+                    //set.add(pr);
+                    
+                    printJob.print();
+                }catch(PrinterException pe) {
+                     System.out.println("Error printing: " + pe);
                 }
             }
             // Borrar todas las imagenes temporales que se imprimieron.
