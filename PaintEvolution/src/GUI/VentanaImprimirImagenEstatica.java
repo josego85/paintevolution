@@ -105,7 +105,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         setLocationRelativeTo(null);
 
         // Deshabilitar la opcion de Maximizar ventana.
-        setResizable(false);
+        setResizable(true);
         
         /*
          * Para que el canvas contenga 350 de ancho se tiene que poner la ventana
@@ -243,6 +243,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
 
         jPanelTablaPosiciones.setPreferredSize(new java.awt.Dimension(300, 295));
 
+        jTableCamposPosiciones.setAutoCreateRowSorter(true);
         jTableCamposPosiciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -479,9 +480,6 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
            return true;
         }
         return false;
-        
-        
-        
     }
     
     /**
@@ -500,5 +498,4 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
              return false;
         }
     }
-    
 }
