@@ -116,7 +116,6 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         imagenInsertada = null;
         
         try{         
-            //System.out.println("El archivo temporal de la imagen es:  " + rutaImagenTemporal);
             imagenPrincipal = ImageIO.read(new File(rutaImagenTemporal));
             int height = imagenPrincipal.getHeight(this);
             int width = imagenPrincipal.getWidth(this);
@@ -236,11 +235,6 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         
         try {
             imagenTemporal = File.createTempFile("ImagenTemporalImprimir.png", null);
-           
-            /*
-            System.out.println("La ruta de la imagen temporal imprimir es: " + 
-                imagenTemporal.getAbsolutePath());
-            */
             
             // Se crea la ultima instancia de lo dibujado en el PanelDibujoImagenEstatica.
             crearImagen();
@@ -342,7 +336,7 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
      * @param y 
      */
     private void insertarTextoImagen(String campo, int x, int y){
-        Texto texto_temp = new Texto(campo, "Serif", 0 , 23, Color.BLACK, x, y);
+        Texto texto_temp = new Texto(campo, "Serif", 0 , 21, Color.BLACK, x, y);
         
         // Se agrega texto a la listaTexto.
         agregarTexto(texto_temp); 
@@ -388,7 +382,6 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
                  AES algoritmoAES = new AES(valor.toString());
                  String valorEncriptado = algoritmoAES.encriptar();
                  //System.out.println("El valor encriptado es: " + valorEncriptado);
-                 //System.out.println("El valor desencriptado es: " + algoritmoAES.desencriptar());
                  insertarTextoImagen(valorEncriptado, x, y);
             }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
                  CodigoBarra algoritmoCodigoBarra = new CodigoBarra(valor.toString());

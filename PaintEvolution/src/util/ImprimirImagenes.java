@@ -6,10 +6,10 @@ package util;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -18,9 +18,6 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collection;  
 import javax.imageio.ImageIO;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.ResolutionSyntax;
-import javax.print.attribute.standard.PrinterResolution;
 
 /**
  *
@@ -62,7 +59,6 @@ public class ImprimirImagenes implements Printable{
     protected void printData(String requestNumber){   
         try{  
             PrinterJob printJob = PrinterJob.getPrinterJob();
-            printJob.setPrintable(this);
             
             // El nombre por defecto de la impresion.
             printJob.setJobName(requestNumber);
@@ -73,7 +69,18 @@ public class ImprimirImagenes implements Printable{
                     //HashPrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
                     //PrinterResolution pr = new PrinterResolution(100, 250, ResolutionSyntax.DPI);
                     //set.add(pr);
+                    /*
+                    PageFormat pf = printJob.defaultPage();
+                    Paper paper = new Paper();
+                    paper.setSize(200.0, 500.0);
+                    double margin = 10;
+                   // paper.setImageableArea(margin, margin, paper.getWidth() – margin, paper.getHeight() – margin);
+                    pf.setPaper(paper);
                     
+                    // Se coloco en forma Vertical la pagina para la impresion.
+                    pf.setOrientation(PageFormat.PORTRAIT);
+                    */
+                    printJob.setPrintable(this);
                     printJob.print();
                 }catch(PrinterException pe) {
                      System.out.println("Error printing: " + pe);
@@ -99,16 +106,30 @@ public class ImprimirImagenes implements Printable{
             return Printable.NO_SUCH_PAGE;  
         }  
         RenderedImage  image = (RenderedImage ) imagenes.get(pageIndex);  
-  
+        
+        // Tamanhio de la pagina.
+        //Paper paper = new Paper();
+        //paper.setSize(200.0,500.0);
+        /*
+        double margin = 10.0;
+        paper.setImageableArea(margin, margin, paper.getWidth() - margin, 
+            paper.getHeight() - margin);*/
+        //f.setPaper(paper);
+                    
         // Se coloco en forma Vertical la pagina para la impresion.
-        f.setOrientation(PageFormat.PORTRAIT); 
+        f.setOrientation(PageFormat.PORTRAIT);
         
         if (image != null){  
             Graphics2D g2 = (Graphics2D) g;  
+            /*
             g2.translate(f.getImageableX(), f.getImageableY());  
-  
+            */
+  /*
             AffineTransform at = AffineTransform.getTranslateInstance(f.getImageableX(), f.getImageableY());  
-            g2.drawRenderedImage(image, at);  
+            g2.drawRenderedImage(image, at); 
+            */
+            //g.drawString("texto que se imprime", 100, 200);
+            g.drawImage((BufferedImage)image, 0, 0, null);  
                   
             return Printable.PAGE_EXISTS;  
         }else{  
@@ -117,7 +138,7 @@ public class ImprimirImagenes implements Printable{
     }  
     
     /**
-     * 
+     * Metodo privado que crea las imagenes y guarda en un arrayList.
      */
     private void crearImagenes(){
         // Objetos.

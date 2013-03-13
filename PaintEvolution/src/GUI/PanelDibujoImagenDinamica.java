@@ -29,6 +29,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import util.ImprimirImagenes;
 import algoritmos.QR;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 
 /**
  *
@@ -358,7 +362,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
      * @param y 
      */
     private void insertarTextoImagen(String campo, int x, int y){
-        Texto texto_temp = new Texto(campo, "Serif", 0 , 23, Color.BLACK, x, y);
+        Texto texto_temp = new Texto(campo, "Serif", 0 , 21, Color.BLACK, x, y);
         
         // Se agrega texto a la listaTexto.
         agregarTexto(texto_temp); 
@@ -412,15 +416,11 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
                     }else if(arrayAlgoritmos.get(contador).toString().equals("AES")){
                          AES algoritmoAES = new AES(objeto.toString());
                          String valorEncriptado = algoritmoAES.encriptar();
-                         //System.out.println("El valor encriptado es: " + valorEncriptado);
-                         //System.out.println("El valor desencriptado es: " + algoritmoAES.desencriptar());
                          insertarTextoImagen(valorEncriptado, x, y);
                     }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
                          if(esCodigoBarraValido(objeto.toString())){
                              CodigoBarra algoritmoCodigoBarra = new CodigoBarra(objeto.toString());
                              insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
-                         }else{
-                             System.out.println("No es codigo de barra. Osea no se imprime nada.");
                          }
                     }
                 }
@@ -682,6 +682,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         
         // Borrar de la lista listaImagenesTemporalesImprimir.
         listaImagenesTemporalesImprimir.clear();
+       
     }   
 
     /**

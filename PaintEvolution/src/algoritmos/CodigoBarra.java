@@ -5,6 +5,8 @@
 package algoritmos;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import net.sourceforge.jbarcodebean.JBarcodeBean;
 import net.sourceforge.jbarcodebean.model.Interleaved25;
 
@@ -39,12 +41,15 @@ public class CodigoBarra {
         barcode.setCode(getValorCodigoBarra());
         barcode.setCheckDigit(true);
 
-        bufferedImage = barcode.draw(new BufferedImage(400, 400, BufferedImage.TYPE_INT_RGB));
+        bufferedImage = barcode.draw(new BufferedImage(250, 150, BufferedImage.TYPE_INT_RGB));
 
-        // guardar en disco como png
-        //File file = new File("codebar.png");
-        //ImageIO.write(bufferedImage, "png", file);
-        
+        /*
+        try{
+            // guardar en disco como png
+            File file = new File("codebar.png");
+            ImageIO.write(bufferedImage, "png", file);
+        }catch(Exception e){
+        }*/
         return bufferedImage;
     }
 
