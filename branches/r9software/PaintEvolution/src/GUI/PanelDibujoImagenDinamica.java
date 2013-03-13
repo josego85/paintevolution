@@ -244,7 +244,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
      */
     public void setImagenInsertada(Image imagenInsertada){
         this.imagenInsertada = (BufferedImage)imagenInsertada;          // Imagen insertada.
-        repaint();                                              // Se dibuja la imagen insertada.
+        repaint();                                                      // Se dibuja la imagen insertada.
     }
     
     /**
@@ -416,8 +416,12 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
                          //System.out.println("El valor desencriptado es: " + algoritmoAES.desencriptar());
                          insertarTextoImagen(valorEncriptado, x, y);
                     }else if(arrayAlgoritmos.get(contador).toString().equals("Codigo de barra")){
-                         CodigoBarra algoritmoCodigoBarra = new CodigoBarra(objeto.toString());
-                         insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
+                         if(esCodigoBarraValido(objeto.toString())){
+                             CodigoBarra algoritmoCodigoBarra = new CodigoBarra(objeto.toString());
+                             insertarImagenAlgoritmo("", x, y, algoritmoCodigoBarra.devolverImagenCodigoBarra());
+                         }else{
+                             System.out.println("No es codigo de barra. Osea no se imprime nada.");
+                         }
                     }
                 }
                 contador++;
@@ -686,5 +690,37 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
      */
     public ImprimirImagenes getImprimirImagenesTemporales() {
         return imprimirImagenesTemporales;
+    }
+    
+    /**
+     * Metodo privado que verifica si es valido el codigo de barra.
+     */
+    private boolean esCodigoBarraValido(String codigoBarra){
+        if(codigoBarra.length() == 25){
+           for(int i = 0; i < codigoBarra.length(); i++){
+               if(!esNumero(codigoBarra.charAt(i))){
+                   return false;
+               }
+           } 
+           return true;
+        }
+        return false; 
+    }
+    
+    /**
+     * Metodo privado que devuelve true o false si es un numero o no.
+     * @param numero
+     * @return 
+     */
+    private boolean esNumero(char numero){
+        try{
+            // Convertir de char a String.
+            String numeroString = String.valueOf(numero);
+
+            Integer.parseInt(numeroString);
+            return true;
+        }catch(NumberFormatException nfe){            
+             return false;
+        }
     }
 }
