@@ -50,7 +50,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
      * Constante que indica con cuantos pixeles empieza
      * el ancho del prototipo.
      */
-    private final static int COMIENZA_ANCHO_PROTOTIPO = 10;
+    private final static int COMIENZA_ANCHO_PROTOTIPO = 0;
     
     /*
      * Constante que indica con cuantos pixeles empieza
@@ -62,13 +62,13 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
      * Constante que indica cuanto pixeles incrementa
      * el ancho del prototipo.
      */
-    private final static int INCREMENTO_ANCHO_PROTOTIPO = 45;
+    private final static int INCREMENTO_ANCHO_PROTOTIPO = 0;
     
     /*
      * Constante que indica cuanto pixeles incrementa
      * el alto del prototipo.
      */
-    private final static int INCREMENTO_ALTO_PROTOTIPO = 65;
+    private final static int INCREMENTO_ALTO_PROTOTIPO = 80;
     
     /**
      * Creates new form VentanaImprimirImagenDinamica
@@ -229,7 +229,6 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         
         for(int i = 0; i < modeloTabla_temp.getRowCount(); i++){   
             arrayAlgoritmos.add((String)modeloTabla_temp.getValueAt(i, 2).toString());
-            System.out.println((String)modeloTabla_temp.getValueAt(i, 2).toString());
         } 
         return arrayAlgoritmos;
     }

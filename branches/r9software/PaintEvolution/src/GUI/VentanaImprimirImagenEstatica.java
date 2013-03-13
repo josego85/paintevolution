@@ -49,7 +49,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
      * Constante que indica con cuantos pixeles empieza
      * el ancho del prototipo.
      */
-    private final static int COMIENZA_ANCHO_PROTOTIPO = 10;
+    private final static int COMIENZA_ANCHO_PROTOTIPO = 0;
     
     /*
      * Constante que indica con cuantos pixeles empieza
@@ -61,13 +61,13 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
      * Constante que indica cuanto pixeles incrementa
      * el ancho del prototipo.
      */
-    private final static int INCREMENTO_ANCHO_PROTOTIPO = 45;
+    private final static int INCREMENTO_ANCHO_PROTOTIPO = 0;
     
     /*
      * Constante que indica cuanto pixeles incrementa
      * el alto del prototipo.
      */
-    private final static int INCREMENTO_ALTO_PROTOTIPO = 65;
+    private final static int INCREMENTO_ALTO_PROTOTIPO = 80;
     
     /**
      * Creates new form VentanaImprimirImagenEstatica
@@ -214,7 +214,6 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         
         for(int i = 0; i < modeloTabla_temp.getRowCount(); i++){   
             arrayAlgoritmos.add((String)modeloTabla_temp.getValueAt(i, 2).toString());
-            System.out.println((String)modeloTabla_temp.getValueAt(i, 2).toString());
         } 
         return arrayAlgoritmos;
     }
@@ -319,7 +318,6 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
             }else{
                  JOptionPane.showMessageDialog(this, "No es un código de barra válido.", 
                      "Error", JOptionPane.ERROR_MESSAGE);
-                 System.out.println("El código NO es válido.");  
             } 
         }else{
              if(!valorImpresion.toString().equals("") && !valorAlgoritmo.toString().equals("Ninguno")){
@@ -422,8 +420,6 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
                  modeloTablaCamposPosiciones.setValueAt(valorCelda, fila, columna);
             }  
         }else if (columna == 2){
-            System.out.println("El valor de la celda es: " + valorCeldaCambiada);
-            
              if(valorCeldaCambiada.equals("Codigo de barra")){
                  if(esCodigoBarraValido(String.valueOf(jTableCamposPosiciones.getValueAt(0, 0)))){
                     
