@@ -233,6 +233,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     boolean archivoGuardadoUltimaVersion;
 
+    /**
+     * La imagen de fondo.
+     */
+    private BufferedImage imagenFondo;
     
     ////////////////////////////////////////////////////////////////////////////
     // Constructores
@@ -1125,6 +1129,11 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Graphics2D g2 = (Graphics2D)g;
         setBackground(getColorFondoPantallaDibujo());
 
+        // Dibuja la imagen de fondo.
+        if (getImagenFondo() != null){
+            g2.drawImage(getImagenFondo(), 0, 0, this.getWidth(), this.getHeight(), null); 
+        }
+        
         if (getImagen() != null){
             Point2D center = new Point2D.Double(getWidth() / 2, getHeight() / 2);
             if (getUbicacionDeImagen() != null){
@@ -1399,6 +1408,83 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         archivoGuardadoUltimaVersion = true;
         repaint();
     }
+    
+    /**
+     * Inserta una imagen de fondo.
+     *
+     * @since 1.6
+     */
+    public void insertarImagenFondo(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.setFileFilter(new FiltroArchivo());
+
+        int result = fileChooser.showOpenDialog(null);
+        if(result == JFileChooser.CANCEL_OPTION){
+            return;
+        }  
+
+        nombreArchivo = fileChooser.getSelectedFile();
+
+        if(nombreArchivo != null){
+            try{
+                BufferedImage image = ImageIO.read(nombreArchivo);
+                imagenFondo = ImageIO.read(nombreArchivo);
+                setImagenFondo(nombreArchivo);
+
+                Graphics g = image.getGraphics();
+                setColorFondoPantallaDibujo(Color.WHITE);
+                
+                /* 
+                 * Dibuja la imagen que se inserta.
+                 * En este caso seria una imagen de fondo.
+                 */ 
+                g.drawImage(image, 0, 0, this); 
+            }catch(Exception exp){
+                JOptionPane.showMessageDialog(null,"No se puede abrir el archivo",
+                        "" + Constantes.INCREMENTO_CANTIDAD_DE_ESPACIO_TITULO +
+                        Constantes.TITULO_PROGRAMA, JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else{
+            nombreArchivo = null;
+	}
+        archivoGuardadoUltimaVersion = true;
+        repaint();
+    }
+    
+    /**
+     * Establece una imagen de fondo.
+     *
+     * @param imagen La imagen de fondo.
+     * @since 1.6
+     */
+    public void setImagenFondo(Image imagenFondo){
+        this.imagenFondo = (BufferedImage)imagenFondo;          // Imagen Fondo.
+        repaint();                                              // Se dibuja la imagen insertada.
+    }
+    
+    /**
+     * Asigna la imagen de fondo mediante un archivo.
+     *
+     * @param file El archivo de entrada para guardar la imagen de fondo.
+     * @throws IOException Error del archivo de entrada para guardar la imagen de fondo.
+     * @since 1.6
+     */
+    public void setImagenFondo(File file) throws IOException{
+        setImagenFondo(ImageIO.read(file));
+        repaint();                                              // Se dibuja la nueva imagen.
+    }
+
+    /**
+     * Devuelve la imagen de fondo.
+     *
+     * @return La imagen de fondo.
+     * @since 1.6
+     */
+    public BufferedImage getImagenFondo(){
+        return imagenFondo;
+    }
 
     /**
      * Metodo que crea la imagen.
@@ -1409,6 +1495,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         Graphics2D g2 = imagen.createGraphics();
         g2.setColor(getColorFondoPantallaDibujo());
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+        
+        // Dibuja la imagen de fondo.
+        if (getImagenFondo() != null){
+            // Dibuja la imagenFondo.
+            g2.drawImage(getImagenFondo(), 0, 0, this.getWidth(), this.getHeight(), null); 
+        }
+        
         dibujarFiguras(g2);
         dibujarTexto(g2);
         setImagen(imagen);
@@ -1516,7 +1609,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         }
         Graphics2D g2 = (Graphics2D)g;
         g2.translate( pageFormat.getImageableX(), pageFormat.getImageableY() );
-        paint( g2 );
+        paint(g2);
         return( Printable.PAGE_EXISTS );
     }
 

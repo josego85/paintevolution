@@ -173,7 +173,7 @@ public class GUI_Principal extends javax.swing.JFrame {
         //setExtendedState(GUI_Principal.MAXIMIZED_BOTH);
 
         // Deshabilitar la opcion de Maximizar ventana.
-        setResizable(true);
+        setResizable(false);
         
         /*
          * Para que el canvas contenga 350 de ancho se tiene que poner la ventana
@@ -251,13 +251,14 @@ public class GUI_Principal extends javax.swing.JFrame {
         jToggleButtonBorrador = new javax.swing.JToggleButton();
         jButtonBorraTodoLosObjetos = new javax.swing.JButton();
         jButtonColorDeFondoPantalla = new javax.swing.JButton();
-        jButtonColorBordeObjetos = new javax.swing.JButton();
+        jButtonImagenFondo = new javax.swing.JButton();
         jButtonColorRelleno = new javax.swing.JButton();
         jCheckBoxActivarRelleno = new javax.swing.JCheckBox();
+        jButtonColorBordeObjetos = new javax.swing.JButton();
+        jToggleInfoBorrado = new javax.swing.JToggleButton();
         jLabelTamanioGrosor = new javax.swing.JLabel();
         jComboBoxGrosorBorde = new javax.swing.JComboBox();
         jToggleButtonArrastrarObjetos = new javax.swing.JToggleButton();
-        jToggleInfoBorrado = new javax.swing.JToggleButton();
         jPanelInformacionExtra = new javax.swing.JPanel();
         jLabelCoordenadasPuntero = new javax.swing.JLabel();
         jLabelHerramientaSeleccionada = new javax.swing.JLabel();
@@ -458,7 +459,7 @@ public class GUI_Principal extends javax.swing.JFrame {
 
         jPanel1.setMinimumSize(new java.awt.Dimension(100, 387));
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 387));
-        jPanel1.setLayout(new java.awt.GridLayout(9, 2));
+        jPanel1.setLayout(new java.awt.GridLayout(10, 2));
 
         buttonGroupObjetos.add(jToggleButtonPincel);
         jToggleButtonPincel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/BarraHerramientas/brush_16_16.gif"))); // NOI18N
@@ -595,15 +596,13 @@ public class GUI_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonColorDeFondoPantalla);
 
-        jButtonColorBordeObjetos.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jButtonColorBordeObjetos.setText("C. Borde");
-        jButtonColorBordeObjetos.setToolTipText("C. Borde");
-        jButtonColorBordeObjetos.addActionListener(new java.awt.event.ActionListener() {
+        jButtonImagenFondo.setText("Imagen");
+        jButtonImagenFondo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonColorBordeObjetosActionPerformed(evt);
+                jButtonImagenFondoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonColorBordeObjetos);
+        jPanel1.add(jButtonImagenFondo);
 
         jButtonColorRelleno.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jButtonColorRelleno.setText("C. Relleno");
@@ -626,6 +625,26 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBoxActivarRelleno);
+
+        jButtonColorBordeObjetos.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jButtonColorBordeObjetos.setText("C. Borde");
+        jButtonColorBordeObjetos.setToolTipText("C. Borde");
+        jButtonColorBordeObjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonColorBordeObjetosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonColorBordeObjetos);
+
+        buttonGroupObjetos.add(jToggleInfoBorrado);
+        jToggleInfoBorrado.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleInfoBorrado.setText("Info");
+        jToggleInfoBorrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleInfoBorradoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleInfoBorrado);
 
         jLabelTamanioGrosor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTamanioGrosor.setText("Grosor:");
@@ -656,16 +675,6 @@ public class GUI_Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jToggleButtonArrastrarObjetos);
-
-        buttonGroupObjetos.add(jToggleInfoBorrado);
-        jToggleInfoBorrado.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jToggleInfoBorrado.setText("Info");
-        jToggleInfoBorrado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleInfoBorradoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jToggleInfoBorrado);
 
         jToolBarBarraDeHerramientas.add(jPanel1);
 
@@ -1104,6 +1113,13 @@ public class GUI_Principal extends javax.swing.JFrame {
         mostrarVentanaOpcionesImagen();
     }//GEN-LAST:event_jButtonOpcionesImagenActionPerformed
 
+    private void jButtonImagenFondoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImagenFondoActionPerformed
+        mesaDeDibujo.insertarImagenFondo();
+        archivoGuardadoUltimaVersion = true;
+        seleccionarObjetoPredeterminado();
+        activarPropiedadesObjetos();
+    }//GEN-LAST:event_jButtonImagenFondoActionPerformed
+
     
     ////////////////////////////////////////////////////////////////////////////
     // Metodos varios
@@ -1453,6 +1469,7 @@ public class GUI_Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDesactivarPantallaCompleta;
     private javax.swing.JButton jButtonDeshacer;
     private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JButton jButtonImagenFondo;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonOpcionesImagen;
