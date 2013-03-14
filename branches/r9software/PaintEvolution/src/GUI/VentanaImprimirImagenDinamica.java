@@ -71,6 +71,13 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
     private final static int INCREMENTO_ALTO_PROTOTIPO = 80;
     
     /**
+     * La ventana RedimensionarImagen.
+     * * @since 1.6
+     */
+    private VentanaRedimensionarImagen ventanaRedimensionarImagen;     
+    
+    
+    /**
      * Creates new form VentanaImprimirImagenDinamica
      */
     public VentanaImprimirImagenDinamica(String rutaImagenTemporal, String[] nombreColumnas,
@@ -248,6 +255,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         jTableCamposPosiciones = new javax.swing.JTable();
         jPanelBotones = new javax.swing.JPanel();
         jButtonInsertarImagen = new javax.swing.JButton();
+        jButtonRedimensionarImagenInsertada = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -278,7 +286,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTablaPosicionesLayout.createSequentialGroup()
                 .addContainerGap(11, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanelTablaPosicionesLayout.setVerticalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,6 +305,14 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
             }
         });
         jPanelBotones.add(jButtonInsertarImagen);
+
+        jButtonRedimensionarImagenInsertada.setText("Redimensionar Imagen");
+        jButtonRedimensionarImagenInsertada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRedimensionarImagenInsertadaActionPerformed(evt);
+            }
+        });
+        jPanelBotones.add(jButtonRedimensionarImagenInsertada);
 
         jButtonImprimir.setText("Imprimir");
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -324,6 +340,18 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         // Se cierra VentanaImprimirImagenDinamica.
         //this.dispose();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
+
+    private void jButtonRedimensionarImagenInsertadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedimensionarImagenInsertadaActionPerformed
+        // Abre la ventanaRedimensionarImagen.
+        mostrarVentanaRedimensionarImagen();
+        
+        if(ventanaRedimensionarImagen.isRedimensionarImagen()){
+             panelDibujoImagenDinamica.setSeRedimensionarImagen(true);
+             
+             // Dibuja en el panelDibujoImagenDinamica.
+             panelDibujoImagenDinamica.repaint();
+        }  
+    }//GEN-LAST:event_jButtonRedimensionarImagenInsertadaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -364,6 +392,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonInsertarImagen;
+    private javax.swing.JButton jButtonRedimensionarImagenInsertada;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelOpciones;
     private javax.swing.JPanel jPanelTablaPosiciones;
@@ -445,5 +474,17 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         }catch(Exception e){
             return false;
         }
+    }
+    
+    /**
+     * Metodo privado que muestra la ventana Texto.
+     * @since 1.6
+     */
+    private void mostrarVentanaRedimensionarImagen() {
+        if (ventanaRedimensionarImagen == null) {
+            ventanaRedimensionarImagen = new VentanaRedimensionarImagen(null, true);
+            ventanaRedimensionarImagen.setLocationRelativeTo(this);
+        }
+        ventanaRedimensionarImagen.setVisible(true);
     }
 }

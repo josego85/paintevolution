@@ -308,7 +308,7 @@ public class VentanaTexto extends javax.swing.JDialog {
      * @since 1.6
      */
     public boolean isDibujaTexto() {
-        return dibujaTexto;
+        return this.dibujaTexto;
     }
 
     /**
@@ -317,7 +317,7 @@ public class VentanaTexto extends javax.swing.JDialog {
      * @param dibujaTexto True si se puede dibujar el texto; en caso contario, false
      * @since 1.6
      */
-    public void setDibujaTexto(boolean dibujaTexto) {
+    private void setDibujaTexto(boolean dibujaTexto) {
         this.dibujaTexto = dibujaTexto;
     }
 
@@ -325,7 +325,7 @@ public class VentanaTexto extends javax.swing.JDialog {
      * Muestra la ventana Color.
      * @since 1.6
      */
-    public void mostrarVentanaColor() {
+    private void mostrarVentanaColor() {
         if (ventanaColor == null) {
             ventanaColor = new VentanaColor(null, rootPaneCheckingEnabled);
             ventanaColor.setLocationRelativeTo(this);
@@ -342,7 +342,7 @@ public class VentanaTexto extends javax.swing.JDialog {
      * @return La fuente dependiendo de lo que se selecciono en el combobox
      * @since 1.6
      */
-    public String seleccionarTipoFuente(int indice){
+    private String seleccionarTipoFuente(int indice){
         // Tipo de Fuente como valor predeterminado
         String tipoFuente = "Dialog";
 
