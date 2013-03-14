@@ -29,10 +29,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import util.ImprimirImagenes;
 import algoritmos.QR;
-import java.awt.print.PageFormat;
-import java.awt.print.Paper;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 
 /**
  *
@@ -222,7 +218,6 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
 
         if(nombreArchivo != null){
             try{
-                //borrarTodo();
                 BufferedImage image = ImageIO.read(nombreArchivo);
                 imagenInsertada = ImageIO.read(nombreArchivo);
                 setImagenInsertada(nombreArchivo);
@@ -270,7 +265,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
      * @since 1.6
      */
     public BufferedImage getImagenInsertada(){
-        return imagenInsertada;
+        return this.imagenInsertada;
     }
     
     /**
