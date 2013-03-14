@@ -47,16 +47,6 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
     private static ArrayList<String> arrayAlgoritmos;
     private ImprimirImagenes imprimirImagenesTemporales;
     
-    /*
-     * Constante del ancho de una imagen con 50 pixeles.
-     */
-    private final static int ANCHO_IMAGEN_REDIMENCIONADA = 50; 
-    
-    /*
-     * Constante del ancho de una imagen con 50 pixeles.
-     */
-    private final static int ALTO_IMAGEN_REDIMENCIONADA = 50; 
-    
     /**
      * Donde se manipula el objeto texto con sus atributos.
      * @since 1.6
@@ -87,6 +77,15 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
     private int dragFromY;         
     private boolean isMouseDrag;
     
+    private int anchoDimensionImagen = 50;
+    private int altoDimensionImagen = 50;
+    private boolean seRedimensionarImagen = false;
+    
+    /**
+     * La ventana Redimensiona imagen.
+     * * @since 1.6
+     */
+    private VentanaRedimensionarImagen ventanaRedimensionarImagen;    
     
     /**
      * Creates new form PanelDibujoImagenDinamica
@@ -99,6 +98,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
          */
         PanelDibujoImagenDinamica.rutaImagenTemporal = rutaImagenTemporal;
         texto = null;
+        ventanaRedimensionarImagen = null;
         
         /**
          * Se guardan las filas seleccionadas con sus campos correspondientes.
@@ -162,9 +162,15 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         
         dibujarTexto(g);
         
+        
+        if(isSeRedimensionarImagen()){
+           setAnchoDimensionImagen(100);
+           setAltoDimensionImagen(100);
+        }
+        
         if (getImagenInsertada() != null){
             g.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
-                ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
+                getAnchoDimensionImagen(), getAltoDimensionImagen(), null); 
         }
     }
     
@@ -322,7 +328,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         if (getImagenInsertada() != null){
             // Dibuja la imagenInsertada.
             g2.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
-                ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
+                getAnchoDimensionImagen(), getAltoDimensionImagen(), null); 
         }
         g2.dispose();
     }
@@ -606,11 +612,11 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
             
             //--- Don't move the ball off the screen sides
             coordenadaX = Math.max(coordenadaX, 0);
-            coordenadaX = Math.min(coordenadaX, getWidth() - ANCHO_IMAGEN_REDIMENCIONADA);
+            coordenadaX = Math.min(coordenadaX, getWidth() - getAnchoDimensionImagen());
             
             //--- Don't move the ball off top or bottom
             coordenadaY = Math.max(coordenadaY, 0);
-            coordenadaY = Math.min(coordenadaY, getHeight() - ALTO_IMAGEN_REDIMENCIONADA);
+            coordenadaY = Math.min(coordenadaY, getHeight() - getAltoDimensionImagen());
             
             /*
              * Se vuelve a pintar porque se cambio de posicion.
@@ -645,8 +651,8 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         int x = evt.getX();   // Save the x coord of the click.
         int y = evt.getY();   // Save the y coord of the click.
 
-	if(x >= coordenadaX && x <= (coordenadaX + ANCHO_IMAGEN_REDIMENCIONADA) 
-                && y >= coordenadaY && y <= (coordenadaY + ALTO_IMAGEN_REDIMENCIONADA)){
+	if(x >= coordenadaX && x <= (coordenadaX + getAnchoDimensionImagen()) 
+                && y >= coordenadaY && y <= (coordenadaY + getAltoDimensionImagen())){
 	    isMouseDrag = true;
             dragFromX = x - coordenadaX;  // how far from left.
             dragFromY = y - coordenadaY;  // how far from top.
@@ -718,5 +724,29 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         }catch(NumberFormatException nfe){            
              return false;
         }
+    }
+
+    public int getAnchoDimensionImagen() {
+        return this.anchoDimensionImagen;
+    }
+
+    public void setAnchoDimensionImagen(int anchoDimensionImagen) {
+        this.anchoDimensionImagen = anchoDimensionImagen;
+    }
+
+    public int getAltoDimensionImagen() {
+        return this.altoDimensionImagen;
+    }
+
+    public void setAltoDimensionImagen(int altoDimensionImagen) {
+        this.altoDimensionImagen = altoDimensionImagen;
+    }
+
+    public boolean isSeRedimensionarImagen() {
+        return this.seRedimensionarImagen;
+    }
+
+    public void setSeRedimensionarImagen(boolean seRedimensionarImagen) {
+        this.seRedimensionarImagen = seRedimensionarImagen;
     }
 }

@@ -1614,10 +1614,10 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     }
 
     /**
-     * Metodo que muestra la ventana Texto.
+     * Metodo privado que muestra la ventana Texto.
      * @since 1.6
      */
-    public void mostrarVentanaTexto() {
+    private void mostrarVentanaTexto() {
         if (ventanaTexto == null) {
             ventanaTexto = new VentanaTexto(null, true);
             ventanaTexto.setLocationRelativeTo(this);
