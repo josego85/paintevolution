@@ -126,7 +126,7 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
         setLocationRelativeTo(null);
 
         // Deshabilitar la opcion de Maximizar ventana.
-        setResizable(true);
+        setResizable(false);
         
         /*
          * Para que el canvas contenga 350 de ancho se tiene que poner la ventana
@@ -170,7 +170,8 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
                 }catch (Exception e){
                     
                 }finally{
-                    System.exit(0);
+                     // Cerramos la VentanaImprimirImagenDinamica.
+                     dispose();
                 }
             }
         });
@@ -342,15 +343,32 @@ public class VentanaImprimirImagenDinamica extends javax.swing.JFrame implements
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonRedimensionarImagenInsertadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedimensionarImagenInsertadaActionPerformed
-        // Abre la ventanaRedimensionarImagen.
-        mostrarVentanaRedimensionarImagen();
-        
-        if(ventanaRedimensionarImagen.isRedimensionarImagen()){
-             panelDibujoImagenDinamica.setSeRedimensionarImagen(true);
-             
-             // Dibuja en el panelDibujoImagenDinamica.
-             panelDibujoImagenDinamica.repaint();
-        }  
+        /*
+         * Solo se muestra la ventanaRedimensionarImagen
+         * si es que se inserto una imagen.
+         */
+        if(panelDibujoImagenDinamica.getImagenInsertada() != null){
+            // Abre la ventanaRedimensionarImagen.
+            mostrarVentanaRedimensionarImagen();
+
+            if(ventanaRedimensionarImagen.isRedimensionarImagen()){
+                 panelDibujoImagenDinamica.setSeRedimensionarImagen(true);
+
+                 // Se setea el ancho de la imagen dimension imagen.
+                 panelDibujoImagenDinamica.setAnchoDimensionImagen(
+                     ventanaRedimensionarImagen.getAnchoImagenRedimensionada());
+
+                 // Se setea el alto de la imagen dimension imagen.
+                 panelDibujoImagenDinamica.setAltoDimensionImagen(
+                     ventanaRedimensionarImagen.getAltoImagenRedimensionada());
+
+                 // Dibuja en el panelDibujoImagenDinamica.
+                 panelDibujoImagenDinamica.repaint();
+            }  
+        }else{
+             JOptionPane.showMessageDialog(this, "Por favor inserte una imagen!!!", 
+                 "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonRedimensionarImagenInsertadaActionPerformed
 
     /**

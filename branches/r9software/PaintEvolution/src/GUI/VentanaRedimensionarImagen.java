@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 public class VentanaRedimensionarImagen extends javax.swing.JDialog {
     // Variables de clase.
     private boolean redimensionaImagen = false;
+    private int anchoImagenRedimensionada;
+    private int altoImagenRedimensionada;
     
     /**
      * Creates new form VentanaRedimensionarImagen
@@ -179,8 +181,12 @@ public class VentanaRedimensionarImagen extends javax.swing.JDialog {
              // Devuelve el foco a jTextFieldAltoRedimensionarImagen.
              jTextFieldAltoRedimensionarImagen.requestFocus();
         }else{
-             //setAnchoDimensionImagen("100");
-            
+             /*
+              * Se guarda en las variables de clase anchoImagenRedimensionada y 
+              * altoImagenRedimensionada queintrodujo el usuario.
+              */
+             setAnchoImagenRedimensionada(Integer.parseInt(jTextFieldAnchoRedimensionarImagen.getText().toString()));
+             setAltoImagenRedimensionada(Integer.parseInt(jTextFieldAltoRedimensionarImagen.getText().toString()));
              this.setVisible(false);
              setRedimensionarImagen(true);
              repaint();
@@ -277,7 +283,22 @@ public class VentanaRedimensionarImagen extends javax.swing.JDialog {
              return false;
         }
     }
-            
+
+    public int getAnchoImagenRedimensionada() {
+        return this.anchoImagenRedimensionada;
+    }
+
+    public void setAnchoImagenRedimensionada(int anchoImagenRedimensionada) {
+        this.anchoImagenRedimensionada = anchoImagenRedimensionada;
+    }
+
+    public int getAltoImagenRedimensionada() {
+        return this.altoImagenRedimensionada;
+    }
+
+    public void setAltoImagenRedimensionada(int altoImagenRedimensionada) {
+        this.altoImagenRedimensionada = altoImagenRedimensionada;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;

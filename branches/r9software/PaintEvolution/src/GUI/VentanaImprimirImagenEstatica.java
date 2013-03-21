@@ -70,6 +70,13 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
     private final static int INCREMENTO_ALTO_PROTOTIPO = 80;
     
     /**
+     * La ventana RedimensionarImagen.
+     * * @since 1.6
+     */
+    private VentanaRedimensionarImagen ventanaRedimensionarImagen;
+    
+    
+    /**
      * Creates new form VentanaImprimirImagenEstatica
      */
     public VentanaImprimirImagenEstatica(String rutaImagenTemporal) {
@@ -151,7 +158,8 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
                 }catch (Exception e){
                     
                 }finally{
-                    System.exit(0);
+                     // Cerramos la VentanaImprimirImagenEstatica.
+                     dispose();
                 }
             }
         });
@@ -233,6 +241,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         jTableCamposPosiciones = new javax.swing.JTable();
         jPanelBotones = new javax.swing.JPanel();
         jButtonInsertarImagen = new javax.swing.JButton();
+        jButtonRedimensionarImagenInsertada = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -242,7 +251,6 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
 
         jPanelTablaPosiciones.setPreferredSize(new java.awt.Dimension(300, 295));
 
-        jTableCamposPosiciones.setAutoCreateRowSorter(true);
         jTableCamposPosiciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -260,7 +268,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         jPanelTablaPosiciones.setLayout(jPanelTablaPosicionesLayout);
         jPanelTablaPosicionesLayout.setHorizontalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
         );
         jPanelTablaPosicionesLayout.setVerticalGroup(
             jPanelTablaPosicionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,6 +286,14 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
             }
         });
         jPanelBotones.add(jButtonInsertarImagen);
+
+        jButtonRedimensionarImagenInsertada.setText("Redimensionar Imagen");
+        jButtonRedimensionarImagenInsertada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRedimensionarImagenInsertadaActionPerformed(evt);
+            }
+        });
+        jPanelBotones.add(jButtonRedimensionarImagenInsertada);
 
         jButtonImprimir.setText("Imprimir");
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -334,6 +350,35 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         //this.dispose();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
+    private void jButtonRedimensionarImagenInsertadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedimensionarImagenInsertadaActionPerformed
+        /*
+         * Solo se muestra la ventanaRedimensionarImagen
+         * si es que se inserto una imagen.
+         */
+        if(panelDibujoImagenEstatica.getImagenInsertada() != null){
+            // Abre la ventanaRedimensionarImagen.
+            mostrarVentanaRedimensionarImagen();
+
+            if(ventanaRedimensionarImagen.isRedimensionarImagen()){
+                 panelDibujoImagenEstatica.setSeRedimensionarImagen(true);
+
+                 // Se setea el ancho de la imagen dimension imagen.
+                 panelDibujoImagenEstatica.setAnchoDimensionImagen(
+                     ventanaRedimensionarImagen.getAnchoImagenRedimensionada());
+
+                 // Se setea el alto de la imagen dimension imagen.
+                 panelDibujoImagenEstatica.setAltoDimensionImagen(
+                     ventanaRedimensionarImagen.getAltoImagenRedimensionada());
+
+                 // Dibuja en el panelDibujoImagenDinamica.
+                 panelDibujoImagenEstatica.repaint();
+            }  
+        }else{
+             JOptionPane.showMessageDialog(this, "Por favor inserte una imagen!!!", 
+                 "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonRedimensionarImagenInsertadaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -372,6 +417,7 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonInsertarImagen;
+    private javax.swing.JButton jButtonRedimensionarImagenInsertada;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelOpciones;
     private javax.swing.JPanel jPanelTablaPosiciones;
@@ -493,5 +539,17 @@ public class VentanaImprimirImagenEstatica extends javax.swing.JFrame implements
         }catch(NumberFormatException nfe){            
              return false;
         }
+    }
+    
+    /**
+     * Metodo privado que muestra la ventana Texto.
+     * @since 1.6
+     */
+    private void mostrarVentanaRedimensionarImagen() {
+        if (ventanaRedimensionarImagen == null) {
+            ventanaRedimensionarImagen = new VentanaRedimensionarImagen(null, true);
+            ventanaRedimensionarImagen.setLocationRelativeTo(this);
+        }
+        ventanaRedimensionarImagen.setVisible(true);
     }
 }

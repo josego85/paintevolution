@@ -116,8 +116,11 @@ public class ImprimirImagenes implements Printable{
             paper.getHeight() - margin);*/
         //f.setPaper(paper);
                     
-        // Se coloco en forma Vertical la pagina para la impresion.
-        f.setOrientation(PageFormat.PORTRAIT);
+        // Se coloco en forma vertical la pagina para la impresion.
+       // f.setOrientation(PageFormat.PORTRAIT);
+        
+        // Se coloco en forma horizontal la pagina para la impresion.
+        f.setOrientation(PageFormat.LANDSCAPE);
         
         if (image != null){  
             Graphics2D g2 = (Graphics2D) g;  
