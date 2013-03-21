@@ -56,15 +56,6 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
      * Lista de algortimos a dibujar.
      */
     private LinkedList<Imagen> listaImagenesAlgoritmos = new LinkedList<Imagen>();
-    /*
-     * Constante del ancho de una imagen con 50 pixeles.
-     */
-    private final static int ANCHO_IMAGEN_REDIMENCIONADA = 50; 
-    
-    /*
-     * Constante del ancho de una imagen con 50 pixeles.
-     */
-    private final static int ALTO_IMAGEN_REDIMENCIONADA = 50; 
     
     /**
      * El nombre del archivo que se usa para guardar la imagen.
@@ -77,7 +68,9 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
     private int dragFromX;         
     private int dragFromY;         
     private boolean isMouseDrag;
-    
+    private boolean seRedimensionarImagen = false;
+    private int anchoDimensionImagen = 50;
+    private int altoDimensionImagen = 50;
     
     /**
      * Creates new form PanelDibujoImagenEstatica
@@ -149,7 +142,7 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         
         if (getImagenInsertada() != null){
             g.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
-                ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
+                getAnchoDimensionImagen(), getAltoDimensionImagen(), null); 
         }
     }
     
@@ -273,7 +266,7 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         if (getImagenInsertada() != null){
             // Dibuja la imagenInsertada.
             g2.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
-                ANCHO_IMAGEN_REDIMENCIONADA, ALTO_IMAGEN_REDIMENCIONADA, null); 
+                getAnchoDimensionImagen(), getAltoDimensionImagen(), null); 
         }
         g2.dispose();
     }
@@ -564,11 +557,11 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
             
             //--- Don't move the ball off the screen sides
             coordenadaX = Math.max(coordenadaX, 0);
-            coordenadaX = Math.min(coordenadaX, getWidth() - ANCHO_IMAGEN_REDIMENCIONADA);
+            coordenadaX = Math.min(coordenadaX, getWidth() - getAnchoDimensionImagen());
             
             //--- Don't move the ball off top or bottom
             coordenadaY = Math.max(coordenadaY, 0);
-            coordenadaY = Math.min(coordenadaY, getHeight() - ALTO_IMAGEN_REDIMENCIONADA);
+            coordenadaY = Math.min(coordenadaY, getHeight() - getAltoDimensionImagen());
             
             /*
              * Se vuelve a pintar porque se cambio de posicion.
@@ -603,8 +596,8 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
         int x = evt.getX();   // Save the x coord of the click.
         int y = evt.getY();   // Save the y coord of the click.
 
-	if(x >= coordenadaX && x <= (coordenadaX + ANCHO_IMAGEN_REDIMENCIONADA) 
-                && y >= coordenadaY && y <= (coordenadaY + ALTO_IMAGEN_REDIMENCIONADA)){
+	if(x >= coordenadaX && x <= (coordenadaX + getAnchoDimensionImagen()) 
+                && y >= coordenadaY && y <= (coordenadaY + getAltoDimensionImagen())){
 	    isMouseDrag = true;
             dragFromX = x - coordenadaX;  // how far from left.
             dragFromY = y - coordenadaY;  // how far from top.
@@ -659,5 +652,25 @@ public class PanelDibujoImagenEstatica extends javax.swing.JPanel implements Ser
      */
     public void setValorInicialImprimir(String valorInicialImprimir) {
         this.valorInicialImprimir = valorInicialImprimir;
+    }
+    
+    public void setSeRedimensionarImagen(boolean seRedimensionarImagen) {
+        this.seRedimensionarImagen = seRedimensionarImagen;
+    } 
+    
+    public int getAnchoDimensionImagen() {
+        return this.anchoDimensionImagen;
+    }
+
+    public void setAnchoDimensionImagen(int anchoDimensionImagen) {
+        this.anchoDimensionImagen = anchoDimensionImagen;
+    }
+
+    public int getAltoDimensionImagen() {
+        return this.altoDimensionImagen;
+    }
+
+    public void setAltoDimensionImagen(int altoDimensionImagen) {
+        this.altoDimensionImagen = altoDimensionImagen;
     }
 }

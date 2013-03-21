@@ -12,6 +12,7 @@ import Figuras.RectanguloConCurvasRedondas;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -238,6 +239,17 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     private BufferedImage imagenFondo;
     
+    /**
+     * El ancho del panel de dibujo.
+     */
+    private int anchoPanel;
+    
+    /**
+     * El alto del panel de dibujo.
+     */
+    private int altoPanel;
+    
+    
     ////////////////////////////////////////////////////////////////////////////
     // Constructores
     ////////////////////////////////////////////////////////////////////////////
@@ -245,7 +257,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      * Construye un Panel Dibujo.
      * @since 1.6
      */
-    public PanelDibujo() {
+    public PanelDibujo(int anchoPanel, int altoPanel) {
         initComponents();
         setModoDibujar(NULO);
         setTamanioBorde(1.0f);
@@ -264,10 +276,13 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         colorRelleno                = null;                 // Sin relleno    
         setBackground(getColorFondoPantallaDibujo());
         
+        setAnchoPanel(anchoPanel);
+        setAltoPanel(altoPanel);
+        
         // Tamaño del PanelDibujo.
-        setSize(Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO, 
-            Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO);
-        //repaint();
+        //setSize(getAnchoPanel(), getAltoPanel());
+        
+        setPreferredSize(new Dimension(getAnchoPanel(), getAltoPanel()));
     }
 
     /** This method is called from within the constructor to
@@ -503,7 +518,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     public void setCoordenadasFinX(int coordenadasFinX) {
         if(coordenadasFinX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
-                && coordenadasFinX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
+                && coordenadasFinX <= getAnchoPanel()){
            this.coordenadasFinX = coordenadasFinX;
         }
     }
@@ -526,7 +541,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     public void setCoordenadasFinY(int coordenadasFinY) {
         if(coordenadasFinY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
-                && coordenadasFinY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
+                && coordenadasFinY <= getAltoPanel()){
             this.coordenadasFinY = coordenadasFinY;
         }
     }
@@ -549,7 +564,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     public void setCoordenadasInicioX(int coordenadasInicioX) {
         if(coordenadasInicioX >= Constantes.MINIMO_LARGO_PANTALLA_DIBUJO
-                && coordenadasInicioX <= Constantes.MAXIMO_LARGO_PANTALLA_DIBUJO){
+                && coordenadasInicioX <= getAnchoPanel()){
             this.coordenadasInicioX = coordenadasInicioX;
         }
     }
@@ -572,7 +587,7 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
      */
     public void setCoordenadasInicioY(int coordenadasInicioY) {
         if(coordenadasInicioY >= Constantes.MINIMO_ANCHO_PANTALLA_DIBUJO
-                && coordenadasInicioY <= Constantes.MAXIMO_ANCHO_PANTALLA_DIBUJO){
+                && coordenadasInicioY <= getAltoPanel()){
             this.coordenadasInicioY = coordenadasInicioY;
         }
     }
@@ -1295,7 +1310,8 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
         listaFiguras.clear();
         listaTexto.clear();
         desHacerPila.clear();
-        imagen = null;
+        setImagenFondo((BufferedImage)null);
+        setImagen((BufferedImage)null);
         setModoDibujar(0);
         repaint();
     }
@@ -1627,4 +1643,19 @@ public class PanelDibujo extends javax.swing.JPanel implements Serializable, Pri
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
+    public int getAnchoPanel() {
+        return anchoPanel;
+    }
+
+    public void setAnchoPanel(int anchoPanel) {
+        this.anchoPanel = anchoPanel;
+    }
+
+    public int getAltoPanel() {
+        return altoPanel;
+    }
+
+    public void setAltoPanel(int altoPanel) {
+        this.altoPanel = altoPanel;
+    }
 }

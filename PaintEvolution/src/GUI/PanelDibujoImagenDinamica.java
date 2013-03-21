@@ -29,6 +29,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import util.ImprimirImagenes;
 import algoritmos.QR;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 
 /**
  *
@@ -132,9 +134,19 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         try{         
             //System.out.println("El archivo temporal de la imagen es:  " + rutaImagenTemporal);
             imagenPrincipal = ImageIO.read(new File(rutaImagenTemporal));
+
             int height = imagenPrincipal.getHeight(this);
             int width = imagenPrincipal.getWidth(this);
+            
+            
+            //int height = imagenPrincipal.getWidth(this);
+            //int width = imagenPrincipal.getHeight(this);
+            
+            // Orientacion Vertical.
             setPreferredSize(new Dimension(width, height));
+            
+            // Orientacion Horizontal.
+            //setPreferredSize(new Dimension(height, width));
         }catch(IOException ex){
             // Manejador de excepciones.
             System.out.println("Problemas imagen");
@@ -161,13 +173,7 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
         crearTextoPrototipo();
         
         dibujarTexto(g);
-        
-        
-        if(isSeRedimensionarImagen()){
-           setAnchoDimensionImagen(100);
-           setAltoDimensionImagen(100);
-        }
-        
+
         if (getImagenInsertada() != null){
             g.drawImage(getImagenInsertada(), coordenadaX, coordenadaY, 
                 getAnchoDimensionImagen(), getAltoDimensionImagen(), null); 
@@ -748,5 +754,5 @@ public class PanelDibujoImagenDinamica extends javax.swing.JPanel implements Ser
 
     public void setSeRedimensionarImagen(boolean seRedimensionarImagen) {
         this.seRedimensionarImagen = seRedimensionarImagen;
-    }
+    }  
 }
